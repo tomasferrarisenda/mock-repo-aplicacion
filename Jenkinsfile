@@ -13,51 +13,14 @@ pipeline {
             steps {
                 slackSend(channel: "bot-jenkins-dev", color: "#6699ee", message: "----------------------Empezo una compilacion en " + "${env.JOB_NAME}" + "----------------------")
                 cleanWs()
-               git credentialsId: '2f442321-3555-4a7a-9c7e-b8b950dbe26e', 
+                git credentialsId: '2f442321-3555-4a7a-9c7e-b8b950dbe26e', 
                 url: 'https://Edg_Super@bitbucket.org/sallende_desarrollo/sanatorioallende.app.git', 
-                branch: "testing"
+                branch: "desarrollo"
             }
         }
 
-        stage("last-changes") {
-                steps{
-                    script {
-                        def publisher = LastChanges.getLastChangesPublisher "PREVIOUS_REVISION", "SIDE", "LINE", true, true, "", "", "", "", ""
-                        publisher.publishLastChanges()
-                        def changes = publisher.getLastChanges()
-                        slackSend(channel: "bot-jenkins-dev", color: "#ffeeba", message: "----------------------Cambios en esta compilacion " + "----------------------")
-                        if(changes.getCommits()){
-                            for (commit in changes.getCommits()) {
-                                def commitInfo = commit.getCommitInfo()
-                                slackSend(channel: "bot-jenkins-dev", color: "#ffeeba", message: "* " + commitInfo.getCommitMessage() + " - Desarrollador: " + commitInfo.getCommitterName())
-                            }
-                        }else {
-                            slackSend(channel: "bot-jenkins-dev", color: "#ffeeba", message: "Sin cambios nuevos desde la ultima version" )
-                        }
-                        
-                    }
-                }
-        }
-
-        stage('Instalar Dependencias') {
+        stage('Instalar Dependencias, actualizar version') {
             steps {
-               script {
-                    if (params.tipoDeploy == 'patch') {
-                        
-                        dir("${env.WORKSPACE}/Front2"){
-                            sh "npm version patch"
-                        }
-                    } else if(params.tipoDeploy == 'minnor'){
-                        dir("${env.WORKSPACE}/Front2"){
-                            sh "npm version minnor"
-                        }
-                    }else if(params.tipoDeploy == 'major'){
-                        dir("${env.WORKSPACE}/Front2"){
-                            sh "npm version major"
-                        } 
-                    }
-                }
-
                dir("${env.WORKSPACE}/Front2"){
                     sh "npm install"
                 }
@@ -69,8 +32,6 @@ pipeline {
                 }
             }
         }
-
-   
 
         stage('Precompilar Librerias Base - Material') {
             steps {
@@ -117,7 +78,7 @@ pipeline {
             steps {
             
                dir("${env.WORKSPACE}/Front2"){
-                    sh "npm run build:test"
+                    sh "npm run build:dev"
                 }
             }
             post {
@@ -130,7 +91,7 @@ pipeline {
         stage('Compilacion Auth Project') {
             steps {
                dir("${env.WORKSPACE}/Front2"){
-                    sh "npm run build_auth:test"
+                    sh "npm run build_auth:dev"
                 }
             }
             post {
@@ -189,7 +150,7 @@ pipeline {
                         sh "bower -v"
                         sh "webpack -v"
                         sh "webpack-dev-server -v"
-                        sh "npm run build:test"
+                        sh "npm run build:dev"
                     }
                 }
             }
@@ -210,7 +171,7 @@ pipeline {
         success {
 
             dir("${env.WORKSPACE}/Front2"){
-
+           
                 sh "rm -rf deploy/v1"
                 sh "rm -rf deploy/v2"
                 sh "rm -rf deploy/auth"
@@ -221,7 +182,7 @@ pipeline {
                
             }
 
-            //tengo que copiar los htaccess 
+           //tengo que copiar los htaccess 
             sh "cp -r ${env.WORKSPACE}/Front2/projects/auth/src/.htaccess ${env.WORKSPACE}/Front2/dist/auth/"
             sh "cp -r ${env.WORKSPACE}/Front2/src/.htaccess ${env.WORKSPACE}/Front2/dist/app2/"
 
@@ -244,11 +205,11 @@ pipeline {
             sh "rm -rf ${env.WORKSPACE}/Front2/deploy/portal"
 
             dir("${env.WORKSPACE}/Front2/deploy"){
-                 sh "sudo zip -r apptest.zip ./"
+                 sh "sudo zip -r appdev.zip ./"
             }
             
-            sh "sudo scp ${env.WORKSPACE}/Front2/deploy/apptest.zip root@172.16.17.22:/var/www/html/deploy/"
-            
+            sh "sudo scp ${env.WORKSPACE}/Front2/deploy/appdev.zip root@172.16.17.22:/var/www/html/deploy/"
+
             slackSend(channel: "bot-jenkins-dev", color: "#6699ee", message: "----------------------Termino la compilacion en " + "${env.JOB_NAME}" + "----------------------") 
         }
     }
