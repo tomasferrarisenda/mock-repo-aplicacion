@@ -1,0 +1,23 @@
+<button type="button" class="btn btn-default pull-right" ng-if="!vm.formControl.loading" uib-tooltip="Agregar nueva" tooltip-placement="left"
+    uib-dropdown-toggle ng-click="vm.formControl.editarParticipacion(null, null)" sa-punto-click="vm.formControl.editarParticipacion(null, null)"
+    sa-enter id="contratos-internos-participacion-new-btn">
+    <sa-icon name="PLUS"></sa-icon>
+</button>
+<div class="row">
+    <div class="col-xs-12" ng-if="!vm.formControl.loading">
+        <fw-table-container>
+            <fw-table-rowset data="vm.data.participaciones.Rows" click-action="clickAction()" id-elements="contratos-internos-participacion-rows">
+            </fw-table-rowset>
+            <fw-table-columnset data="vm.data.participaciones.Columns">
+            </fw-table-columnset>
+            <fw-table-buttonset>
+                <fw-table-button visible="btnEditIf" label="'Editar'" icon="'EDIT'" action="vm.formControl.editarParticipacion(row.Id)" id-element="contratos-internos-participacion-editar-btn">
+                </fw-table-button>
+                <fw-table-button visible="true" label="'Eliminar'" icon="'DEL'" action="vm.formControl.borrarParticipacion(row)" id-element="contratos-internos-participacion-eliminar-btn">
+                </fw-table-button>
+            </fw-table-buttonset>
+            <fw-table></fw-table>
+        </fw-table-container>
+    </div>
+</div>
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>

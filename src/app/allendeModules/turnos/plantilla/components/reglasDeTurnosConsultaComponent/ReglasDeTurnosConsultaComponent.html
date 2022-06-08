@@ -1,0 +1,76 @@
+<sa-loading ng-show="vm.loading"></sa-loading>
+
+<sa-modal-header title-name="Reglas De Turnos" title-icon="LIST" ng-hide="vm.loading">
+</sa-modal-header>
+
+<sa-modal-body ng-hide="vm.loading">
+
+		<uib-tabset class="prueba" active="active">
+			<uib-tab ng-repeat="tab in vm.REGLAS_TABS" uib-tooltip="{{tab.TITLE_CONTENT}}" index="$index + 1" class="{{ tab.CLASSBG }}" role="presentation"
+			 ng-hide="tab.HIDE" disable="tab.DISABLED" select="vm.changeTab(tab)">
+				<uib-tab-heading class="{{ tab.CLASS }}">
+					{{ tab.TITLE_TAB }}
+				</uib-tab-heading>
+				<!-- Hola {{tab.COMPONENT}} _this.data && _this.data.length && _this.columnas && _this.columnas.length-->
+				<!-- <div ng-bind-html="tab.COMPONENT | saToHtml" fw-init-bind></div> -->
+				<!-- <div dynamic="tab.COMPONENT"></div> -->
+				<div ng-if="vm.data && vm.data.length ">
+
+					<!-- TABLA GENERICA -->
+				<fw-table-container ng-if="vm.tabSelected == 1">
+				
+					<fw-table-config sortable="true" paginable="true" filtrable="true">
+					</fw-table-config>
+				
+					<fw-table-columnset data="vm.columnasDuracion">
+					</fw-table-columnset>
+				
+					<fw-table-rowset data="vm.data">
+					</fw-table-rowset>
+				
+					<fw-table-sorting></fw-table-sorting>
+					<fw-table-filter ></fw-table-filter>
+					<fw-table-pagination page-size="10"></fw-table-pagination>
+				
+					<fw-table></fw-table>
+				
+				</fw-table-container>
+					<!-- TABLA GENERICA FIN -->
+				</div>
+
+				<div ng-if="vm.data && vm.data.length">
+				
+					<!-- TABLA GENERICA -->
+					<fw-table-container ng-if="vm.tabSelected == 2 || vm.tabSelected == 3">
+				
+						<fw-table-config sortable="true" paginable="true" filtrable="true">
+						</fw-table-config>
+				
+						<fw-table-columnset data="vm.columnasReglas">
+						</fw-table-columnset>
+				
+						<fw-table-rowset data="vm.data">
+						</fw-table-rowset>
+				
+						<fw-table-sorting></fw-table-sorting>
+						<fw-table-filter></fw-table-filter>
+						<fw-table-pagination page-size="10"></fw-table-pagination>
+				
+						<fw-table></fw-table>
+				
+					</fw-table-container>
+					<!-- TABLA GENERICA FIN -->
+				</div>
+
+			</uib-tab>
+		</uib-tabset>
+
+</sa-modal-body>
+
+<sa-modal-footer ng-hide="vm.loading">
+	<div class="row text-center">
+		<input type="submit" class="btn" value="Cerrar" sa-enter ng-click="vm.cancel()" sa-punto-click="vm.cancel()">
+	</div>
+</sa-modal-footer>
+
+</div>

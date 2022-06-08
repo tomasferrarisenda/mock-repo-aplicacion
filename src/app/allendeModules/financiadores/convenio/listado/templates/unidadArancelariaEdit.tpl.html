@@ -1,0 +1,51 @@
+<div id="print-content" ng-hide="vm.formControl.loading">
+	<form name="formTipoUnidad" accept-charset="utf-8" novalidate>
+		<sa-modal-header
+			title-name="{{vm.title.name}}"
+			title-icon="{{vm.title.icon}}">
+		</sa-modal-header>
+		<sa-modal-body>
+			<div class="row no-valid">
+				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-4 form-group" sa-form-input-validate>
+					<label>Nombre</label>
+					<select ng-model="vm.filter.unidadElegida" 
+							name="Unidad" 
+							ng-disabled="vm.filter.EsUnidadBasica"
+							ng-options="unidad.Nombre for unidad in vm.data.unidades track by unidad.Id" 
+							sa-enter
+							autofocus>
+						<option value="">--SELECCIONAR--</option>
+					</select>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 form-group">
+					<sa-plan-mutual ng-model="vm.filter.planMutual" 
+						id-mutual="vm.filter.idMutual"
+						valor-default="vm.filter.nombrePlanInicial" id-plan-elegido="vm.filter.idPlanElegido" 
+						ng-disabled="vm.filter.EsUnidadBasica">
+					</sa-plan-mutual>
+				</div> 
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group" sa-form-input-validate>
+					<label>Valor</label>
+					<div class="input-group">
+						<span class="input-group-addon">$</span>
+						<input type="number" class="form-control text-right" min="0" name="Valor" ng-model="vm.filter.valor" sa-input-importe sa-enter>
+					</div>
+				</div>
+			</div>
+		</sa-modal-body>
+		<sa-modal-footer>
+			<input type="submit"
+				class="btn"
+				value="Cancelar"
+				sa-enter
+				ng-click="vm.formControl.cancel()"
+				sa-punto-click="vm.formControl.cancel()">
+			<input type="submit" id="btnAgregarEditar" value="Guardar"
+				class="btn btn-default"
+				sa-punto-click="vm.formControl.guardar(formTipoUnidad.$valid)"
+				ng-click="vm.formControl.guardar(formTipoUnidad.$valid)"
+				ng-disabled="!vm.filter.unidadElegida || formTipoUnidad.Valor.$invalid"
+				sa-enter>
+		</sa-modal-footer>
+	</form>
+</div>

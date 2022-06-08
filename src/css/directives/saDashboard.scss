@@ -1,0 +1,51 @@
+
+sa-dashboard {
+	margin : 0;
+	width : 100%;
+}
+
+.gridster {
+	.gridster-item {
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+		background : white;
+
+	}
+}
+
+.sa-dashboard-header {
+	font-size; 18px;
+	border-bottom: 1px solid #444;
+	color: white;
+	background-color: #777;
+	margin: -20px;
+	margin-bottom: 20px;
+	min-height: 50px;
+	padding: 8px;
+	padding-left: 20px;
+}
+
+.sa-widget-header {
+	position : relative;
+	color: white;
+	background-color : #444;
+	font-size: 15px;
+	border-bottom: 1px solid black;
+	min-height : 30px;
+	padding: 4px 8px 2px 8px;
+
+	.sa-widget-header-buttons {
+		position: absolute;
+		top: 0;
+		right : 0;
+
+		.btn {
+			margin: 4px;
+			margin-top: 3px;
+			padding: 1px 1px;
+		}
+	}
+}
+
+.sa-widget-body {
+
+}

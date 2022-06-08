@@ -1,0 +1,147 @@
+<div id="print-content" class="container-print">
+
+		<sa-modal-header title-name="{{vm.title.name}}" print="true"></sa-modal-header>
+		<sa-modal-body>
+			<div class="row fila">
+
+				<div class="col-xs-4">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+							<h4>
+								<label>
+									<strong>Definitivo Nro: </strong>
+								</label> {{vm.resolve.imprimeDefinitivo.NroDefinitivoLegacy}}</h4>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+							<h4>
+								<label>
+									<strong>Sucursal: </strong>
+								</label> {{vm.resolve.imprimeDefinitivo.NombreSucursal}}</h4>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+							<h4>
+								<label>
+									<strong>Mes Facturación: </strong>
+								</label> {{vm.resolve.imprimeDefinitivo.NombreMesFacturacion}}</h4>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+							<h4>
+								<label>
+									<strong>Nombre Mutual: </strong>
+								</label>
+								{{vm.resolve.imprimeDefinitivo.CodigoMutual + "-"+ vm.resolve.imprimeDefinitivo.NombreMutual}}
+							</h4>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+								<h4>
+									<label>
+										<strong>Tipo Afiliado: </strong>
+									</label> {{vm.resolve.imprimeDefinitivo.NombreTipoAfiliado}}</h4>
+							</div>
+					</div>
+				</div>
+
+				<div class="col-xs-4">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+							<h4>
+								<label>
+									<strong>Plan Mutual: </strong>
+								</label> {{vm.resolve.imprimeDefinitivo.NombrePlanMutual}}</h4>
+						</div>
+						<div class="col-xs-12en el col-sm-12 col-md-12 col-lg-12 ">
+							<h4>
+								<label>
+									<strong>Ámbito: </strong>
+								</label> {{vm.resolve.imprimeDefinitivo.NombreAmbito}}</h4>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+								<h4>
+									<label>
+										<strong>Servicio: </strong>
+									</label>
+									{{vm.resolve.imprimeDefinitivo.IdServicio + " - "+ vm.resolve.imprimeDefinitivo.NombreServicio}}
+								</h4>
+							</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="row fila" ng-repeat="practica in vm.definitivosPorCorteDeControl">
+				<!-- <h4>* CorteControl: {{practica.corteControl}}</h4> -->
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					</divclass>
+					<table class="table table-bordered table-fina ">
+						<thead>
+							<tr class="cabecera-tabla">
+								<td class="text-center">N° Aut.</td>
+								<td class="text-center">Matric.</td>
+								<td class="text-center">Cuenta</td>
+								<td class="text-center">Practica</td>
+								<td class="text-center">Profesional</td>
+								<td class="text-center">Afiliado</td>
+								<td class="text-center">Fec. Prac.</td>
+								<td class="text-center">Cant.</td>
+								<td class="text-center">% Fc</td>
+								<td class="text-center">% In</td>
+								<td class="text-center">% Af</td>
+								<td class="text-center">Unitario</td>
+								<td class="text-center">Total</td>
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="detallePractica in practica.practicas">
+								<td class="text-left">{{detallePractica.NroAutorizacion}}</td>
+								<td class="text-left">{{detallePractica.NumeroMatricula}}</td>
+								<td class="text-left">{{detallePractica.NumeroCuenta}}</td>
+								<td class="text-center">{{detallePractica.Codigo}}</td>
+								<td class="text-center">{{detallePractica.NombreProfesional}}</td>
+								<td class="text-center">{{detallePractica.NombreAfiliado}}</td>
+								<td class="text-center">{{detallePractica.FechaPractica | date:'dd/MM/yyyy'}}</td>
+								<td class="text-left">{{detallePractica.Cantidad}}</td>
+								<td class="text-left">{{detallePractica.PorcentajePractica}}</td>
+								<td class="text-center">{{detallePractica.PorcentajeIncremento}}</td>
+								<td class="text-center">{{detallePractica.PorcentajeAfiliado}}</td>
+								<td class="text-center">{{detallePractica.ImporteUnitario}}</td>
+								<td class="text-center">{{detallePractica.ImporteTotal}}</td>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<h4>Importe total: {{practica.totalImporte | currency}} </h4>
+				<h4>Importe total Afiliado: {{practica.totalImporteAfiliado | currency}} </h4>
+
+			</div>
+
+			<div class="row">
+					
+					<div class="col-xs-6">
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+								<h4>
+									<label>
+										<strong>Total General Afiliado: </strong>
+									</label> {{vm.totalGeneralAfiliadoDefinitivo | currency}}</h4>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+							<div class="row">
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+									<h4>
+										<label>
+											<strong>Total General Mutual: </strong>
+										</label> {{vm.totalGeneralDefinitivo | currency}} </h4>
+								</div>
+							</div>
+					</div>
+			</div>
+		</sa-modal-body>
+</div>

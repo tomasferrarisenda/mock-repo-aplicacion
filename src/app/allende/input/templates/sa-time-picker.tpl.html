@@ -1,0 +1,37 @@
+<div ng-form="formSaTimePicker">
+	<table class="sa-time-picker">
+		<tbody>
+			<tr>
+				<td>
+					<input type="number" class="form-control sa-hour" 
+						min="0"
+						max="23"
+						maxlength="2" 
+						name="hora"
+						ng-model="hora"
+						ng-required="required"
+						ng-disabled = "disabled"
+						ng-blur="updateModel()"
+						>
+				</td>
+				<td class="sa-separate">:</td>
+				<td>
+					<input type="number" class="form-control sa-minute" 
+						min="0"
+						max="59"
+						maxlength="2" 
+						name="minuto"
+						ng-model="minuto"
+						ng-required="required"
+						ng-disabled = "disabled"
+						ng-blur="updateModel()"
+						>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<span class="text-error" ng-show="required && (!model)">Requerido</span>
+	<span class="text-error" ng-show="requiredOk && !minOk">No cumple mínimo requerido</span>
+	<span class="text-error" ng-show="requiredOk && !maxOk">No cumple máximo requerido</span>
+	<span class="text-error" ng-show="model && !isDate()">Inválido</span>
+</div>

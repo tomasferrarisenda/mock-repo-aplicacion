@@ -1,0 +1,147 @@
+<form name="formUnidad" novalidate>
+    <sa-title title-name="vm.title.name" title-icon="{{vm.title.icon}}" btn-reload-disabled="vm.formControl.loading"></sa-title>
+    <!-- El loading se muestra si se esta cargando el inicializador -->
+
+    <!-- <sa-loading ng-if="vm.formControl.loading"></sa-loading> -->
+
+    <!-- El cuerpo se muestra si no se esta cargando el inicializador -->
+    <!-- O si se produjo algun error inicializando -->
+
+    <div class="row">
+
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2" sa-form-input>
+            <label>Sucursal</label>
+            <!--Para cargar todas las Sucursales es importante obtener sucursalElegida-->
+            <select ng-show="!vm.edit" class="tipoSucursal" name="cmbtipoServicio" ng-model="vm.sucursalElegida" ng-options="sucursal.Nombre for sucursal in vm.sucursalLista track by sucursal.Id" ng-change="vm.cambioSucursal()" sa-enter>
+                <option value="">--SELECCIONAR--</option>
+                <!--Se coloca un solo Value como manera predeterminada, el resto lo obtenemos desde config » mesesConstan.ts -->
+            </select>
+
+            <input ng-show="vm.edit" class="form-control" type="text" ng-disabled="true" ng-model="vm.gestionRecepcionEdit.Sucursal">
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2" sa-form-input>
+            <label>Edificio</label>
+            <select ng-show="!vm.edit" class="form-control" ng-model="vm.edificioElegido" ng-options="edificio as edificio.Nombre for edificio in vm.edificioLista" ng-change="vm.cambioEdificio()" ng-disabled="vm.edificioLista.length === 0" sa-enter>
+                <option value="">--SELECCIONAR--</option>
+            </select>
+
+            <input ng-show="vm.edit" class="form-control" type="text" ng-disabled="true" ng-model="vm.gestionRecepcionEdit.Edificio">
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2" sa-form-input>
+            <label>Piso</label>
+            <!--Modelo como queres que se muestre, para que y de donde quiero que se muestre-->
+            <select ng-show="!vm.edit" class="form-control" ng-model="vm.pisoElegido" ng-options="piso as piso.Nombre for piso in vm.pisoLista" ng-disabled="vm.pisoLista.length === 0" sa-enter>
+                <option value="">--SELECCIONAR--</option>
+            </select>
+
+            <input ng-show="vm.edit" class="form-control" type="text" ng-disabled="true" ng-model="vm.gestionRecepcionEdit.Piso">
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group" sa-form-input>
+            <label>Recepción</label>
+            <!-- Se llama los datos del Edit para que aparezca en "Recepciones" -->
+            <input class="form-control" type="text" ng-model="vm.gestionRecepcionEdit.Nombre" sa-enter>
+        </div>
+    </div>
+
+    <!-- 
+    <div class="row" btn-click="vm.formControl.addServicios()" tooltip-btn="Agregar Servicio a Sucursal">
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="col-xs-10">
+                    <h4>Servicios asignados a esta Recepción</h4>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 form-group pull-right">
+                        <button class="btn btn-default pull-right"
+                            id="btnAgregarItem"
+                            tooltip-placement="top"
+                            uib-tooltip="Agregar Servicio"
+                            ng-click="vm.mostrarNuevoGestionRecepcion = !vm.mostrarNuevoGestionRecepcion"
+                            sa-punto-click="vm.mostrarNuevoGestionRecepcion = !vm.mostrarNuevoGestionRecepcion"
+                            sa-enter>
+                            <span ng-class="icono.SEARCH" class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    -->
+
+    <div class="row">
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-5">
+            <h4>Servicios asignados a esta Recepción</h4>
+        </div>
+        <!-- Boton de Agregar + -->
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 form-group">
+            <button class="btn btn-default pull-right" id="btnAgregarItem" tooltip-placement="top" uib-tooltip="Agregar Servicio" ng-click="vm.mostrarNuevoGestionRecepcion = !vm.mostrarNuevoGestionRecepcion" sa-punto-click="vm.mostrarNuevoGestionRecepcion = !vm.mostrarNuevoGestionRecepcion"
+                sa-enter>
+                <span ng-class="icono.SEARCH" class="glyphicon glyphicon-plus"></span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Efecto Mostrará el contenido -->
+
+    <div class="row">
+        <!-- Servicio -->
+        <div class="col-xs-12 col-sm-4 col-md-8 col-lg-4 form-group" ng-if="vm.mostrarNuevoGestionRecepcion">
+            <sa-selector-servicio-medico ng-model="vm.servicioElegido"></sa-selector-servicio-medico>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 pull-left" ng-if="vm.mostrarNuevoGestionRecepcion">
+
+            <button class="btn btn-default btn-row" ng-click="vm.agregarServicio()" sa-punto-click="vm.agregarServicio()" sa-enter>
+                    Agregar
+                </button>
+
+            <button class="btn btn-row" id="btnAgregarItem" tooltip-placement="top" uib-tooltip="Cancelar" ng-click="vm.mostrarNuevoGestionRecepcion = !vm.mostrarNuevoGestionRecepcion; vm.borrarServicio()" sa-punto-click="vm.mostrarNuevoGestionRecepcion = !vm.mostrarNuevoGestionRecepcion"
+                sa-enter>
+                    Cancelar
+                </button>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-6">
+            <table class="table table-bordered table-responsive">
+                <thead>
+                    <tr class="cabecera-tabla">
+                        <th class="text-center">Servicios</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="servicios in vm.gestionRecepcionEdit.Servicios | orderBy: 'Id'">
+                        <td class="text-center">{{servicios.Servicio}}</td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-white btn-xs" tooltip-placement="top" ng-click="vm.eliminarItem($index)" sa-punto-click="vm.eliminarItem($index)" sa-enter>
+                                <sa-icon name="DEL"></sa-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <br>
+        <div class="col-xs-12 text-center">
+
+            </button>
+            <input type="submit" id="btnCancelar" value="Volver" class="btn btn-cancelar" ng-click="vm.volver()" >
+            <input type="submit" id="btnAgregarEditar" value="Guardar" class="btn btn-default" ng-click="vm.Guardar()" sa-enter sa-punto-click="vm.Guardar()">
+
+        </div>
+    </div>
+    <sa-loading ng-if="vm.loading"></sa-loading>
+</form>
+
+<!--Para q levante el modulo, importe en la app.ts gral de la carpeta principal, el modulo edti, list etc -->

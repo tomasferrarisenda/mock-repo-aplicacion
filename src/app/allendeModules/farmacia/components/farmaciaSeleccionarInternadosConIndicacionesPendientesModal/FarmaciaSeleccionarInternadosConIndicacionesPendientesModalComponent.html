@@ -1,0 +1,70 @@
+<sa-modal-header title-name="{{vm.title.name}}" title-icon="CHECK-SQUARE" loading="vm.loading">
+</sa-modal-header>
+<sa-modal-body loading="vm.loading">
+	<div class="row">
+		<!-- <div class="col-xs-12">			
+			<div class="row"> -->
+
+		<div class="col-xs-12 col-sm-4 col-md-4 col-lg-2">
+			<sa-sucursal-select sucursal="vm.sucursal">
+			</sa-sucursal-select>
+		</div>
+
+		<div class="col-xs-12" ng-if="vm.internaciones && vm.internaciones.length && vm.internacionesColumns && vm.internacionesColumns.length">
+			<!-- Se define el container que gestiona la tabla-->
+			<fw-table-container>
+				<fw-table-config exportable="false" sortable="false" filtrable="true" paginable="true" column-config="true">
+				</fw-table-config>
+				<fw-table-sorting sort-change="vm.table.sorting(sorting)">
+				</fw-table-sorting>
+				<fw-table-rowset data="vm.internaciones">
+				</fw-table-rowset>
+				<!-- Se define un columnset en el cual se setean (opcional) las columnas por datos -->
+				<fw-table-columnset data="vm.internacionesColumns">
+					<!-- Se define una column con los datos de una columna (opcional)-->
+					<!-- Se pueden agregar las columnas por datos y además agregarlas de a una. -->
+					<!-- <fw-table-column
+									label="'Prueba'"
+									field="'otroCampo'">
+								</fw-table-column> -->
+				</fw-table-columnset>
+				<!-- Se definen los botones de la lista de "Acciones" u "Opciones" -->
+				<fw-table-buttonset>
+						<fw-table-button visible="true" label="'Seleccionar'" icon="'CHECK-FA'" action="vm.seleccionarI({row})">
+						</fw-table-button>
+				</fw-table-buttonset>
+				<!-- Si se desea paginacion pueden ser de 2 (dos) tipos: -->
+				<!-- Paginacion externa : se usa con el back-end: se deben setear todos los datos -->
+				<!-- <fw-table-pagination-ext page-change="vm.getPage(pagination)" page-size="vm.tableOption.PageSize" total-items="vm.internaciones.RowCount"
+				    current-page="vm.tableOption.CurrentPage">
+				</fw-table-pagination-ext> -->
+				<fw-table-filter init="true"></fw-table-filter>
+				<!-- Paginacion interna : no se necesita definir ningun valor, se toman los por defecto.-->
+				<!-- Opcionalmente se puede redefinir page-size -->
+				<fw-table-pagination page-size="6"></fw-table-pagination>
+				<!-- Por ultimo el renderizado de la tabla -->
+				<fw-table></fw-table>
+			</fw-table-container>
+
+		</div>
+
+	
+	
+	</div>
+
+	<div class="row">
+		<div class="col-lg-12">
+				<div ng-if="!vm.internaciones.length">
+						Sin resultados para la busqueda...
+					</div>
+		</div>
+		
+	</div>
+	
+
+</sa-modal-body>
+<sa-modal-footer loading="vm.loading">
+		<button type="button" class="btn btn-default" ng-disabled="vm.loading" ng-click="vm.cancel()">Cancelar</button>
+		<button type="button" class="btn btn-default" ng-disabled="vm.loading" ng-click="vm.seleccionarInternado()">Seleccionar</button>
+
+</sa-modal-footer>

@@ -1,0 +1,73 @@
+<form name="formContratables" accept-charset="utf-8" novalidate>
+	<sa-modal-header
+		title-name="{{vm.title.name}}"
+		title-icon="LIST">
+	</sa-modal-header>
+	<sa-modal-body>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 form-group">
+				<label>Tipo Contratable</label>
+				<select class="form-control" 
+					ng-model="vm.filter.tipoContratableElegido"
+					ng-options="tiposContratable.Id as tiposContratable.Nombre for tiposContratable in vm.data.tiposContratable"
+					ng-disabled='disabled'
+					sa-enter
+					autofocus>
+				</select>
+			</div>
+			<div class="col-xs-12 col-sm-8 col-md-2 col-lg-2 form-group">
+				<label class="label-control">Matrícula</label>
+				<input type="number" class="form-control" ng-model="vm.filter.matricula" min="0" max="999999999" sa-enter>
+			</div>
+			<div class="col-xs-12 col-sm-8 col-md-4 col-lg-4 form-group">
+				<label class="label-control">Nombre</label>
+				<input type="text" class="form-control" ng-model="vm.filter.nombre" maxlength="255" sa-enter>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-1 form-group" sa-form-input>
+				<button type="button" class="btn btn-default btn-row btn-block" ng-click="vm.formControl.filtrarContratables()" sa-punto-click="vm.formControl.filtrarContratables()" sa-enter>Buscar</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-8 col-md-6 col-lg-12 form-group">
+				<table class="table table-hover table-condensed table-bordered" ng-if="!vm.formControl.loading">
+					<thead>
+						<tr class="thead-azul">
+							<tr class="cabecera-tabla">
+								<th class="text-center">Tipo Contratable</th>
+								<th class="text-left">Matrícula</th>
+								<th class="text-left">Nombre</th>
+							</tr>
+						</tr>
+					</thead>
+					<tbody ng-repeat="contratables in vm.filter.contratables">
+						<tr ng-dblclick="vm.formControl.contratableSeleccion(contratables)">
+							<td class="text-center">{{contratables.TipoEntidadContratoInterno}}</td>
+							<td class="text-left">{{contratables.NumeroMatricula}}</td>
+							<td class="text-left">{{contratables.Nombre}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div ng-if="vm.filter.contratables.length">
+				<div class="col-sm-12">
+					<div class="text-center">
+						<div uib-pagination 
+							items-per-page="vm.paginacion.pageSize"
+							total-items="vm.paginacion.totalItems"
+							ng-model="vm.paginacion.currentPage"
+							ng-change="vm.paginacion.pageChanged()"
+							previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</sa-modal-body>
+	<sa-modal-footer>
+		<button type="button"
+			class="btn btn-borrar" 
+			ng-click = "vm.formControl.cancel()" 
+			sa-punto-click = "vm.formControl.cancel()" 
+			sa-enter>Cancelar</button>
+	</sa-modal-footer>
+</form>

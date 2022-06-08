@@ -1,0 +1,35 @@
+<ng-form name="formDiasInternacion">
+	<label for="txt_dias_preadmision" >
+		<span ng-bind="title || 'Cantidad de días'"></span>
+		<span ng-if="required"> (*)</span>
+	</label>
+	<span class="input-group">
+		<input type="number" placeholder="Cantidad de dias" class="form-control"
+			name="cantidadDias"
+			maxlength="9"
+			minlength="1"
+			min="1"
+			ng-disabled="true"
+			ng-model="cantidad"
+			ng-required="required">
+		<span class="input-group-btn">
+			<!-- <button class="btn btn-default"
+				uib-tooltip="Cargar"
+				ng-disabled="!vm.formControl.esEditEnProcesoIntervencion || vm.cantidadDias.loading"
+				ng-click="vm.cantidadDias.openCarga()" >
+				<sa-icon name="NEW"></sa-icon>
+			</button> -->
+			<button 
+				type="button"
+				class="btn btn-default" 
+				uib-tooltip="Cargar"
+				name="new"
+				ng-disabled="btnNewDisabled || loading"
+				ng-if="btnNewIf"
+				ng-click="btnNewClick()">
+				<sa-icon name="NEW"></sa-icon>
+			</button>
+		</span>
+	</span>
+	<sa-text-error model="formDiasInternacion.cantidadDias"></sa-text-error>
+</ng-form>

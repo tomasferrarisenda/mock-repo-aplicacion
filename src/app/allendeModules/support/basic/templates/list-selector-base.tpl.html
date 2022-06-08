@@ -1,0 +1,75 @@
+<form name="formBuscador" accept-charset="utf-8" novalidate >
+	<sa-modal-header title-name="{{vm.formData.titulo}}" title-icon=""></sa-modal-header>
+	<sa-modal-body ng-hide="vm.formControl.loading || vm.formControl.error">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 pull-left form-group" ng-show="vm.formData.mostrarId">
+				<label class="label-control ">{{ vm.formData.tituloId }}</label>
+				<input type="text" class="form-control text-uppercase" id="txtId" name="txtId" ng-change="vm.paginacion.pageChanged()" ng-model="vm.filter.id" sa-enter autofocus>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 pull-left form-group" ng-show="vm.formData.mostrarCodigo">
+				<label class="label-control ">{{ vm.formData.tituloCodigo }}</label>
+				<input type="text" class="form-control text-uppercase" id="txtCodigo" name="txtCodigo" ng-change="vm.paginacion.pageChanged()" ng-model="vm.filter.codigo" sa-enter autofocus>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 pull-left form-group" ng-show="vm.formData.mostrarNombre">
+				<label class="label-control ">{{ vm.formData.tituloNombre }}</label>
+				<input type="text" class="form-control text-uppercase" id="txtNombre" name="txtNombre" ng-change="vm.paginacion.pageChanged()" ng-model="vm.filter.nombre" sa-enter autofocus>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 pull-left form-group" ng-show="vm.formData.mostrarDescripcion">
+				<label class="label-control ">{{ vm.formData.tituloDescripcion }}</label>
+				<input type="text" class="form-control text-uppercase" id="txtDescripcion" name="txtDescripcion" ng-change="vm.paginacion.pageChanged()" ng-model="vm.filter.descripcion" sa-enter autofocus>
+			</div>
+
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12 form-group">
+				<table class="table table-hover table-condensed table-bordered" id="detalle_homologaciones">
+					<thead>
+						<tr class="thead-azul">
+							<tr class="cabecera-tabla">
+								<th class="text-left" ng-click="vm.sort('Id')" ng-show="vm.formData.mostrarId">{{ vm.formData.tituloId }}
+									<span class="glyphicon sort-icon" ng-show="sortKey=='Id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+								</th>
+								<th class="text-left" ng-click="vm.sort('Codigo')" ng-show="vm.formData.mostrarCodigo">{{ vm.formData.tituloCodigo }}
+									<span class="glyphicon sort-icon" ng-show="sortKey=='Codigo'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+								</th>
+								<th class="text-left" ng-click="vm.sort('Nombre')" ng-show="vm.formData.mostrarNombre">{{ vm.formData.tituloNombre }}
+									<span class="glyphicon sort-icon" ng-show="sortKey=='Nombre'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+								</th>
+								<th class="text-left" ng-click="vm.sort('Profesional')" ng-show="vm.formData.mostrarDescripcion">{{ vm.formData.tituloDescripcion }}
+									<span class="glyphicon sort-icon" ng-show="sortKey=='Descripcion'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+								</th>
+								<th class="text-center">Seleccionar</th>
+							</tr>
+						</tr>
+					</thead>
+					<tbody ng-repeat="entidad in vm.filter.entidades | orderBy:sortKey:reverse|filter:search">
+						<tr>
+							<td class="row text-left" ng-click="vm.formControl.selectItem(entidad.Id)" ng-dblclick="vm.formControl.selectItemAndClose(entidad.Id)" ng-show="vm.formData.mostrarId">{{ entidad.Id}}</td>
+							<td class="row text-left" ng-click="vm.formControl.selectItem(entidad.Id)" ng-dblclick="vm.formControl.selectItemAndClose(entidad.Id)" ng-show="vm.formData.mostrarCodigo">{{ entidad.Codigo}}</td>
+							<td class="row text-left" ng-click="vm.formControl.selectItem(entidad.Id)" ng-dblclick="vm.formControl.selectItemAndClose(entidad.Id)" ng-show="vm.formData.mostrarNombre">{{ entidad.Nombre}}</td>
+							<td class="row text-left" ng-click="vm.formControl.selectItem(entidad.Id)" ng-dblclick="vm.formControl.selectItemAndClose(entidad.Id)" ng-show="vm.formData.mostrarDescripcion">{{ entidad.Descripcion}}</td>
+							<td class="row text-center" ng-click="vm.formControl.selectItem(entidad.Id)" ng-dblclick="vm.formControl.selectItemAndClose(entidad.Id)" >
+								<input type="radio" ng-checked="entidad.Seleccionado" sa-enter sa-punto-click="vm.formControl.selectItem(entidad.Id)">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="row" ng-if="vm.filter.entidades.length">
+				<div class="col-sm-12">
+					<div class="text-center">
+						<div uib-pagination  items-per-page="vm.paginacion.pageSize" total-items="vm.paginacion.totalItems" ng-model="vm.paginacion.currentPage" ng-change="vm.paginacion.pageChanged()" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</sa-modal-body>
+	<sa-modal-footer>
+		<input type="submit" class="btn" value="Cancelar" sa-enter ng-click="vm.formControl.cancel()" sa-punto-click="vm.formControl.cancel()">
+		<input type="submit" id="btnAgregarEditar" value="Aceptar"
+			class="btn btn-default" value = "Aceptar" sa-punto-click="vm.formControl.ok()" ng-click="vm.formControl.ok()" ng-disabled="!vm.formControl.validarForm()" sa-enter>
+	</sa-modal-footer>
+</form>
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>	
+
+	

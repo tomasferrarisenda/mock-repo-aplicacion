@@ -1,0 +1,82 @@
+<sa-title title-name="vm.title.name" title-icon="{{vm.title.icon}}"></sa-title>
+<div class="cuerpo" >
+	<form name="formSolicitud" accept-charset="utf-8" novalidate>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
+				<div sa-form-input-validate>
+					<label>Matrícula</label>
+					<input type="number"
+						name="matricula"
+						placeholder="0"
+						ng-model="vm.data.sociedadEdit.NumeroMatricula" 
+						ng-required="true"
+						min = "0"
+						id="soc-prof-edit-matricula-input"
+						maxlength="6" 
+						ng-disabled="!vm.filter.esNuevo"
+						sa-enter
+						sa-integer>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+				<div sa-form-input-validate>
+					<label>Nombre</label>
+					<input type="text"
+						name="nombre"
+						ng-model="vm.data.sociedadEdit.Nombre" 
+						ng-required="true"
+						id="soc-prof-edit-nombre-input"
+						maxlength="35"
+						sa-enter>
+				</div>
+			</div>
+			<!-- <div class="col-xs-12 col-sm-8 col-md-6 col-lg-2 form-group" ng-controller="DatePickerController">
+				<label class="control-label">Fecha Incorporación</label>
+				<input type="date" class="form-control" id="fechaIncorporacion" name="fechaIncorporacion" ng-model="vm.filter.fechaIncorporacion" ng-required="false" sa-enter>
+			</div> -->
+
+			<div class="col-xs-12 col-sm-8 col-md-6 col-lg-2 form-group">
+					<label class="control-label">Fecha Incorporación</label>
+					<sa-date-time-picker ng-model="vm.filter.fechaIncorporacion" id="fecha-de-incorporacion" type="date" >
+					</sa-date-time-picker>  
+			</div>
+
+		</div>
+		<uib-tabset class="prueba" active="active">
+			<uib-tab ng-repeat="tab in vm.tabs"
+				uib-tooltip="{{tab.TITLE_CONTENT}}"
+				index="$index + 1"
+				class="{{ tab.CLASSBG }}"
+				role="presentation"
+				id="soc-prof-edit-tab-{{$index}}"
+				ng-hide="tab.HIDE"
+				ui-sref-active ="active"
+				ui-sref="{{tab.STATE}}"
+				disable="tab.DISABLED">
+				<uib-tab-heading class="{{ tab.CLASS }}">
+					{{ tab.TITLE_TAB }}
+				</uib-tab-heading>
+			</uib-tab>
+		</uib-tabset>
+		<ui-view></ui-view>
+		<br>
+		<div class="row">
+			<div class="col-xs-12 col-sm-8 col-md-6 col-lg-12 form-group text-center">
+				<button class="btn btn-cancelar" 
+					ng-click="vm.formControl.volver()"
+					sa-punto-click="vm.formControl.volver()"
+					id="soc-prof-edit-volver-btn"
+					sa-enter>
+					Volver
+				</button>
+				<button class="btn btn-default"
+					ng-click="vm.formControl.guardar()"
+					sa-punto-click="vm.formControl.guardar()"
+					id="soc-prof-edit-guardar-btn"
+					sa-enter>
+					Guardar
+				</button>
+			</div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,13 @@
+<div>
+	<div fw-form-input class="fw-table-filter no-valid" ng-show="col.isData()">
+		<input type="text" name="filter{{col.field}}"
+			placeholder="{{col.label}}"
+			autocomplete="off"
+			ng-model="modelFilter"
+			ng-model-options="{ debounce: 200 }"
+			ng-change="filterChange(modelFilter, col, table.id)">
+	</div>
+	<div ng-hide="col.isData()">
+		<p class="form-control-static"></p>
+	</div>
+</div>

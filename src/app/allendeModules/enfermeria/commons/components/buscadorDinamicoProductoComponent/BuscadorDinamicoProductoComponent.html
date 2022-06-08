@@ -1,0 +1,34 @@
+<div class="row">
+
+	<div class="col-xs-2" sa-form-input>
+		<label class="label-control">Código</label>
+		<div class="input-group">
+			<input type="text" class="form-control" ng-model="vm.codigoStockeable" ng-blur="vm.buscadorProductoPorCodigo()" ng-change="vm.limpiarProductoNombre()"
+			  min="0" max="99999999999" sa-enter sa-integer id="buscador-dinamico-codigo-input">
+			<span class="input-group-btn">
+				<button class="btn btn-default " uib-tooltip="Buscar Producto" tooltip-placement="top" ng-click="vm.buscadorProductoPorCodigo()"
+				 sa-enter id="buscador-dinamico-producto-buscar-btn">
+					<sa-icon name="SEARCH"></sa-icon>
+				</button>
+			</span>
+		</div>
+	</div>
+
+	<div class="col-xs-8" sa-form-input>
+		<label class="">Producto</label>
+
+		<input name="busquedaProducto" autocomplete="off" uib-tooltip="Cantidad de productos encontrados: {{vm.productosPorNombre.length}}"
+		 tooltip-placement="top" type="text" placeholder="Buscar Producto Nombre" ng-model="vm.nombreProducto" id="buscador-input-producto-typehead"
+		 ng-disabled="vm.loading" uib-typeahead="producto as (producto.Nombre + ' | ' + producto.Presentacion + ' - Stock: NvaCba: ' + producto.StockNuevaCordoba +  ' - Cerro: ' + producto.StockCerro) for producto in
+			 vm.productosPorNombre | filter:$viewValue | limitTo:30"
+		 typeahead-loading="vm.loading" typeahead-min-length="2" typeahead-show-hint="true" ng-change="vm.buscarProductosPorNombre()"
+		 class="form-control text-uppercase" typeahead-select-on-exact="true" typeahead-on-select="vm.updateModel(vm.nombreProducto)"
+		 ng-focus="true">
+
+	</div>
+
+	<div class="col-xs-2">
+		<button type="button" sa-btn-search class="btn-row btn-block" ng-click="vm.openBusquedaProducto()" id="buscador-dinamico-producto-avanz-btn">Busc. Avanz.</button>
+	</div>
+</div>
+<sa-loading-modal ng-if="vm.loading"></sa-loading-modal>

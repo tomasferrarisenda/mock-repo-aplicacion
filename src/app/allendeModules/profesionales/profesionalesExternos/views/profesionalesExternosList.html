@@ -1,0 +1,36 @@
+<div class="cuerpo">
+	<sa-title title-name="vm.title.page" title-icon="LIST" btn-new-click="vm.formControl.editarProfesional()" btn-new-disabled="vm.formControl.loading"></sa-title>
+	<form name="formFilter" accept-charset="utf-8" novalidate>
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-1 form-group" sa-form-input>
+				<label>Matrícula</label>
+				<input type="text" class="form-control" id="prof-externo-matricula-input"
+				maxlength="10" ng-model="vm.filter.matricula" sa-enter>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 form-group" sa-form-input>
+				<label>Nombre</label>
+				<input type="text" class="text-uppercase form-control" id="prof-externo-nombre-input"
+						maxlength="40" ng-model="vm.filter.nombre" sa-enter>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 form-group" sa-form-input>
+				<label>Apellido</label>
+				<input type="text" class="text-uppercase form-control" id="prof-externo-apellido-input"
+						maxlength="40" ng-model="vm.filter.apellido" sa-enter>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group" sa-form-input>
+				<button type="button" sa-btn-search class="btn-row" ng-click="vm.formControl.buscar()" sa-enter id="prof-externo-buscar-btn">Buscar</button>
+				<button type="button" sa-btn-clean class="btn-row" ng-click="vm.formControl.limpiarFiltros()" sa-enter id="prof-externo-limpiar-btn">Limpiar</button>
+			</div>
+		</div>
+	</form>
+	<sa-table-ext data="vm.data.profesionalesExternos" page-change="vm.formControl.buscarPagina(pagination)" 
+		btn-edit-click="vm.formControl.editarProfesional(row.Id)" btn-delete-click="vm.formControl.borrarProfesional(row)"></sa-table-ext>
+	<div class="row">
+		<br>
+		<div class="row text-center">
+			<button class="btn btn-cancelar" ng-click="vm.formControl.volver()" sa-punto-click ="vm.formControl.volver()" sa-enter id="prof-externo-volver-btn">
+				Volver
+			</button>
+		</div>
+	</div>
+</div>

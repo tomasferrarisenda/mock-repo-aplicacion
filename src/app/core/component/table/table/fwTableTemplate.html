@@ -1,0 +1,53 @@
+<div>
+	<div ng-if="table.isConfigurable()">
+		<fw-table-config-initializer></fw-table-config-initializer>
+	</div>	
+	<fw-table-export-internal-initializer></fw-table-export-internal-initializer>
+	<div class="table-responsive">
+		<table class="table table-hover table-bordered fw-table">
+			<thead class="fw-noselect">
+				<tr class="cabecera-tabla">
+					<th ng-repeat="col in table.cols | orderBy : 'order'"
+						ng-class="col.classCol"
+						ng-show="col.isVisible()">
+						<fw-column-initializer></fw-column-initializer>
+						<fw-filter-initializer></fw-filter-initializer>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="row in table.rows" ng-init="rowIndex = $index"
+					ng-class="row.data.classRow"
+					ng-show="row.callFilterExpression(row)" id="{{row.idElements}}-{{$index}}"
+					context-menu="table.getMenuOptions()">
+					<td ng-repeat="col in table.cols | orderBy : 'order'"
+						ng-class="[{'normal-warp': col.isLongText()},col.classCol, row.data[col.classCell]]"
+						ng-show="col.isVisible()"
+						ng-click="row.callClickAction(row.data, col.isData());">
+						<span ng-if="col.isData()" ng-bind="table.getCellValue(row, col)"
+							uib-tooltip="{{row.data[col.tooltip]}}">
+						</span>
+						<span ng-if="col.isHtml()" ng-bind-html="row.data[col.field] | saToHtml"></span>
+						<span ng-if="col.isButtonset()">
+							<fw-buttons-initializer></fw-buttons-initializer>
+						</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<div ng-show="!table.rows || !table.rows.length">No hay registros.</div>
+		</div>
+	</div>
+	<div ng-if="table.pagination">
+		<fw-pagination-initializer data="table.pagination"></fw-pagination-initializer>
+	</div>
+	<div ng-if="!table.pagination">
+		<div class="pull-right" >
+			<label>Cantidad de items: </label>
+			<span class="badge" ng-bind="table.rows.length"></span>
+		</div>
+	</div>
+</div>

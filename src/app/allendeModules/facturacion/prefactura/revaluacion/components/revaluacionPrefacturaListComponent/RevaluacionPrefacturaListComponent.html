@@ -1,0 +1,186 @@
+<form name="formRevaluacionPrefact">
+<div class="row">
+	<div class="col-xs-12">
+		<sa-title title-name="vm.title.name" title-icon="{{vm.title.icon}}"></sa-title>
+	</div>
+</div>
+<div class="row">
+
+
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 form-group">
+		<sa-new-mutual-selector model="vm.mutual" codigo-mutual-edit="vm.codigoMutual"></sa-new-mutual-selector>
+
+	</div>
+
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+		<sa-plan-mutual ng-model="vm.planMutual" id-mutual="vm.mutual.Id" id-plan-elegido="vm.IdPlan"></sa-plan-mutual>
+	</div>
+
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group" ng-controller="DatePickerController">
+		<label class="control-label">Fecha Desde</label>		
+		<sa-date-picker model="vm.fechaDesde" max-date="vm.fechaHasta" ></sa-date-picker>
+	</div>
+
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group" ng-controller="DatePickerController">
+		<label class="control-label">Fecha Hasta</label>
+		<sa-date-picker model="vm.fechaHasta" min-date="vm.fechaDesde" ></sa-date-picker>
+	</div>
+
+
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+
+		<sa-sucursal-combo-filtrado ng-model="vm.sucursal">
+		</sa-sucursal-combo-filtrado>
+	</div>
+
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
+
+		<sa-selector-servicio-medico ng-model="vm.servicioMedico" solo-visibles-turnos="false">
+		</sa-selector-servicio-medico>
+	</div>
+
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-7 form-group">
+		<sa-prefacturable-selector model='vm.prefacturable' ng-disabled="false"></sa-prefacturable-selector>
+	</div>
+
+
+	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-2 pull-right">
+		<div class="row">
+			<div class="col-xs-6">
+				<button sa-btn-search ng-click="vm.buscar()" class="btn-row" sa-punto-click="vm.buscar()">
+					Buscar
+				</button>
+			</div>
+			<div class="col-xs-6">
+				<button sa-btn-clean ng-click="vm.limpiar()" class="btn-row pull-right" sa-punto-click="vm.limpiar()">
+					Limpiar
+				</button>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+<div class="row">
+
+	<div class="col-xs-12">
+		<h3 ng-if="vm.data && vm.data.length">Seleccionar Items Para Revaluo ({{vm.getTurnosSelected()}})</h3>
+		<table class="table table-responsive" id="turnos_recesos_list" ng-if="vm.data && vm.data.length">
+			<thead>
+				<tr class="cabecera-tabla">
+					<th class="text-center">
+						<label class="material-checkbox" uib-tooltip="Seleccionar Todos" uib-tooltip-placement="top">
+							<input type="checkbox" ng-model="vm.seleccionarTodos" ng-change="vm.seleccionarTodosChange()">
+							<span class="check-rojo"></span>
+						</label>
+					</th>
+					<th class="text-left">Cod</th>
+					<th class="text-left">Fecha</th>
+					<th class="text-left">Der.</th>
+					<th class="text-left">Hon. Espec.</th>
+					<th class="text-left">Hon. Anest.</th>
+					<th class="text-left">Hon. Ayud.</th>
+					<th class="text-left">$ Glob.</th>
+					<th class="text-left">$ Total</th>
+					<th class="text-left">$ Cos.</th>
+					<th class="text-left">% Cos.</th>
+					<th class="text-left">Cant.</th>
+					<th class="text-left">Paciente</th>
+					<th class="text-left">DNI</th>
+					<th class="text-left">Servicio</th>
+					<th class="text-left">Suc.</th>
+					<th class="text-left">Plan</th>
+					<th class="text-left">Prof.</th>
+
+					<th class="text-left">Revaluo</th>
+					<th class="text-left">Observ.</th>
+
+					<th class="text-left">Acc.</th>
+
+
+
+				</tr>
+			</thead>
+			<!-- BODY -->
+			<tbody ng-if="vm.data" ng-repeat="item in vm.dataFilter" ng-class="{ 'color-aquaorange-turno' : item.modified}">
+				<tr>
+					<td class="text-center">
+						<label class="material-checkbox">
+							<input type="checkbox" ng-model="item.checked" ng-change="vm.checkRow(item)">
+							<span class="check-rojo"></span>
+						</label>
+					</td>
+
+					<th>
+						{{ item.Codigo}}</th>
+					<th>
+						{{ item.FechaRealizacion | date:'dd/MM/yyyy'}}</th>
+					<th>
+						{{ item.Derecho}}</th>
+					<th>
+						{{ item.HonorarioEspecialista}}</th>
+					<th>
+						{{ item.HonorarioAnestesista}}</th>
+					<th>
+						{{ item.HonorarioAyudante}}</th>
+					<th>
+						{{ item.ImporteGlobal}}</th>
+					<th>
+						{{ item.ImporteTotal}}</th>
+					<th>
+						{{ item.ImporteCoseguro}}</th>
+					<th>
+						{{ item.PorcentajeCoseguro}}</th>	
+					<th>
+						{{ item.Cantidad}}</th>
+					<th>
+						{{ item.Paciente}}</th>
+					<th>
+						{{ item.NroDocumento}}</th>
+					<th>
+						{{ item.ServicioEfector}}</th>
+					<th>
+						{{ item.Sucursal}}</th>
+					<th>
+						{{ item.PlanMutual}}</th>
+					<th>
+						{{ item.ProfesionalEfector}}</th>
+
+					<th ng-class="{ 'color-rojo-turno' : item.Revaluo == false, 'color-verde-turno' :  item.Revaluo == true}">
+						{{ item.RevaluoText}} - </th>
+					<th>
+						{{ item.ObservacionNoRevaluo}} - </th>
+					<td class="text-center">
+						<button type="button" class="btn btn-white btn-xs" uib-tooltip="Editar Prefactura" tooltip-placement="top" ng-click="vm.editarPrefactura(item)">
+							<sa-icon name="EDIT"></sa-icon>
+						</button>
+					</td>
+
+
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</div>
+
+<!-- Paginacion zone -->
+<div class="col-xs-12" ng-if="vm.data && vm.data.length">
+	<div class="text-center ">
+		<div uib-pagination boundary-links="true " max-size="9 " items-per-page="vm.paginacion.pageSize " total-items="vm.paginacion.totalItems "
+		 ng-model="vm.paginacion.currentPage " ng-change="vm.pageChanged() " previous-text="&lsaquo; " next-text="&rsaquo; "
+		 first-text="&laquo; " last-text="&raquo; ">
+		</div>
+	</div>
+</div>
+
+<div class="row ">
+	<div class="text-center">
+		<button class="btn btn-warning" ng-if="vm.data && vm.data.length" ng-click='vm.revaluar()'>Revaluar</button>
+
+	</div>
+</div>
+
+<sa-loading-modal ng-if="vm.loading"></sa-loading-modal>
+</form>

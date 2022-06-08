@@ -1,0 +1,81 @@
+<div id="print-content" ng-hide="vm.formControl.loading">
+	<form name="formCondicion" accept-charset="utf-8" novalidate>
+		<sa-modal-header
+			title-name="{{vm.title.name}}"
+			title-icon="{{vm.title.icon}}">
+		</sa-modal-header>
+		<sa-modal-body>
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 form-group" sa-form-input-validate>
+					<label>Dimensión</label>
+					<select ng-model="vm.filter.dimensionElegida" 
+						name="Dimension" 
+						ng-options="dimension.Nombre for dimension in vm.data.dimensiones track by dimension.Id" 
+						ng-change="vm.formControl.cambiarDimension()"
+						sa-enter
+						autofocus>
+					</select>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 form-group" sa-form-input-validate>
+					<label>Operador</label>
+					<select ng-model="vm.filter.operadorElegido" 
+						name="Operador" 
+						ng-options="operador.Nombre for operador in vm.filter.dimensionElegida.OperadoresHabilitados track by operador.Id" 
+						ng-change="vm.formControl.cambiarOperador(vm.filter.operadorElegido)"
+						sa-enter
+						autofocus>
+					</select>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 form-group" ng-show="!vm.data.esEntre">
+					<label>Valor</label>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12 input-group">
+						<input type="text" class="form-control" name="Valor" ng-model="vm.filter.valoresFormateados" disabled='true' sa-enter>
+						<span class="input-group-btn">
+							<button type="submit" class="btn btn-default input-group" ng-disabled="!vm.filter.dimensionElegida || !vm.filter.operadorElegido" 
+							sa-enter ng-click="vm.formControl.buscar(vm.CONSECUENCIA_VALOR.VALOR_IGUAL)" sa-punto-click="vm.formControl.buscar(vm.CONSECUENCIA_VALOR.VALOR_IGUAL)">...</button>
+						</span>
+					</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 form-group" ng-show="vm.data.esEntre">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-6">
+						<label>Desde</label>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12 input-group">
+							<input type="text" class="form-control" name="Desde" ng-model="vm.filter.desde" disabled='true' sa-enter>
+							<span class="input-group-btn">
+								<button type="submit" class="btn btn-default input-group" ng-disabled="!vm.filter.dimensionElegida || !vm.filter.operadorElegido" 
+								sa-enter ng-click="vm.formControl.buscar(vm.CONSECUENCIA_VALOR.VALOR_DESDE)" sa-punto-click="vm.formControl.buscar(vm.CONSECUENCIA_VALOR.VALOR_DESDE)">...</button>
+							</span>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-6">
+						<label>Hasta</label>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12 input-group">
+							<input type="text" class="form-control" name="Hasta" ng-model="vm.filter.hasta" disabled='true' sa-enter>
+							<span class="input-group-btn">
+								<button type="submit" class="btn btn-default input-group" ng-disabled="!vm.filter.dimensionElegida || !vm.filter.operadorElegido" 
+								sa-enter ng-click="vm.formControl.buscar(vm.CONSECUENCIA_VALOR.VALOR_HASTA)" sa-punto-click="vm.formControl.buscar(vm.CONSECUENCIA_VALOR.VALOR_HASTA)">...</button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</sa-modal-body>
+		<sa-modal-footer>
+			<input type="submit"
+				class="btn"
+				value="Cancelar"
+				sa-enter
+				ng-click="vm.formControl.cancel()"
+				sa-punto-click="vm.formControl.cancel()">
+			<input type="submit" id="btnAgregarEditar" value="Aceptar"
+				class="btn btn-default"
+				sa-punto-click="vm.formControl.guardar(formCondicion.$valid)"
+				ng-click="vm.formControl.guardar(formCondicion.$valid)"
+				ng-disabled="!vm.filter.dimensionElegida || !vm.filter.operadorElegido || !((vm.filter.desde && vm.filter.hasta) || vm.filter.valoresFormateados)"
+				sa-enter>
+		</sa-modal-footer>
+	</form>
+</div>

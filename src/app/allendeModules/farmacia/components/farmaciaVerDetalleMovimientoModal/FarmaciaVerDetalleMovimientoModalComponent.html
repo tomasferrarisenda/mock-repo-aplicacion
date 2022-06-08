@@ -1,0 +1,110 @@
+<sa-modal-header loading="vm.loading" title-name="Ver Detalle Movimiento" title-icon="VIEW">
+</sa-modal-header>
+<sa-modal-body loading="vm.loading">
+
+	<!-- ROW TABLA -->
+	<div class="row">
+
+		<div class="col-xs-6">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+					<h4>
+						<label>
+							<strong>Fecha: </strong>
+						</label> {{vm.dataMovimiento.Fecha | date:"dd/MM/yyyy HH:mm" }}</h4>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+						<h4>
+							<label>
+								<strong>Usuario: </strong>
+							</label> {{vm.dataMovimiento.Usuario}}</h4>
+					</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+					<h4>
+						<label>
+							<strong>Tipo Movimiento: </strong>
+						</label> {{vm.dataMovimiento.TipoMovimientoStock}} </h4>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+					<h4>
+						<label>
+							<strong>Estado Movimiento: </strong>
+						</label> {{vm.dataMovimiento.EstadoMovimientoStock}}</h4>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-6">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+					<h4>
+						<label>
+							<strong>Deposito Origen: </strong>
+						</label> {{vm.dataMovimiento.DepositoOrigen}}</h4>
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+					<h4>
+						<label>
+							<strong>Deposito Destino: </strong>
+						</label> {{vm.dataMovimiento.DepositoDestino}}</h4>
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+					<h4>
+						<label>
+							<strong>Destinatario Movimiento: </strong>
+						</label> {{vm.dataMovimiento.DestinatarioMovimientoStock}}</h4>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+						<h4>
+							<label>
+								<strong>Modo Entrega: </strong>
+							</label> {{vm.dataMovimiento.ModoEntrega}}</h4>
+					</div>
+			</div>
+		</div>
+
+
+	</div>
+
+	<div class="row">
+		<!-- BLOQUE INFERIOR TABLA -->
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-if="vm.dataMovimiento.Items && vm.dataMovimiento.Items.length && vm.columnasList && vm.columnasList.length">
+
+			<!-- Se define el container que gestiona la tabla-->
+			<fw-table-container>
+				<fw-table-config exportable="false" sortable="false" filtrable="true" paginable="true" column-config="true">
+				</fw-table-config>
+				<fw-table-sorting-ext sort-change="sortChangeInternal(sorting)">
+				</fw-table-sorting-ext>
+				<fw-table-rowset data="vm.dataMovimiento.Items">
+				</fw-table-rowset>
+				<!-- Se define un columnset en el cual se setean (opcional) las columnas por datos -->
+				<fw-table-columnset data="vm.columnasList">
+
+				</fw-table-columnset>
+
+				<fw-table-export>
+				</fw-table-export>
+
+				<!-- FILTRADO DINAMICO [Opcional] -->
+				<!-- Debe estar configurado en true la configuracion correspondiente -->
+				<!-- Solo debería funcionar si se trata de una tabla interna -->
+				<fw-table-filter init='true'></fw-table-filter>
+
+				<!-- Paginacion interna : no se necesita definir ningun valor, se toman los por defecto.-->
+				<!-- Opcionalmente se puede redefinir page-size -->
+				<fw-table-pagination page-size="16"></fw-table-pagination>
+				<!-- Por ultimo el renderizado de la tabla -->
+				<fw-table></fw-table>
+			</fw-table-container>
+		</div>
+
+	</div>
+
+
+</sa-modal-body>
+<sa-modal-footer loading="vm.loading">
+	<button type="button" class="btn btn-default" ng-disabled="vm.loading" ng-click="vm.cancel()">Aceptar</button>
+</sa-modal-footer>

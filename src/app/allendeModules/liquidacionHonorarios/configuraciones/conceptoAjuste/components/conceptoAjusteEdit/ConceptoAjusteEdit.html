@@ -1,0 +1,45 @@
+<div id="print-content" ng-hide="vm.formControl.loading">
+    <form name="formTecnico" accept-charset="utf-8" novalidate>
+        <sa-modal-header title-name="{{vm.title.name}}" title-icon="{{vm.title.icon}}">
+        </sa-modal-header>
+        <sa-modal-body>
+            <div class="row">
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 form-group" sa-form-input>
+                    <label>Nombre</label>
+                    <input type="text" name="nombreConcepto" ng-model="vm.concepto.Nombre" required autofocus sa-enter>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group" sa-form-input>
+                    <label>Cuenta</label>
+                    <input type="number" class="form-control" max="999999999" placeholder="0" ng-model="vm.concepto.NumeroCuenta" sa-integer
+                        sa-enter>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group" sa-form-input>
+                    <label>Coeficiente</label>
+                    <input type="number" class="form-control" max="999999999" placeholder="0" min="0" ng-model="vm.concepto.Coeficiente" autofocus
+                        sa-enter>
+                </div>
+
+                <!--Combo -->
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" sa-form-input>
+                    <label>Tipo</label>
+                    <select id="TipoConceptoDeAjuste" name="TipoConceptoDeAjuste" ng-model="vm.conceptoElegido" ng-options="tipoConceptoAjuste.Nombre for tipoConceptoAjuste in vm.tiposConcepto"
+                        sa-enter>
+                    </select>
+                </div>
+
+                
+            </div>
+        </sa-modal-body>
+
+        <sa-modal-footer>
+            <input type="submit" class="btn" ng-click="vm.cancel()" value="Cancelar" sa-enter sa-punto-click="vm.cancel()">
+            <input type="submit" id="btnAgregarEditar" value="Guardar" class="btn btn-default" ng-click="vm.guardar(formTecnico.$invalid)" sa-punto-click="vm.guardar()"
+                sa-enter>
+        </sa-modal-footer>
+
+    </form>
+</div>
+<sa-loading ng-if="vm.loading"></sa-loading>

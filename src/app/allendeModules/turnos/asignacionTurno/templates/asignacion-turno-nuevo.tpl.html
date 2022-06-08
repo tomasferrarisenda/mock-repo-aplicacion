@@ -1,0 +1,146 @@
+<div ng-hide="vm.formControl.loading">
+
+	<sa-modal-header title-name="Otorgar Turno" title-icon="NEW">
+	</sa-modal-header>
+
+	<sa-modal-body>
+
+		<div class="row">
+
+			<div class="col-xs-6">
+
+				<div class="row">
+
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+						<h4>
+							<label>
+								<strong>Paciente: </strong>
+							</label> {{ vm.data.pacientes[0].Nombre }} {{ vm.data.pacientes[0].Apellido}} - {{
+							vm.data.pacientes[0].TipoDocumento }}: {{
+							vm.data.pacientes[0].NumeroDocumento }} - {{ vm.data.pacientes[0].Edad }} años </h4>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+						<h4>
+							<label>
+								<strong>Mutual y Plan: </strong>
+							</label> {{vm.data.mutualyplan}} </h4>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+						<h4>
+							<label>
+								<strong>Recurso: </strong>
+							</label> {{ vm.data.recurso.Nombre }}</h4>
+					</div>
+
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+						<h4>
+							<label>
+								<strong>Servicio: </strong>
+							</label> {{ vm.data.servicio.Nombre }} -
+							<label>
+								<strong>Sucursal: </strong>
+							</label> {{ vm.data.sucursal.Nombre }}</h4>
+					</div>
+
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+						<h4>
+							<label>
+								<strong>Fecha/Hora: </strong>
+							</label> {{ vm.data.fechaFormateada }} a las {{ vm.data.horaTurno }} hs </h4>
+					</div>
+
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+						<h4>
+							<label>
+								<strong>Prestación/es: </strong>
+							</label> {{ vm.data.prestacionesConcatenadas }} </h4>
+					</div>
+
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " ng-if="vm.data.checkSolicitudEstudios">
+						<h4>
+							<label>
+								<strong>Este turno va a estar asociado a la solicitud de estudios seleccionada</strong>
+							</label> </h4>
+					</div>
+
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " ng-if="vm.data.tipoTurno.Id == 2">
+						<h4>
+							<label>
+								<strong>Tipo: </strong>
+							</label> {{ vm.data.tipoTurno.Nombre }} </h4>
+					</div>
+
+				</div>
+
+				<!-- Observaciones por sucursal-->
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-if="vm.data.observacionesPlantilla">
+					<label>
+						<strong>Observacion Plantilla</strong>
+					</label>
+					<textarea rows="9" class="form-control textarea-lg" ng-model="vm.data.observacionesPlantilla.Observacion"
+					 placeholder="Observacion" readonly ng-dblclick="vm.formControl.verObservaciones()"></textarea>
+				</div>
+			</div>
+
+
+			<div class="col-xs-6">
+				<div class="row">
+
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<label>
+							<strong>Observación del Turno</strong>
+						</label>
+						<textarea class="form-control textarea-lg" ng-model="vm.data.observacionTurno" ng-maxlength="300" autofocus></textarea>
+						<span class="label pull-right" ng-class="(vm.data.observacionTurno.length > 300 - 10) 
+								? ((vm.data.observacionTurno.length == 300) ? 'label-danger' : 'label-warning') : 'label-default'">
+							{{vm.data.observacionTurno.length ? vm.data.observacionTurno.length : 0}}/{{300}}
+						</span>
+					</div>
+
+
+					<div class="col-xs-12">
+						<label>
+							<strong>Preparaciones</strong>
+						</label>
+						<div class="row">
+							<div class="col-xs-12">
+								<table class="table" style="margin-bottom: 0px;">
+									<tbody>
+										<tr ng-repeat="preparacion in vm.data.Preparaciones">
+											<td>
+												<div class="alert alert-warning">
+													<strong>Atención: {{preparacion.Nombre}} </strong>
+													{{preparacion.PreparacionPrevia}}
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<label style="padding-left: 0px;">Requisitos administrativos</label>
+						<button class="btn btn-default pull-right" uib-tooltip="Copiar Requerimientos" name="new" ng-click="vm.formControl.copiarRequerimientos()"
+						 style="margin-top: 10px;">
+							<sa-icon name="COPY"></sa-icon>
+						</button>
+						<textarea class="form-control textarea-lg" id="textrequerimientos" ng-model="vm.data.RequisitosAdministrativos"
+						 readonly></textarea>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</sa-modal-body>
+
+	<sa-modal-footer ng-hide="vm.formControl.loading">
+		<input type="submit" class="btn " ng-click="vm.formControl.cancel()" value="Cancelar">
+		<input type="submit" id="btnAgregarEditar" value="Otorgar Turno" class="btn btn-default" ng-click="vm.formControl.ok()"
+		 ng-disabled="!vm.data.observacionTurno || vm.formControl.validationLoading">
+	</sa-modal-footer>
+
+</div>
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>

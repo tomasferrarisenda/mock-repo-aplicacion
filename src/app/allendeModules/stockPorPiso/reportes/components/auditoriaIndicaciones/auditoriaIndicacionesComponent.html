@@ -1,0 +1,46 @@
+<sa-title
+	title-name="vm.title.name"
+	title-icon="{{vm.title.icon}}"
+
+	btn-reload-click="vm.reloadPage()"
+></sa-title>
+<div class="cuerpo">
+    <form name="formFilter" accept-charset="utf-8" novalidate >
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 col-xl-1">
+                <div sa-form-input>
+                    <label for="fechaDesde">Fecha desde</label>
+                    <sa-date-picker model="vm.fechaDesde" required="true" max-date="vm.fechaHasta || vm.today"></sa-date-picker>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 col-xl-1">
+                <div sa-form-input>
+                    <label for="fechaDesde">Fecha hasta</label>
+                    <sa-date-picker model="vm.fechaHasta" required="true" max-date="vm.today"></sa-date-picker>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 col-xl-1">
+                <div sa-form-input>
+                    <sa-sucursal-combo-filtrado ng-model="vm.sucursal" ng-required="true"></sa-sucursal-combo-filtrado>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+                <div sa-form-input>
+                    <label>Nro Internación</label>
+                    <input type="number" class="form-control text-right" ng-model="vm.numeroInternacion" min="0"ng-required="false" sa-enter>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 col-xl-1">
+                <button sa-btn-search class="btn-row"
+                    ng-disabled="formFilter.$invalid"
+                    ng-click="vm.getReporte()">Buscar</button>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-xs-12">
+            <sa-indicacion-suministrada-list data="vm.reporte">
+            </sa-indicacion-suministrada-list>
+        </div>
+    </div>
+</div>

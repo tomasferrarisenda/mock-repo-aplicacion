@@ -1,0 +1,8 @@
+<div sa-form-input>
+	<label for="sector_selector" id="sector_label">Sector</label>
+	<select class="form-control" id="sector_selector" name="Sector" ng-model="vm.sector" ng-disabled="vm.loading || !vm.piso"
+	 ng-options="sector as sector.Nombre for sector in vm.sectorsList">
+		<option value="">--SELECC. SECTOR--</option>
+	</select>
+</div>
+<sa-loading-modal ng-if="vm.loading"></sa-loading-modal>

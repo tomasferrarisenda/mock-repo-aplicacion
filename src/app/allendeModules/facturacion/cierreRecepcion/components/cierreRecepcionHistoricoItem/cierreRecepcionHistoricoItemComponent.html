@@ -1,0 +1,46 @@
+<form name="formlistas" novalidate>
+		<sa-modal-header title-name="Cambio de estado del ítem" title-icon="EDIT">
+		</sa-modal-header>
+	
+	
+		<sa-modal-body loading="vm.formControl.loading">
+			<div class="row fila">
+				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-6" sa-form-input>
+						<label for="paciente">Paciente</label>
+						<input type="text" id="paciente" name="paciente" ng-model="vm.nombrePaciente" ng-disabled="true"
+							sa-enter>
+					</div>
+	
+				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-6" sa-form-input>
+						<label for="financiador">Financiador</label>
+						<input type="text" id="financiador" name="financiador" ng-model="vm.nombreFinanciador" ng-disabled="true" 
+							sa-enter>
+				</div>
+					<div class="col-xs-12 col-sm-12 col-md-5 col-lg-6" sa-form-input>
+							<label for="profesional">Profesional</label>
+							<input type="text" id="profesional" name="profesional" ng-model="vm.nombreProfesional" ng-disabled="true" 
+								sa-enter>
+						</div>
+					<div class="col-xs-12 col-sm-12 col-md-5 col-lg-3" sa-form-input>
+							<label for="fecha">Fecha</label>
+							<input type="date" id="fecha" name="fecha" ng-model="vm.fecha" ng-disabled="true"
+								sa-enter>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-5 col-lg-3" sa-form-input>
+							<label for="codigo">Código</label>
+							<input type="text" id="codigo" name="codigo" ng-model="vm.codigo" ng-disabled="true"
+								sa-enter>
+					</div>
+
+			</div>
+			<sa-table-ext data="vm.historicoDetalle.Items" page-change="vm.buscarPagina(pagination)" ng-if="vm.historicoDetalle.Items.Rows">
+		    </sa-table-ext>
+   
+
+		</sa-modal-body>
+	
+		<sa-modal-footer>
+			<input type="submit" class="btn" ng-click="vm.volver()" value="Volver" sa-enter sa-punto-click="vm.volver()">
+		</sa-modal-footer>
+	</form>
+	<sa-loading ng-if="vm.formControl.loading"></sa-loading>

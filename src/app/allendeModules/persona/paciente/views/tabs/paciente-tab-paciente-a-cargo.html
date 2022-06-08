@@ -1,0 +1,77 @@
+<ng-form name="formTabPacientesACargo">
+	<div class="row fila">
+		<h4 >
+			<span>Pacientes a Cargo</span>
+			<div class="btn-group pull-right">
+				<button
+					id="btn_nuevo_pacienteacargo"
+					type="button"
+					class="btn btn-default"
+					ng-click="vm.pacientesAmiCargo.open()"
+					uib-tooltip="Nuevo">
+					<sa-icon name="NEW"></sa-icon>
+				</button>
+			</div>
+		</h4>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
+			<table class="table table-hover" id="tabla_pacienteacargo">
+				<thead>
+					<tr></tr>
+					<tr class="cabecera-tabla">
+						<th class="text-center">Documento</th>
+						<th class="text-center">Nombre y apellido</th>
+						<th class="text-center">Relacion</th>
+						<!-- <th class="text-center">Defecto</th> -->
+						<th class="text-center">Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="pacienteAcargo in vm.data.paciente.PacientesAMiCargo" context-menu="menuOptionsP">
+						<td class="text-center">
+							<div ng-bind="pacienteAcargo.TipoDocumentoPacienteRelacionadoNombre + ': ' + pacienteAcargo.NumeroDocumentoPacienteRelacionado"></div>
+						</td>
+						<td class="text-center">
+							<div ng-bind="pacienteAcargo.PacienteRelacionadoNombre"></div>
+						</td>
+						<td class="text-center">{{ pacienteAcargo.TipoRelacionPacienteNombre || 'S/Datos' }}</td>
+						<!--<td>							
+							 <select id="cmb_tipo_relacion"
+								name="tipoRelacion{{$index}}" class="form-control"
+								ng-model="responsable.TipoRelacion"
+								ng-required="true"
+								ng-options="tipoRelacion.nombre_relacion
+									for tipoRelacion in vm.data.tiposRelacionPaciente
+									track by tipoRelacion.id_tipo_relacion">
+								<option value="">-SELECCIONAR-</option>
+							</select>
+						</td> -->
+						<!-- <td class="text-center"> -->
+							<!-- <sa-check-box ng-model="pacienteAcargo.Defecto"
+								color="blue"
+								ng-disabled="pacienteAcargo.Defecto"
+								ng-change="vm.pacienteAcargo.changeDefecto(pacienteAcargo)">
+							</sa-check-box> -->
+<!-- 							<input type="checkbox" class="checkbox" name="chkDefectoResponsable"
+								ng-model="responsable.Defecto"
+								ng-disabled="responsable.Defecto"
+								ng-change="vm.responsable.changeDefecto(responsable)"> -->
+						<!-- </td> -->
+						<td class="text-center">
+							<!-- <button type="button" class="btn btn-white btn-xs"
+								uib-tooltip="Editar" tooltip-placement="top"
+								ng-click="vm.responsable.edit(responsable)">
+								<sa-icon name="EDIT"></sa-icon>
+							</button> -->
+							<button type="button" class="btn btn-white btn-xs" id="btn_delete"
+								uib-tooltip="Anular" tooltip-placement="top"
+								ng-click="vm.pacientesAmiCargo.delete($index)">
+								<sa-icon name="DEL"></sa-icon>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div ng-hide="vm.data.paciente.PacientesAMiCargo.length" class="text-error text-center">No tiene paciente a cargo cargados</div>
+		</div>
+	</div>
+</ng-form>

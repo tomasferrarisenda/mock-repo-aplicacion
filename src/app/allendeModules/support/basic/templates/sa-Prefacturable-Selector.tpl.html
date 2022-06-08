@@ -1,0 +1,48 @@
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 form-group">
+		<label for="">Tipo Item</label>
+		<select class="form-control" 
+				name="tipoPrefacturable"
+				id="sa-prefacturableselector-tipoitem-select"
+				ng-model="filter.tipoPrefacturableElegido"
+				ng-options="tipoPrefacturables.Id as tipoPrefacturables.Nombre for tipoPrefacturables in data.tipoPrefacturables"
+				ng-change = "cambioTipoPrefacturable()"
+				ng-disabled='disabled'
+				sa-enter
+				autofocus>
+		</select>
+	</div>
+	<div class="col-xs-12 col-sm-8 col-md-6 col-lg-2 form-group">
+		<label class="label-control">Código</label>
+		<div class="input-group">
+			<input type="text" class="form-control"
+				ng-blur="busquedaRapidaPrefacturable()"
+				ng-change = "cambioCodigoPrefacturable()"
+				ng-model="filter.codigo"
+				id="sa-prefacturableselector-codigo-input"
+				min="0"
+				max="99999999999"
+				sa-enter
+				sa-integer>
+			<span class="input-group-btn">
+				<button class="btn btn-default btn-loading" 
+						uib-tooltip="Buscar item" 
+						tooltip-placement="top"
+						id="sa-prefacturableselector-buscar-btn"
+						ng-click="searchPrefacturables()"
+						sa-punto-click="searchPrefacturables()"
+						sa-enter>
+					<span ng-class="icono.SEARCH" class="glyphicon glyphicon-search"></span>
+				</button>
+			</span>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-8 col-md-6 col-lg-6 form-group">
+		<label class="">Nombre</label>
+		<input type="text" class="form-control"
+			ng-model="filter.nombre"
+			ng-disabled="true"
+			id="sa-prefacturableselector-nombre-input"
+			sa-enter>
+	</div>
+</div>

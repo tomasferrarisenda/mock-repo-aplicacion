@@ -1,0 +1,83 @@
+<sa-loading ng-if="vm.loading"></sa-loading>
+<sa-modal-header title-name="Nuevo Prestamo Enfermera: {{vm.enfermera.Nombre}}" title-icon="TRANSFER" ng-show="!vm.loading">
+
+</sa-modal-header>
+<sa-modal-body ng-show="!vm.loading">
+
+	<div class="row">
+		<div class="col-xs-3" style="border-right: 2px solid rgb(189, 187, 187);">
+
+			<div class="tableturnos table-responsive">
+				<table class="table table-fixed table-cursor-pointer table-hover">
+					<thead>
+						<tr class="cabecera-tabla">
+							<th class="col-xs-12 text-center">Sectores Por Defecto</th>
+						</tr>
+					</thead>
+					<tbody class="bodyturnos" style="height: 350px;">
+						<tr ng-repeat="sector in vm.sectoresPorDefecto" class="rowturnos">
+							<td class="col-xs-12 text-center">{{ sector }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+
+		<div class="col-xs-5">
+			<div class="tableturnos table-responsive">
+				<table class="table table-fixed table-cursor-pointer table-hover">
+					<thead>
+						<tr class="cabecera-tabla">
+							<th class="col-xs-8 text-center">Sector - Piso</th>
+							<th class="col-xs-4 text-center">Asignar</th>
+						</tr>
+					</thead>
+					<tbody class="bodyturnos" style="height: 350px;">
+						<tr ng-repeat="sector in vm.sectoresPorEnfermera" ng-class="{'color-aquaorange-turno': sector.Activo }" class="rowturnos">
+							<td class="col-xs-8 text-center">{{ sector.Nombre + ' - ' + sector.Piso }}</td>
+							<td class="col-xs-4 text-center">
+								<sa-check-box ng-model="sector.Activo" color="green">
+								</sa-check-box>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="col-xs-4">
+			<div class="row">
+
+				<div class="col-xs-12">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" sa-form-input>
+							<label for="datePickerDesde ">Fecha Desde</label>
+							<sa-date-time-picker ng-model="vm.fechaDesde " id="1" type="date" ng-change="vm.changeFechaDesde()">
+							</sa-date-time-picker>
+						</div>
+
+						<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" sa-form-input>
+							<label for="datePickerHasta ">Fecha Hasta</label>
+							<sa-date-time-picker ng-model="vm.fechaHasta " id="2" type="date" min="vm.fechadesdeMin">
+							</sa-date-time-picker>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group pull-right">
+					<sa-check-box ng-model="vm.excluirSubSeccion" color="green" label-right="'Incluye Sectores por defecto'" pull-right="true">
+					</sa-check-box>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+</sa-modal-body>
+<sa-modal-footer ng-show="!vm.loading">
+	<input type="submit" id="btnReglas" value="Guardar" class="btn btn-success" ng-click="vm.guardar()">
+	<input type="submit" class="btn" ng-click="vm.cancel()" value="Cerrar">
+</sa-modal-footer>
+</div>

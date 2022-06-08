@@ -1,0 +1,31 @@
+<form name="formBuscador" accept-charset="utf-8" novalidate >			
+	<div class="modal-header">
+		<h4 class="modal-title">Selector de Prestacion</h4>				
+	</div>
+	<div class="modal-body" ng-hide="vm.formControl.loading || vm.formControl.error">		
+		
+			<sa-prestacion-list 
+				
+				ng-model="vm.data.prestacionesXsucursal"
+				view-estado-if="true"
+				items-per-page="3"
+				view-acciones-if = "false"
+				view-seleccionar-if = "true"
+				
+				></sa-prestacion-list>
+		
+
+	</div>
+	<div class="modal-footer" >
+		<button type="button"
+			class="btn "
+			ng-click="$dismiss()" sa-enter>Cancelar</button>
+		<button type="button"
+			class="btn btn-default"
+			ng-disabled="!vm.formControl.validarForm()"
+			ng-click="$dismiss()" sa-enter>Aceptar</button>
+	</div>
+</form>	
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>	
+
+	

@@ -1,0 +1,89 @@
+<sa-modal-header title-name="Buscador de Producto" title-icon="SEARCH" loading="vm.loading">
+
+</sa-modal-header>
+<sa-modal-body loading="vm.loading">
+
+	<div class="row">
+		<div class="col-xs-3" sa-form-input>
+			<label for="">Tipo Producto</label>
+			<select class="form-control" name="tipoStockeable" ng-model="vm.tipoStockeable" id="buscador-producto-tipoproducto-select"
+			ng-options="tipoStockeable as tipoStockeable.Nombre for tipoStockeable in vm.tipoStockeableList track by tipoStockeable.Id"
+			 ng-disabled='disabled' sa-enter autofocus>
+				<option value="">-SELECCIONAR-</option>
+			</select>
+		</div>
+
+		<div class="col-xs-3" sa-form-input>
+			<label class="label-control">Código</label>
+			<input type="number" class="form-control" ng-model="vm.codigoStockeable" ng-blur="vm.buscarStockeables()" min="0" max="99999999999"
+			 sa-enter sa-integer id="buscador-producto-codigo-input">
+		</div>
+
+		<div class="col-xs-12 col-sm-8 col-md-5 col-lg-5 form-group">
+			<label class="label-control">Nombre</label>
+			<input type="text-uppercase" class="form-control text-uppercase" ng-model="vm.nombreFilter" minlength="3" maxlength="255"
+			 sa-enter id="buscador-producto-nombre-input"> 
+		</div>
+
+		<div class="col-xs-12 col-sm-8 col-md-6 col-lg-6 form-group">
+			<label class="label-control">Presentacion</label>
+			<input type="text-uppercase" class="form-control text-uppercase" ng-model="vm.presentacionFilter"  minlength="3" maxlength="255" 
+			sa-enter id="buscador-producto-presentacion-input">
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 ">
+			<button sa-btn-search ng-click="vm.buscar()" class="btn-row" sa-enter id="buscador-producto-buscar-btn">
+				Buscar
+			</button>
+			<button sa-btn-clean ng-click="vm.limpiarFiltros()" class="btn-row pull-right" sa-enter id="buscador-producto-limpiar-btn">
+				Limpiar
+			</button>
+		</div>
+
+	</div>
+
+	<div class="row">
+		<!-- lista de productos -->
+		<div class="col-xs-12" ng-if="vm.productosList">
+			<!-- Se define el container que gestiona la tabla-->
+			<fw-table-container>
+				<fw-table-config exportable="false" sortable="false" filtrable="true" paginable="true" column-config="true">
+				</fw-table-config>
+				<fw-table-sorting-ext sort-change="sortChangeInternal(sorting)">
+				</fw-table-sorting-ext>
+				<fw-table-rowset data="vm.productosList" click-action="vm.selectRow(row)">
+				</fw-table-rowset>
+				<!-- Se define un columnset en el cual se setean (opcional) las columnas por datos -->
+				<fw-table-columnset>
+					<!-- Se define una column con los datos de una columna (opcional)-->
+					<!-- Se pueden agregar las columnas por datos y además agregarlas de a una. -->
+					<fw-table-column label="'Codigo'" field="'Codigo'">
+					</fw-table-column>
+			
+					<fw-table-column label="'Nombre'" field="'Nombre'">
+					</fw-table-column>
+			
+					<fw-table-column label="'Presentación'" field="'Presentacion'">
+					</fw-table-column>
+			
+				</fw-table-columnset>
+			
+				<!-- FILTRADO DINAMICO [Opcional] -->
+				<!-- Debe estar configurado en true la configuracion correspondiente -->
+				<!-- Solo debería funcionar si se trata de una tabla interna -->
+				<fw-table-filter init='true'></fw-table-filter>
+			
+				<!-- Paginacion interna : no se necesita definir ningun valor, se toman los por defecto.-->
+				<!-- Opcionalmente se puede redefinir page-size -->
+				<fw-table-pagination page-size="10"></fw-table-pagination>
+				<!-- Por ultimo el renderizado de la tabla -->
+				<fw-table></fw-table>
+			</fw-table-container>
+		</div>
+	</div>
+
+</sa-modal-body>
+<sa-modal-footer loading="vm.loading">
+	<input type="submit" class="btn" ng-click="vm.cancel()" value="Cancelar" id="buscador-producto-cancel-btn">
+</sa-modal-footer>
+</div>

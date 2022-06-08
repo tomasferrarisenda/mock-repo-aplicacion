@@ -1,0 +1,142 @@
+@import '../common/variables';
+/* Adaptacion */
+
+uib-tab-heading {
+	cursor: pointer;
+	padding: 10px;
+}
+
+.navbar-inverse .navbar-nav > .open > div, .nav > li > div.active {
+	background-color: $color-azul-sa !important;
+	color: $color-white !important
+}
+
+
+/* Fix Ui-Bootstrap 1.0.0 */
+
+.datos, .tab-verde , .color-tab-1 {
+	border-bottom: 5px solid $color-tab-verde !important;
+}
+.informe, .tab-naranja, .color-tab-2 {
+	border-bottom: 5px solid $color-tab-naranja !important;
+}
+.prescripcion, .tab-violeta, .color-tab-3 {
+	border-bottom: 5px solid $color-tab-violeta !important;
+}
+.admision, .tab-rosa, .color-tab-4 {
+	border-bottom: 5px solid $color-tab-rosa !important;
+}
+.protesis, .tab-verde-claro, .color-tab-5 {
+	border-bottom: 5px solid $color-tab-verde-claro !important;
+}
+.banco, .tab-celeste, .color-tab-6 {
+	border-bottom: 5px solid $color-tab-celeste !important;
+}
+.esterilizacion, .tab-rojo, .color-tab-7 {
+	border-bottom: 5px solid $color-tab-rojo !important;
+}	
+.cirugia, .tab-dark, .color-tab-8 {
+	border-bottom: 5px solid $color-tab-dark !important;
+}
+
+.tab-content {
+	padding-left: 0px;
+}
+
+.nav-tabs {
+
+	li {
+		margin-bottom: 5px;
+		margin-left: 0px;
+		margin-right: 0px;
+
+		a {
+			height: 40px;
+			padding-left: 0px !important;
+			padding-right: 0px !important;
+			margin-left: 0px;
+			margin-right: 0px;
+			border: 0px;
+		}
+	}
+	
+	li.datos-bg.active, li.tab-verde-bg.active, li.color-tab-1-bg.active {
+		a {
+			background-color: $color-tab-verde !important;
+			border-left: 0px;
+			border-top: 0px;
+			border-bottom: 0px;
+			color: white;
+		}
+	} 
+
+	li.informe-bg.active, li.tab-naranja-bg.active, li.color-tab-2-bg.active {
+		a {
+			background-color: $color-tab-naranja !important;
+			border-left: 0px;
+			border-top: 0px;
+			border-bottom: 0px;
+			color: white;
+		}
+	}
+
+	li.prescripcion-bg.active, li.tab-violeta-bg.active, li.color-tab-3-bg.active {
+		a {
+			background-color: $color-tab-violeta !important;
+			border-left: 0px;
+			border-top: 0px;
+			border-bottom: 0px;
+			color: white;
+		}
+	}
+
+	li.admision-bg.active, li.tab-rosa-bg.active, li.color-tab-4-bg.active {
+		a {
+			background-color : $color-tab-rosa !important;
+			border-left: 0px;
+			border-top: 0px;
+			border-bottom: 0px;
+			color: white;
+		}
+	}
+
+	li.protesis-bg.active, li.tab-verde-claro-bg.active, li.color-tab-5-bg.active {
+		a {
+			background-color : $color-tab-verde-claro !important;
+			border-left: 0px;
+			border-top: 0px;
+			border-bottom: 0px;
+			color: white;
+		}
+	}
+
+	li.banco-bg.active, li.tab-celeste-bg.active, li.color-tab-6-bg.active {
+		a {
+			background-color: $color-tab-celeste !important;
+			border-left: 0px;
+			border-top: 0px;
+			border-bottom: 0px;
+			color: white;
+		}
+	}
+
+	li.esterilizacion-bg.active, li.tab-rojo-bg.active, li.color-tab-7-bg.active {
+		a {
+			background-color: $color-tab-rojo !important;
+			border-left: 0px;
+			border-top: 0px;
+			border-bottom: 0px;
+			color: white;
+		}
+	}
+
+	li.cirugia-bg.active, li.tab-dark-bg.active, li.color-tab-8-bg.active {
+		a {
+			background-color: $color-tab-dark !important;
+			border-left: 0px;
+			border-top: 0px;
+			border-bottom: 0px;
+			color: white;
+		}
+	}
+}

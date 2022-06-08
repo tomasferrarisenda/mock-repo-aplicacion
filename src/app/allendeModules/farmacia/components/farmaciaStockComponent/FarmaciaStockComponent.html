@@ -1,0 +1,32 @@
+<div class="row" ng-show="!vm.loading">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<div class="row fila">
+
+			<div class="col-xs-2">
+				<sa-sucursal-combo-filtrado ng-model="vm.sucursal" todas="false">
+				</sa-sucursal-combo-filtrado>
+			</div>
+
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-6">
+				<sa-piso-sector-contenedor sucursal="vm.sucursal" piso="vm.piso" sector="vm.sector" deposito="vm.deposito" mostrar-deposito="true">
+				</sa-piso-sector-contenedor>
+			</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 pull-right">
+					<div class="row">
+						<div class="col-xs-6">
+							<button sa-btn-search ng-click="vm.buscar()" class="btn-row" sa-punto-click="vm.buscar()">
+								Buscar
+							</button>
+						</div>
+						<div class="col-xs-6">
+							<button sa-btn-clean ng-click="vm.limpiarFiltros()" class="btn-row" sa-punto-click="vm.limpiarFiltros()">
+								Limpiar
+							</button>
+						</div>
+					</div>
+				</div>
+
+		</div>
+	</div>
+</div>

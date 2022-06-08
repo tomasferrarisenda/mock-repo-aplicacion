@@ -1,0 +1,94 @@
+
+	<!-- <div id="print-content" class="container-print"> -->
+
+		<form name="formPersona" accept-charset="utf-8" novalidate >
+			<div class="modal-header">
+				<h4 class="modal-title">Alta del Paciente</h4>
+				<h4>{{data.prescripcion.NombrePaciente}}, {{data.prescripcion.TipoDocumento}}: {{data.prescripcion.NumeroDocumento}}</h4>
+			</div>
+			<div class="modal-body">
+			<sa-loading ng-if="vm.formControl.loading"></sa-loading>
+				<div class="row">
+
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 colleft ">
+						<label for="cmb_tipo_documento" id="label_indicacion">Tipo de Alta:</label>
+							<select id="select_indicacion"
+								class="form-control"
+								name="indicaciones"
+								ng-model="formData.tipoAlta"
+								ng-class="validar.error(formData.tipoAlta.$valid)"
+								ng-change="formControl.cambioTipoAlta()"
+								ng-options="tipoAlta as tipoAlta.Nombre
+											for tipoAlta in data.tiposAlta" 
+								required >
+								<option value="">--SELECCIONAR--</option>
+							</select>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 colleft " ng-hide="!formControl.internacion">
+						<label for="cmb_tipo_documento" id="label_indicacion">Tipo de Internacion:</label>
+							<select id="select_indicacion"
+								class="form-control"
+								name="indicaciones"
+								ng-model="formData.tipoInternacion"
+								ng-class="validar.error(formData.tipoInternacion.$valid)"
+								ng-change="formControl.controlCarga()"
+								
+								ng-options="tipoInternacion.nombre_tipo_internacion
+											for tipoInternacion in data.tiposInternacion" 
+								required >
+								<option value="">--SELECCIONAR--</option>
+							</select>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 colleft " ng-hide="!formControl.internacion">
+						<label for="cmb_tipo_documento" id="label_indicacion">Tipo Habitacion:</label>
+							<select id="select_indicacion"
+								class="form-control"
+								name="indicaciones"
+								ng-model="formData.tipoHabitacion"
+								ng-class="validar.error(formData.tipoHabitacion.$valid)"
+								ng-change="formControl.controlCarga()"
+								
+								ng-options="tipo_habitacion.descripcion
+											for tipo_habitacion in data.tiposHabitacion" 
+								required >
+								<option value="">--SELECCIONAR--</option>
+							</select>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 colleft " ng-hide="!formControl.internacion">
+						<label >Informe Medico:</label>
+							<textarea type="text" class="form-control " placeholder="Observaciones"
+								name="Informe"
+								ng-change="formControl.controlCarga()"
+								ng-model="formData.informeMedico" >
+							</textarea>
+					</div>
+
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 colleft" ng-hide="!formControl.internacion">
+						<label for="cmb_tipo_documento">Diagnostico:</label>	
+						<input  type="text" 
+							placeholder="Diagnostico..." 
+							ng-model="formData.diagnostico.titulo_cie_enfermedad"
+							class="form-control"
+							ng-disabled="true"
+							ng-hide="false">
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 colleft" ng-hide="!formControl.internacion">
+						<BR><BR>
+						<button class="btn btn-default" ng-click="formControl.cargarDiagnostico()">Diagnostico</button>
+					</div>
+
+				</div>
+			</div>
+			<div class="modal-footer" >
+				<button type="button"
+						class="btn btn-default"
+						ng-disabled="formData.tipoAlta.$valid || !formControl.aceptar"
+						ng-click="formControl.darAlta()">Aceptar</button>
+				<button type="button"
+						class="btn btn-cancelar"
+						ng-disabled=""
+						ng-click="formControl.cancel()">Cancelar</button>					
+			</div>
+
+	<sa-loading ng-if="vm.formControl.loading"></sa-loading>
+	

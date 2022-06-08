@@ -1,0 +1,473 @@
+<div class="cuerpo" ng-hide="vm.formControl.loading">
+    <sa-title title-name="vm.title.name" title-icon="{{vm.title.icon}}" switch-if="vm.filter.idAmbito === vm.ORIGEN_PREFACTURA.TURNO ? true : false" switch-label="Enviar Al Llamador"
+        switch-model="vm.data.prefactura.EnviarAlLlamador"></sa-title>
+    <form name="formPrefactura" accept-charset="utf-8" novalidate>
+        
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-7 form-group">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-5 form-group">
+                        <label>Paciente</label>
+                        <input type="text" class="form-control" ng-model="vm.data.prefactura.NombrePaciente"
+                            ng-disabled="true" sa-enter id="pref-amb-edit-paciente-input">
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
+                        <label>Documento</label>
+                        <input type="text" class="form-control" ng-model="vm.data.prefactura.DocumentoPaciente"
+                            ng-disabled="true" sa-enter id="pref-amb-edit-documento-input">
+                    </div>
+                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3 form-group" ng-controller="DatePickerController">
+                        <label class="control-label">Fecha Realización</label>
+                        <input type="date" class="form-control" ng-model="vm.filter.fechaRealizacion" ng-disabled="true"
+                            sa-enter id="pref-amb-edit-fecharealizacion-input">
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-1 form-group">
+                        <button type="button" class="btn btn-default btn-row" tooltip-placement="top" uib-tooltip="Editar Paciente"
+                            ng-click="vm.formControl.editarPaciente()" sa-punto-click="vm.formControl.editarPaciente()"
+                            ng-disabled="vm.data.prefactura.TieneItemsAutorizados" sa-enter id="pref-amb-edit-editpaciente-btn">
+                            <sa-icon name="EDIT"></sa-icon>
+                        </button>
+                    </div>
+                  
+                </div>
+          
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-5 form-group">
+                        <label class="label-control">Financiador y Plan</label>
+                        <select class="form-control" ng-model="vm.filter.coberturaElegida" ng-change="vm.formControl.cambioCobertura()" 
+                            ng-options="cobertura as (cobertura.NombreCorto +' | '+ cobertura.PlanMutualNombre) for cobertura in vm.filter.coberturas track by cobertura.Id"
+                            ng-disabled="vm.data.prefactura.TieneItemsAutorizados || (vm.data.prefactura.IdEstadoCobranzaCaja === 4 || vm.data.prefactura.IdEstadoCobranzaCaja === 5)  || (vm.data.prefactura.IdEstadoPrefactura != 5 && !vm.data.prefactura.TieneItemsConDefinitivo)"
+                            sa-enter autofocus id="pref-amb-edit-financiadorplan-select">
+                        </select>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
+                        <label class="label-control">Número Afiliado</label>
+                        <!-- <input type="text" class="form-control" ng-model="vm.data.prefactura.NroAfiliado" ng-disabled="vm.filter.coberturaElegida.EsParticular || vm.data.prefactura.TieneItemsAutorizados || (vm.data.prefactura.IdEstadoCobranzaCaja === 4 || vm.data.prefactura.IdEstadoCobranzaCaja === 5)" 
+                            sa-enter> -->
+                        <input type="text" class="form-control" ng-model="vm.data.prefactura.NroAfiliado" style="margin-bottom: 1px !important;" placeholder="{{vm.filter.coberturaElegida.MascaraNumeroAfiliado}}"
+                        ng-disabled="vm.filter.coberturaElegida.EsParticular || (vm.data.prefactura.TieneItemsAutorizados && !vm.UsuarioFacturista)"
+                            sa-enter id="pref_amb_edit_nroafiliado_input" name="pref_amb_edit_nroafiliado_input"
+                            ng-pattern="{{vm.filter.coberturaElegida.ReglaFormatoNumeroAfiliado}}"
+                            ng-model-options="{ allowInvalid: true}" uib-tooltip="INFO: {{vm.filter.coberturaElegida.InformacionNumeroAfiliado}}">
+                            <span class="text-error" ng-show="formPrefactura.pref_amb_edit_nroafiliado_input.$error.pattern"> Formato incorrecto</span>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
+                        <label class="label-control">Tipo Afiliación</label>
+                        <!-- <select class="form-control" ng-model="vm.filter.TipoAfiliacionElegida" ng-options="tipo.Nombre for tipo in vm.filter.tiposAfiliacion track by tipo.Id"
+                            ng-disabled="vm.filter.coberturaElegida.EsParticular || vm.data.prefactura.TieneItemsAutorizados || (vm.data.prefactura.IdEstadoCobranzaCaja === 4 || vm.data.prefactura.IdEstadoCobranzaCaja === 5)"                            
+                            sa-enter autofocus>
+                        </select> -->
+                        <select class="form-control" ng-model="vm.filter.TipoAfiliacionElegida" ng-options="tipo.Nombre for tipo in vm.filter.tiposAfiliacion track by tipo.Id"
+                            ng-disabled="vm.filter.coberturaElegida.EsParticular || (vm.data.prefactura.TieneItemsAutorizados && !vm.UsuarioFacturista)"
+                            sa-enter autofocus id="pref-amb-edit-tipoafiliacion-select">
+                        </select>
+                    </div>
+                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 form-group">
+                        <button type="button" class="btn btn-default btn-row" tooltip-placement="top" uib-tooltip="Información Financiador"
+                            ng-click="vm.formControl.infoFinanciador()" sa-punto-click="vm.formControl.infoFinanciador()" id="pref-amb-edit-infofinanciador-btn"
+                            ng-disabled="vm.filter.coberturaElegida.EsParticular" sa-enter>
+                            <sa-icon name="INFO"></sa-icon>
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-5 form-group" uib-tooltip="{{vm.data.prefactura.MensajeAutorizacion}}"
+                        tooltip-placement="top">
+                        <label class="label-control">Autorización</label>
+                        <input type="text" class="form-control {{vm.data.prefactura.ColorAutorizacion}}" ng-model="vm.data.prefactura.EstadoAutorizacion"
+                            ng-disabled="true" sa-enter id="pref-amb-edit-autorizacion-input">
+                    </div>                    
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
+                        <label>Número</label>
+                        <!-- <input type="text" id="txtNumeroAutorizacion" ng-model="vm.data.prefactura.NroAutorizacion"
+                            class="form-control" ng-disabled="!vm.data.prefactura.AutorizacionManual || (vm.data.prefactura.IdEstadoCobranzaCaja === 4 || vm.data.prefactura.IdEstadoCobranzaCaja === 5)"
+                            ng-blur="vm.formControl.cambioNroAfiliado()" sa-enter> -->
+                        <input type="text" ng-model="vm.data.prefactura.NroAutorizacion"
+                            class="form-control" ng-disabled="!vm.data.prefactura.AutorizacionManual"
+                            ng-blur="vm.formControl.cambioNroAutorizacion()" sa-enter id="pref-amb-edit-numeronumero-input">
+                    </div>
+                    <!-- <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 form-group">
+                        <label>CSC</label>
+                        <input type="text" ng-model="vm.data.prefactura.CSCAfiliado"
+                            class="form-control" maxlength="8" ng-disabled="!vm.data.prefactura.AutorizadorValidaCSC"
+                            sa-enter id="pref-amb-edit-csc-input">
+                    </div> -->
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-1 form-group">
+                        <button type="button" class="btn btn-default btn-row" uib-tooltip="Autorización manual"
+                            tooltip-placement="top" ng-click="vm.formControl.editarAutorizacion()" sa-punto-click="vm.formControl.editarAutorizacion()"
+                            ng-disabled="(vm.data.prefactura.TieneItemsAutorizados || !vm.data.prefactura.RequiereAutorizacion || vm.filter.coberturaElegida.EsParticular) && !vm.data.prefactura.TodosItemsRechazados"
+                            sa-enter id="pref-amb-edit-editarautorizacion-btn">
+                            <sa-icon name="EDIT"></sa-icon>
+                        </button>
+                    </div>
+                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 form-group">
+                        <button type="button" class="btn btn-default btn-row" tooltip-placement="top" uib-tooltip="Imprimir Orden"
+                            ng-click="vm.formControl.imprimirOrden()" sa-punto-click="vm.formControl.imprimirOrden()"
+                            sa-enter id="pref-amb-edit-imprimirorden-btn">
+                            <sa-icon name="PRINT"></sa-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-5 form-group">
+                <div class="row" ng-if="vm.data.patologias && vm.data.patologias.length">
+
+                    <div class="col-xs-12 col-sm-2 col-md-1 col-lg-1 form-group" >
+                        <button type="button" class="btn btn-row pulse" tooltip-placement="top" uib-tooltip="El paciente tiene seguimiento de patologias" style="background-color: red; color:white"
+                        >
+                        <sa-icon name="BELL" class=""></sa-icon>
+                    </button>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 form-group">
+                        <label style="color:red; font-weight: bold;">Seguimiento Patologia</label>
+                        <table class="table table-bordered table-condensed">
+                            <tbody>
+                                <tr ng-repeat="patologia in vm.data.patologias">
+                                    <td>
+                                        <div class="pull-left">
+                                            <div class="circulito" ng-class="patologia.EstadoSospechaColor"></div>
+                                        </div>
+                                        &nbsp;
+                                        <span>{{patologia.TipoSeguimientoSospechaPatologiaNombre}} - {{patologia.EstadoSospechaNombre}}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-12 form-group btn-row table-requisitos">
+                        <table class="table table-bordered table-responsive">
+                            <thead>
+                                <tr class="cabecera-tabla verde">
+                                    <th class="text-center">Requisitos</th>
+                                    <th class="text-center"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="requisito in vm.data.prefactura.Requisitos | orderBy: 'IdTipoRequisito'" id="pref-amb-edit-requisitos-row-{{$index}}">
+                                    <td class="text-left">{{requisito.Texto}}</td>
+                                    <td class="row text-center">
+                                        <!-- 
+                                        <input type="text" class="form-control" ng-model="requisito.Respuesta" 
+                                            ng-if="requisito.IdTipoRequisito === vm.TIPO_REQUISITO.TEXTOAINGRESAR"
+                                            ng-disabled="false"
+                                            sa-enter id="pref-amb-edit-requisito-textoingresar{{$index}}">
+
+                                        <input type="number" class="form-control text-right" ng-model="requisito.Respuesta" 
+                                            ng-if="requisito.IdTipoRequisito === vm.TIPO_REQUISITO.NUMEROAINGRESAR"
+                                            ng-disabled="false"
+                                            sa-enter id="pref-amb-edit-requisito-nroingresar{{$index}}">    
+                                            -->
+                                        <sa-check-box ng-if="requisito.IdTipoRequisito === vm.TIPO_REQUISITO.LOGICO" id-element="pref-amb-edit-requisito-slider{{$index}}"
+                                            ng-model="requisito.Respuesta" ng-init="requisito.Respuesta = requisito.Respuesta === 'true'"></sa-check-box>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6 form-group">
+                <sa-profesional-selector model='vm.filter.profesionalEfector' title='Matrícula efector'
+                    mostrarlabelnombre='true' mostrarlabelcodigo='true' tooltip='Buscar' disabled="vm.data.prefactura.TieneItemsAutorizados || vm.data.prefactura.AutorizacionManual">
+                </sa-profesional-selector>
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3 form-group">
+                <label>Servicio</label>
+                <input type="text" class="form-control" ng-model="vm.data.prefactura.NombreServicioEvento" ng-disabled="true"
+                    sa-enter id="pref-amb-edit-servicioevento-input">
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 form-group" ng-hide="!vm.data.prefactura.RequierePresupuestoPrevioAprobado"
+                ng-disabled="(vm.data.prefactura.IdEstadoCobranzaCaja === 4 || vm.data.prefactura.IdEstadoCobranzaCaja === 5)">
+                <sa-check-box label="Tiene Presupuesto Previo Aprobado" ng-model="vm.data.prefactura.TienePresupuestoPrevioAprobado"
+                    color="green" sa-enter id-element="pref-amb-edit-requierepresprevapro-slider"></sa-check-box>
+            </div>
+        </div>
+        <div class="row" ng-if="!vm.filter.soloConsulta">
+            <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6 form-group">
+                <sa-profesional-solicitante-selector model='vm.filter.profesionalSolicitante' title='Matrícula solicitante'
+                    mostrarlabelnombre='true' mostrarlabelcodigo='true' matriculaInicial='{{vm.data.prefactura.MatriculaProfesionalSolicitante}}'
+                    tooltip='Buscar'></sa-profesional-solicitante-selector>
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-6 col-lg-2 form-group">
+                <label class="control-label">Fecha Prescripción</label>
+                <sa-date-time-picker ng-model="vm.filter.fechaPrescripcion" max="vm.filter.fechaRealizacion" type="date"></sa-date-time-picker>
+                <!-- <input type="date" class="form-control" id="fechaPrescripcion" ng-model="vm.filter.fechaPrescripcion" ng-max="vm.filter.fechaRealizacion" sa-enter> -->
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4 form-group" ng-hide="!vm.data.prefactura.AsignarTecnico">
+                <sa-tecnico model='vm.filter.tecnico' title='Código Técnico' idservicio='{{vm.data.prefactura.IdServicioEvento}}'
+                    mostrarlabelnombre='true' mostrarlabelcodigo='true' tooltip='Buscar Técnico'></sa-tecnico>
+            </div>
+        </div>
+        <div class="row" ng-if="!vm.filter.soloConsulta">
+            <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6 form-group">
+                <sa-cie10 model='vm.filter.cie10' title='CIE 10' mostrarlabelnombre='true' mostrarlabelcodigo='true'
+                    tooltip='Buscar CIE10'></sa-cie10>
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6 form-group">
+                <label>Diagnóstico</label>
+                <input type="text" class="form-control" maxlength="255" ng-model="vm.data.prefactura.Diagnostico"
+                    sa-enter id="pref-amb-edit-diagnostico-input">
+            </div>
+        </div>
+        <!-- Items prefacturados -->
+        <div class="row" sa-escape="vm.filter.mostrarNuevoPrefacturable = false">
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 form-group pull-right">
+                <button type="button" class="btn btn-default pull-right" id="pref-amb-edit-agregar-btn" tooltip-placement="top"
+                    uib-tooltip="Agregar item" ng-disabled="!vm.filter.profesionalEfector || (vm.data.prefactura.IdEstadoCobranzaCaja === 4 || vm.data.prefactura.IdEstadoCobranzaCaja === 5)"
+                    ng-click="vm.filter.mostrarNuevoPrefacturable = !vm.filter.mostrarNuevoPrefacturable"
+                    sa-punto-click="vm.filter.mostrarNuevoPrefacturable = !vm.filter.mostrarNuevoPrefacturable"
+                    sa-enter >
+                    <span ng-class="icono.SEARCH" class="glyphicon glyphicon-plus"></span>
+                </button>
+            </div>
+        </div>
+        <div class="row" sa-escape="vm.filter.mostrarNuevoPrefacturable = false">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 form-group" ng-if="vm.filter.mostrarNuevoPrefacturable">
+                <sa-prefacturable-selector model='vm.filter.prefacturableNuevo' ng-disabled="false" sa-enter></sa-prefacturable-selector>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 form-group" ng-if="vm.filter.mostrarNuevoPrefacturable">
+                <button type="button" class="btn btn-default btn-row" ng-click="vm.formControl.cargarPrefacturableNuevo()"
+                    sa-punto-click="vm.formControl.cargarPrefacturableNuevo()" ng-disabled="!vm.filter.prefacturableNuevo" id="pref-amb-edit-cargarprefacturablenuevo-btn"
+                    sa-enter>
+                    Cargar
+                </button>
+                <button type="button" class="btn btn-cancelar btn-row" ng-click='vm.filter.mostrarNuevoPrefacturable = false; vm.filter.prefacturableNuevo = null; vm.formControl.focoAgregarItem()'
+                    sa-punto-click='vm.filter.mostrarNuevoPrefacturable = false; vm.filter.prefacturableNuevo = null; vm.formControl.focoAgregarItem()'
+                    sa-enter id="pref-amb-edit-cancelarprefacturable-btn">
+                    Cancelar
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-6 col-lg-12 form-group">
+                <table class="table-responsive table table-hover table-condensed table-bordered">
+                    <thead>
+                        <tr class="thead-azul cabecera-tabla">
+                            <th class="text-left" style="width:70px">Código</th>
+                            <th class="text-left">Nombre</th>
+                            <th class="text-center" style="width:110px">Item c/u</th>
+                            <th class="text-center" style="width:80px">Cantidad</th>
+                            <th class="text-center" style="width:100px">% Práctica</th>
+                            <th class="text-center" style="width:100px">% Coseg. Total</th>
+                            <th class="text-center" style="width:110px">$ Coseg. Total</th>
+                            <th class="text-center" style="width:110px">Paciente</th>
+                            <th class="text-center" style="width:110px">Financiador</th>
+                            <th class="text-center" style="width:110px">Total Item</th>
+                            <th class="text-center" style="width:70px">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-repeat="item in vm.data.prefactura.Items track by $index" ng-init="itemIndex = $index" context-menu="vm.menuOptions" >
+                        <tr sa-escape="item.VerDetalle = false" id="pref-amb-edit-items-row-{{$index}}">
+                            <td ng-dblclick="vm.formControl.verDetalleItem($index, item.VerDetalle)" class="{{item.ColorAutorizacion}}"
+                                data-toggle="tooltip" title="{{item.MensajeAutorizacion}}">{{item.Codigo}}</td>
+                            <td ng-dblclick="vm.formControl.verDetalleItem($index, item.VerDetalle)" class="{{item.ColorNoEstaIncluido}}"
+                                data-toggle="tooltip" title="{{item.TextoNoEstaIncluido}}">{{item.Nombre}}</td>
+                            <td ng-dblclick="vm.formControl.verDetalleItem($index, item.VerDetalle)" class="text-right">${{vm.formControl.calcularImporteItemUnitario(item)|
+                                number : 2}}</td>
+                            <!-- <td ng-dblclick="vm.formControl.verDetalleItem($index, item.VerDetalle)" class="text-right">${{(item.HonorarioEspecialista + item.HonorarioAyudante + item.HonorarioAnestesista + item.Derecho + item.ImporteGlobal)| number : 2}}</td> -->
+                            <td ng-dblclick="vm.formControl.verDetalleItem($index, item.VerDetalle)">
+                                <div class="input-group">
+                                    <input type="number" class="form-control text-right" style="border-radius:4px"
+                                        ng-model="item.Cantidad" ng-class="item.Cantidad > 9 ? 'color-amarillo' : 'color-white'"
+                                        ng-disabled="(!vm.UsuarioPreFacturista && (item.Autorizado || (vm.data.prefactura.IdEstadoCobranzaCaja === 4 || vm.data.prefactura.IdEstadoCobranzaCaja === 5)))"
+                                        ng-blur="vm.formControl.cambioMontosPrefactura(item)" min="1" max="99"
+                                        sa-enter id="pref-amb-edit-items-row-{{$index}}-cantidad-input">
+                                </div>
+                            </td>
+                            <td ng-dblclick="vm.formControl.verDetalleItem($index, item.VerDetalle)">
+                                <div class="input-group">
+                                    <input type="number" class="form-control text-right" 
+                                        style="border-radius:4px" ng-model="item.PorcentajePractica" ng-blur="vm.formControl.cambioMontosPrefactura(item)"
+                                        ng-disabled="((!vm.UsuarioPreFacturista && (vm.data.prefactura.IdEstadoCobranzaCaja === 4 || vm.data.prefactura.IdEstadoCobranzaCaja === 5)) || vm.formControl.itemConPorcentajePracticaParticipanteEditado(item))"
+                                        sa-percentage sa-input-importe max="999999" sa-enter id="pref-amb-edit-items-row-{{$index}}-practica-input">
+                                </div>
+                            </td>
+                            <td ng-dblclick="vm.formControl.verDetalleItem($index, item.VerDetalle)">
+                                <div class="input-group">
+                                    <input type="number" class="form-control text-right" style="border-radius:4px"
+                                        ng-model="item.PorcentajeCoseguro" ng-blur="vm.formControl.cambioPorcentajeCoseguro(item)"
+                                        ng-disabled="(item.ImporteCoseguro > 0 || item.MutualParticular || vm.data.prefactura.IdEstadoCobranzaCaja === 4 || vm.data.prefactura.IdEstadoCobranzaCaja === 5)"
+                                        sa-percentage sa-input-importe max="999999" sa-enter id="pref-amb-edit-items-row-{{$index}}-coseguro-input">
+                                </div>
+                            </td>
+                            <td ng-dblclick="vm.formControl.verDetalleItem($index, item.VerDetalle)">
+                                <div class="input-group">
+                                    <input type="number" class="form-control text-right" style="border-radius:4px"
+                                        ng-model="item.ImporteCoseguro" ng-class="item.ImporteCoseguro > ((item.HonorarioEspecialista + item.HonorarioAyudante + item.HonorarioAnestesista + item.Derecho + item.ImporteGlobal) * item.Cantidad ) ? 'color-rojo-pastel-prefactura' : 'color-white'"
+                                        ng-disabled="(item.PorcentajeCoseguro > 0 || item.MutualParticular || vm.data.prefactura.IdEstadoCobranzaCaja === 4 || vm.data.prefactura.IdEstadoCobranzaCaja === 5)"
+                                        ng-blur="vm.formControl.cambioImporteCoseguro(item)" sa-input-importe max="999999999"
+                                        data-toggle="tooltip" title="Ingrese el importe total del coseguro segun la cantidad de la práctica"
+                                        sa-enter id="pref-amb-edit-items-row-{{$index}}-preciocoseguro-input">
+                                </div>
+                            </td>
+                            <td ng-dblclick="vm.formControl.verDetalleItem($index, item.VerDetalle)" class="text-right">${{
+                                (vm.formControl.calcularImporteItemTotalPaciente(item)) | number : 2 }}</td>
+                            <td ng-dblclick="vm.formControl.verDetalleItem($index, item.VerDetalle)" class="text-right">${{
+                                (vm.formControl.calcularImporteItemTotalFinanciador(item)) | number : 2 }}</td>
+                            <td ng-dblclick="vm.formControl.verDetalleItem($index, item.VerDetalle)" class="text-right">${{
+                                (vm.formControl.calcularImporteItemTotalPaciente(item) + vm.formControl.calcularImporteItemTotalFinanciador(item)) | number : 2 }}</td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-white btn-xs" tooltip-placement="top" 
+                                    ng-click="vm.formControl.editarItemPrefactura($index, item)" sa-punto-click="vm.formControl.editarItemPrefactura($index, item)"
+                                    sa-enter id="pref-amb-edit-items-row-{{$index}}-ver-btn"
+                                    ng-disabled="(!vm.UsuarioPreFacturista)">
+                                    <sa-icon name="EDIT"></sa-icon>
+                                </button>
+                                <button type="button" class="btn btn-white btn-xs" tooltip-placement="top" ng-disabled="!vm.filter.profesionalEfector"
+                                    ng-click="vm.formControl.verDetalleItem($index, item.VerDetalle)" sa-punto-click="vm.formControl.verDetalleItem($index, item.VerDetalle)"
+                                    sa-enter id="pref-amb-edit-items-row-{{$index}}-ver-btn">
+                                    <sa-icon name="EYE_OPEN"></sa-icon>
+                                </button>
+                                <button type="button" class="btn btn-white btn-xs" tooltip-placement="top" ng-disabled="!vm.filter.profesionalEfector || !item.SePuedeEliminar || (vm.data.prefactura.IdEstadoCobranzaCaja === 4 || vm.data.prefactura.IdEstadoCobranzaCaja === 5)"
+                                    ng-click="vm.formControl.eliminarPrefacturable($index, item)" sa-punto-click="vm.formControl.eliminarPrefacturable($index, item)"
+                                    sa-enter id="pref-amb-edit-items-row-{{$index}}-borrar-btn">
+                                    <sa-icon name="DEL"></sa-icon>
+                                </button>
+                            </td>
+                            <!-- Participantes -->
+                        <tr class="animate-hide">
+                            <td colspan="15" class="btn-normal" ng-show="item.VerDetalle">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-10 col-lg-offset-1" ng-if="item.IdTipoPrefacturable === vm.TIPO_PREFACTURABLE.CODIGO_NOMENCLADOR">
+                                        <sa-cargar-participante model="vm.filter.participanteNuevo" lista-participantes="item.Participantes"
+                                            lista-componentes="vm.data.componentes" id-item="item.Id"
+                                            limite-participantes="vm.filter.limiteParticipantes"
+                                            mostrar-nuevo-participante="vm.filter.mostrarNuevoParticipante" editable="vm.data.prefactura.IdEstadoCobranzaCaja !== 4 && vm.data.prefactura.IdEstadoCobranzaCaja !== 5">
+                                        </sa-cargar-participante>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-10 col-lg-offset-1" ng-show="item.Participantes[0]"
+                                        sa-escape="item.VerDetalle = false">
+                                        <table class="table table-hover table-condensed table-striped table-bordered">
+                                            <thead class="levelTwo">
+                                                <tr></tr>
+                                                <tr class="cabecera-tabla azulado">
+                                                    <th class="text-left">Participante</th>
+                                                    <th class="text-center">Matrícula</th>
+                                                    <th>Nombre</th>
+                                                    <th>Cuenta</th>
+                                                    <th class="text-center">% Práctica</th>
+                                                    <th class="text-center">Importe</th>
+                                                    <th class="text-center">Informado</th>
+                                                    <th class="text-center">Opciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody ng-repeat="participante in item.Participantes | orderBy: 'IdTipoComponente' track by $index">
+                                                <tr id="pref-amb-edit-itemsparticipantes-row-{{$index}}">
+                                                    <td>{{participante.NombreTipoComponente}}</td>
+                                                    <td width="100">
+                                                        <div class="input-group">
+                                                            <input type="number" class="form-control text-right"
+                                                                ng-model="participante.Matricula" ng-init="matriculaAntigua = participante.Matricula"                                                                
+                                                                ng-blur="matriculaAntigua != participante.Matricula && vm.formControl.editarProfesionalParticipante(itemIndex, participante.Id, participante.Matricula, participante.IdTipoComponente, participante.Importe, participante.ImporteSugerido); matriculaAntigua = matriculaAntigua !== participante.Matricula ? participante.Matricula : matriculaAntigua"
+                                                                placeholder="0" ng-disabled="(participante.IdTipoComponente == 1 && vm.data.prefactura.IdServicioEvento != 8) || participante.IdTipoComponente == 4 || (item.EstaAutorizadoOnline && (participante.IdTipoComponente == 1 || participante.IdTipoComponente == 9))"
+                                                                max="999999999" sa-enter id="pref-amb-edit-itemsparticipantes-row-{{$index}}-matricula-input">
+                                                        </div>
+                                                    </td>
+                                                    <td data-toggle="tooltip" title="{{participante.TieneCuentas == false ? 'El participante no tiene cuentas configuradas. Comuníquese con Facturación' : '' }}">{{participante.Nombre}}</td>
+                                                    <td>
+                                                        <select id="pref-amb-edit-itemsparticipantes-row-{{$index}}-participantecuenta-select"
+                                                            class="{{participante.TieneCuentas == false ? 'form-control form-group color-rojo-pastel-prefactura' : 'form-control form-group' }}"
+                                                            data-toggle="tooltip" title="{{participante.TieneCuentas == false ? 'El participante no tiene cuentas configuradas. Comuníquese con Facturación' : '' }}"
+                                                            ng-model="participante.Cuenta" ng-options="cuenta.Numero for cuenta in participante.Cuentas track by cuenta.Numero"
+                                                            ng-disabled="(vm.data.prefactura.IdEstadoCobranzaCaja === 4 || vm.data.prefactura.IdEstadoCobranzaCaja === 5)"
+                                                            ng-change="vm.formControl.cambiarCuentaParticipante(participante)"
+                                                            sa-enter>
+                                                        </select>
+                                                    </td>
+                                                    <td width="100">
+                                                        <div class="input-group">
+                                                            <input type="number" class="form-control text-right" style="border-radius:4px" id="pref-amb-edit-itemsparticipantes-row-{{$index}}-practica-input"
+                                                                ng-model="participante.PorcentajePractica" ng-blur="vm.formControl.cambioPorcentejePracticaParticipante(itemIndex, $index)"
+                                                                ng-disabled="((!vm.UsuarioPreFacturista && (vm.data.prefactura.IdEstadoCobranzaCaja === 4 || vm.data.prefactura.IdEstadoCobranzaCaja === 5)) || item.PorcentajePractica !== 100)"
+                                                                sa-percentage sa-input-importe min="0" max="100"
+                                                                sa-enter >
+                                                        </div>
+                                                    </td>
+                                                    <td width="140">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">$</span>
+                                                            <input type="number" class="form-control text-right" id="pref-amb-edit-itemsparticipantes-row-{{$index}}-importe-input"
+                                                                ng-model="participante.Importe" ng-blur="vm.formControl.cambioImporteParticipante(itemIndex, $index);"
+                                                                ng-disabled="(vm.data.prefactura.IdEstadoCobranzaCaja === 4 || vm.data.prefactura.IdEstadoCobranzaCaja === 5)"
+                                                                sa-input-importe max="999999999" sa-enter>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center" ng-class="participante.Importe === participante.ImporteSugerido ? 'color-verde-pastel-prefactura' : 'color-rojo-pastel-prefactura'">{{participante.Importe
+                                                        !== participante.ImporteSugerido | fwPicker:'boolean'}}</td>
+                                                    <td class="text-center">
+                                                        <button type="button" class="btn btn-white btn-xs"
+                                                            tooltip-placement="top" uib-tooltip="Eliminar participante"
+                                                            ng-click="vm.formControl.eliminarParticipante(itemIndex, $index)"
+                                                            sa-punto-click="vm.formControl.eliminarParticipante(itemIndex, $index)"
+                                                            sa-enter id="pref-amb-edit-itemsparticipantes-row-{{$index}}-borrar-btn"
+                                                            ng-disabled="(item.IdTipoPrefacturable === 2 || item.IdTipoPrefacturable === 3) || !item.SePuedeEliminar || (item.EstaAutorizadoOnline && (participante.IdTipoComponente == 1 || participante.IdTipoComponente == 9))">
+                                                            <sa-icon name="DEL"></sa-icon>
+                                                        </button>
+                                                        <button type="button" class="btn btn-white btn-xs"
+                                                            tooltip-placement="top" uib-tooltip="Restablecer Importe"
+                                                            ng-click="vm.formControl.restablecerImporte(participante, itemIndex, $index)"
+                                                            ng-disabled="(vm.data.prefactura.IdEstadoCobranzaCaja === 4 || vm.data.prefactura.IdEstadoCobranzaCaja === 5)"
+                                                            sa-punto-click="vm.formControl.restablecerImporte(participante, itemIndex, $index)"
+                                                            sa-enter id="pref-amb-edit-itemsparticipantes-row-{{$index}}-refrescar-btn">
+                                                            <sa-icon name="REFRESH"></sa-icon>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tr>
+                    </tbody>
+                    <tfoot class="color-tabla-total-prefactura" ng-hide="vm.data.prefactura.Items[0] == null">
+                        <tr>
+                            <th colspan="7"><b>Total:</b></th>
+                            <td class="text-right"><b>${{vm.filter.totalPaciente | number : 2}}</b></td>
+                            <td class="text-right"><b>${{vm.filter.totalFinanciador | number : 2}}</b></td>
+                            <td class="text-right"><b>${{vm.filter.totalRecepcion | number : 2}}</b></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-12">
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-1">
+                <label class="text-right"><strong>Observaciones:</strong></label>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-5" style="margin-bottom: 5px;">
+                <textarea type="text" style="border-radius:4px; width:100%; margin-bottom:0px;" class="col-xs-12 col-sm-6 col-md-4 col-lg-5"
+                    ng-model="vm.data.prefactura.Observacion" rows="3" maxlength="255"></textarea>
+                <span class="label pull-right" ng-class="(vm.data.prefactura.Observacion.length > 245) 
+					? ((vm.data.prefactura.Observacion.length == 255) ? 'label-danger' : 'label-warning') : 'label-default'">
+                    {{vm.data.prefactura.Observacion.length ? vm.data.prefactura.Observacion.length : 0}}/255
+                </span>
+            </div>
+        </div>
+    </form>
+    <div class="row text-center form-group">
+        <button class="btn btn-default" ng-disabled="!vm.formControl.habilitarAutorizacionOnline() || (vm.data.prefactura.IdEstadoCobranzaCaja === 4 || vm.data.prefactura.IdEstadoCobranzaCaja === 5)"
+            ng-click="vm.formControl.validarAutorizar(formPrefactura)" sa-punto-click="vm.formControl.validarAutorizar(formPrefactura)" sa-enter id="pref-amb-edit-autorizar-btn">
+            Autorizar
+        </button>
+        <button class="btn btn-cancelar" ng-click="vm.formControl.volver()" sa-punto-click="vm.formControl.volver()"
+            sa-enter id="pref-amb-edit-cancelar-btn">
+            Cancelar
+        </button>
+		<button class="btn btn-default" id="pref-amb-edit-receptarguardar-btn"
+			ng-click='vm.formControl.disabledSave() ; vm.formControl.validarGuardar(formPrefactura)' 
+			sa-punto-click='vm.formControl.disabledSave() ; vm.formControl.validarGuardar(formPrefactura)'
+            ng-disabled="vm.formControl.saveDisabled || vm.data.prefactura.Items.length === 0" sa-enter>
+            {{vm.filter.idAmbito === vm.ORIGEN_PREFACTURA.TURNO ? 'Receptar' : 'Guardar'}}
+        </button>
+    </div>
+</div>
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>

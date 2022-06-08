@@ -1,0 +1,146 @@
+<sa-loading ng-if="vm.loading"></sa-loading>
+<div id="print-content" class="container-print" ng-hide="vm.loading">
+	<div class="page" ng-repeat="internado in vm.data.DetalleInternaciones">
+		<div class="modal-header ">
+			<div class="row">
+				<div class="col-xs-3">
+					<sa-logo></sa-logo>
+				</div>
+				<div class="col-xs-12 text-center">
+					<h4>Informe por internado</h4>
+				</div>
+			</div>
+		</div>
+		<div class="modal-body" ng-hide="vm.vacio">
+			<!-- <div class="row fila fila-print"> -->
+			<div class="row fila-print">
+				<div class="col-xs-6">
+					<H5 class="text-left">Sector: {{vm.data.Sector}}</H5>
+				</div>
+				<div class="col-xs-6">
+					<H5 class="text-right"> Fecha/Hora: {{vm.data.Fecha | date:"dd/MM/yyyy HH:mm"}}</H5>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-6">
+					<H5 class="text-left"> Internado: {{internado.NumeroInternado}} - {{internado.ApellidoPaciente}},
+						{{internado.NombrePaciente}} </H5>
+				</div>
+				<div class="col-xs-6">
+					<h5 class="text-right"> Habitacion: {{internado.Habitacion}} - Cama: {{internado.Cama}} </h5>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-8">
+					<H5 class="text-left"> Mutual: {{internado.Financiador}} - Nro Afiliado: {{internado.NroAfiliado}}</H5>
+				</div>
+				<div class="col-xs-4">
+					<h5 class="text-right"> Fecha Ingreso: {{internado.FechaAdmision | date:"dd/MM/yyyy HH:mm"}}</h5>
+				</div>
+			</div>
+			<div class="row fila-print">
+				<div class="col-xs-8">
+					<h5 class="text-left"> Diagnóstico: {{internado.Diagnostico}} </h5>
+				</div>
+				<div class="col-xs-4" ng-show="vm.tieneAltaEnfermeria(internado.FechaAltaEnfermeria)">
+					<h5 class="text-left"> INTERNADO CON ALTA ENFERMERIA</h5>
+				</div>
+				<br><br>
+			</div>
+			<div class="fila" ng-show="internado.Dosificaciones && internado.Dosificaciones.length && vm.todasAltoRiesgo(internado.Dosificaciones)">
+				<h5 class="text-left">Dosificaciones</h5>
+				<table class="table-fina table">
+					<thead>
+						<tr></tr>
+						<tr class="cabecera-tabla">
+							<th class="text-left">Codigo</th>
+							<th class="text-left">Nombre</th>
+							<th class="text-left">Presentación</th>
+							<th class="text-left">Posología</th>
+							<th class="text-center">Cantidad</th>
+
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr ng-repeat="detalle in internado.Dosificaciones track by $index" ng-show="!detalle.EsAltoRiesgo">
+							<td class="text-left">{{ detalle.CodigoStockeable }}</td>
+							<td class="text-left">{{ detalle.NombreStockeable }}</td>
+							<td class="text-left">{{ detalle.PresentacionStockeable }}</td>
+							<td class="text-left">{{ detalle.Posologia}}</td>
+							<td class="text-center">{{ detalle.Cantidad }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div ng-show="internado.Infusiones && internado.Infusiones.length && vm.todasAltoRiesgo(internado.Infusiones)">
+				<h5 class="text-left"> Infusiones </h5>
+				<table class="table-fina table">
+					<thead>
+						<tr></tr>
+						<tr class="cabecera-tabla">
+							<th class="text-left">Codigo</th>
+							<th class="text-left">Nombre</th>
+							<th class="text-left">Presentación</th>
+							<th class="text-left">Posología</th>
+							<th class="text-center">Cantidad</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="detalle in internado.Infusiones" ng-show="!detalle.EsAltoRiesgo">
+							<td class="text-left">{{ detalle.CodigoStockeable }}</td>
+							<td class="text-left">{{ detalle.NombreStockeable }}</td>
+							<td class="text-left">{{ detalle.PresentacionStockeable }}</td>
+							<td class="text-left">{{ detalle.Posologia}}</td>
+							<td class="text-center">{{ detalle.Cantidad }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div>
+				<br>
+				<br>
+			</div>
+			<!-- mostrar medicamentos alto riesgo -->
+			<div ng-show="vm.contieneAltoRiesgo(internado)">
+				<h5 class="text-left"> Medicamentos Alto Riesgo </h5>
+				<table class="table-fina table">
+					<thead>
+						<tr></tr>
+						<tr class="cabecera-tabla">
+							<th class="text-left">Codigo</th>
+							<th class="text-left">Nombre</th>
+							<th class="text-left">Presentación</th>
+							<th class="text-left">Posología</th>
+							<th class="text-center">Cantidad</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="detalle in internado.Dosificaciones track by $index" ng-show="detalle.EsAltoRiesgo">
+							<td class="text-left">{{ detalle.CodigoStockeable }}</td>
+							<td class="text-left">{{ detalle.NombreStockeable }}</td>
+							<td class="text-left">{{ detalle.PresentacionStockeable }}</td>
+							<td class="text-left">{{ detalle.Posologia}}</td>
+							<td class="text-center">{{ detalle.Cantidad }}</td>
+						</tr>
+						<tr ng-repeat="detalle in internado.Infusiones" ng-show="detalle.EsAltoRiesgo">
+							<td class="text-left">{{ detalle.CodigoStockeable }}</td>
+							<td class="text-left">{{ detalle.NombreStockeable }}</td>
+							<td class="text-left">{{ detalle.PresentacionStockeable }}</td>
+							<td class="text-left">{{ detalle.Posologia}}</td>
+							<td class="text-center">{{ detalle.Cantidad }}</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+
+
+		</div>
+
+		<div class="modal-footer">
+		</div>
+	</div>
+</div>

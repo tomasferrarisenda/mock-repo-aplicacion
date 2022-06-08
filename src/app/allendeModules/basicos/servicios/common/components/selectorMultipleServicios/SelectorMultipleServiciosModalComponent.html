@@ -1,0 +1,47 @@
+<sa-modal-header loading="vm.loading" title-name="Seleccionar Múltiples Servicios Medicos" title-icon="CHECK">
+</sa-modal-header>
+<sa-modal-body loading="vm.loading">
+
+	<!-- ROW TABLA -->
+
+	<div class="row table-responsive">
+		<div class="col-xs-12">
+			<table class="table table-hover">
+				<thead>
+					<tr></tr>
+					<tr class="cabecera-tabla">
+						<th class="text-center">Id Servicio</th>
+						<th class="text-center">
+							<div fw-form-input class="fw-table-filter no-valid" style=" margin-top: 0px; ">
+								<input class="text-uppercase" type="text" name="buscar_item" placeholder="Filtro Nombre Servicio" ng-model="vm.filterBuscarItem"
+								    ng-change="vm.getPage()" autocomplete="off">
+							</div>
+						</th>
+						
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="servicio in vm.filterData" ng-class="{'color-aquaorange-turno': servicio.selected }" ng-click="vm.selectServicio(servicio)">
+						<td class="text-center" ng-bind="servicio.Id"></td>
+						<td class="text-center" ng-bind="servicio.Nombre"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="text-center">
+				<div uib-pagination max-size="10" items-per-page="vm.pageSize" total-items="vm.totalItems" ng-model="vm.currentPage" ng-change="vm.getPage()"
+				    previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</sa-modal-body>
+<sa-modal-footer loading="vm.loading">
+	<button type="button" class="btn btn-default" ng-disabled="vm.loading" ng-click="vm.cancel()">Cancelar</button>
+	<button type="button" class="btn btn-default" ng-disabled="vm.loading" ng-click="vm.seleccionarServicios()">Seleccionar</button>
+</sa-modal-footer>

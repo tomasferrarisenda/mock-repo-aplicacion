@@ -1,0 +1,71 @@
+{
+	"LOCAL" : {
+		"NAME": "local",
+		"APP1": "http://localhost:8888",
+		"APP2":"http://localhost:4200/app",
+		"AUTH": "",
+		"BACKEND": "http://localhost:8082/api/",
+		"TOKEN": "http://localhost:8082/Token",
+		"TOKEN_GRANT_TYPE": "password",
+		"REFRESH_GRANT_TYPE": "refresh_token",
+		"CLASS" : "local"
+	},
+	"DEV" : {
+		"NAME": "development",
+		"APP1": "https://appdev.sanatorioallende.com/v1",
+		"APP2":"https://appdev.sanatorioallende.com/v2/app",
+		"AUTH": "https://appdev.sanatorioallende.com/auth/login/app1",
+		"BACKEND": "https://appdev.sanatorioallende.com/backend/api/",
+		"TOKEN": "https://appdev.sanatorioallende.com/backend/Token",
+		"TOKEN_GRANT_TYPE": "password",
+		"REFRESH_GRANT_TYPE": "refresh_token",
+		"CLASS" : "development"
+	},
+	"K8S" : {
+		"NAME": "k8s",
+		"APP1": "https://appk8s.sanatorioallende.com/v1",
+		"APP2":"https://appk8s.sanatorioallende.com/v2/app",
+		"AUTH": "https://appk8s.sanatorioallende.com/auth/login/app1",
+		"BACKEND": "https://appk8s.sanatorioallende.com/backend/api/",
+		"TOKEN": "https://appk8s.sanatorioallende.com/backend/Token",
+		"TOKEN_GRANT_TYPE": "password",
+		"REFRESH_GRANT_TYPE": "refresh_token",
+		"CLASS" : "development"
+	},
+	"TEST" : {
+		"NAME": "testing",
+		"APP1": "https://apptest.sanatorioallende.com/v1",
+		"APP2":"https://apptest.sanatorioallende.com/v2/app",
+		"AUTH_": "",
+		"AUTH": "https://apptest.sanatorioallende.com/auth/login/app1",
+		"BACKEND": "https://apptest.sanatorioallende.com/backend/api/",
+		"TOKEN": "https://apptest.sanatorioallende.com/backend/Token",
+		"TOKEN_GRANT_TYPE": "password",
+		"REFRESH_GRANT_TYPE": "refresh_token",
+		"CLASS" : "testing"
+	},
+	"STAGE": {
+		"NAME": "staging",
+		"APP1": "https://appstage.sanatorioallende.com/v1",
+		"APP2":"https://appstage.sanatorioallende.com/v2/app",
+		"AUTH_": "",
+		"AUTH": "https://appstage.sanatorioallende.com/auth/login/app1",
+		"BACKEND": "https://appstage.sanatorioallende.com/backend/api/",
+		"TOKEN": "https://appstage.sanatorioallende.com/backend/Token",
+		"TOKEN_GRANT_TYPE": "password",
+		"REFRESH_GRANT_TYPE": "refresh_token",
+		"CLASS": "staging"
+	},
+	"PROD" : {
+		"NAME": "production",
+		"APP1": "https://app.sanatorioallende.com/v1",
+		"APP2":"https://app.sanatorioallende.com/v2/app",
+		"AUTH": "https://app.sanatorioallende.com/auth/login/app1",
+		"AUTH_": "",
+		"BACKEND": "https://app.sanatorioallende.com/backend/api/",
+		"TOKEN": "https://app.sanatorioallende.com/backend/Token",
+		"TOKEN_GRANT_TYPE": "password",
+		"REFRESH_GRANT_TYPE": "refresh_token",
+		"CLASS" : "production"
+	}
+}

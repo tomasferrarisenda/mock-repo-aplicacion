@@ -1,0 +1,104 @@
+<form name="formlistas" novalidate>
+	<sa-modal-header title-name="Generar nuevo(s) cierre(s) de recepción" title-icon="LIST">
+	</sa-modal-header>
+
+	<sa-modal-body loading="vm.formControl.loading">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" sa-form-input>
+				<label>Sucursal</label>
+				<!--Para cargar todas las Sucursales es importante obtener sucursalElegida-->
+				<select class="form-control" ng-model="vm.sucursalElegida"
+					ng-options="sucursal.Nombre for sucursal in vm.sucursalLista track by sucursal.Id"
+					ng-change="vm.cambioSucursal()" sa-enter>
+					<option value="">TODAS</option>
+					<!--Se coloca un solo Value como manera predeterminada, el resto lo obtenemos desde config » mesesConstan.ts -->
+				</select>
+
+			</div>
+
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" sa-form-input>
+				<label for="usuario">Usuario</label>
+				<select class="form-control" id="usuariosJerarquia_selector" name="usuariosJerarquia_name"
+					ng-model="vm.usuarioElegido" ng-disabled="vm.loading"
+					ng-options="usuariosJerarquia.Nombre for usuariosJerarquia in vm.usuariosDisponibles track by usuariosJerarquia.Id"
+					ng-change="vm.cambioUsuario()">
+				</select>
+			</div>
+
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+				<sa-buscador-dinamico-usuario busqueda-usuario="vm.busquedaUsuario" otro-colaborador="vm.otroColaborador"></sa-buscador-dinamico-usuario>
+			</div>
+		</div>
+
+
+		<div class="row">
+
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" sa-form-input>
+				<label>Servicio</label>
+				<!--Para cargar todas las Sucursales es importante obtener sucursalElegida-->
+				<select class="form-control" ng-model="vm.servicioMedicoElegido"
+					ng-options="servicio.Nombre for servicio in vm.servicioLista track by servicio.Id"
+					ng-change="vm.cambioServicioMedico()" sa-enter>
+					<option value="">TODOS</option>
+					<!--Se coloca un solo Value como manera predeterminada, el resto lo obtenemos desde config » mesesConstan.ts -->
+				</select>
+
+			</div>
+
+
+
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 form-group "  ng-if="vm.fechaDesde">
+					<label class="control-label">Fecha desde</label>
+					<sa-date-time-picker ng-model="vm.fechaDesde" id="3" type="date"  max="vm.fechaHasta" ng-change="vm.changeFechaDesde()" >
+					</sa-date-time-picker>  
+			</div>
+		
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 form-group "  ng-if="vm.fechaHasta">
+					<label class="control-label">Fecha hasta</label>
+					<sa-date-time-picker ng-model="vm.fechaHasta" id="4" type="date" min="vm.fechaDesdeMin" max="vm.today">
+					</sa-date-time-picker>  
+			</div>
+
+
+			<!-- 
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3" sa-form-input ng-controller="DatePickerController">
+				<label for="datePickerDesde ">Fecha desde</label>
+				<sa-date-picker model="vm.fechaDesde" max-date="vm.fechaHasta"></sa-date-picker>
+			</div>
+
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3" sa-form-input ng-controller="DatePickerController">
+				<label for="datePickerHasta ">Fecha hasta</label>
+				<sa-date-picker model="vm.fechaHasta" max-date="vm.fechaHoy" min-date="vm.fechaDesde"></sa-date-picker>
+			</div> -->
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12 col-sm-2 col-md-2 col-lg-3 form-group">
+				<sa-check-box label="Obras Sociales" ng-model="vm.tildeObrasSociales">
+				</sa-check-box>
+			</div>
+			<div class="col-xs-12 col-sm-2 col-md-2 col-lg-3 form-group">
+				<sa-check-box label="Particulares" ng-model="vm.tildeParticulares">
+				</sa-check-box>
+			</div>
+			<div class="col-xs-12 col-sm-2 col-md-2 col-lg-3 form-group">
+				<sa-check-box label="Cierre definitivo" ng-model="vm.tildeDefinitivo" ng-change="vm.cambioTildeDefinitivo()">
+				</sa-check-box>
+			</div>
+			<div class="col-xs-12 col-sm-2 col-md-2 col-lg-3 form-group">
+				<sa-check-box label="Imprimir cierre directo" ng-model="vm.tildeImprimirCierreDirecto"
+					ng-disabled="!vm.tildeDefinitivo">
+				</sa-check-box>
+			</div>
+		</div>
+
+	</sa-modal-body>
+
+	<sa-modal-footer>
+		<input type="submit" class="btn" ng-click="vm.cancelar()" value="Cancelar" sa-enter
+			sa-punto-click="vm.cancelar()">
+		<input type="submit" id="btnAgregarEditar" value="Generar" class="btn btn-default" ng-click="vm.generar()"
+			sa-enter sa-punto-click="vm.generar()">
+	</sa-modal-footer>
+</form>
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>

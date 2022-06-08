@@ -1,0 +1,67 @@
+<sa-title title-name= "vm.title.name" title-icon="{{vm.title.icon}}"></sa-title>
+<form name="formEdit" accept-charset="utf-8" novalidate >
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+			<div sa-form-input-validate>
+				<label>Código</label>
+				<input type="number" class="form-control"
+					name="codigo" ng-class="validar.error(formSistema.pathSistema.$valid)"
+					ng-disabled="vm.filter.codigoDeshabilitado" id="codigo-edit-organizacion"
+					ng-model="vm.filter.codigo" ng-required="true" sa-enter>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+			<div sa-form-input-validate>
+				<label>Razón Social</label>
+				<input type="text" class="form-control" name="razonSocial" id="razon-social-edit-organizacion"
+					ng-model="vm.filter.razonSocial" ng-required="true" sa-enter>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+			<div sa-form-input-validate>
+				<label>Nombre Corto</label>
+				<input type="text" class="form-control" name="nombreCorto" id="nombre-corto-edit-organizacion"
+					ng-model="vm.filter.nombreCorto" ng-required="false" sa-enter>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+			<div sa-form-input-validate>
+				<label>Cuit (sin guiones)</label>
+				<input type="text" class="form-control" name="cuit" ng-model="vm.filter.cuit" id="cuit-edit-organizacion"
+				ng-required="true" ng-pattern="/^[0-9]+$/" sa-enter>
+			</div>
+		</div>
+	</div>
+	<uib-tabset class="prueba">
+		<uib-tab ng-repeat="tab in vm.tabs"
+			uib-tooltip="{{tab.TITLE_CONTENT}}"
+			class="{{ tab.CLASSBG }}"
+			role="presentation"
+			ng-init="$index === 0"
+			ui-sref-active ="active"
+			ui-sref="{{tab.STATE}}"
+			disable="tab.DISABLED">
+			<uib-tab-heading class="{{ tab.CLASS }}" id={{tab.NAME}}>
+				{{ tab.TITLE_TAB }}
+			</uib-tab-heading>
+		</uib-tab>
+	</uib-tabset>
+	<ui-view></ui-view>
+	<br>
+	<div class="row text-center">
+		<button class="btn btn-cancelar" 
+			ng-click="vm.formControl.cancelar()"
+			sa-punto-click="vm.formControl.cancelar()"
+			id="cancelar-edit-organizacion-btn"
+			sa-enter>
+			Cancelar
+		</button>
+		<button class="btn btn-default" type="submit"
+			ng-click="vm.formControl.guardar(!formEdit.$invalid)"
+			sa-punto-click="vm.formControl.guardar(!formEdit.$invalid)"
+			id="guardar-edit-organizacion-btn"
+			sa-enter>
+			Guardar
+		</button>
+	</div>
+</form>

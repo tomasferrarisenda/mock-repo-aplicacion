@@ -1,0 +1,56 @@
+<form name="formPrefacturaAmbulatorioList">
+	<div class="cuerpo" ng-hide="vm.formControl.loading || vm.formControl.error">
+		<sa-title title-name="vm.title.page" title-icon="LIST"></sa-title>
+		<div class="row">
+			<div class="col-xs-12 col-sm-8 col-md-6 col-lg-8 form-group">
+				<sa-selector-paciente ng-model="vm.filter.idPaciente"></sa-selector-paciente>
+			</div>
+			<div class="col-xs-12 col-sm-8 col-md-6 col-lg-2 form-group" ng-controller="DatePickerController">
+				<label class="control-label">Fecha Desde</label>
+				<sa-date-picker model="vm.filter.fechaDesde" max-date="vm.filter.fechaHasta"></sa-date-picker>
+			</div>
+			<div class="col-xs-12 col-sm-8 col-md-6 col-lg-2 form-group" ng-controller="DatePickerController">
+				<label class="control-label">Fecha Hasta</label>
+				<sa-date-picker model="vm.filter.fechaHasta" max-date="vm.filter.fechaHoy" min-date="vm.filter.fechaDesde"></sa-date-picker>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 form-group">
+				<sa-selector-servicio-medico ng-model="vm.filter.servicioElegido" sa-enter></sa-selector-servicio-medico>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 form-group" sa-form-input>
+				<label>Sucursal</label>
+				<select name="sucursal"
+					ng-model="vm.filter.sucursalElegida"
+					ng-options="sucursal as sucursal.Nombre for sucursal in vm.filter.sucursales"
+					sa-enter id="prefactura-amb-sucursal-select">
+				<!-- <option value="">TODAS</option> -->
+				</select>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-5 form-group" sa-form-input>
+					<sa-new-mutual-selector model="vm.filter.mutualElegida" labelCodigo="Código Mutual" labelNombre="NombreMutual"></sa-new-mutual-selector>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-1 form-group" sa-form-input>
+				<button type="button" sa-btn-search class="btn-row btn-block" ng-click="vm.formControl.buscar()" id="prefactura-amb-buscar-btn"
+				sa-punto-click="vm.formControl.buscar()" sa-enter>Buscar</button>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-1 form-group" sa-form-input>
+				<button type="button" sa-btn-clean class="btn-row btn-block" ng-click="vm.formControl.limpiarFiltros()" id="prefactura-amb-limpiar-btn"
+				sa-punto-click="vm.formControl.limpiarFiltros()" sa-enter>Limpiar</button>
+			</div>
+		</div>
+		<sa-table-ext data="vm.data.prefacturas" ng-if="vm.data.prefacturas" 
+			page-change="vm.formControl.buscarPagina(pagination)" export="vm.table.export(exportation)"
+			btn-edit-click="vm.formControl.editarPrefactura(row.IdOrigenPrefactura)">
+		</sa-table-ext>
+		<!-- btn-delete-click="vm.formControl.eliminarPrefactura($index, row.Id, row.NombrePaciente)"> -->
+		<div class="row">
+			<br>
+			<div class="col-xs-12 text-center">
+				<button class="btn btn-cancelar" ng-click="vm.formControl.volver()" sa-punto-click ="vm.formControl.volver()" sa-enter id="prefactura-amb-volver-btn">
+					Volver
+				</button>
+			</div>
+		</div>
+	</div>
+</form>

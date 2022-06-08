@@ -1,0 +1,91 @@
+<div id="print-content" ng-hide="vm.formControl.loading">
+	<form name="formCuenta" accept-charset="utf-8" novalidate>
+		<sa-modal-header
+			title-name="{{vm.title.name}}"
+			title-icon="{{vm.title.icon}}">
+		</sa-modal-header>
+		<sa-modal-body>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 form-group" sa-form-input>
+					<label>Sucursal</label>
+					<select name="sucursal"
+						ng-model="vm.filter.IdSucursalElegida"
+						ng-options="sucursal.Id as sucursal.Nombre for sucursal in vm.filter.sucursales"
+						sa-enter>
+					<option value="">TODAS</option>
+					</select>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2" sa-form-input>
+					<label>Ambito</label>
+					<select name="ambito"
+						ng-model="vm.filter.IdAmbitoElegido"
+						ng-options="ambito.Id as ambito.Nombre for ambito in vm.filter.ambitos"
+						sa-enter>
+						<option value="">TODOS</option>
+					</select>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 form-group" sa-form-input>
+					<label>Servicio</label>
+					<select name="servicio"
+						ng-model="vm.filter.IdServicioElegido"
+						ng-options="servicio.Id as servicio.Nombre for servicio in vm.filter.servicios"
+						sa-enter>
+					<option value="">TODAS</option>
+					</select>
+				</div>				
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 form-group" sa-form-input>
+					<label>Tipo Semana</label>
+					<select name="tipoSemana"
+						ng-model="vm.filter.IdTipoDeSemanaElegido"
+						ng-options="tipoSemana.Id as tipoSemana.Nombre for tipoSemana in vm.filter.tipoSemana"
+						sa-enter>
+					<option value="">TODAS</option>
+					</select>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 form-group" sa-form-input>
+					<label>Tipo Dia</label>
+					<select name="tipoDia"
+						ng-model="vm.filter.IdTipoDeDiaElegido"
+						ng-options="tipoDia.Id as tipoDia.Nombre for tipoDia in vm.filter.tipoDia"
+						id="configuracion-defecto-tipodia-select"
+						sa-enter>
+					<option value="">TODAS</option>
+					</select>
+				</div>
+			</div>			
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3" sa-form-input>
+					<label>Día de la semana</label>
+					<select name="dia"
+						ng-model="vm.filter.IdDiaSemanaElegido"
+						ng-options="dia.Id as dia.Nombre for dia in vm.filter.dias"
+						sa-enter>
+						<option value="">TODOS</option>
+					</select>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 form-group">
+					<sa-prefacturable-selector model='vm.filter.prefacturable' ng-disabled="false" sa-enter autofocus></sa-prefacturable-selector>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group">
+					<sa-matricula-profesional model='vm.filter.profesional' title='Matrícula' mostrarlabelnombre='true' mostrarlabelmatricula='true' tooltip='Buscar'></sa-matricula-profesional>
+				</div>
+			</div>
+		</sa-modal-body>
+		<sa-modal-footer>
+			<input type="submit"
+				class="btn"
+				value="Cancelar"
+				sa-enter
+				ng-click="vm.formControl.cancel()"
+				sa-punto-click="vm.formControl.cancel()">
+			<input type="submit" id="btnAgregarEditar" value="Guardar"
+				class="btn btn-default"
+				sa-punto-click="vm.formControl.guardar()"
+				ng-click="vm.formControl.guardar()"
+				ng-disabled="formCuenta.$invalid || !vm.filter.profesional"
+				sa-enter>
+		</sa-modal-footer>
+	</form>
+</div>

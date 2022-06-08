@@ -1,0 +1,62 @@
+@import '../common/variables';
+
+.sa-panel-item {
+	float: left;
+	margin-bottom: 8px;
+	min-height: 1px;
+	padding: 0px 4px;
+	position: relative;
+
+	.sa-panel-item-content {
+		padding-top: 10px;
+		padding-bottom: 10px;
+		width: 100%;
+		border-radius: 0px;
+	}
+}
+
+.sa-panel-item-title {
+	padding: 10px 5px;
+	font-size: 11px;
+}
+
+.sa-panel-item-icon {
+	font-size: 45px;
+	margin-bottom: 15px;
+}
+
+@media (max-width: 499px) {
+	.sa-panel-item {
+		width: 100%;
+	}
+}
+
+@media (min-width: 500px) {
+	.sa-panel-item {
+		width: 50%;
+	}
+}
+
+@media (min-width: 768px) {
+	.sa-panel-item {
+		width: 25%;
+	}
+}
+
+@media (min-width: 992px) {
+	.sa-panel-item {
+		width: 20%;
+	}
+}
+
+@media (min-width: 1200px) {
+	.sa-panel-item {
+		width: 16.666667%;
+	}
+}
+
+@media (min-width: 1600px) {
+	.sa-panel-item {
+		width: 14.2857%;
+	}
+}

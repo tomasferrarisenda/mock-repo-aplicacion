@@ -1,0 +1,12 @@
+<div ng-transclude></div>
+<div uib-carousel active="vm.active" >
+	<div uib-slide ng-repeat="item in vm.slides track by $index" index="$index" >
+		<div>{{item.$index}}</div>
+		<div dynamic="item.componentHtml"></div>
+	</div>
+</div>
+
+
+<script type="text/ng-template" id="carouselTemplate.html">
+	<div ng-include="vm.carouselTemplate"></div>
+</script>

@@ -1,0 +1,515 @@
+<div class="row">
+
+	<div class="col-xs-12">
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-5">
+				<h4 style="padding-left: 0px;" id="indic-med-farm-table-titulo">Indicaciones Médicas de {{vm.internado.NombreYApellidoInternado || vm.internado.Paciente}} - Nro. Internado:
+					{{vm.internado.NumeroInternado}}</h4>
+			</div>
+
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-2" ng-if="vm.internado.TieneAltaMedica">
+			<h4 style="padding-left: 0px;" id="indic-med-farm-table-titulo">Paciente Con Alta Medica el {{vm.internado.FechaAltaMedica | date: 'dd/MM/yyyy'}}</h4>
+			</div>
+
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 ">
+				<sa-check-box ng-model="vm.mostrarFiltros" color="green" label-right="'Filtros'"></sa-check-box>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 ">
+				<button type="button" ng-click="vm.limpiarFiltros()" ng-if="vm.mostrarFiltros" class="btn btn-warning"
+				id="indic-med-farm-limpiar-filtros-btn">Limpiar Filtros</button>
+			</div>
+
+
+		</div>
+	</div>
+
+
+	<div class="col-xs-12" style="overflow: auto;">
+		<table class="table " id="indicacionesmedicas_table" ng-show="vm.data">
+			<thead>
+				<tr class="cabecera-tabla">
+					<th class="text-left">Fecha/Hora</th>
+
+					<th class="text-left" ng-show="!vm.mostrarFiltros">Tipo Ind. Med.</th>
+					<th class="text-left" ng-show="vm.mostrarFiltros">
+						<div fw-form-input class="fw-table-filter no-valid" style=" margin-top: 0px; ">
+							<input class="text-capitalize" type="search" name="filter_tipo_ind_med" placeholder="Tipo Ind. Med." ng-model="vm.filterTipoIndMed"
+							 ng-change="vm.pageChanged()()" autocomplete="off" id="indic-medicas-table-filtro-tipoind-input">
+						</div>
+					</th>
+
+					<th class="text-center" ng-if="!vm.facturarDevolverIf">Urgencia</th>
+
+					<th class="text-left" ng-show="!vm.mostrarFiltros">Descripción Producto</th>
+					<th class="text-left" ng-show="vm.mostrarFiltros">
+						<div fw-form-input class="fw-table-filter no-valid" style=" margin-top: 0px; ">
+							<input class="text-capitalize" type="search" name="filter_producto" placeholder="Descripción Producto" ng-model="vm.filterProducto"
+							 ng-change="vm.pageChanged()()" autocomplete="off" id="indic-medicas-table-filtro-descripcion-input">
+					</th>
+
+
+					<th class="text-left" ng-show="!vm.mostrarFiltros">Estado</th>
+					<th class="text-left" ng-show="vm.mostrarFiltros">
+						<fw-drop-down-container icon='"DOWN"' label='"Estado"' ng-if="vm.mostrarFiltros && vm.estadosIndicacionMedica"
+						 btn-class="btn btn-default">
+							<fw-drop-down-set>
+								<fw-drop-down-item ng-repeat='item in vm.estadosIndicacionMedica' color='green' item='item' label-attribute="Nombre"
+								 status-attribute='Activado' change='vm.pageChanged()()'> </fw-drop-down-item>
+							</fw-drop-down-set>
+							<fw-drop-down></fw-drop-down>
+						</fw-drop-down-container>
+					</th>
+
+					<th class="text-left" ng-show="!vm.mostrarFiltros">Ejecución</th>
+					<th class="text-left" ng-show="vm.mostrarFiltros">
+						<fw-drop-down-container icon='"DOWN"' label='"Ejecución"' ng-if="vm.mostrarFiltros && vm.estadosEjecucionIndicacionMedica"
+						 btn-class="btn btn-default">
+							<fw-drop-down-set>
+								<fw-drop-down-item ng-repeat='item in vm.estadosEjecucionIndicacionMedica' color='green' item='item'
+								 label-attribute="Nombre" status-attribute='Activado' change='vm.pageChanged()()'> </fw-drop-down-item>
+							</fw-drop-down-set>
+							<fw-drop-down></fw-drop-down>
+						</fw-drop-down-container>
+					</th>
+
+
+					<th class="text-left" ng-show="!vm.mostrarFiltros">Facturación</th>
+					<th class="text-left" ng-show="vm.mostrarFiltros">
+						<fw-drop-down-container icon='"DOWN"' label='"Facturación"' ng-if="vm.mostrarFiltros && vm.estadosFacturacionIndicacionMedica"
+						 btn-class="btn btn-default">
+							<fw-drop-down-set>
+								<fw-drop-down-item ng-repeat='item in vm.estadosFacturacionIndicacionMedica' color='green' item='item'
+								 label-attribute="Nombre" status-attribute='Activado' change='vm.pageChanged()()'> </fw-drop-down-item>
+							</fw-drop-down-set>
+							<fw-drop-down></fw-drop-down>
+						</fw-drop-down-container>
+					</th>
+
+					<th class="text-left" ng-show="!vm.mostrarFiltros">Farmacia</th>
+					<th class="text-left" ng-show="vm.mostrarFiltros">
+						<div fw-form-input class="fw-table-filter no-valid" style=" margin-top: 0px; ">
+							<input class="text-capitalize" type="search" name="filter_efarmacia" placeholder="Farmacia" ng-model="vm.filterFarmacia"
+							 ng-change="vm.pageChanged()()" autocomplete="off" id="indic-medicas-table-filtro-farmacia-input">
+					</th>
+
+					<th class="text-center">Duplicada</th>
+					<!-- <th class="text-center">Multidosis</th>
+					<th class="text-center">ATB </th>
+					<th class="text-center">Urg.</th>
+					<th class="text-center">Urg. FI</th> -->
+					<th class="text-center">Acciones</th>
+				</tr>
+			</thead>
+			<!-- BODY -->
+			<tbody ng-show="vm.data" ng-repeat="indicacionMedica in vm.dataFilter">
+				<tr>
+					<th ng-click="vm.verSubDatosIndicacion(indicacionMedica)" class="row text-left" ng-class="{'color-row-deshabilitado': indicacionMedica.EstadoIndicacion.Id == 2 }">{{
+						indicacionMedica.FechaHora | date:"dd/MM/yy HH:mm"}}</th>
+
+					<th ng-click="vm.verSubDatosIndicacion(indicacionMedica)" class="row text-left" ng-class="{'color-row-deshabilitado': indicacionMedica.EstadoIndicacion.Id == 2}">
+						<div >
+							{{indicacionMedica.TipoIndicacion.Nombre}}
+							<sa-icon ng-if="indicacionMedica.ObservacionMedica.length" id="indic-medicas-table-obsermedica-icono" uib-tooltip="Observación Medica: {{indicacionMedica.ObservacionMedica}}" uib-tooltip-placement="top" name="COMMENTING" class="fa-1-3x" style="color: green"></sa-icon>
+							<sa-icon ng-if="indicacionMedica.Producto.TipoAntibiotico.Id == 2" id="indic-medicas-table-antibioticocontrolado-icono" name="COPYRIGHT"  uib-tooltip="Tipo Antibiótico: {{indicacionMedica.Producto.TipoAntibiotico.Nombre}}" uib-tooltip-placement="top"  class="fa-1-3x" style="color: orange"></sa-icon>
+							<sa-icon ng-if="indicacionMedica.Producto.TipoAntibiotico.Id == 3" id="indic-medicas-table-antibioticorestringido-icono" name="REGISTERED" uib-tooltip="Tipo Antibiótico: {{indicacionMedica.Producto.TipoAntibiotico.Nombre}}" uib-tooltip-placement="top" class="fa-1-3x" style="color: red"></sa-icon>
+							<span uib-tooltip="Indicacion con marca de SOS" id="indic-medicas-table-essos-icono" uib-tooltip-placement="top" ng-if="indicacionMedica.EsSOS" style="color: violet;">(SOS)</span>
+						</div>
+						<div  ng-if="indicacionMedica.Producto.TipoAntibiotico.Id != 1 || indicacionMedica.Producto.TipoAntibiotico.Id != 0">
+							
+						</div>
+					</th>
+
+					<td ng-click="vm.verSubDatosIndicacion(indicacionMedica)" class="row text-center" ng-if="!vm.facturarDevolverIf"
+					 ng-class="{'color-row-deshabilitado': indicacionMedica.EstadoIndicacion.Id == 2 }">
+						<button type="button" class="btn btn-white " ng-if="indicacionMedica.TieneUrgenciaFarmacia"
+						 style=" color: red; " uib-tooltip="Tiene Urgencia Farmacia" uib-tooltip-placement="top" id="indic-medicas-table-tieneurgfarm-icono">
+							<sa-icon name="WARNING" class="fa-1-3x"></sa-icon>
+						</button>
+						<button type="button" class="btn btn-white" ng-if="indicacionMedica.TieneUrgencia && !indicacionMedica.TieneUrgenciaFarmacia"
+						 style=" color: green; " uib-tooltip="Tiene Urgencia" uib-tooltip-placement="top" id="indic-medicas-table-tieneurg-icono">
+							<sa-icon name="WARNING" class="fa-1-3x"></sa-icon>
+						</button>
+					</td>
+
+					<th ng-click="vm.verSubDatosIndicacion(indicacionMedica)" class="row text-left" ng-class="{'color-row-deshabilitado': indicacionMedica.EstadoIndicacion.Id == 2 }"
+					 ng-if="indicacionMedica.EsAltoRiesgo">{{indicacionMedica.descripcionProducto}}
+						<sa-icon ng-if="indicacionMedica.EsAltoRiesgo" name="EXCLAMACION" class="fa-1-3x" style="color: red" uib-tooltip="Medicamento Alto Riesgo"
+						 uib-tooltip-placement="top" id="indic-medicas-table-esaltoriesgo-icono"></sa-icon>
+						 <sa-icon ng-if="indicacionMedica.Producto.EsMultiDosis" name="COPY" class="fa-1-3x" style="color: goldenrod" uib-tooltip="Es Multidosis"
+						 uib-tooltip-placement="top" id="indic-medicas-table-esmultidosis-icono"></sa-icon>
+					</th>
+					<th ng-click="vm.verSubDatosIndicacion(indicacionMedica)" class="row text-left" ng-class="{'color-row-deshabilitado': indicacionMedica.EstadoIndicacion.Id == 2 }"
+					 ng-if="!indicacionMedica.EsAltoRiesgo">{{ indicacionMedica.descripcionProducto}}
+					 <sa-icon ng-if="indicacionMedica.Producto.EsMultiDosis" name="COPY" class="fa-1-3x" style="color: goldenrod" uib-tooltip="Es Multidosis"
+						 uib-tooltip-placement="top" id="indic-medicas-table-esmultidosis-icono"></sa-icon>
+					</th>
+					<!-- <th ng-click="vm.verSubDatosIndicacion(indicacionMedica)" class="row text-left">{{ indicacionMedica.Descripcion}}</th> -->
+
+
+					<td ng-click="vm.verSubDatosIndicacion(indicacionMedica)" class="row text-center" ng-class="{'color-row-deshabilitado': indicacionMedica.EstadoIndicacion.Id == 2 }">
+						<button type="button"  class="btn btn-white " ng-if="indicacionMedica.EstadoIndicacion.Id == 1"
+						 style=" color: green; " uib-tooltip="{{indicacionMedica.EstadoIndicacion.Nombre}}" uib-tooltip-placement="top" id="indic-medicas-table-estadoindicacionok-icono">
+							<sa-icon name="OK" class="fa-1-3x"></sa-icon>
+						</button>
+						<button type="button" class="btn btn-white" ng-if="indicacionMedica.EstadoIndicacion.Id == 2"
+						 style=" color: gray; " uib-tooltip="{{indicacionMedica.EstadoIndicacion.Nombre}}" uib-tooltip-placement="top" id="indic-medicas-table-estadoindicacionsupendida-icono">
+							<sa-icon name="ANULAR" class="fa-1-3x"></sa-icon>
+						</button>
+					</td>
+
+
+					<td ng-click="vm.verSubDatosIndicacion(indicacionMedica)" class="row text-center" ng-class="{'color-row-deshabilitado': indicacionMedica.EstadoIndicacion.Id == 2 }">
+						<button type="button" id="indic-medicas-table-ejecucionpendiente-icono" class="btn btn-white " ng-if="indicacionMedica.EstadoEjecucion.Id == 1"
+						 uib-tooltip="{{indicacionMedica.EstadoEjecucion.Nombre}}" uib-tooltip-placement="top">
+							<sa-icon name="CLOCK" class="fa-1-3x"></sa-icon>
+						</button>
+						<button type="button" id="indic-medicas-table-ejecucionok-icono" class="btn btn-white " ng-if="indicacionMedica.EstadoEjecucion.Id == 2"
+						 style=" color: green; " uib-tooltip="{{indicacionMedica.EstadoEjecucion.Nombre}}" uib-tooltip-placement="top">
+							<sa-icon name="CHECK" class="fa-1-3x"></sa-icon>
+						</button>
+						<button type="button" id="indic-medicas-table-ejecucioncancelada-icono" class="btn btn-white " ng-if="indicacionMedica.EstadoEjecucion.Id == 3"
+						 tyle=" color: red; " uib-tooltip="{{indicacionMedica.EstadoEjecucion.Nombre}}" uib-tooltip-placement="top">
+							<sa-icon name="DEL" class="fa-1-3x"></sa-icon>
+						</button>
+					</td>
+
+
+					<td ng-click="vm.verSubDatosIndicacion(indicacionMedica)" class="row text-center" ng-class="{'color-row-deshabilitado': indicacionMedica.EstadoIndicacion.Id == 2 }">
+						<button type="button" id="indic-medicas-table-factsinfacturar-icono" class="btn btn-white " ng-if="indicacionMedica.EstadoFacturacion.Id == 1"
+						 style=" color: red; " uib-tooltip="{{indicacionMedica.EstadoFacturacion.Nombre}}" uib-tooltip-placement="top">
+							<sa-icon name="PESOS" class="fa-1-3x"></sa-icon>
+						</button>
+						<button type="button" id="indic-medicas-table-facturado-icono" class="btn btn-white " ng-if="indicacionMedica.EstadoFacturacion.Id == 2"
+						 style=" color: green; " uib-tooltip="{{indicacionMedica.EstadoFacturacion.Nombre}}" uib-tooltip-placement="top">
+							<sa-icon name="PESOS" class="fa-1-3x"></sa-icon>
+						</button>
+						<button type="button" id="indic-medicas-table-factdevuelto-icono" class="btn btn-white " ng-if="indicacionMedica.EstadoFacturacion.Id == 3"
+						 style=" color: darkgoldenrod; " uib-tooltip="{{indicacionMedica.EstadoFacturacion.Nombre}}"
+						 uib-tooltip-placement="top">
+							<sa-icon name="REPLY" class="fa-1-3x"></sa-icon>
+						</button>
+					</td>
+
+
+					<td ng-click="vm.verSubDatosIndicacion(indicacionMedica)" class="row text-left" ng-class="indicacionMedica.EstadoIndicacionFarmacia.Color">{{
+						indicacionMedica.EstadoIndicacionFarmacia.Nombre}}</td>
+
+
+					<td ng-click="vm.verSubDatosIndicacion(indicacionMedica)" class="row text-center" ng-class="{'color-row-deshabilitado': indicacionMedica.EstadoIndicacion.Id == 2 }">{{
+						indicacionMedica.Duplicada ? 'SI' : '-'}}</td>
+					<!-- <td ng-click="vm.verSubDatosIndicacion(indicacionMedica)" class="row text-center" ng-class="{'color-rojo-turno': indicacionMedica.TieneMultiDosis, 'color-gray-pastel-prefactura': indicacionMedica.showSubData }">{{ indicacionMedica.TieneMultiDosis ? 'SI' : '-'}}</td>
+					<td ng-click="vm.verSubDatosIndicacion(indicacionMedica)" class="row text-center" ng-class="{'color-rojo-turno': indicacionMedica.TieneAtbRestringido, 'color-gray-pastel-prefactura': indicacionMedica.showSubData }">{{ indicacionMedica.TieneAtbRestringido ? 'SI' : '-'}}</td>
+
+					<td ng-click="vm.verSubDatosIndicacion(indicacionMedica)" class="row text-center" ng-class="{'color-rojo-turno': indicacionMedica.TieneUrgencia, 'color-gray-pastel-prefactura': indicacionMedica.showSubData }">{{ indicacionMedica.TieneUrgencia ? 'SI' : '-'}}</td>
+					<td ng-click="vm.verSubDatosIndicacion(indicacionMedica)" class="row text-center" ng-class="{'color-rojo-turno': indicacionMedica.TieneUrgenciaFarmacia, 'color-gray-pastel-prefactura': indicacionMedica.showSubData }">{{ indicacionMedica.TieneUrgenciaFarmacia ? 'SI' : '-'}}</td> -->
+
+					<td class="text-center" ng-class="{'color-row-deshabilitado': indicacionMedica.EstadoIndicacion.Id == 2 }">
+						<button id="indic-medicas-table-verdetalle-btn" type="button" class="btn btn-white btn-xs" uib-tooltip="Ver Mas Información"
+						 uib-tooltip-placement="top" ng-click="vm.verDetalle(indicacionMedica)">
+							<sa-icon name="VIEW"></sa-icon>
+						</button>
+						<button id="indic-medicas-table-preparar-btn" type="button" class="btn btn-white btn-xs" uib-tooltip="Preparar"
+						 uib-tooltip-placement="top" ng-if="indicacionMedica.PuedePreparar" ng-click="vm.prepararIndicacion({pObject:indicacionMedica})">
+							<sa-icon name="SUCCESS"></sa-icon>
+						</button>
+						<button id="indic-medicas-table-facturar-btn" type="button" class="btn btn-white btn-xs" uib-tooltip="Facturar" ng-if="indicacionMedica.PuedeFacturar"
+						 uib-tooltip-placement="top" ng-click="vm.facturarIndicacion(indicacionMedica)">
+							<sa-icon name="PESOS"></sa-icon>
+						</button>
+						<button id="indic-medicas-table-devolver-btn" type="button" class="btn btn-white btn-xs" uib-tooltip="Devolver" ng-if="indicacionMedica.PuedeDevolver"
+						 uib-tooltip-placement="top" ng-click="vm.devolverIndicacion(indicacionMedica)">
+							<sa-icon name="REPLY"></sa-icon>
+						</button>
+						<button id="indic-medicas-table-entregar-btn" type="button" class="btn btn-white btn-xs" uib-tooltip="Entregar" ng-if="indicacionMedica.PuedeEntregar"
+						 uib-tooltip-placement="top" ng-click="vm.entregarIndicacion(indicacionMedica)">
+							<sa-icon name="SHARE"></sa-icon>
+						</button>
+						<button id="indic-medicas-table-cambiarprod-btn" type="button" class="btn btn-white btn-xs" uib-tooltip="Cambiar Producto"
+						 ng-if="indicacionMedica.PuedeCambiarProducto" uib-tooltip-placement="top" ng-click="vm.cambiarProductoIndicacion({pObject:indicacionMedica})">
+							<sa-icon name="REFRESH"></sa-icon>
+						</button>
+						<button id="indic-medicas-table-asignarprod-btn" type="button" class="btn btn-white btn-xs" uib-tooltip="Asignar Producto"
+						 ng-if="indicacionMedica.PuedeAsignarProducto" uib-tooltip-placement="top" ng-click="vm.asignarProductoIndicacion({pObject:indicacionMedica})">
+							<sa-icon name="REPLY"></sa-icon>
+						</button>
+						<button id="indic-medicas-table-desasignarprod-btn" type="button" class="btn btn-white btn-xs" uib-tooltip="Desasignar Producto"
+						 ng-if="indicacionMedica.PuedeDesasignarProducto" uib-tooltip-placement="top" ng-click="vm.desasignarProductoIndicacion({pObject:indicacionMedica})">
+							<sa-icon name="LEFT"></sa-icon>
+						</button>
+					</td>
+				</tr>
+				<tr ng-show="indicacionMedica.showSubData">
+					<td colspan="12">
+						<div class="col-xs-1">
+
+						</div>
+						<div class="col-xs-11">
+							<!-- SEGUNDO NIVEL DE TABLA -->
+
+							<!-- mostramos las EJECUCIONES Para las DOSIFICACIONES (indicacionMedica.TipoIndicacion.Id == 1)-->
+							<div ng-show="indicacionMedica.TipoIndicacion.Id == 1">
+								<div class="row fila">
+									<div class="col-xs-12" ng-show="indicacionMedica.Ejecuciones.length > 0">
+										<h2>
+											<strong>Ejecuciones</strong>
+										</h2>
+										<table class="table color-verde-pastel-prefactura">
+											<thead class="levelTwo">
+												<tr></tr>
+												<tr class="cabecera-tabla-celeste">
+													<th>Fecha Programada</th>
+													<th>Fecha Ejecución</th>
+													<th>Cant. Cargada</th>
+													<th>Cant. Entregada</th>
+													<th>Facturación</th>
+													<th>Ejecución</th>
+													<th ng-if="vm.facturarDevolverIf">Facturar</th>
+													<th ng-if="vm.facturarDevolverIf">Devolver</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="ejecucion in indicacionMedica.Ejecuciones">
+													<td ng-bind="ejecucion.FechaProgramada | date : 'dd/MM/yy HH:mm'"></td>
+													<td ng-if="ejecucion.EstadoEjecucion.Id != 3">{{ejecucion.FechaEjecucion | date : 'dd/MM/yy HH:mm'}}</td>
+													<td ng-if="ejecucion.EstadoEjecucion.Id == 3">Info: {{ejecucion.NombreEnfermera}} - {{ejecucion.Observaciones}}</td>
+													<td ng-bind="ejecucion.CantidadCargada"></td>
+													<td ng-bind="ejecucion.CantidadEntregada"></td>
+													<!-- <td ng-bind="ejecucion.EstadoFacturacion.Nombre"></td> -->
+													<td>
+														<button type="button" id="indic-medicas-table-ejecucion-sinfacturar-btn" class="btn btn-white " ng-if="ejecucion.EstadoFacturacion.Id == 1"
+														 style=" color: red; " uib-tooltip="{{ejecucion.EstadoFacturacion.Nombre}}" uib-tooltip-placement="top">
+															<sa-icon name="PESOS" class="fa-1-3x"></sa-icon>
+														</button>
+														<button type="button" id="indic-medicas-table-ejecucion-facturado-btn" class="btn btn-white " ng-if="ejecucion.EstadoFacturacion.Id == 2"
+														 style=" color: green; " uib-tooltip="{{ejecucion.EstadoFacturacion.Nombre}}" uib-tooltip-placement="top">
+															<sa-icon name="PESOS" class="fa-1-3x"></sa-icon>
+														</button>
+														<button type="button" id="indic-medicas-table-ejecucion-devuelto-btn" class="btn btn-white " ng-if="ejecucion.EstadoFacturacion.Id == 3"
+														 style=" color: darkgoldenrod; " uib-tooltip="{{ejecucion.EstadoFacturacion.Nombre}}"
+														 uib-tooltip-placement="top">
+															<sa-icon name="REPLY" class="fa-1-3x"></sa-icon>
+														</button>
+
+													</td>
+													<td>
+
+														<button type="button" id="indic-medicas-table-ejecucion-pendiente-btn" class="btn btn-white " ng-if="ejecucion.EstadoEjecucion.Id == 1"
+														 uib-tooltip="{{ejecucion.EstadoEjecucion.Nombre}}" uib-tooltip-placement="top">
+															<sa-icon name="CLOCK" class="fa-1-3x"></sa-icon>
+														</button>
+														<button type="button" id="indic-medicas-table-ejecucion-suministrado-btn" class="btn btn-white " ng-if="ejecucion.EstadoEjecucion.Id == 2"
+														 style=" color: green; " uib-tooltip="{{ejecucion.EstadoEjecucion.Nombre}}" uib-tooltip-placement="top">
+															<sa-icon name="CHECK" class="fa-1-3x"></sa-icon>
+														</button>
+														<button type="button" id="indic-medicas-table-ejecucion-nosumnistrado-btn" class="btn btn-white " ng-if="ejecucion.EstadoEjecucion.Id == 3"
+														 tyle=" color: red; " uib-tooltip="{{ejecucion.EstadoEjecucion.Nombre}}" uib-tooltip-placement="top">
+															<sa-icon name="DEL" class="fa-1-3x"></sa-icon>
+														</button>
+
+													</td>
+													<td ng-if="vm.facturarDevolverIf" class="text-center">
+														<label class="material-checkbox" ng-if="ejecucion.PuedeFacturar">
+															<input type="checkbox" ng-model="ejecucion.Facturar" ng-disabled="ejecucion.TieneDevolucionPendiente" ng-change="vm.changeCheckAccion(indicacionMedica,ejecucion, 1, 1)">
+															<span ></span>
+														</label>
+													</td>
+													<td ng-if="vm.facturarDevolverIf" class="text-center">
+														<label class="material-checkbox" ng-if="ejecucion.PuedeDevolver">
+															<input type="checkbox" ng-model="ejecucion.Devolver" ng-disabled="ejecucion.TieneDevolucionPendiente" ng-change="vm.changeCheckAccion(indicacionMedica,ejecucion, 2, 1)">
+															<span ng-if="ejecucion.TieneDevolucionPendiente">Mov. Devolución Pendiente</span>
+															<span ng-if="!ejecucion.TieneDevolucionPendiente"></span>
+														</label>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="col-xs-12 col-sm-6 col-md-3 col-lg-12 text-center" ng-show="indicacionMedica.Ejecuciones.length == 0">
+										<label>No hay EJECUCIONES...</label>
+									</div>
+								</div>
+
+								<!-- mostramos los DESCARTABLES para las DOSIFICACIONES (indicacionMedica.TipoIndicacion.Id == 1) -->
+								<div class="row fila" style="margin-bottom: 20px;">
+									<div class="col-xs-12">
+										<h2>
+											<strong>Descartables</strong>
+										</h2>
+										<table class="table color-aquaorange-turno" ng-show="indicacionMedica.Descartables.length > 0">
+											<thead class="levelTwo">
+												<tr></tr>
+												<tr class="cabecera-tabla-celeste">
+													<th>Producto</th>
+													<th>Cant. Cargada</th>
+													<th>Cant. Entregada</th>
+													<th>Facturacion</th>
+													<th ng-if="vm.facturarDevolverIf">Facturar</th>
+													<th ng-if="vm.facturarDevolverIf">Devolver</th>
+													<th>Acciones</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="descartable in indicacionMedica.Descartables">
+													<td>{{descartable.Producto.CodigoStockeable}} - {{descartable.Producto.NombreStockeable}} -
+														{{descartable.Producto.PresentacionStockeable}}</td>
+													<td ng-bind="descartable.CantidadCargada"></td>
+													<td ng-bind="descartable.CantidadEntregada"></td>
+													<td>
+														<button type="button" id="indic-medicas-table-descartable-sinfacturar-btn" class="btn btn-white " ng-if="descartable.EstadoFacturacion.Id == 1"
+														 style=" color: red; " uib-tooltip="{{descartable.EstadoFacturacion.Nombre}}" uib-tooltip-placement="top">
+															<sa-icon name="PESOS" class="fa-1-3x"></sa-icon>
+														</button>
+														<button type="button" id="indic-medicas-table-descartable-facturado-btn" class="btn btn-white " ng-if="descartable.EstadoFacturacion.Id == 2"
+														 style=" color: green; " uib-tooltip="{{descartable.EstadoFacturacion.Nombre}}" uib-tooltip-placement="top">
+															<sa-icon name="PESOS" class="fa-1-3x"></sa-icon>
+														</button>
+														<button type="button" id="indic-medicas-table-descartable-devuelto-btn" class="btn btn-white " ng-if="descartable.EstadoFacturacion.Id == 3"
+														 style=" color: darkgoldenrod; " uib-tooltip="{{descartable.EstadoFacturacion.Nombre}}"
+														 uib-tooltip-placement="top">
+															<sa-icon name="REPLY" class="fa-1-3x"></sa-icon>
+														</button>
+													</td>
+													<td ng-if="vm.facturarDevolverIf" class="text-center">
+														<label class="material-checkbox" ng-if="descartable.PuedeFacturar">
+															<input type="checkbox" ng-model="descartable.Facturar" ng-disabled="ejecucion.TieneDevolucionPendiente" ng-change="vm.changeCheckAccion(indicacionMedica,descartable, 1, 2)">
+															<span></span>
+														</label>
+													</td>
+													<td ng-if="vm.facturarDevolverIf" class="text-center">
+														<label class="material-checkbox" ng-if="descartable.PuedeDevolver">
+															<input type="checkbox" ng-model="descartable.Devolver" ng-disabled="ejecucion.TieneDevolucionPendiente" ng-change="vm.changeCheckAccion(indicacionMedica,descartable, 2, 2)">
+															<span ng-if="ejecucion.TieneDevolucionPendiente">Mov. Devolución Pendiente</span>
+															<span ng-if="!ejecucion.TieneDevolucionPendiente"></span>
+														</label>
+													</td>
+													<td class="text-center">
+														<button id="indic-medicas-table-descartable-eliminar-btn" type="button" class="btn btn-white btn-xs" uib-tooltip="Eliminar Descartable"
+														 ng-if="descartable.PuedeEliminar" uib-tooltip-placement="top" ng-click="vm.eliminarDescartable({pObject:descartable})">
+															<sa-icon name="DEL"></sa-icon>
+														</button>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+										<div class="col-xs-12 col-sm-6 col-md-3 col-lg-12 text-center" ng-show="indicacionMedica.Descartables.length == 0">
+											<label>No hay DESCARTABLES...</label>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+							<!-- mostramos los AGREGADOS para las INFUSIONES (indicacionMedica.TipoIndicacion.Id == 2) -->
+							<div ng-show="indicacionMedica.TipoIndicacion.Id == 2" class="row fila" style="margin-bottom: 20px">
+								<h2>
+									<strong>Agregados</strong>
+								</h2>
+								<table class="table color-celeste-pastel-prefactura" ng-show="indicacionMedica.Agregados.length > 0">
+									<thead class="levelTwo">
+										<tr></tr>
+										<tr class="cabecera-tabla-celeste">
+											<th>Producto</th>
+											<th>Unidad</th>
+											<th>Suspendido</th>
+											<th>Cantidad</th>
+											<th>Cant. Cargada</th>
+											<th>Cant. Entregada</th>
+											<th>Facturación</th>
+											<th>Farmacia</th>
+											<th ng-if="vm.facturarDevolverIf">Facturar</th>
+											<th ng-if="vm.facturarDevolverIf">Devolver</th>
+											<th>Acciones</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="agregado in indicacionMedica.Agregados">
+											<td>{{agregado.Producto.CodigoStockeable}} - {{agregado.Producto.NombreStockeable}} -
+												{{agregado.Producto.PresentacionStockeable}}
+												<sa-icon ng-if="agregado.Producto.TipoAntibiotico.Id == 2" id="indic-medicas-table-agregado-controlado-icon" name="COPYRIGHT"  uib-tooltip="Tipo Antibiótico: {{agregado.Producto.TipoAntibiotico.Nombre}}" uib-tooltip-placement="top"  class="fa-1-3x" style="color: orange"></sa-icon>
+												<sa-icon ng-if="agregado.Producto.TipoAntibiotico.Id == 3" id="indic-medicas-table-agregado-restringido-icon" name="REGISTERED" uib-tooltip="Tipo Antibiótico: {{agregado.Producto.TipoAntibiotico.Nombre}}" uib-tooltip-placement="top" class="fa-1-3x" style="color: red"></sa-icon>
+											</td>
+											<td ng-bind="agregado.Unidad"></td>
+
+											<td ng-if="!agregado.EstaSuspendido">-</td>
+											<td ng-if="agregado.EstaSuspendido" ng-class="{'color-row-deshabilitado': agregado.EstaSuspendido }">
+												<button type="button" id="indic-medicas-table-agregado-suspendido-icon" class="btn btn-white"
+												 style=" color: gray; " uib-tooltip="Suspendida" uib-tooltip-placement="top">
+													<sa-icon name="ANULAR" class="fa-1-3x"></sa-icon>
+												</button></td>
+
+
+											<td ng-bind="agregado.Cantidad"></td>
+											<td ng-bind="agregado.CantidadCargada"></td>
+											<td ng-bind="agregado.CantidadEntregada"></td>
+											<td>
+												<button type="button" id="indic-medicas-table-agregado-sinfacturado-icon" class="btn btn-white " ng-if="agregado.EstadoFacturacion.Id == 1"
+												 style=" color: red; " uib-tooltip="{{agregado.EstadoFacturacion.Nombre}}" uib-tooltip-placement="top">
+													<sa-icon name="PESOS" class="fa-1-3x"></sa-icon>
+												</button>
+												<button type="button" id="indic-medicas-table-agregado-facturado-icon" class="btn btn-white " ng-if="agregado.EstadoFacturacion.Id == 2"
+												 style=" color: green; " uib-tooltip="{{agregado.EstadoFacturacion.Nombre}}" uib-tooltip-placement="top">
+													<sa-icon name="PESOS" class="fa-1-3x"></sa-icon>
+												</button>
+												<button type="button" id="indic-medicas-table-agregado-devuelto-icon" class="btn btn-white " ng-if="agregado.EstadoFacturacion.Id == 3"
+												 style=" color: darkgoldenrod; " uib-tooltip="{{agregado.EstadoFacturacion.Nombre}}" uib-tooltip-placement="top">
+													<sa-icon name="REPLY" class="fa-1-3x"></sa-icon>
+												</button>
+											</td>
+
+											<td ng-bind="agregado.EstadoFarmacia.Nombre"></td>
+											<td ng-if="vm.facturarDevolverIf" class="text-center">
+												<label class="material-checkbox" ng-if="agregado.PuedeFacturar">
+													<input type="checkbox" ng-model="agregado.Facturar"  ng-disabled="agregado.TieneDevolucionPendiente" ng-change="vm.changeCheckAccion(indicacionMedica,agregado, 1, 3)">
+													<span></span>
+												</label>
+											</td>
+											<td ng-if="vm.facturarDevolverIf" class="text-center">
+												<label class="material-checkbox" ng-if="agregado.PuedeDevolver">
+													<input type="checkbox" ng-model="agregado.Devolver" ng-disabled="agregado.TieneDevolucionPendiente" ng-change="vm.changeCheckAccion(indicacionMedica,agregado, 2, 3)">
+													<span ng-if="agregado.TieneDevolucionPendiente">Mov. Devolución Pendiente</span>
+													<span ng-if="!agregado.TieneDevolucionPendiente"></span>
+												</label>
+											</td>
+
+											<td class="text-center">
+
+												<button id="cambiar_producto_button" type="button" class="btn btn-white btn-xs" uib-tooltip="Cambiar Producto Agregado"
+												 ng-if="agregado.PuedeCambiarProducto" uib-tooltip-placement="top" ng-click="vm.cambiarProductoAgregado({pObject:agregado})">
+													<sa-icon name="REFRESH"></sa-icon>
+												</button>
+
+												<button id="ver_observacion_agregado" type="button" class="btn btn-white btn-xs" uib-tooltip="Observación Agregado: {{agregado.Observacion}}"
+												 ng-if="agregado.Observacion.length" uib-tooltip-placement="top">
+													<sa-icon name="COMMENTING"></sa-icon>
+												</button>
+
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<div class="col-xs-12 col-sm-6 col-md-3 col-lg-12 text-center" ng-show="indicacionMedica.Agregados.length == 0">
+									<label>No hay AGREGADOS...</label>
+								</div>
+							</div>
+
+							<!-- End SEGUNDO NIVEL DE TABLA -->
+
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<!-- Paginacion zone -->
+	<div class="col-xs-12">
+		<div class="text-center ">
+			<div uib-pagination boundary-links="true " max-size="9 " items-per-page="vm.paginacion.pageSize " total-items="vm.paginacion.totalItems "
+			 ng-model="vm.paginacion.currentPage " ng-change="vm.pageChanged() " previous-text="&lsaquo; " next-text="&rsaquo; "
+			 first-text="&laquo; " last-text="&raquo; ">
+			</div>
+		</div>
+	</div>
+
+
+</div>

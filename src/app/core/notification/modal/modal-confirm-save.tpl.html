@@ -1,0 +1,23 @@
+<div ng-hide="vm.formControl.loading">
+	<sa-modal-header title-icon="QUESTION" title-name="Confirmar">
+	</sa-modal-header>
+	<sa-modal-body loading="vm.formControl.loading">
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " id="modal-confirm-textBody">
+				{{vm.formControl.textBody}}
+			</div>
+		</div>
+
+	</sa-modal-body>
+	<sa-modal-footer>
+
+		<input type="submit" class="btn btn-success "  ng-click="vm.formControl.guardar()"
+		  value="SI" id="btn-guardar-confirm-save">
+		<input type="submit" id="btnAgregarEditar" value="NO" class="btn btn-warning" 
+		  ng-click="vm.formControl.noguardar()">
+		<input type="submit" id="btnAgregarEditar" value="CANCELAR" class="btn btn-basic" 
+		  ng-click="vm.formControl.cancelar()">
+
+	</sa-modal-footer>
+</div>
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>

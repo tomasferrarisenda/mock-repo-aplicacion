@@ -1,0 +1,29 @@
+<sa-modal-header
+	title-name="{{vm.title.page}}"
+	title-icon="EYE_OPEN" >
+</sa-modal-header>
+<sa-modal-body loading="vm.formControl.loading">
+	<sa-persona-basic
+		title="Datos del paciente"
+		model="vm.data.internacion.Paciente" >
+	</sa-persona-basic>
+	<!-- MEDICO SOLICITANTE -->
+	<!-- <sa-profesional-basic 
+		title="Datos del médico solicitante"
+		model="vm.data.internacion.MedicoSolicitante">
+	</sa-profesional-basic> -->
+	<div class="row " >
+		<div class="col-xs-12  ">
+			<label>Diagnóstico</label>
+			<div ng-bind="vm.data.internacion.diagnostico"></div>
+		</div>
+		<div class="col-xs-12  ">
+			<sa-diagnostico-cie
+				model="vm.data.internacion.EnfermedadCie">
+			</sa-diagnostico-cie>
+		</div>
+	</div>
+</sa-modal-body>
+<sa-modal-footer
+	btn-ok-click="$close('ok')"	>
+</sa-modal-footer>

@@ -1,0 +1,32 @@
+<label>
+	<span ng-bind="title || 'Mutual'"></span>
+	<span ng-if="required">(*)</span>
+</label>
+<div uib-tooltip="{{model.Nombre}}">
+	<div ng-disabled="true" ng-hide="btnSearch">
+		<span ng-bind="model.codigo_mutual"></span> -
+		<span ng-bind="model.Nombre"></span>
+	</div>
+	<div class="input-group" ng-if="btnSearch">
+		<div class="form-control" ng-disabled="true">
+			<span ng-bind="model.codigo_mutual"></span> -
+			<span ng-bind="model.Nombre"></span>
+		</div>
+		<span class="input-group-btn">
+			<button
+				type="submit"
+				class="btn btn-default "
+				uib-tooltip="Cambiar"
+				ng-hide="deshabilitado"
+				ng-disabled="loading || btnSearchDisabled"
+				ng-click="openSelector()">
+				<sa-icon name="SEARCH"></sa-icon>
+			</button>
+		</span>
+	</div>
+</div>
+<input type="text" class="form-control" 
+	name="mutual"
+	ng-model="model"
+	ng-required="required"
+	ng-show="false" >

@@ -1,0 +1,40 @@
+<div class="col-xs-12 col-md-12 col-lg-12 col-sm-12">
+	<div class="row" ng-if="ready">
+		<div class="dropdown dropdown{{id}}-parent">
+			<a class="dropdown-toggle datetimepicker{{id}}" id="datetimepicker{{id}}" role="button" data-toggle="dropdown" data-target=".dropdown{{id}}-parent">
+				<div class="input-group">
+						<div sa-unchange-alertas-click sa-form-input-validate >
+							<input type="text"
+								id="dateInput{{id}}"
+								name="dateInput{{id}}" class="form-control"
+								ng-model="model"
+								ng-model-options="{ updateOn: 'blur'}"
+								sa-date-input="formatoFecha"
+								max="max || maxDateCommon"
+								min="min || minDateCommon"
+								ng-change="updateModel(model)"
+								ng-required="required"
+								ng-disabled="disabled"
+								sa-enter>
+						</div>
+					<span class="input-group-btn calendario_button" >
+						<button type="button" class="btn btn-default"
+								ng-disabled="disabled"
+								id="calendario_button"
+								sa-enter
+								uib-tooltip="Calendario" ng-click="clickCalendar()">
+								<sa-icon name="CALENDAR"></sa-icon>
+						</button>
+					</span>
+				</div>
+			</a>
+			<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" ng-class="{hideheader: type == 'time'}" ng-show="!disabled">
+					<datetimepicker   data-ng-model="model" ng-change="updateModel(model)"
+					data-datetimepicker-config="config"
+						data-before-render='renderOnBeforeRender($dates)' 
+					data-on-set-time="timePicked()">
+					</datetimepicker>
+			</ul>
+		</div>
+	</div>
+</div>

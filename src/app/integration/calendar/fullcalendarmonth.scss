@@ -1,0 +1,32 @@
+.calendario-chico .fc-basic-view .fc-body .fc-row {
+	min-height: 2em;
+}
+
+.calendar {
+	.fc-toolbar {
+		margin-bottom: 0.55em;
+		h2{
+			font-size : 14px;
+			text-transform : capitalize;
+			padding-top: 4px;
+			margin-bottom: 6px;
+		}
+		.fc-button-group{
+			button{
+				padding: 2px 4px;
+			}
+		}
+	}
+	// .fc-today{
+	// 	background: none !important;
+	// }
+}
+
+.fc-time-grid-container {
+	overflow-y: overlay !important;
+}
+.calendar-today{
+	.fc-today{
+		background: none !important;
+	}
+}

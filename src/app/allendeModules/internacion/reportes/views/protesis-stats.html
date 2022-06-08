@@ -1,0 +1,48 @@
+<sa-title
+	title-name="vm.title.name"
+	title-icon="{{vm.title.icon}}"
+
+	btn-reload-click="vm.formControl.reloadPage()"
+	btn-reload-disabled="vm.formControl.loading"
+></sa-title>
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>
+<div class="cuerpo">
+	<div class="row fila">
+		<h4>Búsqueda avanzada</h4>
+		<form name="formFilter" accept-charset="utf-8" novalidate>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4  form-group" >
+				<label for="txt_fecha_ingreso_desde">Fecha probable de recepción (*)</label>
+				<sa-date-picker
+					name="fechaRecepcionProbable"
+					model="vm.filter.fechaRecepcionProbable"
+					min-date="vm.today">
+				</sa-date-picker>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group" >
+				<button class="btn-row"
+					sa-btn-search
+					ng-click="vm.formControl.reloadPage()">
+					Buscar
+				</button>
+			</div>
+		</form>
+	</div>
+	<div ng-if="!vm.data.reporte.length" class="row text-center">
+		<span >No hay registros</span>
+	</div>
+	<div ng-if="vm.data.reporte.length" class="row">
+		<div class="col-xs-12 ">
+			<label>Cantidad total de pacientes: <span ng-bind="vm.data.cantidadPacientes"></span></label>
+		</div>
+		<br>
+		<div class="col-xs-12">
+			<sa-grid-reporte-protesis data="vm.data.reporte"></sa-grid-reporte-protesis>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-6">
+			<sa-chart-reporte-protesis-entregadas data="vm.data.reporte"></sa-chart-reporte-protesis-entregadas>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-6">
+			<sa-chart-reporte-protesis-autorizadas data="vm.data.reporte"></sa-chart-reporte-protesis-autorizadas>
+		</div>
+	</div>
+</div>

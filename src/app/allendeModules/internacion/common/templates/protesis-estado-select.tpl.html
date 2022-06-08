@@ -1,0 +1,33 @@
+<form name="formEstado" accept-charset="utf-8" novalidate>
+	<sa-modal-header
+		title-name="{{vm.title.page}}"
+		title-icon="CHECK" >
+	</sa-modal-header>
+	<sa-modal-body loading="vm.formControl.loading">
+		<div class="row">
+			<div class="col-xs-12  form-group">
+				<label for="">Observaciones</label>
+				<textarea type="text" rows="2" placeholder="Ingresar observaciones" class="form-control"
+					name="observaciones"
+					ng-model="vm.formData.observaciones"
+					ng-required="true"
+					maxlength="255" ></textarea>
+				<sa-text-error model="formEstado.observaciones"></sa-text-error>
+			</div>
+		</div>
+		<div ng-repeat="estado in vm.data.estados track by $index">
+			<button type="button" class="btn btn-block"
+				ng-disabled="formEstado.$invalid"
+				ng-class="estado.color"
+				ng-click="vm.formControl.ok(estado)">
+				{{ estado.nombre }}
+			</button>
+		</div>
+	</sa-modal-body>
+	<sa-modal-footer>
+		<button type="button" class="btn btn-block"
+			ng-click="$dismiss('cancel')">
+			CANCELAR
+		</button>
+	</sa-modal-footer>
+</form>

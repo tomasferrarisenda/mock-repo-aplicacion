@@ -1,0 +1,31 @@
+// Coloque su configuración en este archivo para sobrescribir la configuración predeterminada y de usuario.
+{
+	"editor.lineNumbers": "on",
+	"scss.showErrors": true,
+	"path-intellisense.showHiddenFiles": true,
+	"editor.renderWhitespace": "boundary",
+	"editor.wordWrapColumn": 120,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "bin" : true,
+		"**/fonts": true,
+		
+		"**/.sass-cache": true,
+		"**/.tscache": true,
+		"**/pdf": true,
+        "*.sublime-grunt.cache" : true,
+        "*.sublime-workspace" : true,
+        "*.sublime-project" : true,
+        "**/*.js-" : true,
+        "**/*.tmp.txt" : true,
+        ".ftppass": true,
+        ".htaccess": true
+	},
+	"eslint.enable": false,
+    "typescript.tsdk": "node_modules\\typescript\\lib",
+    "typescript.surveys.enabled": false
+}

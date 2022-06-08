@@ -1,0 +1,108 @@
+<sa-title title-name="vm.title.name" title-icon="LIST" btn-new-click="vm.generarNuevoCierre()"></sa-title>
+<div class="row">
+    <!-- El ng-if va para no cargar la tabla sin datos -->
+    <div class="col-xs-12">
+
+		<form name="formFilter" accept-charset="utf-8" novalidate>
+            <div class="row">
+
+                <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" sa-form-input ng-controller="DatePickerController">
+					<label for="datePickerDesde ">Fecha desde</label><sa-date-picker model="vm.fechaDesde " max-date="vm.fechaHasta"></sa-date-picker>					
+				</div> -->
+
+                <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" sa-form-input ng-controller="DatePickerController">
+					<label for="datePickerHasta ">Fecha hasta</label><sa-date-picker model="vm.fechaHasta " max-date="vm.fechaHoy" min-date="vm.fechaDesde"></sa-date-picker>					
+                </div> -->
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group " ng-if="vm.fechaDesde">
+                        <label class="control-label">Fecha desde</label>
+                        <sa-date-time-picker ng-model="vm.fechaDesde" id="1" type="date" ng-change="vm.changeFechaDesde()" >
+                        </sa-date-time-picker>  
+                </div>
+            
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group " ng-if="vm.fechaHasta">
+                        <label class="control-label">Fecha hasta</label>
+                        <sa-date-time-picker ng-model="vm.fechaHasta" id="2" type="date"  min="vm.fechadesdeMin" max="vm.today">
+                        </sa-date-time-picker>  
+                </div>
+            
+
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" sa-form-input>
+                    <label>Sucursal</label>
+                    <!--Para cargar todas las Sucursales es importante obtener sucursalElegida-->
+                    <select class="form-control" ng-model="vm.sucursalElegida" ng-options="sucursal.Nombre for sucursal in vm.sucursalLista track by sucursal.Id" ng-change="vm.cambioSucursal()"
+                        sa-enter>
+                        <option value="">TODAS</option>
+                        <!--Se coloca un solo Value como manera predeterminada, el resto lo obtenemos desde config » mesesConstan.ts -->
+					</select>
+					
+				</div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" sa-form-input>
+                    <label>Servicio</label>
+                    <!--Para cargar todas las Sucursales es importante obtener sucursalElegida-->
+                    <select class="form-control" ng-model="vm.servicioMedicoElegido" ng-options="servicio.Nombre for servicio in vm.servicioLista track by servicio.Id" ng-change="vm.cambioServicioMedico()"
+                        sa-enter>
+                        <option value="">TODOS</option>
+                        <!--Se coloca un solo Value como manera predeterminada, el resto lo obtenemos desde config » mesesConstan.ts -->
+					</select>
+					
+				</div>
+            </div>
+            <div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-2" sa-form-input>
+					<label for="numeroCierre">Número cierre</label>
+					<input type="number" id="numeroCierre" name="codigoCodigoNomenclador" ng-model="vm.numeroCierre" min="0" max="99999999"
+						sa-enter>
+				</div>
+
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" sa-form-input>
+                    <label for="usuario">Usuario</label>
+                    <select class="form-control" id="usuariosJerarquia_selector" name="usuariosJerarquia_name" ng-model="vm.usuarioActual" ng-disabled="vm.loading"
+                        ng-options="usuariosJerarquia as usuariosJerarquia.Nombre for usuariosJerarquia in vm.jerarquia track by usuariosJerarquia.Id">
+                    </select>
+                </div> 
+
+                 <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <sa-buscador-dinamico-usuario busqueda-usuario="vm.busquedaUsuario" ></sa-buscador-dinamico-usuario>
+                </div>
+
+
+                 <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 form-group" sa-form-input>
+                    <button type="button" sa-btn-search class="btn-row btn-block" ng-click="vm.buscar()" sa-punto-click="vm.buscar()" sa-enter>Buscar</button>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 form-group" sa-form-input>
+                    <button type="button" sa-btn-clean class="btn-row btn-block" ng-click="vm.limpiarFiltros()" sa-punto-click="vm.limpiarFiltros()"
+                        sa-enter>Limpiar</button>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 form-group" sa-form-input>
+                    <button type="button" sa-btn-ok class="btn-row btn-block"  ng-click="vm.exportarCierresExcel()"
+                    sa-punto-click="" ng-disabled='!vm.cierreRecepcion.Rows.length' sa-enter>Exportar a Excel</button>
+                </div>
+            </div>
+		</form>
+
+        <div class="col-xs-12">
+                <div class="row">
+                        <sa-table-ext data="vm.cierreRecepcion" page-change="vm.buscarPagina(pagination)" ng-if="vm.cierreRecepcion.Rows && vm.cierreRecepcion.Rows.length" 
+                        btn-print-click="vm.imprimirCierre(row, index)" btn-edit-click="vm.verCierreRecepcion(row, index)" btn-delete-click="vm.eliminar(row, index)">
+                        </sa-table-ext> 
+                </div>
+        </div>
+
+        <div class="row">
+            <br>
+            <div class="col-xs-12 text-center">
+                <button class="btn btn-cancelar" ng-click="vm.volver()" sa-punto-click="vm.volver()" sa-enter>
+                    Volver
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<sa-loading-modal ng-if="vm.loading"></sa-loading-modal>

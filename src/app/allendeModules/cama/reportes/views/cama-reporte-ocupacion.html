@@ -1,0 +1,51 @@
+<sa-title
+	title-name="vm.title.name"
+	title-icon="{{vm.title.icon}}"
+
+	btn-reload-click="vm.formControl.reload()">
+</sa-title>
+<div class="row">
+	<h4>Filtros</h4>
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group" >
+		<sa-sucursal-combo 
+			ng-model="vm.filter.sucursal">
+		</sa-sucursal-combo>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" fw-form-input-validate>
+		<label>Tipo habitacion contabiliza</label>
+		<select name="tipoHabitacionContabiliza" id="tipoHabitacionContabiliza"
+			ng-model="vm.filter.tipoHabitacionContabiliza"
+			ng-change="vm.formControl.cambiarTiposHabitacionFisica(vm.filter.tipoHabitacionContabiliza)"
+			ng-options="tipo.Nombre for tipo in vm.data.tiposHabitacionContabiliza">
+			<option value="">TODAS</option>
+		</select>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" >
+		<sa-tipo-habitacion-fisica-selector-multiple
+			ng-model="vm.filter.tiposHabitacionFisica">
+		</sa-tipo-habitacion-fisica-selector-multiple>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" >
+		<button 
+			type="button"
+			sa-btn-search
+			class="btn-block btn-row"
+			ng-click="vm.formControl.actualizar()">
+			Buscar
+		</button>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12 ">
+		<sa-grid-cama-ocupacion 
+			data="vm.data.reporte">
+		</sa-grid-cama-ocupacion>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<sa-chart-cama-ocupacion
+			data="vm.data.reporte">			
+		</sa-chart-cama-ocupacion>
+	</div>
+</div>

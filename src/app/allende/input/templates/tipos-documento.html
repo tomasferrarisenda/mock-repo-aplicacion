@@ -1,0 +1,14 @@
+<label for="cmb_tipo_documento" class="label-control">Tipo de documento <span ng-if="required">(*)</span></label>
+<select class="form-control"
+	id="cmb_tipo_documento"
+	name="tipoDocumento"
+	ng-model="model"
+	ng-change="changed()"
+	ng-class="{ error : error }"
+	ng-required="required"
+	ng-disabled="disabled"
+	ng-hide="hide"
+	ng-options="tipoDoc.nombre_tipo_documento for tipoDoc in options track by tipoDoc.id_tipo_documento " >
+	<option value="">{{ texto }}</option>
+</select>
+<span ng-show='error' class="text-error">Requerido.</span>

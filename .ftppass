@@ -1,0 +1,14 @@
+{
+  "key_dev": {
+    "username": "webmaster",
+    "password": "cdc6to87"
+  },
+  "key_test": {
+    "username": "webmaster",
+    "password": "cdc6to87"
+  },
+  "key_prod": {
+    "username": "desarrollo",
+    "password": "H-wz;n54NW"
+  }
+}

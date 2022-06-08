@@ -1,0 +1,56 @@
+<div id="print-content" class="container-print-white">
+	<sa-modal-header>
+		<div class="row">
+			<div class="col-xs-12  text-center" >
+				<sa-logo></sa-logo>
+			</div>
+			<div class="col-xs-12   text-center">
+				<h1>HOME TICKET</h1>
+			</div>
+		</div>
+	</sa-modal-header>
+	<sa-modal-body loading="formControl.loading">
+		<div class="row fila ">
+			<h4>Datos del paciente</h4>
+			<div class="col-xs-6 " >
+				<label class="">Nombre y Apellido del paciente</label>
+				<div ng-bind="data.internacion.Paciente.nombre_completo"></div>
+			</div>
+			<div class="col-xs-6 ">
+				<label class="">Documento</label>
+				<div>{{data.internacion.Paciente.TipoDocumento.nombre_tipo_documento}} : {{data.internacion.Paciente.numero_documento}}</div>
+			</div>
+		</div>
+		<div class="row fila fila-not">
+			<h4>Datos de admisión</h4>
+			<div class="col-xs-3 " >
+				<label class="">Fecha de ingreso</label>
+				<div ng-bind="data.internacion.fecha_admision | date: 'dd/MM/yyyy'"></div>
+			</div>
+			<div class="col-xs-3 " >
+				<label class="">Hora de ingreso</label>
+				<div ng-bind="data.internacion.fecha_admision | date: 'HH:mm'"></div>
+			</div>
+			<div class="col-xs-3 " >
+				<label class="">Habitacion</label>
+				<div ng-bind="data.internacion.CamaActual.Habitacion.numero_habitacion"></div>
+			</div>
+			<div class="col-xs-3 " >
+				<label class="">Cama</label>
+				<div ng-bind="data.internacion.CamaActual.numero_cama"></div>
+			</div>
+			<div class="col-xs-3 " >
+				<label class="">Cantidad de días</label>
+				<div ng-bind="data.internacion.cantidad_dias_internacion"></div>
+			</div>
+			<div class="col-xs-3 " >
+				<label class="">Fecha probable de salida</label>
+				<div ng-bind="formData.fechaProbableSalida | date: 'dd/MM/yyyy'"></div>
+			</div>
+			<div class="col-xs-6 " >
+				<label class="">Medico</label>
+				<div ng-bind="data.internacion.MedicoSolicitante.nombre_completo"></div>
+			</div>
+		</div>
+	</sa-modal-body>
+</div>

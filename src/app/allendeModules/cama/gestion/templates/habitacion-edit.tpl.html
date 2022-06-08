@@ -1,0 +1,85 @@
+<div id="print-content" ng-hide="vm.formControl.loading">
+	<form name="formSistema" accept-charset="utf-8" novalidate>
+		<div class="modal-header">
+	<h4 class="modal-title">
+					<sa-icon name="EDIT"></sa-icon>
+					Editar habitacion
+				</h4>		</div>
+		<div class="modal-body">
+			<div class="row ">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 " >
+					<sa-sucursal-combo
+					ng-model="vm.data.habitacionLoaded"
+					ng-disabled="!vm.formControl.buildingData "
+					>
+					</sa-sucursal-combo>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6  ">
+				<label for="">Edificio</label>
+				<select class="form-control"
+					name="edificioHabitacion"
+					ng-model="vm.data.habitacionLoaded.Descripcion"
+					ng-disabled="!vm.formControl.buildingData "
+					ng-options="edificios.Nombre for edificios in data.edificios "
+					 >
+					<option value="">--SELECCIONAR--</option>
+				</select>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6  ">
+				<label for="">Piso</label>
+				<select class="form-control"
+					name="pisosHabitacion"
+					ng-model="vm.data.piso.Descripcion"
+					ng-disabled="!vm.formControl.buildingData "
+					ng-options="pisos.Descripcion for pisos in data.pisos "
+					 >
+					<option value="">--SELECCIONAR--</option>
+				</select>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 " >
+					<label>Numero (*)</label>
+					<input type="text" class="form-control"
+						name="nombreSistema"
+						ng-class="validar.error(formSistema.nombreSistema.$valid)"
+						ng-model="vm.data.habitacionLoaded.Numero" 
+						required>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 " >
+					<label>Nombre (*)</label>
+					<input type="text" class="form-control"
+						name="pathSistema"
+						ng-class="validar.error(formSistema.pathSistema.$valid)"
+						ng-model="vm.data.habitacionLoaded.Nombre" 
+						required>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 " >
+					<label>Descripcion (*)</label>
+					<input type="text" class="form-control"
+						name="pathSistema"
+						ng-class="validar.error(formSistema.pathSistema.$valid)"
+						ng-model="vm.data.habitacionLoaded.Descripcion" 
+						required>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6  ">
+				<label for="">Tipo de Habitacion</label>
+				<select class="form-control"
+					name="tipodeHabitacion"
+					ng-model="vm.data.habitacionLoaded.IdTipoHabitacionFisica"
+					ng-options="tipoHabitacionFisica.id_tipo_habitacion_fisica as tipoHabitacionFisica.nombre_tipo_habitacion for tipoHabitacionFisica in vm.data.tiposHabitacionFisica"
+					 required>
+					<option value="">--SELECCIONAR--</option>
+				</select>
+				</div>
+			</div>		
+		</div>
+		<div class="modal-footer" ng-hide="vm.formControl.loading">
+			<input type="submit" id="btnAgregarEditar" value="Guardar"
+				class="btn btn-default"
+				ng-click="vm.formControl.ok()" >
+			<input type="submit"
+				class="btn "
+				ng-click="vm.formControl.cancel()" value="Cancelar">
+		</div>
+	</form>
+</div>
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>

@@ -1,0 +1,45 @@
+
+<div class="fila alerta-item"  ng-class="{'alerta-no-leido': !alerta.leido}">
+
+	<div name="color" class="alerta" ng-class="'alerta' + alerta.criticidad ">
+
+	</div>
+
+	<div name="datos" class="alerta-datos" >
+
+		<div class="alerta-datos-titulo" name="titulo" >
+			<div class="toast-title titulo">{{alerta.title}}
+				<span class="pull-right fecha">{{alerta.fecha | date:"dd/MM/yyyy '-' HH:mm"}}</span>
+			</div>
+
+		</div>
+
+		<div class="alerta-datos-icono-desc" name="iconoydescripcion">
+
+			<div class="alerta-datos-icono" >
+
+				<div name="icono" class="alerta-image" ng-class="'toast-' + alerta.icono ">
+				</div>
+			</div>
+
+			<div class="alerta-datos-desc" name="descripcion">
+				<span class="descripcion"> {{alerta.body}}</span>
+			</div>
+
+		</div>
+
+	</div>
+
+	<div name="leido" class="alerta-leido">
+		<div class="alerta-leido-item" >
+			<span ng-if="!alerta.leido" class="pull-right button fa fa-circle" uib-tooltip="Marcar como leida" tooltip-class="tooltip"
+			 tooltip-placement="top-right" ng-click="alertaLeida(alerta)">
+			</span>
+			<span ng-if="alerta.leido" class="pull-right button fa fa-dot-circle-o" uib-tooltip="Marcar como no leida" tooltip-class="tooltip"
+			 tooltip-placement="top-right" ng-click="alertaNoLeida(alerta)">
+			</span>
+		</div>
+	</div>
+
+
+</div>

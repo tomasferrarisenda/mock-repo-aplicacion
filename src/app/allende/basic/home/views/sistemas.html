@@ -1,0 +1,45 @@
+<sa-title title-name="vm.title.name" title-icon="{{vm.title.icon}}"></sa-title>
+<sa-body loading="vm.loading">
+	<div class="row">
+		<sa-panel-item
+			ng-repeat="itemMenu in vm.modules track by $index"
+
+			btn-class="{{itemMenu.Color}}"
+			ng-if="!vm.modulePath.length && itemMenu.Visible"
+			name="itemMenu.Titulo"
+			icon="itemMenu.Icono"
+			ng-click="vm.updateSelect(itemMenu)">
+		</sa-panel-item>
+	</div>
+	<div ng-if="vm.modulePath.length">
+		
+		<h3>
+			<div class="label label-default">
+				<span class="" ng-repeat="path in vm.modulePath">
+					<span ng-if="!$first"><sa-icon name="NEXT"></sa-icon>&nbsp;</span>
+					<span ng-bind="path.Titulo"></span>
+					<span ng-if="$last" class="btn badge" ng-click="vm.removeLast()"><sa-icon name="DEL"></sa-icon></span>
+				</span>
+			</div>
+		</h3>
+	</div>
+	<div class="row" ng-if="vm.modulePath.length">
+		<sa-panel-item
+			name="'ATRAS'"
+			icon-name="LEFT"
+			ng-click="vm.removeLast()">
+		</sa-panel-item>
+		<sa-panel-item
+			ng-repeat="itemMenu in vm.moduleSelected.Hijos track by $index"
+			ng-if="itemMenu.Visible"
+			btn-class="{{itemMenu.Color}}"
+			name="itemMenu.Titulo"
+			icon="itemMenu.Icono || 'glyphicon glyphicon-remove'"
+			ng-click="vm.updateSelect(itemMenu)">
+		</sa-panel-item>
+		<!-- <div class="col-xs-12">
+			<button class="btn" ng-click="vm.removeLast()">Quitar ultimo</button>
+		</div> -->
+	</div>
+</sa-body>
+<sa-footer></sa-footer>

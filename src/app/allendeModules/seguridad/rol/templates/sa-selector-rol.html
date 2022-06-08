@@ -1,0 +1,12 @@
+<label for="roles">Rol </label>
+<input name="roles" 
+		id="roles" type="text"
+		ng-disabled="disabled"
+		placeholder="Nombre del rol..." 
+		ng-model="data.rol"
+		uib-typeahead="rol as rol.Nombre for rol in data.roles | filter:$viewValue | limitTo:8" 
+		class="form-control"
+		typeahead-on-select="updateModel()"
+		ng-change="updateModel()"
+		typeahead-select-on-exact="true"
+		autocomplete="off">

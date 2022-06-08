@@ -1,0 +1,127 @@
+<ng-form name="formProtesis">
+	<div class="row fila fila-not" ng-class="{ 'fila-vm.print' : vm.print }">
+		<h4>
+			<span ng-bind="vm.title"></span>
+			<div class="btn-group pull-right" ng-hide="vm.print">
+				<button 
+					type="button"
+					class="btn btn-default" 
+					uib-tooltip="Agregar"
+					name="new"
+					ng-disabled="vm.btnNewDisabled || vm.loading"
+					ng-if="vm.btnNewIf"
+					ng-click="vm.btnNewClick()">
+					<sa-icon name="NEW"></sa-icon>
+				</button>
+			</div>
+		</h4>
+		<div class="col-xs-12">
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr></tr>
+					<tr class="cabecera-tabla">
+						<th class="text-center">Nombre de elemento</th>
+						<th ng-if="vm.full && !vm.print" class="text-center" ng-hide="vm.print">Estado Autorizacion</th>
+						<th ng-if="vm.btnEsterilizarIf && !vm.print" class="text-center" ng-hide="vm.print">Estado Esterilizacion</th>
+						<th ng-if="vm.btnVerificarIf && !vm.print" class="text-center" ng-hide="vm.print">Estado Verificación</th>
+						<th class="text-center">Prioridad</th>
+						<th class="text-center">Marca sugerida</th>
+						<th ng-if="vm.full && !vm.print && !vm.depositoHuesos" class="text-center">Marca autorizada</th>
+						<th ng-if="vm.full && !vm.print" class="text-center">Fecha recepción prob.</th>
+						<th ng-if="vm.btnVerificarIf && !vm.print" class="text-center">Fecha recepción real</th>
+						<th class="text-center" ng-if="vm.print">Observaciones</th>
+						<th class="text-center" ng-hide="vm.print">Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="protesis in vm.model" ng-if="vm.esVisible(protesis)">
+						<td>
+							<div ng-bind="protesis.nombre_protesis" uib-tooltip="{{protesis.observaciones_protesis}}"></div>
+						</td>
+						<td ng-if="vm.full && !vm.print">
+							<div ng-bind="protesis.EstadoAutorizacion.nombre || 'Creado'"></div>
+						</td>
+						<td ng-if="vm.btnEsterilizarIf && !vm.print">
+							<div ng-bind="protesis.EstadoEsterilizacion.nombre"></div>
+						</td>
+						<td ng-if="vm.btnVerificarIf && !vm.print">
+							<div ng-bind="protesis.EstadoVerificacion.nombre"></div>
+						</td>
+						<td>
+							<div ng-bind="protesis.PrioridadProtesis.nombre"></div>
+						</td>
+						<td>
+							<div ng-bind="protesis.ProveedorPreadmisionSugerido.nombre"></div>
+						</td>
+						<td ng-if="vm.full && !vm.print && !vm.depositoHuesos">
+							<div ng-bind="protesis.ProveedorPreadmisionAprobado.nombre"></div>
+						</td>
+						<td ng-if="vm.full && !vm.print">
+							<div ng-bind="protesis.fecha_recepcion_probable | date: 'dd/MM/yyyy - HH-mm'"></div>
+						</td>
+						<td ng-if="vm.btnVerificarIf && !vm.print">
+							<div ng-bind="protesis.fecha_recepcion_real | date: 'dd/MM/yyyy - HH-mm'"></div>
+						</td>
+						<td class="text-center" ng-if="vm.print">
+							<div  ng-bind="protesis.observaciones_protesis"></div>
+						</td>
+						<td class="text-center" ng-hide="vm.print">
+							<button class="btn btn-white btn-xs" uib-tooltip="Recepción" tooltip-placement="top"
+								ng-if="vm.btnRecepcionIf"
+								ng-disabled="vm.btnRecepcionDisabled || protesis.fecha_recepcion_real"
+								ng-click="vm.btnRecepcionClick(protesis)">
+								<sa-icon name="DOWN4"></sa-icon>
+							</button>
+							<button class="btn btn-white btn-xs" uib-tooltip="Verificar" tooltip-placement="top"
+								ng-if="vm.btnVerificarIf"
+								ng-disabled="vm.btnVerificarDisabled || (!protesis.fecha_recepcion_real || protesis.EstadoVerificacion.nombre == 'VERIFICADO')"
+								ng-click="vm.btnVerificarClick(protesis)">
+								<sa-icon name="CHECK"></sa-icon>
+							</button>
+							<button class="btn btn-white btn-xs" uib-tooltip="Esterilizar" tooltip-placement="top"
+								ng-if="vm.btnEsterilizarIf"
+								ng-disabled="vm.btnEsterilizarDisabled || !protesis.fecha_recepcion_real || protesis.EstadoEsterilizacion.nombre == 'ESTERILIZADO'"
+								ng-click="vm.btnEsterilizarClick(protesis)">
+								<sa-icon name="MEDIKIT"></sa-icon>
+							</button>
+							<button class="btn btn-white btn-xs" uib-tooltip="Entregar" tooltip-placement="top"
+								ng-if="vm.btnEntregaIf"
+								ng-disabled="vm.btnEntregaDisabled"
+								ng-click="vm.btnEntregaClick(protesis)">
+								<sa-icon name="MEDIKIT"></sa-icon>
+							</button>
+							<button class="btn btn-white btn-xs" uib-tooltip="Editar" tooltip-placement="top"
+								ng-if="vm.btnEditIf && vm.full"
+								ng-disabled="vm.btnEditDisabled"
+								ng-click="vm.btnEditClick(protesis)">
+								<sa-icon name="EDIT"></sa-icon>
+							</button>
+							<button class="btn btn-white btn-xs" uib-tooltip="Anular" tooltip-placement="top"
+								ng-if="vm.btnDeleteIf"
+								ng-disabled="vm.btnDeleteDisabled"
+								ng-click="vm.btnDeleteClick($index)">
+								<sa-icon name="DEL"></sa-icon>
+							</button>
+							<button class="btn btn-white btn-xs" uib-tooltip="Observaciones" tooltip-placement="top"
+								ng-if="vm.btnObservacionesIf"
+								ng-disabled="vm.btnObservacionesDisabled"
+								ng-click="vm.btnObservacionesClick(protesis)">
+								<sa-icon name="EYE_OPEN"></sa-icon>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="text-center">
+				<span ng-show="!vm.model.length" class="text-error">No hay prótesis agregadas.</span>	
+			</div>
+		</div>
+		<div class="col-xs-12" ng-if="vm.required">
+			<input ng-show="false" type="number"
+				name="cantidadProtesis"
+				min="1"
+				ng-required="vm.required"
+				ng-model="vm.length">
+		</div>
+	</div>
+</ng-form>

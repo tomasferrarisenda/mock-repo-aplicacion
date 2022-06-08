@@ -1,0 +1,35 @@
+<sa-menu></sa-menu>
+<!-- Contenido de la vista -->
+<snap-content>
+	<div class="right">
+		<sa-header name-module="{{ vm.title.module }}" path-module="#/HistoriaClinica" ></sa-header>
+
+		<div class="main">
+			<section class="contentwhite">
+				<div class="container-fluid">
+					<sa-title
+						title-name="vm.title.page"
+					></sa-title>
+					<div class="cuerpo" ng-hide="vm.formControl.loading || vm.formControl.error">
+						
+						<div class="row">
+							<sa-subsistemas
+								system-id="126"
+								user-name="{{vm.user.userName}}">
+							</sa-subsistemas>
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 " >
+								<a href="#/HistoriaClinica/About" class="btn btn-info btn-block">
+									<div class="panel-heading">ACERCA DE</div>
+									<sa-icon name="CONF" class="icons-home"></sa-icon>
+								</a>
+							</div> 
+						</div>
+
+					</div>
+					<sa-loading ng-if="vm.formControl.loading"></sa-loading>
+				</div>
+			</section>
+		</div>
+	</div>
+</snap-content>
+<!-- /Contenido de la vista -->

@@ -1,0 +1,11 @@
+<div ng-class="{ 'pull-right' : pullRight}">
+	<label ng-if="label && !labelRight" class="control-label" ng-bind="label"></label>
+	<div class="sa-check-box" ng-class="{ 'sa-switch-label' : labelRight}" id="{{idElement}}">
+		<switch  class="{{color}}" 
+		ng-model="model" id="{{idElement}}-switch"
+		ng-change="updateModel(model, $event)"
+		disabled="disabled">
+	</switch>
+	<span ng-if="labelRight && !label" ng-bind="labelRight" class="sa-switch-label-right"></span>
+	</div>
+</div>

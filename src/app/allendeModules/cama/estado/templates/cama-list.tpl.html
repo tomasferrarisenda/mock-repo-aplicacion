@@ -1,0 +1,92 @@
+<div id="print-content">
+	<div class="modal-header">
+		<h4 class="modal-title">
+			<sa-icon name="CHECK"></sa-icon>
+			{{ vm.title.page }}: {{ vm.sucursal }}
+		</h4>
+	</div>
+	<sa-loading ng-if="formControl.loading"></sa-loading>
+	<div class="modal-body" ng-hide="formControl.loading" id="#prueba">
+		<div class="row fila">
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4  ">
+				<label for="">Categoria Habitacion</label>
+				<select class="form-control"
+					name="categoriaHabitacion"
+					ng-model="filter.categoriaHabitacion"
+					ng-change="formControl.getTiposFisicaByCategoria(filter.categoriaHabitacion)"
+					ng-options="categoria.nombre_categoria for categoria in data.categoriasHabitacion track by categoria.id_categoria_habitacion" >
+					<option value="">--SELECCIONAR--</option>
+				</select>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4  "
+				ng-hide="filter.categoriaHabitacion.nombre_categoria == 'Sin Habitación'">
+				<label for="">Tipo Habitacion</label>
+				<select class="form-control"
+					name="tipoHabitacionFisica"
+					ng-model="filter.tipoHabitacionFisica"
+					ng-change="paginacion.pageChanged()"
+					ng-disabled="!data.tiposHabitacionFisica.length"
+					ng-options="tipoFisica.nombre_tipo_habitacion for tipoFisica in data.tiposHabitacionFisica track by tipoFisica.id_tipo_habitacion_fisica" >
+					<option value="">--SELECCIONAR--</option>
+				</select>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4  " ng-hide="filter.categoriaHabitacion.nombre_categoria == 'Sin Habitación'">
+				<label for="cmb_tipo_documento">Nº Habitacion</label>
+				<input type="number" class="form-control"
+					name="" placeholder="Nº Habitacion"
+					ng-change="paginacion.pageChanged()"
+					ng-model="filter.numeroHabitacion">
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 pull-right" ng-hide="filter.categoriaHabitacion.nombre_categoria == 'Sin Habitación'">
+				<button type="button" class="btn btn-default btn-row btn-block"
+					ng-click="filter.clean()">Limpiar</button>
+			</div>
+		</div>
+		<div class="row" ng-hide="filter.categoriaHabitacion.nombre_categoria == 'Sin Habitación'">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12  ">
+				<table class="table table-bordered table-hover table-condensed">
+					<thead>
+						<tr></tr>
+						<tr class="cabecera-tabla">
+							<th class="text-center">Nº Habitación</th>
+							<th class="text-center">Nº Cama</th>
+							<th class="text-center">Tipo Habitación</th>
+							<th class="text-center">Observaciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="cama in filter.camas" class="fw-noselect"
+							ng-click="formControl.ok(cama)">
+							<td class="text-center"> {{ cama.numero_habitacion }} </td>
+							<td class="text-center"> {{ cama.numero_cama }} </td>
+							<td> {{ cama.nombre_tipo_habitacion_fisica }} </td>
+							<td> {{ cama.observaciones_cama }} </td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-sm-12" ng-if="filter.camas.length">
+				<div class="text-center">
+					<div uib-pagination  boundary-links="true"
+						max-size="9"
+						items-per-page="paginacion.pageSize"
+						total-items="paginacion.totalItems"
+						ng-model="paginacion.currentPage"
+						ng-change="paginacion.pageChanged()"
+						previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div ng-if="filter.categoriaHabitacion.nombre_categoria == 'Sin Habitación'">
+			<p class="text-center">Se va a admitir al paciente sin cama.</p>
+		</div>
+	</div>
+	<div class="modal-footer" ng-hide="formControl.loading">
+		<button class="btn btn-cancel" type="button"
+			ng-click="formControl.cancel()">Cancelar</button>
+		<button sa-btn-ok type="button"
+			ng-if="filter.categoriaHabitacion.id_categoria_habitacion == 9"
+			ng-click="formControl.ok(false)">Aceptar</button>
+	</div>
+</div>

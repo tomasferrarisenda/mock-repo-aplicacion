@@ -1,0 +1,41 @@
+<div class="modal-header">
+	<h4 class="modal-title">{{ vm.title.page }}</h4>
+</div>
+<div ng-hide="vm.formControl.loading">
+	<div class="modal-body">
+		<div class="row" >
+			<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10  form-group">
+				<label>Nombre de la sociedad</label>
+				<input type="text" class="form-control"
+					placeholder="Buscar por matrícula o nombre de la sociedad"
+					name="nombreSociedad"
+					ng-model="vm.formData.sociedadSeleccionada"
+					uib-typeahead="sociedad as sociedad.Nombre for sociedad in vm.data.sociedades | filter: $viewValue | limitTo:20"
+					typeahead-template-url="codigo-sociedad.tpl.html"
+					typeahead-min-length="2"
+					typeahead-no-results="vm.formControl.noResult"
+				>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer" >
+		<button type="button"
+			class="btn "
+			ng-click="vm.formControl.cancel()">Cancelar</button>
+		<button type="button"
+			class="btn btn-default"
+			ng-disabled="!vm.formControl.validarForm()"
+			ng-click="vm.formControl.ok()">Aceptar</button>
+	</div>
+</div>
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>
+
+<script type="text/ng-template" id="codigo-sociedad.tpl.html">
+  <a>
+      <span ng-bind="match.model.NumeroMatricula"></span> | 
+      <span ng-bind="match.model.Nombre"></span>
+      <span class="pull-right">
+      	| <span ng-bind="match.model.Sociedad.Nombre"></span>
+      </span>
+  </a>
+</script>

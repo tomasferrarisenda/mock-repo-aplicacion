@@ -1,0 +1,71 @@
+<!-- Se define el contenedor que maneja toda la información -->
+<!-- Se declara el nombre del data service -->
+<fw-abmc-container>
+
+	<!-- Se define el modelo del ABMC -->
+	<fw-abmc-model name="'Text'">
+		<fw-abmc-model-attribute
+			label="'IntProperty'"
+			type="'number'"
+			required="true"
+			field="'IntProperty'">
+		</fw-abmc-model-attribute>
+		<fw-abmc-model-attribute
+			label="'StringProperty'"
+			type="'text'"
+			required="true"
+			field="'StringProperty'">
+		</fw-abmc-model-attribute>
+		<!-- <fw-abmc-model-attribute
+			label="'Descripción'"
+			type="'text'"
+			required="true"
+			field="'descripcion'">
+		</fw-abmc-model-attribute> -->
+	</fw-abmc-model>
+
+	<!-- Se definen los items del ABM -->
+	<!-- Siendo las opciones: list, add, edit y delete -->
+	<!-- Cada opción debería tener opciones por defecto para title e icon -->
+	<!-- Se debe validar que el dataService contenga los métodos que se le declaran -->
+	<!-- Ejemplo: si tiene un listado, deberia tener el metodo getAll o getAllByFIltro -->
+
+	<!-- ABMC-list: tiene tipos: all o filtro -->
+	<fw-abmc-actionset service="'TestDataService'">
+		<fw-abmc-action
+			title="'Otra accion'"
+			label="'otra etiqueta'"
+			action="vm.functionPrueba()"
+			icon="'USER'"
+			inline="true">
+		</fw-abmc-action>
+		<fw-abmc-action-list
+			title="'Lista de tipo documentos'"
+			label="'Lista'"
+			icon="'LIST'"
+			type="'all'"
+			map="vm.mapFunction(result)"
+			method="'getAll'">
+		</fw-abmc-action-list>
+		<fw-abmc-action-add
+			title="'Agregar Tipo documento'"
+			label="'Agregar'"
+			icon="'NEW2'"
+			method="add">
+		</fw-abmc-action-add>
+		<fw-abmc-action-edit
+			title="'Editar Tipo documento'"
+			label="'Editar'"
+			icon="'EDIT'"
+			method="update">
+		</fw-abmc-action-edit>
+		<fw-abmc-action-delete
+			title="'Borrar Tipo documento'"
+			label="'Borrar'"
+			icon="'DELETE'"
+			method="delete">
+		</fw-abmc-action-delete>
+	</fw-abmc-actionset>
+	<!-- Renderizado -->
+	<fw-abmc-render></fw-abmc-render>
+</fw-abmc-container>

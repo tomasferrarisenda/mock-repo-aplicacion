@@ -1,0 +1,172 @@
+<sa-loading ng-if="formControl.loading"></sa-loading>
+	<sa-modal-header
+		title-name="Detalle Autorización"
+		title-icon="">
+	</sa-modal-header>
+	<sa-modal-body>
+		<div class="row">
+			<h4>Envío</h4>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+				<label class="label-control ">Código</label>
+				<input type="text" class="form-control" ng-readonly="true" ng-model="data.autorizacion.Id">
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+				<label class="label-control ">Número Solicitud</label>
+				<input type="text" class="form-control" ng-readonly="true" ng-model="data.autorizacion.NroSolicitud">
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+				<label class="label-control ">Fecha</label>
+				<input type="text" class="form-control" ng-readonly="true" ng-model="data.autorizacion.FechaAltaTexto">
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+				<label class="label-control ">Estado</label>
+				<input type="text" class="form-control" ng-readonly="true" ng-model="data.autorizacion.EstadoAutorizacion" >
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+				<label class="label-control ">Sucursal</label>
+				<input type="text" class="form-control" ng-readonly="true" ng-model="data.autorizacion.Sucursal">
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 form-group">
+				<label class="label-control ">Servicio</label>
+				<input type="text" class="form-control" ng-readonly="true" ng-model="data.autorizacion.ServicioMedico">
+			</div>
+		</div>
+		<div class="row">
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 form-group">
+				<label class="label-control ">Mutual</label>
+				<input type="text" class="form-control" ng-readonly="true" ng-model="data.autorizacion.Mutual" >
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+				<label class="label-control ">Número Afiliado</label>
+				<input type="text" class="form-control" ng-readonly="true" ng-model="data.autorizacion.NroAfiliado">
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 form-group">
+				<label class="label-control ">Paciente</label>
+				<input type="text" class="form-control" ng-readonly="true" ng-model="data.autorizacion.Paciente">
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+				<label class="label-control ">Documento</label>
+				<input type="text" class="form-control" ng-readonly="true" ng-model="data.autorizacion.DocumentoCompleto">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 form-group">
+				<label class="label-control ">Profesional Efector</label>
+				<input type="text" class="form-control" ng-readonly="true" ng-model="data.autorizacion.ProfesionalEfectorCompleto">
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 form-group">
+				<label class="label-control ">Profesional Solicitante</label>
+				<input type="text" class="form-control" ng-readonly="true" ng-model="data.autorizacion.ProfesionalSolicitante">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group">
+				<label class="label-control ">Diagnóstico</label>
+				<input type="text" class="form-control" ng-readonly="true" ng-model="data.autorizacion.Diagnostico">
+			</div>
+		</div>
+		
+		<div class="row">
+			<h4>Respuesta</h4>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
+				<label class="label-control ">Fecha</label>
+				<input type="text" class="form-control" ng-readonly="true" ng-model="data.autorizacion.FechaRespuestaTexto">
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+				<label class="label-control ">Número Transacción</label>
+				<input type="text" class="form-control" ng-readonly="true" ng-model="data.autorizacion.Nrotransaccion">
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+				<label class="label-control">Número Afiliado</label>
+				<input type="text" class="form-control" ng-readonly="true" ng-model="data.autorizacion.NumeroAfiliadoRespuesta">
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+				<label class="label-control ">Tipo Afiliado</label>
+				<input type="text" class="form-control" ng-readonly="true" ng-model="data.autorizacion.TipoAfiliadoRespuesta">
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
+				<label class="label-control ">Plan</label>
+				<input type="text" class="form-control" ng-readonly="true" ng-model="data.autorizacion.PlanRespuesta">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group">
+				<label class="label-control ">Observación</label>
+				<textarea rows="3" class="form-control" ng-readonly="true" ng-model="data.autorizacion.ObservacionesRespuesta" ></textarea>
+			</div>
+		</div>
+		<!-- style="height:150px; overflow: scroll;" -->
+		<div class="row">
+			<h4>Items</h4>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group">
+				<table class="table table-hover table-condensed table-bordered" id="items_autorizacion">
+					<thead>
+						<tr class="thead-azul"></tr>
+						<tr class="cabecera-tabla">
+							<th class="text-center">Código</th>
+							<th class="text-center">Nombre</th>
+							<th class="text-center">Cantidad</th>
+							<th class="text-center">Respuesta</th>
+							<th class="text-center">Cantidad Autorizada</th>
+							<th class="text-center">Coseguro</th>
+						</tr>
+					</thead>
+					<tbody ng-repeat="item in data.autorizacion.Items">
+						<tr>
+							<td class="text-center" ng-bind="item.Codigo"></td>
+							<td class="text-center" ng-bind="item.PracticaMedica"></td>
+							<td class="text-center" ng-bind="item.Cantidad"></td>
+							<td class="text-center" ng-bind="item.Respuesta"></td>
+							<td class="text-center" ng-bind="item.CantidadAutorizada"></td>
+							<td class="text-center" ng-bind="item.Coseguro"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group">
+				<script type="text/ng-template" id="group-template.html">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title" style="color:#fa39c3">
+								<a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" uib-accordion-transclude="heading">
+									<span uib-accordion-header ng-class="{'text-muted': isDisabled}">{{heading}}</span>
+								</a>
+							</h4>
+						</div>
+						<div class="panel-collapse collapse" uib-collapse="!isOpen">
+							<div class="panel-body" style="text-align: right" ng-transclude></div>
+						</div>
+					</div>
+				</script>
+				<uib-accordion close-others="oneAtATime" ng-show="data.autorizacion.EsAdministrador">
+					<div uib-accordion-group heading="Mensaje Enviado" class="panel-default">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group">
+							<label class="label-control ">Mensaje Enviado</label>
+							<textarea  class="form-control" ng-readonly="true" ng-model="data.autorizacion.MsjEnvio" ></textarea>
+						</div>
+					</div>
+					<div uib-accordion-group heading="Mensaje Respuesta" class="panel-default">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group">
+							<label class="label-control ">Mensaje Respuesta</label>
+							<textarea  class="form-control" ng-readonly="true" ng-model="data.autorizacion.MsjRespuesta" ></textarea>
+						</div>
+					</div>
+				</uib-accordion>
+			</div>
+		</div>
+	</sa-modal-body>
+	<sa-modal-footer>
+		<div class="row text-center">
+			<input type="submit"
+				class="btn"
+				value="Cerrar"
+				sa-enter
+				ng-click="vm.formControl.cancel()"
+				sa-punto-click="vm.formControl.cancel()">
+		</div>
+	</sa-modal-footer>
+</div>

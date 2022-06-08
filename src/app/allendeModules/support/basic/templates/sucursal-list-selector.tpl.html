@@ -1,0 +1,40 @@
+<div class="modal-header">
+	<h4 class="modal-title">{{ vm.title.page }}</h4>
+</div>
+<div ng-hide="vm.formControl.loading">
+	<div class="modal-body">
+		<div class="row" >
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12  form-group">
+				<table class="table table-hover">
+					<thead>
+						<tr></tr>
+						<tr class="cabecera-tabla">
+							<th class="text-center">ID Sucursal</th>
+							<th class="text-center">Nombre</th>
+							<th class="text-center">Seleccionar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="sucursal in vm.data.sucursales" ng-click="vm.formControl.selectRow(sucursal)">
+							<td class="text-center" ng-bind="sucursal.id_sucursal"></td>
+							<td class="text-center" ng-bind="sucursal.descripcion"></td>
+							<td class="text-center">
+								<input type="radio" ng-value="sucursal" ng-model="vm.formData.sucursalSeleccionada">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer" >
+		<button type="button"
+			class="btn "
+			ng-click="vm.formControl.cancel()">Cancelar</button>
+		<button type="button"
+			class="btn btn-default"
+			ng-disabled="!vm.formControl.validarForm()"
+			ng-click="vm.formControl.ok()">Aceptar</button>
+	</div>
+</div>
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>

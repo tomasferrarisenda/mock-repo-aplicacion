@@ -1,0 +1,35 @@
+<form name="formEstadoCama" accept-charset="utf-8" novalidate>
+	<div class="modal-header">
+		<h4 class="modal-title">
+			<sa-icon name="CHECK"></sa-icon>
+			Seleccionar estado de cama
+		</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-xs-12  form-group">
+				<label for="">Observaciones</label>
+				<textarea type="text" rows="2" placeholder="Ingresar observaciones" class="form-control"
+					name="observacionesEstado"
+					ng-model="formData.observacionesEstado"
+					ng-required="true"
+					maxlength="255" ></textarea>
+				<sa-text-error model="formEstadoCama.observacionesEstado"></sa-text-error>
+			</div>
+		</div>
+		<div ng-repeat="estado in data.estadosPosibles track by $index">
+			<button type="button" class="btn btn-block"
+				ng-disabled="formEstadoCama.$invalid"
+				ng-class="estado.color"
+				ng-click="$close(estado)">
+				{{ estado.nombre_estado_cama }}
+			</button>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-block"
+			ng-click="$dismiss('cancel')">
+			CANCELAR
+		</button>
+	</div>
+</form>

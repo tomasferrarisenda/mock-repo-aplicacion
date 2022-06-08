@@ -1,0 +1,43 @@
+.alerta-item {
+	 display: inline-flex;
+	 width: 100%;
+}
+
+.alerta-datos {
+
+	width: 100%;
+}
+
+.alerta-datos-titulo{
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-bottom: 6px
+}
+
+.alerta-datos-icono-desc {
+	 display: flex;
+}
+
+
+.alerta-datos-icono {
+display: table-cell;
+margin: 4px;
+vertical-align:middle;
+}
+
+.alerta-datos-desc {
+	 display: table-cell;
+	 margin:4px;
+}
+
+.alerta-leido {
+	margin:4px;
+	display:flex
+}
+
+.alerta-leido-item{
+	display:flex;
+	align-items:center;
+}
+
+

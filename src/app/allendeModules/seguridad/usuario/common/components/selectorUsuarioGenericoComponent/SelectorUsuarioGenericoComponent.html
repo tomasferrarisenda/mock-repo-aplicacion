@@ -1,0 +1,4 @@
+<label id="usrio_label"> Usrio. </label>
+<input name="usrio" id="usrio" type="text" placeholder="{{vm.placeholder}}" ng-change="vm.buscar()" typeahead-min-length="2"
+ng-model="vm.usuario" uib-typeahead="usuario as usuario.NombreCompleto for usuario in data.usuarios | filter:$viewValue | limitTo:8" autocomplete="off"
+    class="form-control" typeahead-select-on-exact="true">

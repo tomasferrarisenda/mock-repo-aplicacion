@@ -1,0 +1,21 @@
+<label>Subir archivo:</label>
+<fw-file-upload title="Seleccione Documento" 
+    url="{{vm.url}}"
+    data= "vm.data"
+    boton-subir="vm.botonSubir"
+    file-extensions="{{vm.fileExtensions}}">
+</fw-file-upload>
+<br>
+<fw-table-container div ng-if="vm.model.Columns && vm.model.Rows">
+    <fw-table-rowset data="vm.model.Rows" click-action="clickAction()">
+    </fw-table-rowset>
+    <fw-table-columnset data="vm.model.Columns">
+    </fw-table-columnset>
+    <fw-table-buttonset>
+        <fw-table-button visible="btnEditIf" label="'Descargar'" icon="'DOWNLOAD'" action="vm.descargarDocumento(row.Id, row)">
+        </fw-table-button>
+        <fw-table-button visible="true" label="'Eliminar'" icon="'DEL'" action="vm.borrarDocumento(row)">
+        </fw-table-button>
+    </fw-table-buttonset>
+    <fw-table></fw-table>
+</fw-table-container>

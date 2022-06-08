@@ -1,0 +1,70 @@
+<div id="print-content" class="container-print">
+
+    <sa-modal-header title-name="{{vm.title.name}}" print="true"></sa-modal-header>
+    <sa-modal-body>
+        <div class="row">
+				
+					<div class="row">
+						<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+							<h4>
+								<label>
+									<strong>Lote Nro: </strong>
+								</label> {{vm.resolve.imprimeLote.NroLoteLegacy}}</h4>
+						</div>
+						<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+							<h4>
+							<label>
+								<strong>Fecha Impresión: </strong>
+							</label> {{vm.fechaImpresion | date:"dd/MM/yyyy HH:mm" }}</h4>
+						</div>
+
+						<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+							<h4>
+							<label>
+								<strong>Operador: </strong>
+							</label> {{vm.resolve.imprimeLote.NombreOperador}}</h4>
+						</div>
+
+					</div>
+
+					<div class="row">
+					 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+						<h4>
+						<label>
+							<strong>Sucursal: </strong>
+						</label> {{vm.resolve.imprimeLote.NombreSucursal }}</h4>
+					  </div>
+					</div>
+				
+        </div>
+
+
+		<div class="row fila" ng-repeat="definitivoDelLote in vm.definitivosDelLote">
+			<h4>* Servicio: {{definitivoDelLote.servicio}}</h4> 
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></divclass>
+					<table class="table table-bordered table-fina ">
+						 <thead>
+							<tr class="cabecera-tabla">
+								<td class="text-center">Nro Definitivo</td>
+								<td class="text-center">Tipo Afiliado</td>
+								<td class="text-center">Financiador</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="detalleDefinitivo in definitivoDelLote.definitivos">
+								<td class="text-left">{{detalleDefinitivo.NroDefinitivo}}</td>
+								<td class="text-left">{{detalleDefinitivo.TipoAfiliado}}</td>
+								<td class="text-center">{{detalleDefinitivo.Financiador}}</td>
+							</tr>
+						</tbody>
+					</table> 
+				</div>    
+
+	</div>   
+
+
+
+    </sa-modal-body>
+</div>
+
+

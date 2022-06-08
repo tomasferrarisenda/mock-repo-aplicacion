@@ -1,0 +1,51 @@
+<div ng-hide="vm.formControl.loading">
+	<form name="formViewServicio" accept-charset="utf-8" novalidate>
+		<div class="modal-header">
+			<h4 class="modal-title">
+				<sa-icon name="CHECK"></sa-icon>
+				Servicio 
+			</h4>
+		</div>
+		<div class="modal-body">
+			<div class="row table-responsive">
+				<div class="col-xs-12">
+					<table class="table table-hover">
+						<thead>
+							<tr></tr>
+							<tr class="cabecera-tabla">
+								<th class="text-center">Servicio Nº</th>
+								<th class="text-center" >Observaciones</th>
+								<th class="text-center">Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="cama in data.camas">
+								<td class="text-center" ng-bind="cama.numero_cama"></td>
+								<td class="text-center"  ng-bind="cama.observaciones"></td>
+								<td class="">
+											<button type="button" class="btn btn-white btn-xs"
+												uib-tooltip="Editar" tooltip-placement="top"
+												ng-click="vm.formControl.edit(cama)">
+												<sa-icon name="EDIT"></sa-icon>
+											</button>
+											<button type="button" class="btn btn-white btn-xs"
+												uib-tooltip="Borrar" tooltip-placement="top"
+												ng-click="vm.formControl.delete(cama)">
+												<sa-icon name="DEL"></sa-icon>
+											</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-block"
+				ng-click="$dismiss('cancel')">
+				CERRAR
+			</button>
+		</div>
+	</form>
+</div>
+<sa-loading ng-if="vm.formControl.loading" ></sa-loading>

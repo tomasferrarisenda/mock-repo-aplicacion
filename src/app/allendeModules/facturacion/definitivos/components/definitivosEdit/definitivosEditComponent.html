@@ -1,0 +1,96 @@
+<sa-title title-name="vm.title.name" title-icon="EDIT" btn-reload-click="vm.activate()"></sa-title>
+
+<div class="row">
+    <!-- El ng-if va para no cargar la tabla sin datos -->
+    <div class="col-xs-12">
+
+		<form name="formFilter" accept-charset="utf-8" novalidate>
+            <div class="row">
+
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2" sa-form-input>
+					<label for="financiador">Financiador</label>
+					<input type="text" id="financiador" name="financiador" ng-model="vm.financiadorDefinitivo" 
+							sa-enter ng-disabled="1">
+				</div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2" sa-form-input>
+					<label for="servicio">Servicio</label>
+					<input type="text" id="servicio" name="servicio" ng-model="vm.servicioDefinitivo" 
+							sa-enter ng-disabled="1">
+                </div>
+                
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2" sa-form-input>
+						<label for="ambito">Ambito</label>
+						<input type="text" id="ambito" name="ambito" ng-model="vm.ambitoDefinitivo" 
+								sa-enter ng-disabled="1">
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2" sa-form-input>
+                    <label for="fecha">Fecha</label>
+                    <input type="date" id="fecha" name="fecha" ng-model="vm.fechaDefinitivo" 
+                    sa-enter ng-disabled="1">
+                </div>
+
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2" sa-form-input>
+						<label for="tipoAfiliacion">Tipo Afiliación</label>
+						<input type="text" id="tipoAfiliacion" name="tipoAfiliacion" ng-model="vm.tipoAfiliacionDefinitivo" 
+								sa-enter ng-disabled="1">
+                </div>
+                
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2" sa-form-input>
+						<label for="estadoDefinitivo">Estado definitivo</label>
+						<input type="text" id="estadoDefinitivo" name="estadoDefinitivo" ng-model="vm.estadoDefinitivo" 
+								sa-enter ng-disabled="1">
+				</div>
+
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 form-group" sa-form-input>
+                        <button type="button" sa-btn-ok class="btn-row btn-block"  ng-click="vm.exportarItemsExcel()"
+                        sa-punto-click="" sa-enter>Exportar a Excel</button>
+                </div>
+            </div>
+    
+		</form>
+
+        <div class="col-xs-12">
+            <div class="row">
+
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-if="vm.definitivoLista && vm.definitivoLista.Items && vm.definitivoLista.Items.Columns.length">
+                        <fw-table-container>
+                            <fw-table-config exportable="false" sortable="false" filtrable="true" paginable="true" column-config="true">
+                            </fw-table-config>
+                            <fw-table-sorting-ext sort-change="sortChangeInternal(sorting)">
+                            </fw-table-sorting-ext>
+                            <fw-table-rowset data="vm.definitivoLista.Items.Rows">
+                            </fw-table-rowset>
+                            <fw-table-columnset data="vm.definitivoLista.Items.Columns">
+                            </fw-table-columnset>
+                            <fw-table-export>
+                            </fw-table-export>
+                            <fw-table-buttonset>
+                                <fw-table-button label="'Editar'" icon="'EDIT'" action="vm.editarItem(row, index)"></fw-table-button>
+                                <fw-table-button label="'Devolver'" icon="'DEL'" action="vm.asignarMotivo(row, index, 'Devuelto', 6)" visible-if="vm.esVisibleSegunEstado(row,6)"></fw-table-button>
+                                 <fw-table-button label="'Histórico'" icon="'LIST4'" action="vm.historicoItem(row, index)" ></fw-table-button>
+                            </fw-table-buttonset>
+                            <fw-table-filter init="true"></fw-table-filter>
+                            <fw-table-pagination page-size="20"></fw-table-pagination>
+                            <fw-table></fw-table>
+                        </fw-table-container>
+                    </div>
+                    
+
+                </div>
+        </div>
+
+		<div class="row">
+            <br>
+            <div class="col-xs-12 text-center">
+                <button class="btn btn-cancelar" ng-click="vm.volver()" sa-punto-click="vm.volver()" sa-enter>
+                    Volver
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

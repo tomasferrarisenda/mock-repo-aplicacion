@@ -1,0 +1,61 @@
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group">
+		<button 
+			type="button" 
+			class="btn btn-default pull-right"
+			uib-tooltip="Nuevo plan"
+			ng-click="btnNewClick()"
+			sa-punto-click="btnNewClick()"
+			sa-enter
+			id="nuevo-plan-btn">
+			<sa-icon name="NEW"></sa-icon>
+		</button>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive form-group">
+		<table class="table table-hover" id="sa-mutuales-planes-table" >
+			<thead>
+				<tr class="cabecera-tabla">
+					<th class="text-center">Nombre Plan</th>
+					<th class="text-center">Código Mapeo</th>
+					<th class="text-center">Plan Según Autorizador</th>
+					<th class="text-center">Activo</th>
+					<th class="text-center" class="text-center" ng-if="btnDeleteIf">Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="Plan in model" ng-dblclick="btnEditClick(Plan, $index)">
+					<td class="text-center">{{Plan.Nombre}}</td>
+					<td class="text-center">{{Plan.CodigoMutualMapeo}}</td>
+					<td class="text-center">{{Plan.PlanSegunAutorizador}}</td>
+					<td class="text-center">
+						<sa-check-box label="" ng-model="Plan.Activo" color="green" ng-disabled="true"
+						></sa-check-box>
+					</td>
+					<td class="text-center">
+						<button type="button" class="btn btn-white btn-xs"
+							uib-tooltip="Editar" tooltip-placement="top"
+							ng-if="btnEditIf"
+							ng-click="btnEditClick(Plan, $index)"
+							sa-punto-click="btnEditClick(Plan, $index)"
+							id="edit-mutual-plan-{{$index}}"
+							sa-enter>
+							<sa-icon name="EDIT"></sa-icon>
+						</button>
+						<button type="button" class="btn btn-white btn-xs"
+							uib-tooltip="Anular" tooltip-placement="top"
+							ng-if="btnDeleteIf"
+							ng-click="btnDeleteClick($index)"
+							sa-punto-click="btnDeleteClick($index)"
+							id="borrar-mutual-plan_{{$index}}"
+							sa-enter>
+							<sa-icon name="DEL"></sa-icon>
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div ng-hide="model.length" class="text-error text-center">No tiene planes cargados</div>		
+	</div>
+</div>

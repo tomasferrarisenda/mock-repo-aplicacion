@@ -1,0 +1,153 @@
+<form name="formBuscadorPaciente" accept-charset="utf-8" novalidate class="no-valid">
+	<div class="row" ng-hide="formControl.loading">
+
+		<!-- Buscador documento chico -->
+		<div class="" ng-class="selectorGrande ? 'col-xs-12 col-sm-6 col-md-4 col-lg-4' : 'col-xs-12 col-sm-6 col-md-4 col-lg-2'">
+			<label ng-if="label">N° Documento</label>
+			<div class=input-group>
+				<input type="text" placeholder="N° Documento" id="sa-buscador-paciente-numerodoc-input" 
+				name="numeroDocumento" autocomplete="off" class="form-control text-uppercase no-margin-button"
+				    uib-tooltip="{{data.pacienteObtenido.TipoDocumento}}" tooltip-placement="top" ng-model="data.pacienteObtenido.NumeroDocumento">
+
+				<span class="input-group-btn">
+					<button type="submit" class="btn btn-default" uib-tooltip="Buscar" tooltip-placement="top" ng-click="formControl.search()"
+					    sa-punto-click="formControl.search()" sa-enter id="sa-buscador-paciente-search-btn">
+						<sa-icon name="SEARCH"></sa-icon>
+					</button>
+					<button class="btn btn-default" uib-tooltip="Limpiar" tooltip-placement="top" id="sa-buscador-paciente-clean-btn"
+					ng-click="formControl.clean()" sa-punto-click="formControl.clean()"
+					    sa-enter>
+						<sa-icon name="DEL"></sa-icon>
+					</button>
+				</span>
+			</div>
+		</div>
+
+		<!-- Apellido -->
+		<div class=" " ng-class="selectorGrande ? 'col-xs-12 col-sm-6 col-md-4 col-lg-4' : 'col-xs-12 col-sm-6 col-md-4 col-lg-3'"
+		    ng-if="nombreApellidoIf">
+			<label ng-if="label">Apellido y Nombre Paciente</label>
+			<input type="text" id="sa-buscador-paciente-apellidonombre-input" name="nombrePaciente" placeholder="Apellido y Nombre Paciente" class="form-control text-capitalize no-margin-button"
+			    minlength="5" ng-model="data.pacienteObtenido.NombreCompleto" ng-disabled="true">
+
+		</div>
+		<div class="" ng-class="selectorGrande ? 'col-xs-12 col-sm-6 col-md-4 col-lg-3' : 'col-xs-12 col-sm-6 col-md-4 col-lg-2'"
+		    ng-if="buscadorNombreApellidoIf">
+			<label ng-if="label">Nombre Paciente</label>
+			<input type="text" id="sa-buscador-paciente-nombre-input" name="nombrePaciente" placeholder="Nombre Paciente" class="form-control text-capitalize no-margin-button"
+			    minlength="2" ng-model="data.pacienteObtenido.Nombre" ng-disabled="true" uib-tooltip="Nombre" tooltip-placement="top">
+
+		</div>
+		<div class=" " ng-class="selectorGrande ? 'col-xs-12 col-sm-6 col-md-4 col-lg-3' : 'col-xs-12 col-sm-6 col-md-4 col-lg-2'"
+		    ng-if="buscadorNombreApellidoIf">
+			<label ng-if="label">Apellido Paciente</label>
+			<input type="text" id="sa-buscador-paciente-apellido-input" name="apellidoPaciente" placeholder="Apellido Paciente" class="form-control text-capitalize no-margin-button"
+			    minlength="2" ng-model="data.pacienteObtenido.Apellido" ng-disabled="true" uib-tooltip="Apellido" tooltip-placement="top">
+
+		</div>
+		<div class="form-group" ng-class="selectorGrande ? 'col-xs-12 col-sm-6 col-md-3 col-lg-2' : 'col-xs-12 col-sm-6 col-md-4 col-lg-1'">
+			<label ng-if="label">Edad</label>
+			<input type="number" class="form-control no-margin-button" style="padding-right: 0px;" id="sa-buscador-paciente-edad-input" placeholder="Edad"
+			    uib-tooltip="Edad" tooltip-placement="top" ng-model="data.pacienteObtenido.Edad" ng-disabled="true">
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 " ng-if="telefonoIf">
+			<label ng-if="label">Tel. Principal</label>
+			<input type="text" placeholder="Tel. Principal" class="form-control no-margin-button" id="sa-buscador-paciente-telprincipal-input" name="numeroTelefono"
+			    ng-model="data.numeroTelefonoPrincipal" uib-tooltip="Telefono Principal" tooltip-placement="top" readonly>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 " ng-if="celularIf">
+			<label ng-if="label">Tel. Celular</label>
+			<input type="text" placeholder="Tel. Celular" class="form-control no-margin-button" id="sa-buscador-paciente-telcelular-input" name="numeroTelefono"
+			    ng-model="data.numeroTelefonoCelular" uib-tooltip="Telefono Celular" tooltip-placement="top" readonly>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 " ng-if="emailIf">
+			<label ng-if="label">Email</label>
+			<input type="email" placeholder="Email" class="form-control no-margin-button" name="sa-buscador-paciente-email-input" ng-model="data.pacienteObtenido.Email"
+			    uib-tooltip="Email" tooltip-placement="top" id="sa-buscador-paciente-email-input">
+
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 " ng-if="btnMutualesIf">
+			<label ng-if="label">Mutual seleccionada</label>
+
+			<div uib-dropdown class="fw-dropdown-container" auto-close="outsideClick">
+				<button class="btn dropdown-toggle btn-default" type="button" id="dropdownMenu1" uib-dropdown-toggle ng-disabled="mutualesDisabled"
+				    aria-expanded="true" style="width: 100%;" uib-tooltip="{{loadFinanciadoresSelector()}}">
+					{{loadFinanciadoresSelector() | limitTo: 30}}
+					<span class="caret"></span>
+				</button>
+
+				<ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="btn-open-options" style="width: 100%;">
+					<li ng-repeat="afiliacion in data.pacienteObtenido.Afiliaciones" class="no-valid">
+						<div class="fw-dropdown-item" ng-click="item.action()">
+							<div class="fw-dropdown-item-left fw-noselect">
+								<fw-icon name="{{item.icon}}"></fw-icon>
+								<span>• {{afiliacion.MutualNombreCorto ? afiliacion.MutualNombreCorto : afiliacion.MutualNombre}} - {{afiliacion.PlanMutualNombre}}</span>
+							</div>
+							<div class="fw-dropdown-item-right text-right">
+								<sa-check-box ng-model="afiliacion.PorDefecto" color="green" ng-change="formControl.changeAfiliacionDefecto(afiliacion)">
+								</sa-check-box>
+							</div>
+						</div>
+						<div ng-if="!$last" class="divider"></div>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-md-2 col-lg-1 " ng-if="btnVerTurnosIf">
+
+			<sa-turnos-paciente-btn model="data.pacienteObtenido" on-reprogramar="reprogramarTurno(idTurno)" title="Turn. Futuros" es-historico="false">
+			</sa-turnos-paciente-btn>
+
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-md-2 col-lg-1 " ng-if="btnVerTurnosIf">
+
+			<sa-turnos-paciente-btn model="data.pacienteObtenido" title="Turn. Historico" es-historico="true">
+			</sa-turnos-paciente-btn>
+
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-md-2 col-lg-1 " ng-if="btnEditarPacienteIf">
+			<button type="button" class="btn btn-warning btn-no-pad btn-block" ng-class="{'btn-row': label}" ng-click="formControl.editarPaciente()"
+			    ng-disabled="!data.pacienteObtenido.Id" id="sa-buscador-paciente-editarpac-btn">
+				Editar Pac.
+			</button>
+		</div>
+
+
+		<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+			<div class="row">
+				<!-- checkbox mantener datos de busqueda -->
+				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 " ng-if="chkboxMantenerDatosIf">
+					<sa-check-box ng-model="chkboxMantenerDatosModel" ng-change="checkStatus(chkboxMantenerDatosModel)" color="green" label-right="'Mantener Datos'"
+					    pull-right="true" id="sa-buscador-paciente-mantenerdatos-slider">
+					</sa-check-box>
+				</div>
+
+				<!-- checkbox mantener datos de busqueda -->
+				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 " ng-if="chkboxControlEdadIf">
+					<sa-check-box ng-model="chkboxControlEdadModel" color="green" ng-change="checkStatusControlEdad(chkboxControlEdadModel)"
+					    label-right="'Control Edad'" pull-right="true" id="sa-buscador-paciente-controledad-slider">
+					</sa-check-box>
+			
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-md-1 col-lg-1 " ng-if="btnActionExtraIf">
+			<button type="button" class="btn btn-sm pull-right" ng-click="formControl.actionExtraClick()" ng-disabled="btnActionExtraDisabled"
+			    ng-class="btnActionExtraClass" id="sa-buscador-paciente-actionextra-btn">
+				<sa-icon model="btnActionExtraIcon"></sa-icon>
+			</button>
+		</div>
+
+
+	</div>
+	<sa-loading ng-if="formControl.loading"></sa-loading>
+</form>

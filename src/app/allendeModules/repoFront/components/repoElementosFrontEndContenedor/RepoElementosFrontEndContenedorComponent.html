@@ -1,0 +1,52 @@
+<div class="row">
+	<div class="col-xs-12">
+
+		<div class="row">
+			<div class="col-xs-4">
+				<sa-repo-front-botones code-html="vm.codeHtml"></sa-repo-front-botones>
+			</div>
+			<div class="col-xs-1">
+				<sa-repo-front-alertas code-html="vm.codeHtml"></sa-repo-front-alertas>
+			</div>
+			<div class="col-xs-4">
+				<sa-repo-front-colores-clases></sa-repo-front-colores-clases>
+			</div>
+
+
+			<div class="col-xs-2">
+				<sa-repo-front-formularios-basicos code-html="vm.codeHtml"></sa-repo-front-formularios-basicos>
+			</div>
+
+			<div class="col-xs-1">
+					<button type="button" ng-click="vm.openIconosList()" class="btn btn-primary">ICONOS</button>
+			</div>
+
+			<div class="col-xs-12" style="border-top: 2px solid rgb(189, 187, 187);">
+				<sa-repo-front-modales code-html="vm.codeHtml"></sa-repo-front-modales>
+			</div>
+
+			<div class="col-xs-12" style="border-top: 2px solid rgb(189, 187, 187); margin-top: 10px">
+				<sa-repo-front-inputs code-html="vm.codeHtml"></sa-repo-front-inputs>
+			</div>
+
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12" style="border-top: 2px solid rgb(111, 91, 91); margin-top: 10px; margin-bottom:16px">
+
+			</div>
+			<div class="col-xs-10" >
+				<label class="label-control">CODIGO JS/HTML</label>
+				<button class="btn btn-default pull-right" uib-tooltip="Copiar Codigo HTML" name="new" ng-click="vm.copiarCodigo()">
+					<sa-icon name="COPY"></sa-icon>
+				</button>
+				<textarea name="codehtml" id="textcodehtml" class="form-control" ng-model="vm.codeHtml" style="height: 200px;">
+				</textarea>
+			</div>
+			<div class="col-xs-3">
+			</div>
+		</div>
+
+	</div>
+
+</div>

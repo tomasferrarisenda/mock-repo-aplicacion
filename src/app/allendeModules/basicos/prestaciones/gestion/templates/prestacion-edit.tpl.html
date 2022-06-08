@@ -1,0 +1,68 @@
+<div id="print-content" ng-hide="vm.formControl.loading">
+	<form name="formSistema" accept-charset="utf-8" novalidate>
+		<div class="modal-header">
+			<h4 class="modal-title">
+				<sa-icon name="EDIT"></sa-icon>
+				Editar Prestación
+			</h4>
+		</div>
+		<div class="modal-body">
+			<div class="row fila">
+			
+				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 " >
+					<label>Abreviatura (*)</label>
+					<input type="text" class="form-control text-uppercase"
+						name="pathSistema"
+						autocomplete="off"
+						ng-class="validar.error(formSistema.pathSistema.$valid)"
+						ng-model="vm.data.prestacion.Abreviatura" 
+						required>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 " >
+					<label>Nombre (*)</label>
+					<input type="text" class="form-control"
+						name="pathSistema"
+						ng-class="validar.error(formSistema.pathSistema.$valid)"
+						autocomplete="off"
+						ng-model="vm.data.prestacion.Nombre "
+						ng-disabled="true"
+						required>
+				</div>
+			</div>
+
+			<div class="row fila">
+				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 " >
+					<label>Duración en minutos (*)</label>
+					<input type="text" class="form-control"
+						name="pathSistema"
+						ng-class="validar.error(formSistema.pathSistema.$valid)"
+						ng-model="vm.data.prestacion.Duracion " 
+						autocomplete="off"
+						required>
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 " >
+						<label>Preparación</label>
+						<textarea rows="1" class="form-control" id="PreparacionPrevia" 
+							name="PreparacionPrevia" ng-model="vm.data.prestacion.PreparacionPrevia" maxlength="2000" sa-enter>
+						</textarea>										
+					</div>
+			</div>
+
+			<div class="row" >
+				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 " >
+					<sa-check-box label="Activo" ng-model="vm.data.prestacion.Activo" color="green" sa-enter></sa-check-box>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 ">
+					<sa-check-box label="Enviar al llamador" ng-model="vm.data.prestacion.EnviarAlLlamador" color="green" sa-enter></sa-check-box>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal-footer" ng-hide="vm.formControl.loading">
+			<input type="submit" ng-click="vm.formControl.cancel()" sa-btn-cancel value="Cancelar">
+			<input type="submit" id="btnAgregarEditar" value="Guardar" sa-btn-save ng-click="vm.formControl.ok()" >
+		</div>
+	</form>
+</div>
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>

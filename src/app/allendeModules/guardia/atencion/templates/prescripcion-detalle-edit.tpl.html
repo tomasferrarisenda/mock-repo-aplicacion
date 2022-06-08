@@ -1,0 +1,288 @@
+
+	<!-- <div id="print-content" class="container-print"> -->
+
+		<form name="formPersona" accept-charset="utf-8" novalidate >
+			<div class="modal-header">
+				<h4 class="modal-title">Detalle de Indicacion</h4>
+			</div>
+			<div class="modal-body">
+			<sa-loading ng-if="formControl.loading"></sa-loading>
+				<div class="row">
+
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 fila">
+						<h3>Paciente: {{data.prescripcion.NombrePaciente}}, {{data.prescripcion.TipoDocumento}}: {{data.prescripcion.NumeroDocumento}}</h3>
+						<h5>Tipo Indicacion: {{data.detalle.Indicacion.TipoIndicacion.Nombre}}</h5>
+						<h5>Descripcion: {{data.detalle.Indicacion.Nombre}}</h5>
+						<h5 ng-show="formControl.existeObservaciones">Observaciones: {{data.detalle.ObservacionMedica}}</h5>
+						<BR>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12  " ng-show="formControl.existeMedicamentos">
+						<div class="row">
+							<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+								<h4 >Medicamentos:</h4>
+							</div>
+							<div class="col-xs-6 col-sm-8 col-md-9 col-lg-10">
+								<button ng-show="formControl.existeMedicamentos"
+									type="button" class="btn btn-default btn-row-right"
+									uib-tooltip="Agregar" tooltip-placement="top"
+									ng-disabled="" 
+									ng-click="formControl.cargarMedicamento()">
+									<sa-icon name="NEW"></sa-icon>
+								</button>
+							</div>
+						</div>
+						<div class="row fila">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " ng-show="formControl.existeMedicamentos">
+								<table class="table table-hover table-fina">
+									<thead>
+								 		<tr >
+											<th colspan="3" class="text-center"></th>
+										</tr>
+										<tr class="thead-azul">
+										<tr class="cabecera-tabla"> 
+											<th class="text-left">Descripcion</th>
+											<th class="text-left">Presentacion</th>
+											<th class="text-left">Dosis</th>
+											<th class="text-left">Tipo Dosis</th>
+											<th class="text-left">Via</th>
+											<th class="text-center" style="width: 15%;">Cantidad</th>
+											<th class="text-center" ng-hide="!formControl.cargarMedicamentos || medicamento.Cantidad > 0">Reemplazar</th>
+											<!-- <th class="text-left"></th> -->
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="medicamento in data.detalle.Medicamentos ">
+											<td class="row text-left">{{ medicamento.Producto.Nombre }}</td>
+											<td class="row text-left">{{ medicamento.Producto.Presentacion }}</td>
+											<td class="row text-left">{{ medicamento.Dosis }}</td>
+											<td class="row text-left">{{ medicamento.TipoDosis.Nombre }}</td>
+											<td class="row text-left">{{ medicamento.Via.Nombre }}</td>
+											<td>
+												<div class="input-group">
+											        <span class="input-group-btn">
+											            <button type="button" 
+																ng-hide=""
+																class="btn btn-white btn-xs"
+																ng-disabled="medicamento.minimo || medicamento.yaReemplazado"
+																ng-click="formControl.restaMedicamentos(medicamento)">
+																<sa-icon name="MINUS"></sa-icon>
+														</button>
+											        </span>
+											        <input type="text" min="0"
+											          			class="form-control input-sm"
+																ng-model="medicamento.Cantidad"
+																ng-disabled="true"
+																required>
+											        <span class="input-group-btn">
+											            <button type="button"
+																ng-hide=""
+																class="btn btn-white btn-xs"		
+																ng-disabled="medicamento.maximo || medicamento.yaReemplazado"									
+																ng-click="formControl.sumaMedicamentos(medicamento)">
+																<sa-icon name="NEW"></sa-icon>
+														</button>
+											        </span>
+											    </div>
+											</td>
+											<td class="row text-center"  
+												ng-hide="!formControl.cargarMedicamentos || medicamento.Cantidad > 0">
+												<sa-check-box ng-model="medicamento.reemplazado" ng-disabled="formControl.hayReemplazados" ng-change="formControl.reemplazar(medicamento)">
+												</sa-check-box>
+											</td>
+											<!-- <td>
+												<button type="button" class="btn btn-white btn-xs"
+														uib-tooltip="No utilizado" tooltip-placement="top"
+														ng-disabled="" 
+														ng-click="">
+													<span ng-class="icono.DEL"></span>
+												</button> 		
+											</td> -->
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="row fila" ng-hide="!formControl.cargarMedicamentos">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " >
+								<label for="cmb_tipo_documento" id="practica_medica_medicamento_label">Carga Medicamento </label>
+								<input name="practica_medica_medicamento" 
+										id="practica_medica_medicamento" type="text" 
+										placeholder="Nuevo medicamento..." 
+										ng-model="formData.medicamento"
+										uib-typeahead="medicamento as (medicamento.Nombre +' | '+ medicamento.Presentacion) for medicamento in data.medicamentos | filter:$viewValue | limitTo:8" 
+										class="form-control"
+										typeahead-on-select=""
+										ng-change="formControl.datoCargadoMedicamento()"
+										typeahead-select-on-exact="true"
+										ng-disabled="">
+							</div>
+							<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 form-group ">
+								<label for="cmb_tipo_documento" id="practica_medica_medicamento_label">Dosis </label>
+								<input type="number" class="form-control"
+									min="1"
+									ng-change="formControl.datoCargadoMedicamento()"
+									ng-model="formData.medicamento.Dosis"
+									ng-disabled=""
+									required>
+							</div>
+
+							<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 form-group ">
+								<label for="cmb_tipo_documento" id="label_via">Tipo Dosis</label>
+								<select 
+									class="form-control"
+									name="internacion"
+									ng-model="formData.medicamento.TipoDosis"
+									ng-class="validar.error(formSolicitud.ubicacion.$valid)"
+									ng-change="formControl.datoCargadoMedicamento()"
+									ng-options="tipo.Nombre
+												for tipo in data.tiposDosis 
+												track by tipo.Id" 
+									required 
+									ng-disabled="">
+									<option value="">--SELECCIONAR--</option>
+								</select>
+							</div>
+
+							<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 form-group ">
+								<label for="cmb_tipo_documento" id="label_via">Via</label>
+								<select
+									class="form-control"
+									name="internacion"
+									ng-model="formData.medicamento.Via"
+									ng-class="validar.error(formSolicitud.ubicacion.$valid)"
+									ng-change="formControl.datoCargadoMedicamento()"
+									ng-options="via.Nombre
+												for via in data.vias 
+												track by via.Id" 
+									required 
+									ng-disabled="">
+									<option value="">--SELECCIONAR--</option>
+								</select>
+							</div>
+
+							<div class="col-xs-12 col-sm-2 col-md-4 col-lg-4 ">
+								<span class="input-group-btn">
+								<button class="btn btn-default btn-row-right" type="button"
+										ng-disabled="!formControl.medicamentoCargado"
+										ng-click="formControl.newMedicamento()">
+										Agregar Medicamento
+								</button>
+								<br>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+						<div class="row">
+							<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 ">
+								<h4 >Descartables:</h4>
+							</div>
+							<div class="col-xs-6 col-sm-8 col-md-9 col-lg-10 ">
+								<button
+									type="button" class="btn btn-default btn-row-right"
+									uib-tooltip="Agregar" tooltip-placement="top"
+									ng-disabled="" 
+									ng-click="formControl.cargarDescartable()">
+									<sa-icon name="NEW"></sa-icon>
+								</button>
+							</div>
+						</div>
+						<div class="row fila" ng-show="formControl.existeDescartables">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " >
+								<table class="table table-hover table-fina" >
+									<thead>
+								 		<tr >
+											<th colspan="3" class="text-center"></th>
+										</tr>
+										<tr class="thead-azul">
+										<tr class="cabecera-tabla"> 
+											<th class="text-left">Descripcion</th>
+											<th class="text-left">Presentacion</th>
+											<th class="text-left" style="width: 15%;">Cantidad</th>
+											<!-- <th class="text-left"></th> -->
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="descartable in data.detalle.Descartables ">
+											<td class="row text-left">{{ descartable.Producto.Nombre }}</td>
+											<td class="row text-left">{{ descartable.Producto.Presentacion }}</td>
+											<td>
+												<div class="input-group">
+											        <span class="input-group-btn">
+											            <button type="button" 
+																ng-hide=""
+																class="btn btn-white btn-xs"
+																ng-disabled="descartable.minimo"
+																ng-click="formControl.restaDescartables(descartable)">
+																<sa-icon name="MINUS"></sa-icon>
+														</button>
+											        </span>
+											        <input type="text" min="0"
+											          			class="form-control input-sm"
+																ng-model="descartable.Cantidad"
+																ng-disabled="true"
+																required>
+											        <span class="input-group-btn">
+											            <button type="button"
+																ng-hide=""
+																class="btn btn-white btn-xs"		
+																ng-disabled="descartable.maximo"									
+																ng-click="formControl.sumaDescartables(descartable)">
+																<sa-icon name="NEW"></sa-icon>
+														</button>
+											        </span>
+											    </div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						
+						<div class="row fila" ng-show="formControl.cargarDescartables">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-7  form-group" >
+								<label for="cmb_tipo_documento">Descartable </label>
+								<input 	name="" 
+										type="text" 
+										placeholder="Descartable..." 
+										ng-model="formData.descartable"
+										uib-typeahead="descartable as (descartable.Nombre +' | '+ descartable.Presentacion) for descartable in data.descartables | filter:$viewValue | limitTo:8" 
+										class="form-control"
+										typeahead-on-select="formControl.datoCargadoDescartable()"
+										ng-change="formControl.datoCargadoDescartable()"
+										typeahead-select-on-exact="true"
+										ng-disabled="">
+							</div>
+
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-5 ">
+								<span class="input-group-btn">
+								<button class="btn btn-default btn-row-right" type="button"
+										ng-disabled="!formControl.descartableCargado"
+										ng-click="formControl.newDescartable()">
+										Agregar Descartable
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<label >Observaciones</label>
+						<textarea type="text" class="form-control " placeholder="Observaciones..."
+							name="observaciones"
+							ng-model="formData.observacion" >
+						</textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer" >
+			<button type="button"
+					class="btn btn-cancelar text-center"
+					ng-disabled=""
+					ng-click="formControl.cancel()">Cancelar</button>				
+			<button type="button"
+					class="btn btn-default"
+					ng-disabled="formControl.loading"
+					ng-click="formControl.ok()">Aceptar</button>
+		</div>
+
+<sa-loading ng-if="formControl.loading"></sa-loading>

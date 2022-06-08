@@ -1,0 +1,57 @@
+<div class="modal-header">
+	<h4 class="modal-title">Lista de profesionales</h4>
+</div>
+<sa-loading ng-if="formControl.loading"></sa-loading>
+<div class="modal-body" ng-hide="formControl.loading">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3  form-group">
+			<label>Matrícula del profesional</label>
+			<input type="number" class="form-control"
+				ng-model="filter.matriculaProfesional"
+				ng-change="paginacion.pageChanged()">
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-8 col-lg-9  form-group">
+			<label>Nombre del profesional</label>
+			<input type="text" class="form-control"
+				ng-model="filter.nombreProfesional"
+				ng-change="paginacion.pageChanged()">
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+			<table class="table table-hover">
+				<thead>
+					<tr></tr>
+					<tr class="cabecera-tabla">
+						<th class="text-center">Nº matrícula</th>
+						<th class="text-center">Nombre profesional</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="profesional in filter.profesionales" class="fw-noselect"
+						ng-click="formControl.ok(profesional)">
+						<td>{{ profesional.numero_matricula }}</td>
+						<td>{{ profesional.nombre_completo }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="text-center">
+				<div uib-pagination  boundary-links="true"
+					max-size="9"
+					items-per-page="paginacion.pageSize"
+					total-items="paginacion.totalItems"
+					ng-model="paginacion.currentPage"
+					ng-change="paginacion.pageChanged()"
+					previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+				</div>
+			</div>
+		</div>
+	</div><!-- .row>-->
+</div>
+<div class="modal-footer" >
+	<button type="button"
+		class="btn"
+		ng-click="formControl.cancel()">Cancelar</button>	
+</div>

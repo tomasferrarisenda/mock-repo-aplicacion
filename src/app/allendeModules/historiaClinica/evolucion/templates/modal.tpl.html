@@ -1,0 +1,38 @@
+<div id="print-content" ng-hide="formControl.loading">
+	 <style>
+	 @media print {
+	 	body * {
+	 		visibility: hidden;
+	 	}
+	 	#print-content * {
+	 		visibility: visible;
+	 	}
+	 	.modal{
+	 		position: absolute;
+	 		left: 0;
+	 		top: 0;
+	 		margin: 0;
+	 		padding: 0;
+	 		min-height:550px
+	 	}
+	 }
+	</style>
+	<form name="formPersona" accept-charset="utf-8" novalidate >
+		<div class="modal-header">
+			<h4 class="modal-title">{{ vm.title.page }}</h4>
+		</div>
+		<div class="modal-body">
+			<!-- Contenido -->
+		</div>
+		<div class="modal-footer" >
+			<button type="button"
+				class="btn btn-default"
+				ng-disabled="!formPersona.$valid"
+				ng-click="formControl.ok()">Aceptar</button>
+			<button type="button"
+				class="btn "
+				ng-click="formControl.cancel()">Cancelar</button>				
+		</div>
+	</form>
+</div>
+<sa-loading ng-if="formControl.loading"></sa-loading>	

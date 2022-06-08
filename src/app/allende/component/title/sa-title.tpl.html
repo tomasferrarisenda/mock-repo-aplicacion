@@ -1,0 +1,87 @@
+<fw-title-wrapper>
+	<sa-icon name="{{titleIcon}}"></sa-icon>&nbsp;
+	<span ng-bind="titleName"></span>
+	<span ng-if="today">
+		 | <small>FECHA: {{ date | date : 'dd/MM/yyyy' }}</small>
+	</span>
+	<span ng-if="small"> | <small ng-bind="small"></small></span>
+	<div class="btn-group pull-right">
+		<!-- Button New -->
+		<button class="btn btn-default" 
+			uib-tooltip="Nuevo"
+			name="new"
+			id="sa-title-btn-new"
+			ng-disabled="btnNewDisabled"
+			ng-if="btnNewIf"
+			ng-click="btnNewClick()">
+			<sa-icon name="NEW"></sa-icon>
+		</button>
+		<!-- Button Print -->
+		<button class="btn btn-default"
+			uib-tooltip="Imprimir"
+			name="print"
+			ng-disabled="btnPrintDisabled"
+			ng-if="btnPrintIf"
+			id="sa-title-btn-imprimir"
+			ng-click="btnPrintClick()">
+			<sa-icon name="PRINT"></sa-icon>
+		</button>
+		<!-- Button Search -->
+		<button class="btn btn-default"
+			uib-tooltip="Buscar"
+			name="search"
+			ng-disabled="btnSearchDisabled"
+			ng-if="btnSearchIf"
+			id="sa-title-btn-buscar"
+			ng-click="btnSearchClick()">
+			<sa-icon name="SEARCH"></sa-icon>
+		</button>
+		<!-- Button Reload -->
+		<button class="btn btn-default"
+			uib-tooltip="Reiniciar"
+			name="restart"
+			ng-disabled="btnReloadDisabled"
+			ng-if="btnReloadIf"
+			id="sa-title-btn-reload"
+			ng-click="btnReloadClick()">
+			<sa-icon name="REPEAT"></sa-icon>
+		</button>
+
+		<!-- Button Reload -->
+		<!-- <button class="btn btn-default"
+			uib-tooltip="Ayuda"
+			name="help"
+			ng-click="btnHelpClick()">
+			<sa-icon name="QUESTION"></sa-icon>
+		</button> -->
+		
+		<!-- Button Personalizado -->
+		<button class="btn {{btnPersonalizadoClass}}"
+			uib-tooltip="btnToolTipPersonalizado"
+			name="personalizado"
+			ng-disabled="btnPersonalizadoDisabled"
+			ng-if="btnPersonalizadoIf"
+			id="sa-title-btn-{{btnPersonalizadoName}}"
+			ng-click="btnPersonalizadoClick()">
+			<sa-icon name="{{btnPersonalizadoName}}" ng-if="btnPersonalizadoIconIf"></sa-icon>
+			<span ng-bind="btnPersonalizadoName" ng-if="!btnPersonalizadoIconIf"></span>
+		</button>
+		
+		<!-- Alertas --> 
+		<!-- Recibe un array de FiltroEntidadesAlertadasDto -->
+		<sa-menu-alertas
+		ng-if="alertasIf"
+		origen = "'Titulo'"
+		alertas = alertas>
+		</sa-menu-alertas>
+
+	</div>
+	<div class="pull-right switch-margin-right no-valid" ng-if="switchIf" >
+		<!-- switch  -->
+		<sa-check-box ng-model="switchModelInterno" color="green" id-element="sa-title-slider" 
+		label-right="switchLabel" pull-right="true" ng-change="changeSwitch(switchModelInterno)">
+		</sa-check-box>
+
+	</div>
+
+</fw-title-wrapper>

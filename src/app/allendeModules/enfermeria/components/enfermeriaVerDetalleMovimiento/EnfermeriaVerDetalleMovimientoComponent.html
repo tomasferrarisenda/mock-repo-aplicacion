@@ -1,0 +1,185 @@
+<div class="modal-header" >
+
+	<div class="col-xs-6">
+		<h4 class="modal-title" ng-if="!vm.data.itemPlantillaToEdit && !vm.data.esSobreTurnoBack">
+			<sa-icon name="VIEW"></sa-icon>
+			{{vm.detalleMovimiento.TipoMovimientoStock}} 
+		</h4>
+
+	</div>
+	<div class="col-xs-6">
+
+		<div class="pull-right" >
+			<sa-check-box ng-model="vm.verAuditoria" color="green" label-right="'Ver Auditoria Movimiento'">
+			</sa-check-box>
+		</div>
+	</div>
+
+
+</div>
+<sa-modal-body loading="vm.loading">
+
+	<div class="row fila">
+
+		<div class="col-xs-4">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+					<h4>
+						<label>
+							<strong>Fecha: </strong>
+						</label> {{vm.detalleMovimiento.FechaParseada}} </h4>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+					<h4>
+						<label>
+							<strong>Hora: </strong>
+						</label> {{vm.detalleMovimiento.Hora}} </h4>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+					<h4>
+						<label>
+							<strong>Tipo Movimiento: </strong>
+						</label> {{vm.detalleMovimiento.TipoMovimientoStock}} </h4>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-4">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+					<h4>
+						<label>
+							<strong>Usuario: </strong>
+						</label> {{vm.detalleMovimiento.Usuario}} </h4>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+					<h4>
+						<label>
+							<strong>Deposito Origen: </strong>
+						</label> {{vm.detalleMovimiento.DepositoOrigen}} </h4>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+					<h4>
+						<label>
+							<strong>Estado Movimiento: </strong>
+						</label> {{vm.detalleMovimiento.EstadoMovimientoStock}} </h4>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-4">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+					<h4>
+						<label>
+							<strong>Observacion: </strong>
+						</label> {{vm.detalleMovimiento.Observacion}} </h4>
+				</div>
+			
+			</div>
+			
+		</div>
+	</div>
+
+	<div class="row">
+
+		<div class="col-xs-12" ng-if="vm.detalleMovimiento.Items && vm.detalleMovimiento.Items.length">
+			<h3>Items Movimiento</h3>
+			<!-- Se define el container que gestiona la tabla-->
+			<fw-table-container>
+				<fw-table-config exportable="false" sortable="false" filtrable="true" paginable="true" column-config="true">
+				</fw-table-config>
+				<fw-table-sorting-ext sort-change="sortChangeInternal(sorting)">
+				</fw-table-sorting-ext>
+				<fw-table-rowset data="vm.detalleMovimiento.Items">
+				</fw-table-rowset>
+				<!-- Se define un columnset en el cual se setean (opcional) las columnas por datos -->
+				<fw-table-columnset>
+					<!-- Se define una column con los datos de una columna (opcional)-->
+					<!-- Se pueden agregar las columnas por datos y además agregarlas de a una. -->
+					<fw-table-column label="'IdDeposito'" visible="false" field="'IdDeposito'">
+					</fw-table-column>
+
+					<fw-table-column label="'Codigo Producto'" field="'CodigoProducto'">
+					</fw-table-column>
+
+					<fw-table-column label="'Nombre Producto'" field="'NombreProducto'">
+					</fw-table-column>
+
+					<fw-table-column label="'Presentacion Producto'" field="'PresentacionProducto'">
+					</fw-table-column>
+
+					<fw-table-column label="'Deposito'" field="'Deposito'">
+					</fw-table-column>
+
+					<fw-table-column label="'Internacion'" visible="vm.esAsignacion()" field="'Internacion'">
+					</fw-table-column>
+
+					<fw-table-column label="'Cantidad'" field="'Cantidad'">
+					</fw-table-column>
+
+				</fw-table-columnset>
+
+				<!-- FILTRADO DINAMICO [Opcional] -->
+				<!-- Debe estar configurado en true la configuracion correspondiente -->
+				<!-- Solo debería funcionar si se trata de una tabla interna -->
+				<fw-table-filter init='true'></fw-table-filter>
+
+				<!-- Paginacion interna : no se necesita definir ningun valor, se toman los por defecto.-->
+				<!-- Opcionalmente se puede redefinir page-size -->
+				<fw-table-pagination page-size="5"></fw-table-pagination>
+				<!-- Por ultimo el renderizado de la tabla -->
+				<fw-table></fw-table>
+			</fw-table-container>
+
+		</div>
+	</div>
+
+<div class="row ">
+	
+	<div class="col-xs-12" ng-if="vm.verAuditoria && vm.detalleMovimiento.Auditoria && vm.detalleMovimiento.Auditoria.length">
+		<h3>Auditoria Movimiento</h3>
+		<!-- Se define el container que gestiona la tabla-->
+		<fw-table-container>
+			<fw-table-config exportable="false" sortable="false" filtrable="true" paginable="true" column-config="true">
+			</fw-table-config>
+			<fw-table-sorting-ext sort-change="sortChangeInternal(sorting)">
+			</fw-table-sorting-ext>
+			<fw-table-rowset data="vm.detalleMovimiento.Auditoria">
+			</fw-table-rowset>
+			<!-- Se define un columnset en el cual se setean (opcional) las columnas por datos -->
+			<fw-table-columnset>
+				<!-- Se define una column con los datos de una columna (opcional)-->
+				<!-- Se pueden agregar las columnas por datos y además agregarlas de a una. -->
+				<fw-table-column label="'Fecha'" field="'Fecha'" format="'datetime'">
+				</fw-table-column>
+
+				<fw-table-column label="'Estado Movimiento'" field="'EstadoMovimiento'">
+				</fw-table-column>
+
+				<fw-table-column label="'Usuario'" field="'Usuario'">
+				</fw-table-column>
+
+			</fw-table-columnset>
+
+			<!-- FILTRADO DINAMICO [Opcional] -->
+			<!-- Debe estar configurado en true la configuracion correspondiente -->
+			<!-- Solo debería funcionar si se trata de una tabla interna -->
+			<fw-table-filter></fw-table-filter>
+
+			<!-- Paginacion interna : no se necesita definir ningun valor, se toman los por defecto.-->
+			<!-- Opcionalmente se puede redefinir page-size -->
+			<fw-table-pagination page-size="5"></fw-table-pagination>
+			<!-- Por ultimo el renderizado de la tabla -->
+			<fw-table></fw-table>
+		</fw-table-container>
+
+	</div>
+</div>
+
+
+</sa-modal-body>
+<sa-modal-footer loading="vm.loading">
+	<input type="submit" class="btn" ng-click="vm.cancel()" value="Cerrar">
+</sa-modal-footer>
+</div>

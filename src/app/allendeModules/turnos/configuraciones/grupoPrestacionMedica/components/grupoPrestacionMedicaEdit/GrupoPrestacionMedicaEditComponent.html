@@ -1,0 +1,80 @@
+<form name="formRequisito" novalidate>
+	<sa-modal-header title-name="{{vm.title.name}}" title-icon="{{vm.title.icon}}">
+	</sa-modal-header>
+	<sa-modal-body loading="vm.formControl.loading">
+		<div class="row ">
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" sa-form-input>
+				<label>Servicio</label>
+				<select id="idServicio" name="servicio" ng-model="vm.servicioElegido" ng-options="servicio.Nombre for servicio in vm.servicios track by servicio.Id"
+				 sa-enter>
+				</select>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-2" sa-form-input>
+				<label>Sucursal</label>
+				<select id="tipoSucursal" name="cmbtipoServicio" ng-model="vm.sucursalElegida" ng-options="tipoSucursal.Nombre for tipoSucursal in vm.sucursales track by tipoSucursal.Id"
+				 sa-enter>
+					<option value="">TODOS</option>
+				</select>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 form-group">
+				<sa-selector-recurso ng-model="vm.recurso" idservicio="vm.servicioElegido" idsucursal="vm.sucursalElegida">
+				</sa-selector-recurso>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-3 col-lg-4 form-group">
+				<div sa-form-input-validate>
+					<label>Nombre</label>
+					<input type="text" name="nombre" ng-model="vm.nombre" autocomplete="off" sa-enter>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-3 col-lg-6 form-group">
+				<div sa-form-input-validate>
+					<label>Observaciones</label>
+					<input type="text" name="observaciones" ng-model="vm.observaciones" autocomplete="off" sa-enter>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-1 col-sm-1 col-md-1 col-lg-3">
+				<h4>Prestaciones asignadas</h4>
+			</div>
+			<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-lg-offset-4 form-group">
+				<button class="btn btn-default pull-right" id="btnAgregarPrestacion" tooltip-placement="top" uib-tooltip="Agregar prestación"
+				 ng-click="vm.agregarPrestacion()" sa-punto-click="vm.agregarPrestacion()" sa-enter>
+					<span ng-class="icono.SEARCH" class="glyphicon glyphicon-plus"></span>
+				</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-4 col-md-8 col-lg-8">
+				<table class="table table-bordered table-responsive">
+					<thead>
+						<tr class="cabecera-tabla">
+							<th class="text-center">Código</th>
+							<th class="text-center">Prestación</th>
+							<th class="text-center">Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="servicios in vm.prestacionMedicaEdit.Items | orderBy: 'Id'">
+							<td class="text-center">{{servicios.IdPrestacionMedica}}</td>
+							<td class="text-center">{{servicios.NombrePrestacionMedica}}</td>
+							<td class="text-center">
+								<button type="button" class="btn btn-white btn-xs" tooltip-placement="top" ng-click="vm.eliminarPrestacion($index)" sa-punto-click="vm.eliminarPrestacion($index)"
+								 sa-enter>
+									<sa-icon name="DEL"></sa-icon>
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</sa-modal-body>
+	<sa-modal-footer>
+		<input type="submit" class="btn" ng-click="vm.cancel()" value="Cancelar" sa-enter sa-punto-click="vm.cancel()">
+		<input type="submit" id="btnAgregarEditar" value="Guardar" class="btn btn-default" ng-click="vm.guardar()" sa-enter sa-punto-click="vm.guardar()">
+	</sa-modal-footer>
+</form>
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>

@@ -1,0 +1,41 @@
+<div ng-hide="vm.formControl.loading">
+	<div class="modal-header" ng-class="vm.classHeader">
+		<h4 class="modal-title">
+			<span ng-class="vm.icon"></span>
+			{{ vm.title }}
+		</h4>
+	</div>
+	<div class="modal-body">
+		<div ng-bind="vm.message" ng-if="!vm.prompt"></div>
+		<div class="btn-link" ng-if="!vm.prompt && vm.detail"
+			ng-click="vm.formControl.showDetail = !vm.formControl.showDetail">
+			<em>Detalle</em>
+		</div>
+		<div ng-bind="vm.detail" ng-if="vm.formControl.showDetail" class="text-muted"></div>
+		<div class="row" ng-if="vm.prompt">
+			<div class="col-xs-12 ">
+				<input type="text" name="texto" class="form-control" placeholder="Ingrese texto"
+					maxlength="255" 
+					ng-model="vm.formData.texto" id="texto_confirm">
+			</div>
+		</div>	
+	</div>
+	<div class="modal-footer" >
+		<button type="button" id="btn_cancel_confirm"
+			class="btn "
+			ng-if="vm.btn_cancel"
+			ng-click="vm.formControl.cancel()">
+			<sa-icon name="DEL"></sa-icon>
+			<span ng-bind="vm.textCancel"></span>
+		</button>				
+		<button type="button" id="btn_ok_confirm"
+			class="btn"
+			ng-class="vm.classButton"
+			ng-disabled="!vm.formControl.validarOk()"
+			ng-click="vm.formControl.ok()">
+			<sa-icon name="OK"></sa-icon>
+			<span ng-bind="vm.textConfirm"></span>
+		</button>
+	</div>
+</div>
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>

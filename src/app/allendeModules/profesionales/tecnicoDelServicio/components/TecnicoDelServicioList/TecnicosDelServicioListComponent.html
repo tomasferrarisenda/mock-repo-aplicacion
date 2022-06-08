@@ -1,0 +1,161 @@
+<sa-title title-name="vm.title.name" title-icon="{{vm.title.icon}}" btn-reload-disabled="vm.formControl.loading">
+</sa-title>
+
+<div class="row">
+	<!-- El ng-if va para no cargar la tabla sin datos -->
+	<div class="col-xs-12">
+
+		<!-- Se define el container que gestiona la tabla-->
+		<fw-table-container>
+
+			<form name="formFilter" accept-charset="utf-8" novalidate>
+				<div class="row">
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-1 form-group" sa-form-input>
+						<label>Código</label>
+						<input type="number" class="form-control" max="999999999" placeholder="0" ng-model="vm.codigo" sa-enter id="tec-serv-codigo-input">
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group" sa-form-input>
+						<label>Nombre</label>
+						<input type="text" class="form-control" maxlength="70" ng-model="vm.nombre" sa-enter id="tec-serv-nombre-input">
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group" sa-form-input>
+						<label>Matrícula</label>
+						<input type="number" class="form-control" max="999999999" placeholder="0" ng-model="vm.matricula" sa-enter id="tec-serv-matricula-input">
+					</div>
+
+					<!--Combo -->
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-2" sa-form-input>
+						<label>Servicio</label>
+						<select id="tipoServicio" name="cmbtipoServicio" ng-model="vm.servicioElegido"
+							ng-options="tipoServicio.Nombre for tipoServicio in vm.listadoServicio track by tipoServicio.Id" sa-enter id="tec-serv-servicio-select">
+							<option value="">TODOS</option>
+						</select>
+					</div>
+
+					<!--Combo -->
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-2" sa-form-input>
+						<label>Sucursal</label>
+						<select id="tipoSucursal" name="cmbtipoServicio" ng-model="vm.sucursalElegida"
+							ng-options="tipoSucursal.Nombre for tipoSucursal in vm.sucursalServicio track by tipoSucursal.Id" sa-enter id="tec-serv-sucursal-select">
+							<option value="">TODOS</option>
+						</select>
+					</div>
+					
+					<!--Botones -->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-1 form-group" sa-form-input>
+						<button type="button" sa-btn-search class="btn-row btn-block" ng-click="vm.buscar()" sa-punto-click="vm.buscar()" id="tec-serv-buscar-btn"
+						sa-enter>Buscar</button>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-1 form-group" sa-form-input>
+						<button type="button" sa-btn-clean class="btn-row btn-block" ng-click="vm.limpiarFiltros()" sa-punto-click="vm.limpiarFiltros()"
+						 sa-enter id="tec-serv-limpiar-btn">Limpiar</button>
+					</div>
+
+				</div>
+			</form>
+
+
+			<!-- CONFIGURACION [Opcional]-->
+			<!-- Corresponde a cada funcionalidad de la tabla -->
+			<!-- Para que funcionen deben estar en true -->
+			<fw-table-config sortable="true" filtrable="true" exportable="true" paginable="true">
+				<!-- exportable="false" sortable="false" filtrable="false" paginable="true" column-config="false" -->
+			</fw-table-config>
+
+			<!-- COLUMNAS (*) [Requerido] -->
+			<!-- Se define un columnset en el cual se setean (opcional) las columnas por datos -->
+			<fw-table-columnset>
+				<!-- Se define una column con los datos de una columna (opcional)-->
+				<!-- Se pueden agregar las columnas por datos y además agregarlas de a una. -->
+
+				<fw-table-column field="'Codigo'" label="'Código'" class-col="'text-center'">
+				</fw-table-column>
+				<fw-table-column field="'Nombre'" label="'Nombre'" class-col="'text-center'">
+				</fw-table-column>
+				<fw-table-column field="'Matricula'" label="'Matrícula'" class-col="'text-center'">
+				</fw-table-column>
+				<fw-table-column field="'Cuenta'" label="'Cuenta'" class-col="'text-center'">
+				</fw-table-column>
+				<fw-table-column field="'NombreServicio'" label="'Servicio'" class-col="'text-center'">
+				</fw-table-column>
+				<fw-table-column field="'NombreSucursal'" label="'Sucursal'" class-col="'text-center'">
+				</fw-table-column>
+				<fw-table-column field="'Activo'" label="'Activo'" class-col="'text-center'">
+				</fw-table-column>
+
+			</fw-table-columnset>
+
+			<!-- DATOS DE LA TABLA (*) [Requerido] -->
+
+			<fw-table-rowset data="vm.listadoTecnicoServicio" id-elements="tec-serv-list-row">
+			</fw-table-rowset>
+
+			<!-- ACCIONES DE FILA [Opcional] -->
+			<!-- Se definen los botones de la lista de "Acciones" u "Opciones" -->
+			<fw-table-buttonset>
+				<!-- Cada boton tiene label para tooltip, nombre de icono de iconList, accion (function) y si es visible-->
+				<!-- <fw-table-button label="'Editar'" icon="'EDIT'" action="vm.editarTecnicoServicio(row.Id, index)">
+				</fw-table-button>
+				<fw-table-button label="'Borrar'" icon="'DEL'" action="vm.borrarTecnicoServicio(row, index)">
+				</fw-table-button> -->
+
+			</fw-table-buttonset>
+
+			<!-- ORDENAMIENTO [Opcional] -->
+			<!-- Se define una forma de ordenamiento-->
+			<!-- Puede ser interno (front-end) o externo (back-end) -->
+			<!-- Debe estar configurado en true la configuracion correspondiente -->
+			<!-- <fw-table-sorting-ext sort-change="sortChangeInternal(sorting)">
+            </fw-table-sorting-ext> -->
+			<fw-table-sorting></fw-table-sorting>
+
+			<!-- FILTRADO DINAMICO [Opcional] -->
+			<!-- Debe estar configurado en true la configuracion correspondiente -->
+			<!-- Solo debería funcionar si se trata de una tabla interna -->
+			<fw-table-filter></fw-table-filter>
+
+			<!-- EXPORTACION [Opcional] -->
+			<!-- Debe estar configurado en true la configuracion correspondiente -->
+			<!-- Si se desea paginacion pueden ser de 2 (dos) tipos: -->
+			<!-- Exportacion interna -->
+			<fw-table-export>
+				<fw-table-export-csv label="'Exportar página a Excel'" status="true">
+				</fw-table-export-csv>
+				<!-- <fw-table-export-csv-ext label="'Exportar todo a Excel'" status="true" export="exportEventInternal(exportation)">
+                </fw-table-export-csv-ext> -->
+			</fw-table-export>
+			<!-- Exportacion externo -->
+			<!-- <fw-table-export-ext export="exportEventInternal(exportation)"></fw-table-export-ext> -->
+
+			<!-- PAGINACION [Opcional] -->
+			<!-- Si se desea paginacion pueden ser de 2 (dos) tipos: -->
+
+			<!-- Paginacion externa : se usa con el back-end: se deben setear todos los datos -->
+			<!-- Debe estar configurado en true la configuracion correspondiente -->
+			<!-- <fw-table-pagination-ext page-change="pageChangeInternal(pagination)" page-size="pageSize" total-items="totalItems" current-page="data.CurrentPage">
+            </fw-table-pagination-ext> -->
+
+			<!-- Paginacion interna : no se necesita definir ningun valor, se toman los por defecto.-->
+			<!-- Opcionalmente se puede redefinir page-size -->
+			<fw-table-pagination page-size="10"></fw-table-pagination>
+
+			<!-- TABLA (*) [Requerido] -->
+			<!-- Por ultimo el renderizado de la tabla -->
+			<fw-table></fw-table>
+		</fw-table-container>
+
+		<div class="row">
+			<br>
+			<div class="row text-center">
+				<button class="btn btn-cancelar" ng-click="vm.volver()" sa-punto-click="vm.volver()" sa-enter id="tec-serv-volver-btn">
+					Volver
+				</button>
+			</div>
+		</div>
+
+	</div>
+</div>

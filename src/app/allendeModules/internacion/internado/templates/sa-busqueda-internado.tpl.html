@@ -1,0 +1,68 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+	<div class="row">
+		<h4 class="ng-binding">Internado</h4>
+		<div class="col-xs-12 col-sm-3 col-md-3 col-lg-2 form-group">
+			<label class="label-control">Número</label>
+			<div class="input-group">
+				<input type="number" class="form-control"
+						ng-model="filter.NumeroInternado"
+						ng-blur="busquedaRapidaInternado()"
+						ng-change = "cambioNumeroInternado()"
+						min = "0"
+						sa-enter 
+						autofocus>
+				<span class="input-group-btn">
+					<button class="btn btn-default btn-loading" 
+							uib-tooltip="Buscar internado" 
+							tooltip-placement="top" 
+							ng-click ="searchInternados()"
+							sa-punto-click ="searchInternados()"
+							sa-enter>
+						<span ng-class="icono.SEARCH" class="glyphicon glyphicon-search"></span>
+					</button>
+				</span>
+			</div>
+		</div>
+
+
+		<div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 form-group" ng-if="nombreIf">
+			<label class="">Nombre</label>
+			<input type="text" class="form-control"
+				ng-model="filter.nombreInternado"
+				ng-disabled="true">
+		</div>
+		<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 form-group" ng-if="documentoIf">
+			<label class="">Documento</label>
+			<div class="">
+				<input type="text" class="form-control"
+					ng-model="filter.tipoNumeroDocumento"
+					ng-disabled="true">
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-3 col-md-3 col-lg-2 form-group" ng-if="fechaIngresoIf">
+				<label class="">Ingreso</label>
+				<div class="form-control disabled"
+					ng-bind="filter.fechaIngreso | date : 'dd/MM/yyyy'"
+					ng-disabled="true">
+				</div>
+		</div>
+		<div class="col-xs-12 col-sm-3 col-md-3 col-lg-2 form-group"  ng-if="fechaAltaIf">
+				<label class="">Alta</label>
+				<div class="form-control disabled"
+					ng-bind="filter.fechaAlta | date : 'dd/MM/yyyy'"
+					ng-disabled="true">
+				</div>
+		</div>
+		<!-- <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4 form-group" ng-if="mutualIf">
+			<label class="label-control">Obra social y plan predefinidos</label>
+			<select class="form-control"
+				ng-model="filter.coberturaCabeceraElegida"
+				ng-disabled = "filter.bloquearCoberturaCabecera"
+				ng-options="cobertura as (cobertura.NombreMutual +' | '+ cobertura.NombrePlan) for cobertura in filter.coberturasCabecera track by cobertura.Id"
+				sa-enter>
+			</select>
+		</div> -->
+	</div>
+</div>

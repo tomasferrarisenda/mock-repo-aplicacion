@@ -1,0 +1,7 @@
+<span ng-click="setColumnOrdenable(col, table.id)" class="fw-table-column-header">
+	<span class="fw-table-column-header-text" ng-bind="col.label"></span>
+	<fw-icon class="fw-table-column-header-icon" ng-if="table.isSortable()" model="col.getSortClass()"></fw-icon>
+</span>
+<!-- <span class="pull-right"> para opciones de configuración de tabla
+	<fw-icon name="DOWN"></fw-icon>
+</span> -->

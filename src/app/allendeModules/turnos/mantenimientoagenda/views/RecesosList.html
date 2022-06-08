@@ -1,0 +1,235 @@
+<sa-title title-name="vm.title.page" title-icon="LIST" btn-new-click="vm.formControl.agregar()" btn-new-disabled="vm.formControl.loading || !vm.filter.recurso"
+ btn-reload-click="vm.formControl.reloadPage()" btn-reload-disabled="vm.formControl.loading"></sa-title>
+<div class="cuerpo" ng-hide="vm.formControl.loading || vm.formControl.error">
+	<div class="row fila">
+
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+			<div class="row">
+
+				<div class="col-xs-12 col-sm-6 col-md-6 col-xl-3 col-lg-4  form-group no-valid">
+					<sa-selector-servicio-medico ng-model="vm.data.servicioMedico" ng-change="vm.formControl.changeServicioMedico()" solo-visibles-turnos="true">
+					</sa-selector-servicio-medico>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 form-group no-valid">
+					<sa-selector-recurso ng-model="vm.filter.recurso" ng-disabled="!vm.data.servicioMedico" buscador-recurso-en-servicios-if="true"
+					 idservicio="vm.data.servicioMedico" ng-change="vm.formControl.changeRecurso()">
+					</sa-selector-recurso>
+				</div>
+
+
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-2  form-group">
+					<label class="label-control">Fecha Desde</label>
+					<sa-date-time-picker ng-model="vm.data.fechaDesde" id="1" type="date">
+					</sa-date-time-picker>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-2 form-group">
+					<label class="label-control ">Fecha Hasta</label>
+					<sa-date-time-picker ng-model="vm.data.fechaHasta " id="2" type="date" min="vm.data.fechaDesde">
+					</sa-date-time-picker>
+				</div>
+
+
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-2 form-group">
+					<label class="label-control">Estado</label>
+					<select class="form-control no-valid" id="cmb_estados" ng-model="vm.filter.estado" ng-options="estado.Nombre for estado in vm.data.estados track by estado.Id">
+						<option value="">TODOS</option>
+					</select>
+				</div>
+
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-2 form-group">
+					<label class="label-control">Tipos De Recesos</label>
+					<select class="form-control no-valid" id="cmb_tipo" ng-model="vm.filter.tipoRecesos" ng-options="tipo.Nombre for tipo in vm.tiposRecesos track by tipo.Id">
+						<option value="">TODOS</option>
+					</select>
+				</div>
+				
+				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-1 ">
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-2 ">
+					<button type="button" class="btn-block btn-warning btn-row" sa-btn-add ng-click="vm.formControl.nuevoRecesoIndividual()">
+						Nuevo Receso Individual
+					</button>
+				</div>
+
+
+
+				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-3 pull-right">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6  pull-right">
+							<button type="button" class="btn-block btn-row" sa-btn-clean ng-click="vm.filter.clean()">
+								Limpiar
+							</button>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6  pull-right">
+								<button type="button" class="btn-block btn-row" sa-btn-search ng-disabled="!vm.filter.recurso" ng-click="vm.formControl.buscar()">
+									Buscar
+								</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+
+		</div>
+
+
+	</div>
+	<table class="table table-hover table-condensed table-bordered table-cursor-pointer" id="detalle_recesos" ng-show="vm.filter.recesos">
+		<thead>
+			<tr class="thead-azul">
+				<tr class="cabecera-tabla">
+					<th class="text-center" ng-click="vm.sort('Recurso')">
+						Recurso
+						<span class="glyphicon sort-icon" ng-show="sortKey=='Recurso'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+					</th>
+					<th class="text-center" ng-click="vm.sort('Recurso')">
+						Servicio
+						<span class="glyphicon sort-icon" ng-show="sortKey=='Recurso'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+					</th>
+					<th class="text-center" ng-click="vm.sort('Recurso')">
+						Sucursal
+						<span class="glyphicon sort-icon" ng-show="sortKey=='Recurso'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+					</th>
+					<th class="text-center" ng-click="vm.sort('FechaDesde')">
+						Desde
+						<span class="glyphicon sort-icon" ng-show="sortKey=='FechaDesde'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+					</th>
+					<th class="text-center" ng-click="vm.sort('FechaHasta')">
+						Hasta
+						<span class="glyphicon sort-icon" ng-show="sortKey=='FechaHasta'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+					</th>
+					<th class="text-center" ng-click="vm.sort('Caracteristicas')">
+						Caracteristicas
+						<span class="glyphicon sort-icon" ng-show="sortKey=='Caracteristicas'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+					</th>
+					<th class="text-center" ng-click="vm.sort('Estado')">
+						Estado
+						<span class="glyphicon sort-icon" ng-show="sortKey=='Estado'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+					</th>
+					<th class="text-center" ng-click="vm.sort('Motivo')">
+						Motivo
+						<span class="glyphicon sort-icon" ng-show="sortKey=='Motivo'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+					</th>
+					<th class="text-center" ng-click="vm.sort('Observacion')">
+						Observación
+						<span class="glyphicon sort-icon" ng-show="sortKey=='Observacion'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+					</th>
+					<th class="text-center" >
+							Tipo Receso
+						<span class="glyphicon" ></span>
+					</th>
+					<th class="text-center" ng-click="vm.sort('TurnosAfectados')">
+						Turnos Afectados
+						<span class="glyphicon sort-icon" ng-show="sortKey=='TurnosAfectados'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+					</th>
+					<th class="text-center" ng-click="vm.sort('TurnosLibresAfectados')">
+						Turnos Libres Afectados
+						<span class="glyphicon sort-icon" ng-show="sortKey=='TurnosLibresAfectados'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+					</th>
+					<th class="text-center">
+						Acciones&nbsp;&nbsp;
+					</th>
+				</tr>
+		</thead>
+		<tbody ng-repeat="receso in vm.filter.recesos | orderBy:sortKey:reverse|filter:search" context-menu="vm.menuOptions">
+			<tr>
+				<td ng-click="vm.formControl.verItems(receso.Id)" class="row text-center">{{ receso.RecursoConProfesionalAtiende}}</td>
+				<td ng-click="vm.formControl.verItems(receso.Id)" class="row text-center">{{ receso.Servicio}}</td>
+				<td ng-click="vm.formControl.verItems(receso.Id)" class="row text-center">{{ receso.Sucursal}}</td>
+
+				<td ng-click="vm.formControl.verItems(receso.Id)" class="row text-center">{{ receso.FechaDesde | date:"dd/MM/yy"}}</td>
+				<td ng-click="vm.formControl.verItems(receso.Id)" class="row text-center">{{ receso.FechaHasta | date:"dd/MM/yy"}}</td>
+
+				<td ng-click="vm.formControl.verItems(receso.Id)" class="row text-center">
+					<div ng-repeat="item in receso.ResumenDeItems track by $index">
+						{{item}}
+					</div>
+				</td>
+
+				<td ng-click="vm.formControl.verItems(receso.Id)" ng-class="receso.ColorEstado" class="row text-center">{{ receso.EstadoReceso}}</td>
+				<td ng-click="vm.formControl.verItems(receso.Id)" class="row text-center">{{ receso.Motivo}}</td>
+				<td ng-click="vm.formControl.verItems(receso.Id)" class="row text-center">{{ receso.Observacion}}</td>
+				<td ng-click="vm.formControl.verItems(receso.Id)" class="row text-center">{{ receso.Tipo}}</td>
+				<td ng-click="vm.formControl.verItems(receso.Id)" class="row text-center">{{ receso.TurnosAfectados}}</td>
+				<td ng-click="vm.formControl.verItems(receso.Id)" class="row text-center">{{ receso.TurnosLibresAfectados}}</td>
+				<td class="row text-center">
+
+					<button type="button" id="button_editar" ng-if="receso.IdTipoReceso == 1" class="btn btn-white btn-xs" uib-tooltip="Editar" uib-tooltip-placement="top" ng-disabled="!receso.PuedeEditar"
+					 ng-click="vm.formControl.editar(receso)">
+						<sa-icon name="EDIT"></sa-icon>
+					</button>
+
+					<button type="button" id="button_editar" ng-if="receso.IdTipoReceso == 2" class="btn btn-white btn-xs" uib-tooltip="Editar" uib-tooltip-placement="top"
+					ng-click="vm.formControl.editar(receso)">
+					   <sa-icon name="EDIT"></sa-icon>
+				   </button>
+
+					<button type="button" id="button_aplicar" class="btn btn-white btn-xs" uib-tooltip="Aplicar" uib-tooltip-placement="top"
+					 ng-disabled="!receso.PuedeAplicar" ng-click="vm.formControl.aplicar(receso.Id)">
+						<sa-icon name="CHECK"></sa-icon>
+					</button>
+
+					<button type="button" id="button_reprogramar" class="btn btn-white btn-xs" uib-tooltip="Reprogramar Turnos" uib-tooltip-placement="top"
+					 ng-disabled="!receso.PuedeCancelar" ng-click="vm.formControl.reprogramarTurnos(receso.Id)">
+						<sa-icon name="REPEAT"></sa-icon>
+					</button>
+
+					<button type="button" id="button_cancelar" class="btn btn-white btn-xs" uib-tooltip="Anular" uib-tooltip-placement="top"
+					 ng-disabled="!receso.PuedeCancelar" ng-click="vm.formControl.cancelar(receso.Id)">
+						<sa-icon name="DEL"></sa-icon>
+					</button>
+
+					<button type="button" id="button_eliminar" class="btn btn-white btn-xs" uib-tooltip="Eliminar" uib-tooltip-placement="top"
+					 ng-disabled="!receso.PuedeEliminar" ng-click="vm.formControl.eliminar(receso.Id)">
+						<sa-icon name="TRASH"></sa-icon>
+					</button>
+
+					<button type="button" id="button_Auditoria" class="btn btn-white btn-xs" uib-tooltip="Ver Auditoria" uib-tooltip-placement="top"
+					 ng-click="vm.formControl.verAuditoria(receso)">
+						<sa-icon name="VIEW"></sa-icon>
+					</button>
+
+				</td>
+			</tr>
+			<tr class="animate-hide" ng-hide="!receso.VerItems">
+				<td colspan="7">
+					<div class="span9">
+						<div class="col-md-10 col-md-offset-1" ng-show="receso.TieneItems">
+							<table class="table table-hover table-condensed table-striped">
+								<thead class="levelTwo">
+									<tr></tr>
+									<tr class="cabecera-tabla-celeste">
+										<th>Dia Semana</th>
+										<th>Hora Desde</th>
+										<th>Hora Hasta</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="item in receso.Items">
+										<td ng-bind="item.DiaSemana"></td>
+										<td ng-bind="item.HoraDesde"></td>
+										<td ng-bind="item.HoraHasta"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div ng-show="!receso.TieneItems">El receso incluye todos los días de la semana</div>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="row" ng-if="vm.filter.recesos.length">
+		<div class="col-sm-12">
+			<div class="text-center">
+				<div uib-pagination items-per-page="vm.paginacion.pageSize" total-items="vm.paginacion.totalItems" ng-model="vm.paginacion.currentPage"
+				 ng-change="vm.paginacion.pageChanged()" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

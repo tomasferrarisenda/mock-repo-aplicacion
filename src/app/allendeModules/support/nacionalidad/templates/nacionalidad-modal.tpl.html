@@ -1,0 +1,65 @@
+<div ng-hide="vm.formControl.loading">
+	<form name="formNacionalidad" accept-charset="utf-8" novalidate >
+		<div class="modal-header">
+			<h4 class="modal-title">
+				<div ng-if="vm.formControl.esEdit"><sa-icon name="EDIT"></sa-icon> Editar Nacionalidad</div>
+				<div ng-if="vm.formControl.esNew"><sa-icon name="NEW2"></sa-icon> Nueva Nacionalidad</div>
+			</h4>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4  form-group">
+					<label for="cmb_tipo_nacionalizado">Tipo de nacionalizado (*)</label>
+					<select id="cmb_tipo_nacionalizado"
+						name="tiposNacionalizado" class="form-control"
+						ng-required="true"
+						ng-model="vm.formData.tipoNacionalizado"
+						ng-options="tipo.Nombre for tipo in vm.data.tiposNacionalizado track by tipo.Id"
+						ng-disabled = "true">
+						<option value="">-SELECCIONAR-</option>
+					</select>
+					<sa-text-error model="formNacionalidad.tiposNacionalizado"></sa-text-error>
+				</div> -->
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+					<div sa-form-input-validate>
+						<label for="cmb_tipo_nacionalidad">Tipo de nacionalidad (*)</label>
+						<select id="cmb_tipo_nacionalidad"
+							name="tipoNacionalidad" class="form-control"
+							ng-required="true"
+							ng-model="vm.formData.tipoNacionalidad"
+							ng-options="tipo.Nombre for tipo in vm.data.tiposNacionalidad track by tipo.Id">
+							<option value="">-SELECCIONAR-</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+					<div sa-form-input-validate>
+						<label for="cmb_pais_nacionalidad">Pais (*)</label>
+						<select id="cmb_pais_nacionalidad"
+							name="paisNacionalidad" class="form-control"
+							ng-required="true"
+							ng-model="vm.formData.pais"						
+							ng-options="pais.Nombre for pais in vm.data.paises track by pais.Id">
+							<option value="">-SELECCIONAR-</option>
+						</select>
+					</div>
+				</div>	
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 ">
+					<sa-check-box label="Por defecto" ng-model="vm.formData.nacionalidad.Defecto"
+						id-element="defecto_nacionalidad"
+						color="blue">
+					</sa-check-box>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer" >
+			<button type="button"
+				class="btn " id="btn_cancelar_nacionalidad"
+				ng-click="vm.formControl.cancel()">Cancelar</button>
+			<button type="submit" id="btn_aceptar_nacionalidad"
+				class="btn btn-default"
+				ng-click="vm.formControl.ok(formNacionalidad.$valid)">Aceptar</button>
+		</div>
+	</form>
+</div>
+<sa-loading ng-if="vm.formControl.loading" ></sa-loading>

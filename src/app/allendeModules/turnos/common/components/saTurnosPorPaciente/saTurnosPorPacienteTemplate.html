@@ -1,0 +1,218 @@
+<sa-modal-header loading="vm.loading" title-name="Turnos del paciente: {{vm.paciente.Apellido}}, {{vm.paciente.Nombre}} - 
+{{vm.paciente.TipoDocumento}}: {{vm.paciente.NumeroDocumento}}" title-icon="EDIT">
+
+</sa-modal-header>
+<sa-modal-body loading="vm.loading">
+
+	<div class="row" ng-show="vm.busquedaPaciente">
+		<div class="col-xs-12">
+
+			<sa-buscador-paciente ng-model="vm.paciente" btn-mutuales-if="false" btn-ver-turnos-if="false" btn-editar-paciente-if="false"
+			 telefono-if="false" celular-if="false" email-if="false" buscador-nombre-apellido-if="true" nombre-apellido-if="false"
+			 ng-change="vm.formControl.limpiarBusqueda()" btn-action-extra-if="false" selector-grande="true">
+			</sa-buscador-paciente>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 form-group">
+			<label>Fecha Desde</label>
+			<!-- <sa-date-picker model="vm.data.fechaDesde">
+			</sa-date-picker> -->
+			<sa-date-time-picker ng-model="vm.data.fechaDesde" id="1" type="date">
+			</sa-date-time-picker>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 form-group">
+			<label>Fecha Hasta</label>
+			<!-- <sa-date-picker model="vm.data.fechaHasta">
+			</sa-date-picker> -->
+			<sa-date-time-picker ng-model="vm.data.fechaHasta " id="2" type="date">
+			</sa-date-time-picker>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 form-group">
+			<button type="button" class="btn btn-default btn-row btn-block" ng-click="vm.formControl.buscar()">
+				Buscar
+			</button>
+		</div>
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-2 form-group">
+			<div class="row">
+				<sa-check-box label="Filtrar Asignados" ng-model="vm.turno.filtroActivos" ng-change="vm.turno.changeFiltroActivo()" color="green">
+				</sa-check-box>
+			</div>
+		</div>
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-2 form-group" ng-if="vm.formControl.showFiltroServicio">
+			<div class="row">
+				<sa-check-box label="Filtrar por {{vm.data.buscarPorServicio.Nombre}}" ng-model="vm.turno.filtroServicio" ng-change="vm.formControl.buscar()"
+				 color="green" ng-disabled="!vm.paciente">
+				</sa-check-box>
+			</div>
+		</div>
+
+		<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 form-group">
+			<label for="txt_cantidad_usuarios" class="label-control">Cant Turnos </label>
+			<div>
+				<strong ng-bind="vm.paginacion.totalItems"></strong>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-5 col-md-3 col-lg-2 form-group pull-right">
+			<label>Ordenar por</label>
+			<select class="form-control" id="cmb_orderby" ng-model="vm.order" ng-change="vm.paginacion.pageChanged()" ng-options="order.descripcion for order in vm.listOrderBy track by order.id">
+				<option value="">ORDENAR POR</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="row">
+
+		<div class="col-xs-12">
+			<table class="table table-hover table-condensed table-bordered">
+				<thead>
+					<tr class="cabecera-tabla">
+						<th class="text-center">Fecha - Hora</th>
+						<th class="text-center">ST</th>
+						<th class="text-center">Recurso</th>
+						<th class="text-center">Servicio</th>
+						<th class="text-center">Sucursal</th>
+						<th class="text-center">Estado</th>
+						<th class="text-center">Tipo Turno</th>
+						<th class="text-center">Prestaciones</th>
+						<th class="text-center">Mutual/Plan</th>
+						<th class="text-center">Fecha Asignacion</th>
+						<th class="text-center">Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="turno in vm.filter.turnos" ng-class="{'color-aquaorange-turno': turno.Id === vm.turno.turnoSeleccionado.Id}"
+					 context-menu="vm.menuOptions">
+
+						<td class="text-center" ng-bind="turno.FechaYHora" ng-click="vm.turno.select(turno)" ng-class="{'color-turno-duracion-multiple' : turno.Duracion > 0}"></td>
+						<td class="text-center" ng-bind="turno.ST" ng-click="vm.turno.select(turno)"></td>
+						<td class="text-center" ng-bind="turno.Recurso" ng-click="vm.turno.select(turno)"></td>
+						<td class="text-center" ng-bind="turno.Servicio" ng-click="vm.turno.select(turno)"></td>
+						<td class="text-center" ng-bind="turno.Sucursal" ng-class="turno.ColorSucursal" ng-click="vm.turno.select(turno)"></td>
+						<td class="text-center" ng-bind="turno.Estado" ng-class="turno.EstadoColor" ng-click="vm.turno.select(turno)"></td>
+						<td class="text-center" ng-bind="turno.TipoDeTurno" ng-click="vm.turno.select(turno)"></td>
+						<td class="text-center" ng-bind="turno.PrestacionesConcatenadas" ng-click="vm.turno.select(turno)"></td>
+						<td class="text-center" ng-click="vm.turno.select(turno)">{{turno.Mutual}} - {{turno.Plan}}</td>
+						<td class="text-center" ng-click="vm.turno.select(turno)" ng-bind="turno.FechaAsignacion | date : 'dd/MM/yyyy HH:mm'"></td>
+						<td class="text-center">
+							<button type="button" class="btn btn-white btn-xs" uib-tooltip="Cancelar" tooltip-placement="top" ng-disabled="vm.formControl.checkEstado(turno)"
+							 ng-click="vm.turno.cancelar(turno)">
+								<sa-icon name="DEL"></sa-icon>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row" ng-if="vm.data.turnosPorPaciente.length">
+		<div class="col-sm-12">
+			<div class="text-center">
+				<div uib-pagination max-size="5" items-per-page="vm.paginacion.pageSize" total-items="vm.paginacion.totalItems" ng-model="vm.paginacion.currentPage"
+				 ng-change="vm.paginacion.pageChanged()" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row" ng-if="vm.turno.turnoSeleccionado">
+
+		<div class="col-xs-5">
+
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group">
+					<label class="label-control">Observación:</label>
+					<button class="btn btn-default pull-right" uib-tooltip="Agregar Obs." name="new" ng-click="vm.formControl.addObservacion()" ng-disabled="!vm.turno.turnoSeleccionado.EsDeTurneroNuevo">
+						<sa-icon name="NEW"></sa-icon>
+					</button>
+					<textarea class="form-control noresize textarea-lg" ng-model="vm.turno.turnoSeleccionado.Observaciones" readonly ng-dblclick="vm.formControl.openObservacion()"></textarea>
+				</div>
+			
+			</div>
+
+		</div>
+
+		<!-- seccion cuando se selecciona un turno -->
+		<div class="col-xs-7" >
+			<h4 style=" padding-left: 0px; ">Turno: {{vm.turno.turnoSeleccionado.fechaConDia}} - {{vm.turno.turnoSeleccionado.Hora}} Hs: - {{ vm.turno.turnoSeleccionado.Recurso}}
+				- {{ vm.turno.turnoSeleccionado.Servicio }}</h4>
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-5 form-group" ng-show="vm.turno.turnoSeleccionado.EsDeTurneroNuevo">
+					<label>
+						<strong>Fecha / Usuario que asignó</strong>
+					</label>
+					<div>{{vm.turno.turnoSeleccionado.FechaAsignacion | date : 'dd/MM/yy HH:mm:ss'}}</div>
+					<div ng-bind="vm.turno.turnoSeleccionado.UsuarioAsignacion"></div>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-1 col-lg-3 form-group">
+					<label>
+						<strong>Tipo</strong>
+					</label>
+					<div ng-if="vm.turno.turnoSeleccionado.EsSobreTurno == true">Sobreturno</div>
+					<div ng-if="vm.turno.turnoSeleccionado.EsSobreTurno == false">Turno común</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-2 col-lg-4">
+
+					<div class="row">
+
+						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 form-group" ng-if="vm.turno.turnoSeleccionado.Estado.indexOf('Cancelado')!= -1">
+							<label>
+								<strong>Necesita reprogramación</strong>
+							</label>
+							<div ng-if="vm.turno.turnoSeleccionado.NecesitaReprogramacion == true">Si</div>
+							<div ng-if="vm.turno.turnoSeleccionado.NecesitaReprogramacion == false">No</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 form-group" ng-if="vm.turno.turnoSeleccionado.Estado.indexOf('Cancelado')!= -1">
+							<label>
+								<strong>Estado reprogramación</strong>
+							</label>
+							<div ng-bind="vm.turno.turnoSeleccionado.EstadoReprogramacion"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-4">
+						<button type="button" ng-click="vm.formControl.abrirRequerimientos(vm.turno.turnoSeleccionado)" 
+						ng-disabled="vm.turno.turnoSeleccionado.IdEstado != 1"  ng-show="vm.turno.turnoSeleccionado.EsDeTurneroNuevo"
+						class="btn btn-row btn-warning">Requerimientos</button>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!-- seccion para cancelar turno -->
+	<div class="row" ng-if="vm.turno.turnoSeleccionadoParaEliminar">
+		<h4>Cancelar Turno {{vm.turno.turnoSeleccionadoParaEliminar.Fecha}} - {{vm.turno.turnoSeleccionadoParaEliminar.Hora}}</h4>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+			<div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 form-group">
+				<label class="label-control">Motivo Cancelacion</label>
+				<select name="tipoCancelacion" class="form-control" ng-model="vm.turno.motivoCancelacionTurno" ng-required="true" ng-options="tipoCancelacion.Id as tipoCancelacion.Nombre for tipoCancelacion in vm.turno.motivosCancelacionTurno">
+					<option value="">-SELECCIONAR-</option>
+				</select>
+			</div>
+
+			<div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 form-group">
+
+				<label class="label-control">Observación para cancelar:</label>
+				<textarea class="form-control noresize" ng-model="vm.turno.observacionesParaEliminar"></textarea>
+			</div>
+
+			<div class="col-xs-12 col-sm-6 col-md-5 col-lg-2">
+				<button type="button" class="btn btn-warning btn-row btn-block" ng-click="vm.turno.cancelarTurno()" ng-disabled="!vm.turno.motivoCancelacionTurno || !vm.turno.observacionesParaEliminar">
+					Cancelar Turno
+				</button>
+			</div>
+		</div>
+	</div>
+</sa-modal-body>
+<sa-modal-footer loading="vm.loading">
+	<!-- <button type="button" class="btn "
+ng-disabled="vm.loading"
+ng-click="vm.cancel()">Cancelar</button> -->
+	<button type="button" class="btn btn-default" ng-disabled="vm.loading" ng-click="vm.ok()">Aceptar</button>
+</sa-modal-footer>

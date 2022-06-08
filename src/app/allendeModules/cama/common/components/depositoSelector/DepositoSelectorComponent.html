@@ -1,0 +1,8 @@
+<div sa-form-input>
+    <label for="deposito_selector" id="deposito_label">Deposito</label>
+    <select class="form-control" id="deposito_selector" name="Deposito" ng-model="vm.deposito" ng-disabled="vm.loading || !vm.sector" 
+    ng-options="deposito as deposito.NombreCorto || deposito.Nombre for deposito in vm.depositosList">
+        <option value="">--SELECC. DEPOSITO--</option>
+    </select>
+</div>
+<sa-loading-modal ng-if="vm.loading"></sa-loading-modal>

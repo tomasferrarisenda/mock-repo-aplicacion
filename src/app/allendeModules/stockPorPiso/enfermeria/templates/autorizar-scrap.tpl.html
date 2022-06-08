@@ -1,0 +1,45 @@
+<form name="formPersona" accept-charset="utf-8" novalidate >
+	<div class="modal-header">
+		<h4 class="modal-title">Autorizacion de Movimiento Scrap</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+
+			<div class="col-xs-12">
+				<h2 id="autorizarMovimiento_confirmar">
+					¿Desea autorizar el movimiento de scrap?
+				</h2>
+
+			   <table class="table table-hover" id="autorizarMovimiento_table">
+					<thead>
+						<tr >
+							<th colspan="3" class="text-center"></th>
+						</tr>
+						<tr class="thead-azul">
+						<tr class="cabecera-tabla">
+							<th class="text-left">Producto</th>
+							<th class="text-left">Cantidad</th>
+
+							<!-- <th class="text-left">Stock Anterior</th> -->
+						</tr>
+					</thead>
+					<tbody ng-hide="formControl.loadingModal" >
+						<tr ng-repeat="detalle in data.movimientosDetalleFiltrado">
+							<th class="row text-left">{{ detalle.Producto.nombre }}</th>
+							<td class="row text-left">{{ detalle.cantidad_productos }}</td>
+							<!-- <td class="row text-left">{{ detalle.stock_anterior }}</td> -->
+						</tr>
+					</tbody>
+				</table>
+				<label for="cmb_tipo_documento" ng-hide="formControl.loadingModal" >Observacion: {{data.ubicacionScrap.observacion}} </label>
+				<sa-loading ng-if="formControl.loadingModal"></sa-loading>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer" >
+		<button type="button" class="btn btn-default"
+			ng-click="formControl.ok()">Aceptar</button>
+		<button type="button" class="btn"
+			ng-click="formControl.cancel()">Cancelar</button>
+	</div>
+</form>

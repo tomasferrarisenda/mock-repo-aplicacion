@@ -1,0 +1,117 @@
+<sa-title-list title-name="vm.title.page" ></sa-title-list>
+<!-- El loading se muestra si se esta cargando el inicializador -->
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>
+<!-- El cuerpo se muestra si no se esta cargando el inicializador -->
+<!-- O si se produjo algun error inicializando -->
+<div class="cuerpo" ng-hide="vm.formControl.loading">
+	<form name="formAutorizacionEdit" accept-charset="utf-8" novalidate>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<label class="label-control">Tipo Homologación</label>
+					<input type="text" class="form-control" id="tipoHomologacion" name="tipoHomologacion" ng-readonly="true" ng-model="vm.filter.tipoHomologacion" >
+				</div>				
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+					<label class="label-control">Organización</label>
+					<input type="number" placeholder="Codigo" class="form-control" id="codigoOrganizacion" name="codigoOrganizacion" ng-maxlength="10" ng-keypress="vm.formControl.buscarOrganizacionEnter($event)" ng-blur="vm.formControl.buscarOrganizacion()" ng-model="vm.filter.codigoOrganizacion" sa-enter >
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+					<label class="label-control">Seleccionar Organización</label>
+					<div class="input-group">
+						<input type="text" placeholder="ORGANIZACION" class="form-control text-uppercase" id="nombreOrganizacion" name="nombreOrganizacion" ng-maxlength="200" ng-readonly="true" ng-model="vm.filter.nombreOrganizacion" sa-enter >
+						<span class="input-group-btn">
+							<button class="btn btn-default btn-loading" uib-tooltip="Buscar Organización" tooltip-placement="top" ng-click="vm.formControl.buscarOrganizaciones()" sa-enter >
+								<sa-icon name="SEARCH"></sa-icon>
+							</button>
+						</span>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+					<label class="label-control">Sucursal</label>
+					<select class="form-control" id="cmb_sucursal" ng-model="vm.filter.sucursal" ng-options="sucursal.Nombre for sucursal in vm.data.sucursales track by sucursal.Id" sa-enter>
+						<option value="">TODOS</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+					<label class="label-control">Mutual</label>
+					<input type="number" placeholder="Codigo" class="form-control" id="codigoMutual" name="codigoMutual" ng-maxlength="10" ng-keypress="vm.formControl.buscarMutualEnter($event)" ng-blur="vm.formControl.buscarMutual()" ng-model="vm.filter.codigoMutual" sa-enter >
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+					<label class="label-control">Seleccionar Mutual</label>
+					<div class="input-group">
+						<input type="text" placeholder="MUTUAL" class="form-control text-uppercase" id="nombreMutual" name="nombreMutual" ng-maxlength="200" ng-readonly="true" ng-model="vm.filter.nombreMutual" sa-enter >
+						<span class="input-group-btn">
+							<button class="btn btn-default btn-loading" uib-tooltip="Buscar Mutual" tooltip-placement="top" ng-click="vm.formControl.buscarMutuales()" sa-enter >
+								<sa-icon name="SEARCH"></sa-icon>
+							</button>
+						</span>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<label class="label-control">Servicio</label>
+					<select class="form-control" id="cmb_servicio" ng-model="vm.filter.servicio" ng-options="servicio.Nombre for servicio in vm.data.servicios track by servicio.Id" ng-disabled="!vm.filter.visibleServicio" sa-enter>
+						<option value="">TODOS</option>
+					</select>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<label class="label-control">Tipo Documento</label>
+					<select class="form-control" id="cmb_tipoDocumento" ng-model="vm.filter.tipoDocumento" ng-options="tipoDocumento.Nombre for tipoDocumento in vm.data.tiposDocumentos track by tipoDocumento.Id" ng-disabled="!vm.filter.visibleTipoDocumento" sa-enter>
+						<option value="">TODOS</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2" ng-disabled="!vm.filter.visibleProfesional">
+					<label class="label-control">Profesional</label>
+					<input type="number" placeholder="Matricula" class="form-control" id="matriculaProfesional" name=" matriculaProfesional" ng-maxlength="10" ng-keypress="vm.formControl.buscarProfesionalEnter($event)" ng-blur="vm.formControl.buscarProfesional()" ng-model="vm.filter.matriculaProfesional" ng-disabled="!vm.filter.visibleProfesional" sa-enter >
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" ng-disabled="!vm.filter.visibleProfesional">
+					<label class="label-control">Seleccionar profesional</label>
+					<div class="input-group">
+						<input type="text" placeholder="PROFESIONAL" class="form-control text-uppercase" id="nombreProfesional" name="nombreProfesional" ng-maxlength="200" ng-readonly="true" ng-model="vm.filter.nombreProfesional" ng-disabled="!vm.filter.visibleProfesional" sa-enter >
+						<span class="input-group-btn">
+							<button class="btn btn-default btn-loading" uib-tooltip="Buscar Profesional" tooltip-placement="top" ng-click="vm.formControl.buscarProfesionales()" ng-disabled="!vm.filter.visibleProfesional" sa-enter >
+								<sa-icon name="SEARCH"></sa-icon>
+							</button>
+						</span>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2" ng-disabled="!vm.filter.visiblePractica">
+					<label class="label-control">Práctica</label>
+					<input type="number" placeholder="Codigo" class="form-control" id="codigoPractica" name="codigoPractica" ng-maxlength="10" ng-keypress="vm.formControl.buscarPracticaEnter($event)" ng-blur="vm.formControl.buscarPractica()" ng-model="vm.filter.codigoPractica" ng-disabled="!vm.filter.visiblePractica" sa-enter >
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" ng-disabled="!vm.filter.visiblePractica">
+					<label class="label-control">Seleccionar Práctica</label>
+					<div class="input-group">
+						<input type="text" placeholder="PRACTICA" class="form-control text-uppercase" id="nombrePractica" name="nombrePractica" ng-maxlength="200" ng-readonly="true" ng-model="vm.filter.nombrePractica" sa-enter >
+						<span class="input-group-btn">
+							<button class="btn btn-default btn-loading" uib-tooltip="Buscar Practica" tooltip-placement="top" ng-click="vm.formControl.buscarPracticas()" ng-disabled="!vm.filter.visiblePractica" sa-enter >
+								<sa-icon name="SEARCH"></sa-icon>
+							</button>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<label class="label-control">Valor</label>
+					<input type="text" class="form-control" id="valorHomologacion" maxlength="50" name="valorHomologacion" ng-model="vm.data.valor" ng-required="true" sa-enter>
+				</div>
+			</div>
+		</div>
+		<div class="text-left">
+			<div class="btn-group ">
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-5 ">
+					<button class="btn btn-cancel" ng-click="vm.formControl.cancel()">Cancelar</button>
+				</div>
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-5 col-lg-offset-2 ">
+					<button class="btn btn-default " ng-disabled='vm.formControl.validarForm()' ng-click='vm.formControl.ok()'>Guardar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<sa-loading ng-if="formControl.loading"></sa-loading>
+

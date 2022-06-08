@@ -1,0 +1,284 @@
+<sa-title
+	title-name="vm.title.page"
+	title-icon="{{ vm.title.icon }}"
+
+	btn-new-click="vm.solicitud.new()"
+	btn-new-if="vm.validar.puedeCrear()"
+	
+	btn-reload-click="vm.formControl.reloadPage()"
+></sa-title>
+<div id="cuerpo" >
+	<div class="row fila fila-not">
+		<h4>Búsqueda avanzada</h4>
+		<form name="formFilter" accept-charset="utf-8" novalidate>
+			<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 ">
+				<div class="row fila" ng-if="vm.formControl.verFechas">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
+						<label for="fecha_desde">Fecha solicitud desde</label>
+						<sa-date-picker model="vm.filter.fechaDesde" required="true" max-date="vm.filter.fechaHasta || vm.today"></sa-date-picker>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
+						<label for="fecha_desde">Fecha solicitud hasta</label>
+						<sa-date-picker model="vm.filter.fechaHasta" required="true" min-date="vm.filter.fechaDesde" max-date="vm.today"></sa-date-picker>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<button sa-btn-search class="btn-row" ng-disabled="!vm.filter.fechaDesde || !vm.filter.fechaHasta" 
+							ng-click="vm.formControl.reloadPage()">Buscar</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
+						<sa-sucursal-combo
+							name="sucursal"
+							ng-model="vm.filter.sucursal"
+							ng-change="vm.paginacion.pageChanged()" >
+						</sa-sucursal-combo>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
+						<sa-tipo-documento-combo
+							name="tipoDocumento"
+							ng-disabled="vm.formControl.externo"
+							ng-model="vm.filter.tipoDocumento"
+							old="true"
+							ng-change="vm.paginacion.pageChanged()">
+						</sa-tipo-documento-combo>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" sa-form-input>
+						<label for="txt_numero_documento" class="label-control ">Número de documento</label>
+						<input type="number" placeholder="Numero documento"
+							name="numeroDocumento"
+							ng-maxlength="15"
+							ng-disabled="vm.formControl.externo"
+							ng-model="vm.filter.numeroDocumento"
+							ng-change="vm.paginacion.pageChanged()" >
+						<sa-text-error model="formFilter.numeroDocumento"></sa-text-error>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" sa-form-input>
+						<label for="txt_numero_documento" class="label-control ">Nombre del paciente</label>
+						<input type="text" placeholder="Nombre del paciente"
+							name="nombrePaciente"
+							ng-disabled="vm.formControl.externo"
+							ng-model="vm.filter.nombrePaciente"
+							ng-change="vm.paginacion.pageChanged()" >
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" sa-form-input>
+						<label for="cmb_estado" >Estado de preadmision</label>
+						<select class="form-control "
+							id="cmb_estado"
+							ng-model="vm.filter.estadoSolicitud"
+							ng-change="vm.paginacion.pageChanged()"
+							ng-options="estadoSolicitud.nombre_estado_preadmision for estadoSolicitud in vm.data.estadosSolicitud track by estadoSolicitud.id_estado_preadmision">
+							<option value="">TODOS</option>
+						</select>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" sa-form-input >
+						<label for="cmb_prioridad" >Prioridad de solicitud</label>
+						<select
+							id="cmb_prioridad"
+							ng-model="vm.filter.prioridadSolicitud"
+							ng-change="vm.paginacion.pageChanged()"
+							ng-options="prioridadSolicitud.nombre_prioridad_solicitud for prioridadSolicitud in vm.data.prioridadesSolicitud track by prioridadSolicitud.id_prioridad_solicitud">
+							<option value="">TODAS</option>
+						</select>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" sa-form-input>
+						<label for="cmb_tiene_protesis" >Tiene prótesis</label>
+						<select
+							id="cmb_tiene_protesis"
+							ng-model="vm.filter.tieneProtesis"
+							ng-change="vm.paginacion.pageChanged()" >
+							<option value="">TODAS</option>
+							<option value="true">SI</option>
+							<option value="false">NO</option>
+						</select>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" sa-form-input>
+						<label for="cmb_origen" >Origen de Solicitud</label>
+						<select
+							id="cmb_origen"
+							ng-model="vm.filter.origenSolicitud"
+							ng-change="vm.paginacion.pageChanged()"
+							ng-options="origen.nombre_origen_solicitud for origen in vm.data.origenesSolicitud track by origen.id_origen_solicitud">
+							<option value="">TODAS</option>
+						</select>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" sa-form-input>
+						<label for="txt_numero_solicitud" class="label-control ">Número de solicitud</label>
+						<input type="number" placeholder="Numero de solicitud"
+							name="numeroSolicitud"
+							ng-maxlength="15"
+							min="0"
+							ng-model="vm.filter.numeroSolicitud"
+							ng-change="vm.paginacion.pageChanged()" >
+						<sa-text-error model="formFilter.numeroSolicitud"></sa-text-error>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" sa-form-input >
+						<label for="txt_fecha_prob_int" class="label-control ">Fecha probable de int.</label>
+						<input type="text" placeholder="AAAA-MM-DD"
+							name="fechaProbableInternacion"
+							ng-model="vm.filter.fechaProbableInternacion"
+							ng-change="vm.paginacion.pageChanged()" >
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
+						<button type="button" class="btn-row btn-block"
+							sa-btn-clean
+							uib-tooltip="Limpiar filtros"
+							ng-click="vm.filter.clean()">
+							Limpiar
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 form-group pull-right">
+				<sa-check-box label-right="'Ver fechas de búsqueda'" ng-model="vm.formControl.verFechas"></sa-check-box>
+				<label >Dificultad de Admisión/Prótesis</label>
+				<table class="table table-bordered table-condensed">
+					<tbody>
+						<tr ng-repeat="dificultadGestion in vm.data.dificultadesGestion">
+							<td>
+								<div class="pull-left">
+									<div class="circulito" ng-class="dificultadGestion.color"></div>
+								</div>
+								&nbsp;<span ng-bind="dificultadGestion.nombre_dificultad_gestion"></span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</form>
+	</div>
+	<div id="printArea" class="row table-responsive">
+		<div class="col-xs-12">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr class="thead-azul">
+						<th colspan="6" class="text-center text-uppercase">
+							<strong>Solicitud</strong>
+						</th>
+						<th colspan="2" class="text-center text-uppercase">
+							<strong>Admisión</strong>
+						</th>
+						<th colspan="2" class="text-center text-uppercase">
+							<strong>Prótesis</strong>
+						</th>
+						<th colspan="2" class="text-center text-uppercase">
+							<strong>Otros</strong>
+						</th>
+					</tr>
+					<!-- <tr class="thead-azul"> -->
+					<tr class="cabecera-tabla">
+						<th class="text-center">Nº</th>
+						<th class="text-center">Progreso</th>
+						<th class="text-center">Origen</th>
+						<th class="text-center">
+							Fec. internación<br>prob.
+							<sa-icon name="DOWN"></sa-icon>
+						</th>
+						<th class="text-center">Paciente</th>
+						<th class="text-center">Profesional</th>
+						<th class="text-center">Dificultad</th>
+						<th class="text-center">Progreso</th>
+						<th class="text-center">Dificultad</th>
+						<th class="text-center">Progreso</th>
+						<th class="text-center">Prioridad</th>
+						<th class="text-center">Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="solicitud in vm.filter.solicitudes">
+						<th class="row text-center" ng-bind="solicitud.id_internacion"></th>
+						<td class="text-center" ng-class="solicitud.color_estado_preadmision">
+							<div 
+								uib-tooltip="{{ solicitud.motivo_baja || solicitud.descripcion_estado_preadmision }}"
+								ng-bind="solicitud.nombre_estado_preadmision"></div>
+						</td>
+						<td class="text-center" ng-bind="solicitud.nombre_origen_solicitud"></td>
+						<td class="text-center" ng-bind="solicitud.fecha_admision_probable | date : 'dd/MM/yyyy'"></td>
+						<td ng-bind="solicitud.nombre_completo_paciente"></td>
+						<td ng-bind="solicitud.nombre_medico_solicitante"></td>
+						<td >
+							<div class="circulito"
+								ng-class="solicitud.color_dificultad_gestion"
+								uib-tooltip="{{ solicitud.nombre_dificultad_gestion }}">
+							</div>
+						</td>
+						<td class="text-center" >
+							<div uib-tooltip="{{ solicitud.observaciones_admision }}"
+								ng-bind="solicitud.nombre_estado_admision"></div>
+						</td>
+						<td colspan="2" class="text-center" ng-if="!solicitud.tiene_detalle">
+							<span ng-if="!solicitud.tiene_protesis">S/PRÓTESIS</span>
+							<span ng-if="solicitud.tiene_protesis">
+								<button type="button" class="btn btn-default btn-block"
+									ng-disabled="solicitud.loading"
+									ng-click="vm.solicitud.getProtesis(solicitud)">
+									<sa-icon name="REFRESH"></sa-icon>
+									&nbsp;Cargar protesis
+								</button>
+							</span>
+						</td>
+						<td ng-if="solicitud.tiene_detalle">
+							<div ng-repeat="protesis in solicitud.ProtesisPreadmision">
+								<div class="circulito"
+									ng-class="protesis.DificultadGestion.color"
+									uib-tooltip="{{protesis.DificultadGestion.nombre_dificultad_gestion}}">
+								</div>
+							</div>
+						</td>
+						<td ng-if="solicitud.tiene_detalle">
+							<span ng-repeat="protesis in solicitud.ProtesisPreadmision"
+								uib-tooltip="{{ protesis.observaciones_protesis }}">
+									<span ng-bind="protesis.EstadoAutorizacion.nombre"></span><br>
+							</span>
+						</td>
+						<td ng-bind="solicitud.nombre_prioridad_solicitud"></td>
+						<td class="text-center">
+							<button class="btn btn-white btn-xs"
+								uib-tooltip="Ver" tooltip-placement="top"
+								ng-click="vm.solicitud.view(solicitud)">
+								<sa-icon name="EYE_OPEN"></sa-icon>
+							</button>
+							<button class="btn btn-white btn-xs"
+								uib-tooltip="Editar" tooltip-placement="top"
+								ng-disabled="!vm.validar.puedeEditar(solicitud)"
+								ng-click="vm.solicitud.open(solicitud)">
+								<sa-icon name="EDIT"></sa-icon>
+							</button>
+							<button class="btn btn-white btn-xs"
+								uib-tooltip="Anular" tooltip-placement="top"
+								ng-click="vm.solicitud.remove(solicitud)"
+								ng-disabled="!vm.validar.puedeAnular(solicitud.nombre_estado_preadmision)" >
+								<sa-icon name="DEL"></sa-icon>
+							</button>
+							<button class="btn btn-white btn-xs"
+								uib-tooltip="Imprimir" tooltip-placement="top"
+								ng-click="vm.print.selectPrint(solicitud.id_internacion)"
+								ng-disabled="!vm.validar.puedeImprimir(solicitud.nombre_estado_preadmision)" >
+								<sa-icon name="PRINT"></sa-icon>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div><!-- .row>-->
+	<div class="row" ng-if="vm.filter.solicitudes.length">
+		<div class="col-sm-12">
+			<div class="text-center">
+			<!-- 	<sa-pagination
+					items-per-page="vm.paginacion.pageSize"
+					total-items="vm.paginacion.totalItems"
+					ng-model="vm.paginacion.currentPage"
+					ng-change="vm.paginacion.pageChanged()">
+				</sa-pagination> -->
+				<div uib-pagination
+					items-per-page="vm.paginacion.pageSize"
+					total-items="vm.paginacion.totalItems"
+					ng-model="vm.paginacion.currentPage"
+					ng-change="vm.paginacion.pageChanged()"
+					previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+				</div>
+			</div>
+		</div>
+	</div><!-- .row>-->
+</div>

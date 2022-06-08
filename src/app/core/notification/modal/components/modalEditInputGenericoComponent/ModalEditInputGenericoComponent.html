@@ -1,0 +1,29 @@
+<sa-modal-header title-name="{{vm.optionConfig.tituloModal}}" loading="vm.loading" title-icon="EDIT">
+</sa-modal-header>
+<sa-modal-body loading="vm.loading">
+
+	<div class="row">
+		<div class="col-xs-12">
+				<div class="row">
+	
+						<div class="col-xs-4"  sa-form-input ng-if="vm.optionConfig.showObjetoAEditar">
+							<!-- input de stock normal -->
+							<label>{{vm.optionConfig.objetoAEditarLabel}}</label>
+							<input type="text" class="form-control" ng-model="vm.optionConfig.objetoAEditarValue" sa-enter 
+							ng-disabled="vm.optionConfig.objetoAEditarDisabled" id="modal-edit-input-old">
+						</div>
+	
+						<div class="col-xs-4"  sa-form-input >
+							<!-- input de stock normal -->
+							<label>{{vm.optionConfig.labelNuevoInput}}</label>
+							<input type="text" class="form-control" ng-model="vm.nuevoInput" sa-enter min="0" id="modal-edit-input-new">
+						</div>
+					</div>
+		</div>
+	</div>
+
+</sa-modal-body>
+<sa-modal-footer loading="vm.loading">
+	<input type="submit" class="btn btn-info " ng-click="vm.cancel()" value="Cerrar" id="btn-cerrar">
+	<input type="submit" class="btn btn-success" ng-click="vm.guardar() " value="Guardar" id="bnt-guardar">
+</sa-modal-footer>

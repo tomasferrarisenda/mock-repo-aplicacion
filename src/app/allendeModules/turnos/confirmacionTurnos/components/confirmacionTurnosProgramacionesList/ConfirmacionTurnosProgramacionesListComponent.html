@@ -1,0 +1,57 @@
+<div id="cuerpo" ng-hide="vm.loading">
+
+	<sa-title title-name="'Lista de Programaciones de Confirmación de Turnos'" title-icon="LIST" btn-reload-disabled="vm.loading" btn-reload-click="vm.buscar()"></sa-title>
+
+	<div class="row">
+		<div class="col-xs-12">
+			
+		</div>
+	</div>
+
+	<div class="row">
+
+		<!-- BLOQUE INFERIOR TABLA -->
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-if="vm.programaciones && vm.programaciones.length && vm.columnasProgramaciones && vm.columnasProgramaciones.length">
+
+			<!-- Se define el container que gestiona la tabla-->
+			<fw-table-container>
+				<fw-table-config exportable="true" sortable="false" filtrable="true" paginable="true" column-config="true">
+				</fw-table-config>
+				<fw-table-sorting-ext sort-change="sortChangeInternal(sorting)">
+				</fw-table-sorting-ext>
+				<fw-table-rowset data="vm.programaciones">
+				</fw-table-rowset>
+				<!-- Se define un columnset en el cual se setean (opcional) las columnas por datos -->
+				<fw-table-columnset data="vm.columnasProgramaciones">
+
+				</fw-table-columnset>
+				<fw-table-export>
+
+					<!-- <fw-table-export-csv label="'Exportar todo a Excel'" data="all" status="true">
+                    </fw-table-export-csv> -->
+				</fw-table-export>
+				<fw-table-buttonset>
+
+					<fw-table-button visible="btnViewIf" label="'Ver Excepciones'" icon="'VIEW'" type="'context'" action="vm.verExcepciones({row:row})">
+					</fw-table-button>
+
+				</fw-table-buttonset>
+
+				<!-- FILTRADO DINAMICO [Opcional] -->
+				<!-- Debe estar configurado en true la configuracion correspondiente -->
+				<!-- Solo debería funcionar si se trata de una tabla interna -->
+				<fw-table-filter init="true"></fw-table-filter>
+
+				<!-- Paginacion interna : no se necesita definir ningun valor, se toman los por defecto.-->
+				<!-- Opcionalmente se puede redefinir page-size -->
+				<fw-table-pagination page-size="10"></fw-table-pagination>
+				<!-- Por ultimo el renderizado de la tabla -->
+				<fw-table></fw-table>
+			</fw-table-container>
+		</div>
+
+
+	</div>
+
+</div>
+<sa-loading-modal ng-if="vm.loading"></sa-loading-modal>

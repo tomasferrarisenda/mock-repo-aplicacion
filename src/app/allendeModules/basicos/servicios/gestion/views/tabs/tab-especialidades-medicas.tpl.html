@@ -1,0 +1,79 @@
+<ng-form name="formTabPrestacionMedica">
+	<sa-title
+		btn-new-click="vm.especialidad.new()"
+		btn-new-disabled="vm.formControl.loading"
+	></sa-title>
+
+	<div id="cuerpo" ng-hide="vm.formControl.loading || vm.formControl.error || vm.data.especialidades.length == 0">
+		<div class="row fila" ng-hide="vm.data.especialidades.length <= vm.paginacionEspecialidades.pageSize">
+			<h4>Búsqueda avanzada</h4>
+			<form name="formFilter" accept-charset="utf-8" novalidate>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+					<label for="txt_numero_servicio" class="label-control">Nº Especialidad</label>
+					<input type="number" class="form-control"
+					id="txt_numero_servicio"
+					name="idServicio"
+					min="0"
+					max="9999"
+
+					ng-model="vm.filter.id"
+					ng-change="vm.paginacion.pageChanged()">
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+					<label for="txt_nombre_especialidad" class="label-control ">Nombre Especialidad</label>
+					<input type="text" class="form-control text-uppercase"
+					id="txt_nombre_especialidad"
+					name="nombreEspecialidad"
+					ng-class="{ error : formFilter.id.$error.number }"
+					ng-model="vm.filter.nombrePrestacion"
+					ng-change="vm.paginacionPrestacion.pageChanged()">
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pull-left">
+					<label for="txt_cantaidad_camas" class="label-control">Cantidad Especialidad</label>
+					<div >
+						<strong ng-bind="vm.paginacion.totalItems"></strong>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pull-right">
+					<button type="button" class="btn btn-default btn-row btn-block"
+						ng-click="vm.filter.clean()">
+						Limpiar
+					</button>
+				</div>
+			</form>
+		</div>
+		<sa-especialidad-list
+			ng-model="vm.data.especialidades"
+
+			view-estado-if="true"
+
+			btn-desactivar-click="vm.especialidad.desactivar(pEspecialidad)"
+			btn-desactivar-disabled="vm.formControl.loading"
+			btn-desactivar-if="!vm.formControl.loading"
+
+			btn-delete-click="vm.especialidad.delete(pEspecialidad)"
+			btn-delete-disabled="vm.formControl.loading"
+			btn-delete-if="!vm.formControl.loading">
+		</sa-especialidad-list>
+
+
+		<div class="row" ng-hide="vm.data.especialidades.length <= vm.paginacionEspecialidades.pageSize">
+			<div class="col-sm-12">
+				<div class="text-center">
+					<div uib-pagination 
+						max-size="5"
+						items-per-page="vm.paginacion.pageSize"
+						total-items="vm.paginacion.totalItems"
+						ng-model="vm.paginacion.currentPage"
+						ng-change="vm.paginacion.pageChanged()"
+						previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+					</div>
+				</div>
+			</div>
+		</div><!-- .row>-->
+	</div>
+	<sa-loading ng-if="vm.formControl.loading"></sa-loading>
+	<div ng-hide="vm.data.especialidades.length != 0">
+		<h2>Sin Datos</h2>
+	</div>
+</ng-form>

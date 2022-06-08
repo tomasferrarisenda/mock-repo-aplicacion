@@ -1,0 +1,132 @@
+<form name="formPaciente" accept-charset="utf-8" novalidate >
+	<div class="modal-header">
+		<h4 class="modal-title">
+			<sa-icon name="NEW2"></sa-icon>
+			{{ vm.title.page }}
+		</h4>
+	</div>
+	<sa-loading ng-if="vm.formControl.loading"></sa-loading>
+	<div class="modal-body" ng-hide="vm.formControl.loading">
+		<div class="row fila">
+			<!-- <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4  form-group">
+				<label>Cantidad de hijos</label>
+				<input type="number" class="form-control"
+					name="cantidadHijos"
+					max="6"
+					min="1"
+					ng-model="vm.formData.cantidadHijos"
+					ng-change="vm.formControl.updateArrayPaciente()"
+					ng-required="true">
+				<sa-text-error model="formPaciente.cantidadHijos"></sa-text-error>
+			</div> -->
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4  form-group" >
+				<label>Médico de cabecera (*)</label>
+				<select class="form-control" id="cmb_medico_cabecera"
+					name="medicoCabecera"
+					ng-required="true"
+					ng-model="vm.formData.medicoCabecera"
+					ng-options="medico.nombre_completo for medico in vm.data.profesionales track by medico.numero_matricula"  >
+					<option value="">--SELECCIONAR--</option>
+				</select>
+				<sa-text-error model="formPaciente.medicoCabecera"></sa-text-error>
+			</div>
+		</div>
+		<div class="row fila" ng-repeat="hijo in vm.data.hijos track by $index" ng-init="hijoIndex = $index">
+			<h4>Hijo {{$index + 1}} </h4>
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4  form-group">
+				<label for="">Nombre del recién nacido (*)</label>
+				<input type="text" class="form-control" id="nombre_recien_nacido"
+					sa-text
+					maxlength="40"
+					name="nombrePersona{{$index}}"
+					ng-model="hijo.nombre" 
+					ng-required="true" >
+				<span class="text-error"
+					ng-show='!formPaciente.$pristine && formPaciente.nombrePersona{{$index}}.$error.required'>
+					Nombre requerido.
+				</span>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 form-group" ng-controller="DatePickerController">
+				<label>Fecha nacimiento (*)</label>
+				<span class="input-group">
+					<div class="form-control"
+						ng-disabled="true"
+						ng-bind="hijo.fechaNacimiento | date: 'dd/MM/yyyy'">
+					</div>
+					<input type="text" class="form-control" id="fecha_nacimiento"
+						name="fechaNacimiento{{$index}}"
+						uib-datepicker-popup
+						ng-model="hijo.fechaNacimiento"
+						is-open="opened1"
+						min-date="minDateCommon"
+						max-date="today"
+						ng-show="false"
+						ng-required="true" >
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default" id="btn_fecha_nacimiento_calendario"
+							uib-tooltip="Calendario"
+							ng-click="open1($event)" >
+							<sa-icon name="CALENDAR"></sa-icon>
+						</button>
+					</span>
+				</span>
+				<span class="text-error"
+					ng-show="!formPaciente.$pristine && formPaciente.fechaNacimiento{{$index}}.$error.required" >
+					Campo requerido.
+				</span>
+			</div>
+			<!-- <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4  form-group">
+				<label>Hora nacimiento (*)</label>
+				 <uib-timepicker
+				 	name="horaNacimiento{{$index}}"
+				 	ng-model="hijo.horaNacimiento"
+				 	ng-required="true">
+				 </uib-timepicker>
+				<span class="text-error"
+					ng-show="!formPaciente.$pristine && formPaciente.horaNacimiento{{$index}}.$error.required" >
+					Campo requerido.
+				</span>
+			</div> -->
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 form-group" >
+				<label>Sexo (*)</label>
+				<select class="form-control" id="cmb_sexo"
+					name="tipoSexo{{hijoIndex}}"
+					ng-model="hijo.Sexo"
+					ng-required="true"
+					ng-options="sexo.nombre_tipo_sexo for sexo in vm.data.tiposSexo track by sexo.id_tipo_sexo"  >
+					<option value="">--SELECCIONAR--</option>
+				</select>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 form-group">
+				<label>Diagnóstico (*)</label><br>
+				<label>
+					<input  type="radio" value="RN" id="diagnostico"
+						name="diagnostico{{$index}}"
+						ng-model="hijo.diagnostico"
+						 >
+					RN
+				</label><br>
+				<label>
+					<input  type="radio" value="RNPT" id="radio"
+						name="diagnostico{{$index}}"
+						ng-model="hijo.diagnostico"
+						>
+					RNPT
+				</label><br>
+				<span class="text-error"
+					ng-show="!formPaciente.$pristine && !hijo.diagnostico">
+					Campo requerido.
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer" >
+		<button type="button" id="btn_aceptar"
+			class="btn btn-default"
+			ng-disabled="!formPaciente.$valid || !vm.formControl.validar()"
+			ng-click="vm.formControl.ok()">Aceptar</button>
+		<button type="button" id="btn_cancelar"
+			class="btn"
+			ng-click="vm.formControl.cancel()">Cancelar</button>	
+
+</form>

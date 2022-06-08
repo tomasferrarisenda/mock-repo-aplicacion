@@ -1,0 +1,23 @@
+<div id="print-content" ng-hide="vm.formControl.loading">
+	<form name="formPrefacturable" accept-charset="utf-8" novalidate>
+		<sa-modal-header
+			title-name="{{vm.title.name}}"
+			title-icon="{{vm.title.icon}}">
+		</sa-modal-header>
+		<sa-modal-body>
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-12 form-group">
+					<sa-prefacturable-selector model='vm.data.prefacturableEditar' init-tipo='vm.data.initTipo' sa-enter></sa-prefacturable-selector>
+				</div>
+			</div>
+		</sa-modal-body>
+		<sa-modal-footer>
+			<input type="submit"
+				class="btn"
+				ng-click="vm.formControl.cancel()" value="Cancelar">
+			<input type="submit" id="btnAgregarEditar" value="Guardar"
+				class="btn btn-default" ng-disabled="!vm.data.prefacturableEditar.Id"
+				ng-click="vm.formControl.returnPrefacturable()">
+		</sa-modal-footer>
+	</form>
+</div>

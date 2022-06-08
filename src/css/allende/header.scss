@@ -1,0 +1,94 @@
+@import '../common/variables';
+
+@media screen and (max-width: 768px) {
+	.hide-mobile {
+		// visibility: hidden;
+		display: none;
+	}
+}
+
+.header-modulo, .header-modulo:focus {
+	color: $font-color;
+}
+
+.navbar {
+	margin-bottom: 0px;
+	min-height: $header-height;
+
+	.navbar-right {
+		margin-right: -10px;
+	}
+}
+
+#wrapper {
+
+	nav {
+		.navbar-margin-sa {
+			margin-top: 8px;
+		}
+		
+		.navbar-header {
+			font-family: 'open_sanslight';
+			.navbar-brand {
+				font-size: $font-size-header;
+				height: $header-height;
+			}
+		}
+		&.testing {
+			background-color : $color-amarillo-pastel;
+		}
+		&.staging {
+			background-color : $color-postergado;
+		}
+		&.development {
+			background-color : $color-verde-pastel;
+		}
+		&.production //TODO cambiar a production
+		 {
+			background-color : $color-azul-barra-production;
+		}
+	}
+}
+
+.userdata {
+	margin-right: 15px;
+	
+	.fotouser {
+		float: left;
+		width: 45px;
+	}
+
+	.nameuser {
+		text-align: right;
+		float: left;
+
+		.name {
+			font-family: 'open_sanslight';
+			font-size: 1em;
+			color: $color-black;
+		}
+		.passwordchange {
+			color: $color-blue;
+			font-family: 'open_sansregular';
+			font-size: 0.8em;
+			display: block;
+			
+			&:hover {
+				color: $color-blue-white;
+			}
+		}
+	}
+
+	.salir {
+		font-size: 2.3em;
+		float: left;
+		opacity: 0.9;
+		border-left: solid 1px $color-gris-clarito;
+		padding-left: 10px;
+		margin-left: 10px;
+
+		&:hover {
+			color: $color-azul-sa;
+		}
+	}
+}

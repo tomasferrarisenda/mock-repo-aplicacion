@@ -1,0 +1,93 @@
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>
+<div ng-hide="vm.formControl.loading">
+	<form name="formCie" accept-charset="utf-8" novalidate >
+		<div class="modal-header">
+			<h4 class="modal-title">{{ vm.title.page }}</h4>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-xs-12  ">
+					<label for="cmb_capitulos" class="label-control">Capítulos</label>
+					<select class="form-control"
+						id="cmb_capitulos"
+						name="capitulo"
+						ng-model="vm.formData.capitulo"
+						ng-change="vm.formControl.getSubcapitulos()"
+						ng-options="capitulo.numero_cie_capitulo + '-	' + capitulo.titulo_cie_capitulo
+							for capitulo in vm.data.capitulos
+							track by capitulo.id_cie_capitulo " >
+						<option value="">-- TODOS --</option>
+					</select>
+				</div>
+				<div class="col-xs-12  ">
+					<label for="cmb_sub_capitulos" class="label-control">
+						Sub Capítulos <span ng-if="vm.data.subCapitulos.length">({{vm.data.subCapitulos.length}})</span>
+					</label>
+					<select class="form-control"
+						id="cmb_sub_capitulos"
+						name="subcapitulo"
+						ng-model="vm.formData.subCapitulo"
+						ng-change="vm.formControl.getDiagnosticos()"
+						ng-options="subcapitulo.codigo_cie_subcapitulo + '-	' + subcapitulo.titulo_cie_subcapitulo
+							for subcapitulo in vm.data.subCapitulos
+							track by subcapitulo.codigo_cie_subcapitulo " >
+						<option value="">-- TODOS --</option>
+					</select>
+				</div>
+				<div class="col-xs-12  ">
+					<label for="cmb_diagnosticos" class="label-control">
+						Grupo de diagnósticos <span ng-if="vm.data.diagnosticos.length">({{vm.data.diagnosticos.length}})</span>
+					</label>
+					<select class="form-control"
+						id="cmb_diagnosticos"
+						name="diagnostico"
+						ng-model="vm.formData.diagnostico"
+						ng-change="vm.formControl.getEnfermedades()"
+						ng-options="diagnostico.codigo_cie_diagnostico + '-	' + diagnostico.titulo_cie_diagnostico
+							for diagnostico in vm.data.diagnosticos
+							track by diagnostico.codigo_cie_diagnostico" >
+						<option value="">-- TODOS --</option>
+					</select>
+				</div>
+				<div class="col-xs-12  ">
+					<label for="cmb_enfermedades" class="label-control">
+						Enfermedades <span ng-if="vm.data.enfermedades.length">({{vm.data.enfermedades.length}})</span>
+					</label>
+					<!-- <select class="form-control"
+						id="cmb_enfermedades"
+						name="enfermedad"
+						ng-model="vm.formData.enfermedad"
+						ng-options="enfermedad.codigo_cie_enfermedad + '-	' + enfermedad.titulo_cie_enfermedad
+							for enfermedad in vm.data.enfermedades
+							track by enfermedad.codigo_cie_enfermedad" >
+						<option value="">-- SELECCIONAR --</option>
+					</select> -->
+					<input type="text" class="form-control"
+						placeholder="Buscar por código o nombre de la enfermedad"
+						name="enfermedad"
+						ng-model="vm.formData.enfermedad"
+						uib-typeahead="enfermedad as enfermedad.titulo_cie_enfermedad for enfermedad in vm.data.enfermedades | filter: $viewValue | limitTo:20"
+						typeahead-template-url="codigo-enfermedad.tpl.html"
+						typeahead-no-results="vm.formControl.noResult"
+					>
+				</div>
+
+			</div>
+		</div>
+		<div class="modal-footer" >
+			<button type="button"
+				class="btn btn-default"
+				ng-disabled="!vm.formControl.valid()"
+				ng-click="vm.formControl.ok()">Aceptar</button>
+			<button type="button"
+				class="btn "
+				ng-click="vm.formControl.cancel()">Cancelar</button>				
+		</div>
+	</form>
+</div>
+<script type="text/ng-template" id="codigo-enfermedad.tpl.html">
+  <a>
+      <span ng-bind="match.model.codigo_cie_enfermedad"></span> | 
+      <span ng-bind="match.model.titulo_cie_enfermedad"></span>
+  </a>
+</script>

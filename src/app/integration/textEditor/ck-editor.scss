@@ -1,0 +1,21 @@
+@import '../../../css/common/variables';
+
+.cke {
+	visibility: inherit;
+}
+
+.cke_1 {
+	.cke_top {
+		background-image: none;
+		// background-color: $color-azul-sa;
+	}
+
+	.cke_bottom {
+		background-image: none;
+		// background-color: $color-azul-sa;
+	}
+}
+.cke_dialog_tabs {
+	margin-left: 1px;
+	margin-top: 1px;
+}

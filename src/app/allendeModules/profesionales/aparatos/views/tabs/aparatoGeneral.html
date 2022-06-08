@@ -1,0 +1,44 @@
+<br>
+<div class="row">
+	<div class="col-xs-12 col-md-6 col-lg-6" sa-form-input-validate>
+		<label>Descripción</label>
+		<input type="text" name="descripcion" ng-model="vm.filter.descripcion" ng-change="vm.formControl.descripcionChange()" id="edit-aparatos-general-descripcion-input"
+		 maxlength="90" ng-required="false" sa-enter>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2" sa-form-input>
+		<sa-check-box label="Visible Portal Web" ng-model="vm.filter.visiblePortalWeb" color="green" sa-enter id="edit-aparatos-general-visibleweb-slider"></sa-check-box>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2" sa-form-input>
+		<sa-check-box label="Profesionales atención visibles" ng-model="vm.filter.visibilizaProfesionalesQueLoAtienden" color="green" sa-enter id="edit-aparatos-general-visibilizaProfesionales-slider"></sa-check-box>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2" sa-form-input>
+		<sa-check-box label="Activo" ng-model="vm.filter.activo" color="green" sa-enter id="edit-aparatos-general-activo-input"></sa-check-box>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
+		<label for="edit-aparatos-general-servicio-select">Servicio</label>
+		<select id="edit-aparatos-general-servicio-select"
+			name="servicio" class="form-control"
+			ng-model="vm.filter.idServicioPorDefecto"
+			ng-required="false"
+			ng-change="vm.formControl.servicioPorDefectoChange()"
+			ng-options="servicio.Id as servicio.Nombre for servicio in vm.data.servicios"
+			sa-enter>
+			<option value="">-SELECCIONAR-</option>
+		</select>
+	</div>
+
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
+		<label for="edit-aparatos-general-recurso-select">Recurso Tecnologico Ris Legacy</label>
+		<select id="edit-aparatos-general-recurso-select"
+			name="recurso" class="form-control"
+			ng-model="vm.filter.IdRecursoTecnologicoRisLegacy"
+			ng-required="false"
+			ng-change="vm.formControl.recursoRisChange()"
+			ng-options="recurso.Id as recurso.Nombre for recurso in vm.data.recursosTecnologicoRisLegacy"
+			sa-enter>''
+			<option value="">-SELECCIONAR-</option>
+		</select>
+	</div>
+</div>	

@@ -1,0 +1,179 @@
+<form name="formPrequirurgico" accept-charset="utf-8" novalidate>
+	<sa-modal-header
+		title-name="{{ vm.title.page }}"
+		title-icon="EDIT">
+	</sa-modal-header>
+	<sa-modal-body loading="vm.formControl.loading">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<button type="button" class="btn btn-default"
+					ng-click="vm.formControl.selectAll()">Tildar todos</button>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<button type="button" class="btn"
+					ng-click="vm.formControl.unselectAll()">Destildar todos</button>
+			</div>
+		</div>
+		<div class="row fila">
+			<h4>
+				Rayos
+				<button type="button" class="btn btn-default btn-xs"
+					ng-click="vm.formControl.getPracticasRayos()">
+					<sa-icon name="NEW"></sa-icon>
+				</button>
+			</h4>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 "
+				ng-repeat="rayo in vm.data.practicasPrequirurgicosRayos
+					track by rayo.id_practica_medica">
+				<input type="checkbox" ng-model="rayo.incluido"> <span ng-bind="rayo.codigo_practica_medica + ' - ' + rayo.nombre_practica_medica"></span>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12  form-group"
+				ng-if="vm.data.practicasRayos.length">
+				<input type="text"  class="form-control"
+					ng-model="vm.formData.practicaRayos"
+					ng-keypress="vm.formControl.addPracticaPrequirurgicoRayos($event)"
+					uib-typeahead="practica as practica.nombre_practica_medica for 
+						practica in vm.data.practicasRayos | filter:$viewValue | limitTo:8" 
+					typeahead-template-url="codigo-practica-medica.tpl.html"
+					typeahead-no-results="vm.formData.noResultRayos">
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12  form-group">
+				<label>Observaciones</label>
+				<textarea class="form-control"
+					name="observacionesRayos"
+					maxlength="255"
+					ng-model="vm.formData.observacionesRayos"></textarea>
+				<sa-text-error model="formPrequirurgico.observacionesRayos"></sa-text-error>
+			</div>
+		</div>
+		<div class="row fila">
+			<h4>
+				Cardiología
+				<button type="button" class="btn btn-default btn-xs"
+					ng-click="vm.formControl.getPracticasCardiologia()">
+					<sa-icon name="NEW"></sa-icon>
+				</button>
+			</h4>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 "
+				ng-repeat="cardiologia in vm.data.practicasPrequirurgicosCardiologia
+					track by cardiologia.id_practica_medica">
+				<input type="checkbox" ng-model="cardiologia.incluido"> <span ng-bind="cardiologia.codigo_practica_medica + ' - ' + cardiologia.nombre_practica_medica"></span>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12  form-group"
+				ng-if="vm.data.practicasCardiologia.length">
+				<input type="text"  class="form-control"
+					ng-model="vm.formData.practicaCardiologia"
+					ng-keypress="vm.formControl.addPracticaPrequirurgicoCardiologia($event)"
+					uib-typeahead="practica as practica.nombre_practica_medica for 
+						practica in vm.data.practicasCardiologia | filter:$viewValue | limitTo:8" 
+					typeahead-template-url="codigo-practica-medica.tpl.html"
+					typeahead-no-results="vm.formData.noResultCardiologia">
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12  form-group">
+				<label>Observaciones</label>
+				<textarea class="form-control"
+					name="observacionesCardiologia"
+					maxlength="255"
+					ng-model="vm.formData.observacionesCardiologia"></textarea>
+				<sa-text-error model="formPrequirurgico.observacionesCardiologia"></sa-text-error>
+			</div>
+		</div>
+		<div class="row fila">
+			<h4>
+				Laboratorio
+				<button type="button" class="btn btn-default btn-xs"
+					ng-click="vm.formControl.getPracticasLaboratorio()">
+					<sa-icon name="NEW"></sa-icon>
+				</button>
+			</h4>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 "
+				ng-repeat="laboratorio in vm.data.practicasPrequirurgicosLaboratorio
+					track by laboratorio.id_practica_medica">
+				<input type="checkbox" ng-model="laboratorio.incluido"> <span ng-bind="laboratorio.codigo_practica_medica + ' - ' + laboratorio.nombre_practica_medica"></span>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12  form-group"
+				ng-if="vm.data.practicasLaboratorio.length">
+				<input type="text"  class="form-control"
+					ng-model="vm.formData.practicaLaboratorio"
+					ng-keypress="vm.formControl.addPracticaPrequirurgicoLaboratorio($event)"
+					uib-typeahead="practica as practica.nombre_practica_medica for 
+						practica in vm.data.practicasLaboratorio | filter:$viewValue | limitTo:8" 
+					typeahead-template-url="codigo-practica-medica.tpl.html"
+					typeahead-no-results="vm.formData.noResultLaboratorio">
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12  form-group">
+				<label>Observaciones</label>
+				<textarea class="form-control"
+					name="observacionesLaboratorio"
+					maxlength="255"
+					ng-model="vm.formData.observacionesLaboratorio"></textarea>
+				<sa-text-error model="formPrequirurgico.observacionesLaboratorio"></sa-text-error>
+			</div>
+		</div>
+		<div class="row fila">
+			<h4>
+				Anestesia
+			</h4>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 "
+				ng-repeat="anestesia in vm.data.practicasPrequirurgicosAnestesia
+					track by anestesia.id_practica_medica">
+				<input type="checkbox" ng-model="anestesia.incluido"> <span ng-bind="anestesia.codigo_practica_medica + ' - ' + anestesia.nombre_practica_medica"></span>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12  form-group">
+				<label>Observaciones</label>
+				<textarea class="form-control"
+					name="observacionesAnestesia"
+					maxlength="255"
+					ng-model="vm.formData.observacionesAnestesia"></textarea>
+				<sa-text-error model="formPrequirurgico.observacionesAnestesia"></sa-text-error>
+			</div>
+		</div>
+		<div class="row fila ">
+			<h4>
+				Hemoterapia
+			</h4>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 "
+				ng-repeat="hemoterapia in vm.data.practicasPrequirurgicosHemoterapia
+					track by hemoterapia.id_practica_medica">
+				<input type="checkbox" ng-model="hemoterapia.incluido"> <span ng-bind="hemoterapia.codigo_practica_medica + ' - ' + hemoterapia.nombre_practica_medica"></span>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12  form-group">
+				<label>Observaciones</label>
+				<textarea class="form-control"
+					name="observacionesHemoterapia"
+					maxlength="255"
+					ng-model="vm.formData.observacionesHemoterapia"></textarea>
+				<sa-text-error model="formPrequirurgico.observacionesHemoterapia"></sa-text-error>
+			</div>
+		</div>
+		<div class="row fila fila-not">
+			<h4>
+				Hematología
+			</h4>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 "
+				ng-repeat="hematologia in vm.data.practicasPrequirurgicosHematologia
+					track by hematologia.id_practica_medica">
+				<input type="checkbox" ng-model="hematologia.incluido"> <span ng-bind="hematologia.codigo_practica_medica + ' - ' + hematologia.nombre_practica_medica"></span>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12  form-group">
+				<label>Observaciones</label>
+				<textarea class="form-control"
+					name="observacionesHematologia"
+					maxlength="255"
+					ng-model="vm.formData.observacionesHematologia"></textarea>
+				<sa-text-error model="formPrequirurgico.observacionesHematologia"></sa-text-error>
+			</div>
+		</div>
+	</sa-modal-body>
+	<sa-modal-footer
+		btn-ok-click="vm.formControl.ok()"
+		btn-ok-disabled="!formPrequirurgico.$valid"
+		btn-cancel-click="vm.formControl.cancel()">
+	</sa-modal-footer>
+</form>
+<script type="text/ng-template" id="codigo-practica-medica.tpl.html">
+  <a>
+      <span ng-bind="match.model.codigo_practica_medica"></span> | 
+      <span ng-bind="match.model.nombre_practica_medica"></span>
+  </a>
+</script>

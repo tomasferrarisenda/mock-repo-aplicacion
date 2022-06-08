@@ -1,0 +1,101 @@
+<br>
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+		<div sa-form-input-validate>
+			<label>Estado Contrato</label>
+			<select name="contrato"
+				ng-model="vm.filter.idEstadoContratoElegido"
+				ng-change="vm.formControl.contratoChange()"
+				ng-options="contrato.Id as contrato.Nombre for contrato in vm.filter.estadosContrato"
+				id="contratos-internos-general-estado-contrado-select"
+				ng-required="true"
+				sa-enter>
+			<option value="">--SELECCIONAR--</option>
+		</select>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+		<div sa-form-input-validate>
+			<label>Modo Contratación</label>
+			<select name="contratacion"
+				ng-model="vm.filter.idModoContratacionElegido"
+				ng-change="vm.formControl.contratacionChange()"
+				ng-required="true"
+				id="contratos-internos-general-modo-contratacion-select"
+				ng-options="contratacion.Id as contratacion.Nombre for contratacion in vm.filter.modosContratacion"
+				sa-enter>
+			<option value="">--SELECCIONAR--</option>
+		</select>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 form-group no-valid" sa-form-input-validate>
+		<label>Derechos</label>
+		<div class="input-group">
+			<span class="input-group-addon">%</span>
+			<input type="number" class="form-control text-right" ng-model="vm.filter.derechos" min="0" max="100" id="contratos-internos-general-derechos-input"
+			ng-blur="vm.formControl.derechosChange()" sa-percentage name="derechos" ng-required="false" sa-input-importe sa-enter>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 form-group no-valid" sa-form-input-validate>
+		<label>Honorarios</label>
+		<div class="input-group">
+			<span class="input-group-addon">%</span>
+			<input type="number" class="form-control text-right" ng-model="vm.filter.honorarios" min="0" max="100" id="contratos-internos-general-honorarios-input"
+			ng-blur="vm.formControl.honorariosChange()" sa-percentage name="honorarios" ng-required="false" sa-input-importe sa-enter>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+		<div sa-form-input-validate>
+			<label>Condición IVA</label>
+			<select name="condicion"
+				ng-model="vm.filter.idCondicionIvaElegida"
+				ng-change="vm.formControl.condicionChange()"
+				id="contratos-internos-general-cond-iva-select"
+				ng-options="condicion.Id as condicion.Nombre for condicion in vm.filter.condicionesIva"
+				ng-required="true"
+				sa-enter>
+			<option value="">--SELECCIONAR--</option>
+		</select>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+		<div sa-form-input-validate>
+			<label>Tipo Ganancias</label>
+			<select name="tipoGanancias"
+				ng-model="vm.filter.idTipoGananciaElegido"
+				ng-change="vm.formControl.tipoGananciasChange()"
+				id="contratos-internos-general-tipo-ganancias-select"
+				ng-options="ganancias.Id as ganancias.Nombre for ganancias in vm.filter.tiposGanancias"
+				ng-required="false"
+				sa-enter>
+			<option value="">--SELECCIONAR--</option>
+		</select>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+		<div sa-form-input-validate>
+			<label>Régimen Ganancias</label>
+			<select name="ganancias"
+				ng-model="vm.filter.idRegimenGananciaElegido"
+				ng-change="vm.formControl.regimenGananciasChange()"
+				id="contratos-internos-general-regimen-ganan-select"
+				ng-options="ganancias.Id as ganancias.Nombre for ganancias in vm.filter.regimenesGanancia"
+				ng-required="false"
+				sa-enter>
+			<option value="">--SELECCIONAR--</option>
+		</select>
+		</div>
+	</div>
+	<!-- <div class="col-xs-12 col-sm-8 col-md-6 col-lg-2 form-group" ng-controller="DatePickerController">
+		<label class="control-label">Vigencia Eximición Ganancias</label>
+		<input type="date" class="form-control" id="vigenciaEximicion" name="vigenciaEximicion" ng-model="vm.filter.vigenciaEximicion" ng-required="true" sa-enter> 
+	</div> -->
+	
+	<div class="col-xs-12 col-sm-8 col-md-6 col-lg-2 form-group ">
+			<label class="control-label">Vigencia Eximición Ganancias</label>
+			<sa-date-time-picker ng-model="vm.filter.vigenciaEximicion" id="1" type="date" required="true">
+			</sa-date-time-picker>  
+	</div>
+</div>

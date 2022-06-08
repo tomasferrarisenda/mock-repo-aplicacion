@@ -1,0 +1,9 @@
+<div sa-form-input>
+	<label for="piso_selector" id="piso_label">Piso</label>
+	<select class="form-control" id="piso_selector" name="piso_name" ng-model="vm.piso" 
+	 ng-disabled="vm.loading || !vm.sucursal"
+	 ng-options="piso as piso.Nombre for piso in vm.pisosList">
+		<option value="">--SELECC. PISO--</option>
+	</select>
+</div>
+<sa-loading-modal ng-if="vm.loading"></sa-loading-modal>

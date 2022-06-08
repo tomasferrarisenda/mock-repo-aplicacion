@@ -1,0 +1,76 @@
+<sa-modal-header
+	title-name="Detalle"
+	title-icon="">
+</sa-modal-header>
+<sa-modal-body>
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+			<label class="label-control">Código</label>
+			<input type="text" class="form-control" ng-readonly="true" ng-model="data.item.Id">
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+			<label class="label-control">Id Origen</label>
+			<input type="text" class="form-control" ng-readonly="true" ng-model="data.item.IdOrigen">
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
+			<label class="label-control">Fecha</label>
+			<input type="text" class="form-control" ng-readonly="true" ng-model="data.item.Fecha">
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+			<label class="label-control">Tipo Origen</label>
+			<input type="text" class="form-control" ng-readonly="true" ng-model="data.item.TipoOrigenBandeja">
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+			<label class="label-control">Estado Bandeja</label>
+			<input type="text" class="form-control" ng-readonly="true" ng-model="data.item.EstadoBandeja">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group">
+			<label class="label-control">Integrable</label>
+			<input type="text" class="form-control" ng-readonly="true" ng-model="data.item.Integrable">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group">
+			<script type="text/ng-template" id="group-template.html">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title" style="color:#fa39c3">
+							<a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" uib-accordion-transclude="heading">
+								<span uib-accordion-header ng-class="{'text-muted': isDisabled}">{{heading}}</span>
+							</a>
+						</h4>
+					</div>
+					<div class="panel-collapse collapse" uib-collapse="!isOpen">
+						<div class="panel-body" style="text-align: right" ng-transclude></div>
+					</div>
+				</div>
+			</script>
+			<uib-accordion close-others="oneAtATime">
+				<div uib-accordion-group heading="Mensaje Enviado" class="panel-default">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group">
+						<label class="label-control ">Mensaje</label>
+						<textarea rows="3" class="form-control" ng-readonly="true" ng-model="data.item.Mensaje" ></textarea>
+					</div>
+				</div>
+				<div uib-accordion-group heading="Mensaje Respuesta" class="panel-default">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group">
+						<label class="label-control ">Ack</label>
+						<textarea rows="3" class="form-control" ng-readonly="true" ng-model="data.item.Ack" ></textarea>
+					</div>
+				</div>
+			</uib-accordion>
+		</div>
+	</div>
+</sa-modal-body>
+<sa-modal-footer>
+	<div class="row text-center">
+		<input type="submit"
+			class="btn"
+			value="Cerrar"
+			sa-enter
+			ng-click="vm.formControl.cancel()"
+			sa-punto-click="vm.formControl.cancel()">
+	</div>
+</sa-modal-footer>

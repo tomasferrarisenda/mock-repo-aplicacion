@@ -1,0 +1,29 @@
+<div ng-show="vm.grupoDePrestaciones">
+	<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 ">
+		<h3>Grupo de Prest. en {{vm.sucursal.Nombre}} de {{vm.servicio.Servicio}} de {{vm.recurso.Nombre}}</h3>
+	</div>
+	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+		<button type="button" class="btn solicitud-progreso pull-right" 
+		ng-click="vm.agregarGrupoPrestacionARecursoEnServicio()" uib-tooltip="Agregar grupo a recurso en servicio" uib-tooltip-placement="top" id="grupo-prestaciones-recurso-servicio-sucursal-new-btn">
+			<sa-icon name="NEW"></sa-icon>
+		</button>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<div class="tableturnos table-responsive">
+			<table class="table table-fixed table-cursor-pointer table-hover">
+				<thead>
+					<tr class="cabecera-tabla">
+						<th class="col-xs-4 text-center solicitud-progreso">Id/Codigo</th>
+						<th class="col-xs-8 text-center solicitud-progreso">Nombre Grupo de Prestaciones</th>
+					</tr>
+				</thead>
+				<tbody class="bodyturnos">
+					<tr ng-repeat="row in vm.grupoDePrestaciones" class="rowturnos" context-menu="vm.menuOptions" id="grupo-prestaciones-recurso-servicio-sucursal-row-{{$index}}">
+						<td class="col-xs-4 text-center ">{{row.Id}}</td>
+						<td class="col-xs-8 text-center">{{row.Nombre}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

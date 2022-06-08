@@ -1,0 +1,38 @@
+<div class="row">
+	<div class="col-xs-12">
+		<h4>ACCIONADORES</h4>
+
+		<div class="row">
+			<div class="col-xs-12" style="margin-bottom: 20px;">
+
+				<button type="button" ng-click="vm.clickElement($event)" class="btn">Basic</button>
+				<button type="button" ng-click="vm.clickElement($event)" class="btn btn-default">Default</button>
+				<button type="button" ng-click="vm.clickElement($event)" class="btn btn-primary">Primary</button>
+				<button type="button" ng-click="vm.clickElement($event)" class="btn btn-success">Success</button>
+				<button type="button" ng-click="vm.clickElement($event)" class="btn btn-info">Info</button>
+				<button type="button" ng-click="vm.clickElement($event)" class="btn btn-warning">Warning</button>
+			</div>
+			<div class="col-xs-12" style=" margin-bottom: 20px;">
+				<button type="button" ng-click="vm.clickElement($event)" class="btn btn-danger">Danger</button>
+				<button type="button" ng-click="vm.clickElement($event)" class="btn btn-link">Link</button>
+				<button type="button" ng-click="vm.clickElemento(1)" sa-btn-clean>Limpiar</button>
+				<button type="button" ng-click="vm.clickElemento(2)" sa-btn-save class="btn-success">Guardar</button>
+				<button type="button" ng-click="vm.clickElemento(5)" sa-btn-search >Buscar</button>
+			</div>
+
+			<br></br>
+
+			<div class="col-xs-12 ">
+				<sa-check-box ng-model="model" ng-click="vm.clickElemento(3)" label="Label" color="green">
+				</sa-check-box>
+			</div>
+			<div class="col-xs-12 ">
+				<sa-check-box ng-model="model1" color="green" ng-click="vm.clickElemento(4)" label-right="'Label a la izq'">
+				</sa-check-box>
+			</div>
+
+
+		</div>
+
+	</div>
+</div>

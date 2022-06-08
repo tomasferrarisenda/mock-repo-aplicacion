@@ -1,0 +1,70 @@
+<form name="formUnidad" novalidate>
+    <sa-title title-name="vm.title.name" title-icon="LIST" btn-reload-disabled="vm.formControl.loading"></sa-title>
+    <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 form-group">
+            <sa-sucursal-combo-filtrado ng-model="vm.sucursal" todas="false">
+            </sa-sucursal-combo-filtrado>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-8 form-group">
+            <sa-piso-sector-contenedor sucursal="vm.sucursal" piso="vm.piso" sector="vm.sector" deposito="vm.deposito" mostrar-deposito="false">
+            </sa-piso-sector-contenedor>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group" sa-form-input>
+            <button type="button" sa-btn-search class="btn-row" ng-click="vm.buscar()" id="enfermeria-upa-buscar-btn" sa-punto-click="vm.buscar()" sa-enter>Buscar</button>
+            <button type="button" sa-btn-clean class="btn-row" ng-click="vm.limpiarFiltros()" id="enfermeria-upa-limpiar-btn" sa-punto-click="vm.limpiarFiltros()" sa-enter>Limpiar</button>
+        </div>
+    </div>
+    <div class="row">
+
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-if="vm.listaUpa && vm.listaUpa.length && vm.columnasTabla && vm.columnasTabla.length">
+
+            <!-- Se define el container que gestiona la tabla-->
+            <fw-table-container>
+                <fw-table-config exportable="false" sortable="false" filtrable="true" paginable="true" column-config="true">
+                </fw-table-config>
+                <fw-table-sorting-ext sort-change="sortChangeInternal(sorting)">
+                </fw-table-sorting-ext>
+                <fw-table-rowset data="vm.listaUpa">
+                </fw-table-rowset>
+                <!-- Se define un columnset en el cual se setean (opcional) las columnas por datos -->
+                <fw-table-columnset data="vm.columnasTabla">
+
+                </fw-table-columnset>
+
+                <fw-table-export>
+
+
+                </fw-table-export>
+
+                <fw-table-buttonset>
+
+
+                    <fw-table-button visible="btnViewIf" label="'Asignar UPA'" icon="'CHECK'" type="'context'" action="vm.asginarUpa({row:row})">
+                    </fw-table-button>
+
+                </fw-table-buttonset>
+
+                <!-- FILTRADO DINAMICO [Opcional] -->
+                <!-- Debe estar configurado en true la configuracion correspondiente -->
+                <!-- Solo debería funcionar si se trata de una tabla interna -->
+                <fw-table-filter init="true"></fw-table-filter>
+
+                <!-- Paginacion interna : no se necesita definir ningun valor, se toman los por defecto.-->
+                <!-- Opcionalmente se puede redefinir page-size -->
+                <fw-table-pagination page-size="10"></fw-table-pagination>
+                <!-- Por ultimo el renderizado de la tabla -->
+                <fw-table></fw-table>
+            </fw-table-container>
+        </div>
+    </div>
+    <!-- <div class="row">
+        <br>
+        <div class="row text-center">
+            <button class="btn btn-cancelar" ng-click="vm.volver()" sa-punto-click="vm.volver()" sa-enter>
+                Volver
+            </button>
+        </div>
+    </div> -->
+</form>

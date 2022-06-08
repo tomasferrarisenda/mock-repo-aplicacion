@@ -1,0 +1,78 @@
+<div class="row">
+
+    <div class="col-xs-12" ng-show="vm.data && vm.data.length > 0">
+        <div class="row">
+            <div class="col-xs-10 col-sm-12 col-md-10 col-lg-10 ">
+                <h3>{{vm.titulogrid}}</h3>
+            </div>
+            <div class="col-xs-2 col-sm-12 col-md-2 col-lg-2 " style=" margin-bottom: 2px; ">
+                <button type="button" id="productos-table-seleccionar-btn" class="btn btn-success pull-right" ng-click="vm.btnOk()" uib-tooltip="{{vm.tooltipBtn}}" uib-tooltip-placement="top">
+                    Seleccionar
+                </button>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 ">
+                    <label><strong>Cantidad: {{vm.paginacion.totalItems}}</strong></label>
+            </div>
+            <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4">
+                <sa-check-box ng-model="vm.filtroSoloFaltantes" ng-change="vm.changeFiltroSoloFaltantes();" 
+                    color="green" label-right="'Filtro Prod. con Stock Faltante'" pull-right="true">
+                </sa-check-box>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-5 col-lg-3">
+                <sa-check-box ng-model="vm.filtroSoloSeleccionados" ng-change="vm.changeFiltroSoloSeleccionados();" ng-disabled="vm.getDataSelected().length == 0"
+                    color="green" label-right="'Filtro Seleccionados'" pull-right="true">
+                </sa-check-box>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-7 col-lg-2 " style=" margin-bottom: 2px; ">
+                <button type="button" id="productos-table-limpiar-btn" class="pull-right" sa-btn-clean ng-click="vm.btnClean()">
+                    Limpiar
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-xs-12 " ng-show="vm.data && vm.data.length > 0">
+        <div class="tableturnos table-responsive">
+            <table class="table table-cursor-pointer table-hover" id="productos-table">
+                <thead>
+                    <tr class="cabecera-tabla">
+                        <th class="col-xs-4 text-center">
+                            <input class="text-capitalize form-control no-valid" type="search" name="buscar_producto" placeholder="Producto" ng-model="vm.filterBuscarProducto"
+                                ng-change="vm.pageChanged()" autocomplete="off" id="productos-table-filtro-producto-input">
+                        </th>
+                        <th class="col-xs-4 text-center">
+                            <input class="text-capitalize form-control no-valid" type="search" name="buscar_presentacion" placeholder="Presentación"
+                                ng-model="vm.filterBuscarPresentacion" ng-change="vm.pageChanged()" autocomplete="off" id="productos-table-filtro-presentacion-input">
+                        </th>
+                        <th class="col-xs-2 text-center">Stock Normal</th>
+                        <th class="col-xs-2 text-center">Stock Actual</th>
+                    </tr>
+                </thead>
+                <tbody class="bodyturnos">
+                    <tr ng-repeat="row in vm.filterData" ng-class="{'{{vm.colorRow}}': row.selected }" class="rowturnos" ng-click="vm.clickRow(row)"
+                        context-menu="vm.menuOptions">
+                        <td class="col-xs-4 " ng-click="vm.rowClick(row)">
+                            <strong>{{row.Nombre}}</strong>
+                            <sa-icon name="EXCLAMACION" ng-if="row.EsAltoRiesgo" class="fa-1-3x" style="color: red" uib-tooltip="Medicamento Alto Riesgo"
+						    uib-tooltip-placement="top" id="indic-medicas-table-esaltoriesgo-icono"></sa-icon>
+                        </td>
+                        <td class="col-xs-4 " ng-click="vm.rowClick(row)">{{row.Presentacion}}</td>
+                        <td class="col-xs-2 text-center">{{row.StockNormal}}</td>
+                        <td class="col-xs-2 text-center" ng-class="{'color-rojo-turno' : row.StockActual < row.StockNormal}">{{row.StockActual}}</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-sm-12" ng-if="vm.data && vm.data.length > 0">
+        <div class="text-center">
+            <div uib-pagination max-size="20" items-per-page="vm.paginacion.pageSize" total-items="vm.paginacion.totalItems" ng-model="vm.paginacion.currentPage"
+                ng-change="vm.pageChanged()" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+            </div>
+        </div>
+    </div>
+
+</div>

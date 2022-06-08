@@ -1,0 +1,55 @@
+<br>
+
+<!--Tabla -->
+<button
+    type="button"
+    class="btn btn-default pull-right"
+    ng-if="!vm.formControl.loading"
+    uib-tooltip="Agregar nuevo"
+    tooltip-placement="left"
+    id="edit-aparatos-profesionalesatencion-agregar-btn"
+    uib-dropdown-toggle ng-click="vm.formControl.editarProfesionalesQueLoAtienden(null, null)"
+    sa-punto-click="vm.formControl.editarProfesionalesQueLoAtienden(null, null)"
+    sa-enter>
+    <sa-icon name="PLUS"></sa-icon>
+</button>
+
+<!-- Botones Editar / Eliminar -->
+<div class="row">
+    <div class="col-xs-12" ng-if="!vm.formControl.loading">
+        <fw-table-container>
+            
+            <fw-table-rowset
+                data="vm.data.aparato.ProfesionalesQueLoAtienden.Rows"
+                click-action="clickAction()">
+            </fw-table-rowset>
+
+            <fw-table-columnset
+                data="vm.data.aparato.ProfesionalesQueLoAtienden.Columns">
+            </fw-table-columnset>
+
+            <fw-table-buttonset>
+                <!-- NO deberia poder Editar Matricula y Profesional
+                <fw-table-button
+                    visible="btnEditIf"
+                    label="'Editar'"
+                    icon="'EDIT'"
+                    action="vm.formControl.editarProfesionalesQueLoAtienden(row.Id, row.NumeroMatriculaProfesional)">
+                </fw-table-button>
+                -->
+                <fw-table-button
+                    visible="true"
+                    label="'Eliminar'"
+                    icon="'DEL'"
+                    action="vm.formControl.borrarProfesionalesQueLoAtienden(index)">
+                </fw-table-button>
+            </fw-table-buttonset>
+
+            <fw-table></fw-table>
+        </fw-table-container>
+    </div>
+</div>
+
+<sa-loading
+    ng-if="vm.formControl.loading">
+</sa-loading>

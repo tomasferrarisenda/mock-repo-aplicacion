@@ -1,0 +1,63 @@
+<form name="formProfesional" accept-charset="utf-8" novalidate >
+	<div class="modal-header">
+		<h4 class="modal-title">Buscar Profesional</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-xs-12 col-sm-8 col-md-2 col-lg-4 form-group">
+				<label class="label-control">Matrícula</label>
+				<input type="number" min="0" max="999999" class="form-control" ng-model="vm.filter.matricula" ng-change="vm.paginacion.pageChanged()" sa-enter autofocus>
+			</div>
+			<div class="col-xs-12 col-sm-8 col-md-4 col-lg-8 form-group">
+				<div>
+					<label class="label-control">Nombre</label>
+					<input type="text-uppercase" class="form-control text-uppercase" ng-model="vm.filter.nombre" 
+						ng-change="vm.paginacion.pageChanged()"
+						maxlength="255"
+						sa-enter>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+				<div class="col-xs-12 col-sm-8 col-md-6 col-lg-12 form-group">
+				<sa-loading ng-if="vm.formControl.loading"></sa-loading>	
+				<table class="table table-hover table-condensed table-bordered" ng-if="!vm.formControl.loading">
+					<thead>
+						<tr class="thead-azul">
+							<tr class="cabecera-tabla"> 
+								<th class="text-left">Matrícula</th>
+								<th class="text-left">Nombre</th>
+							</tr>
+						</tr>
+					</thead>
+					<tbody ng-repeat="profesional in vm.filter.profesionales">
+						<tr ng-click="vm.formControl.profesionalSeleccion(profesional)">
+							<td class="row text-left">{{profesional.Matricula}}</td>
+							<td class="row text-left">{{profesional.Nombre}}</td>
+						</tr>
+					</tbody>
+				</table>
+				<div ng-if="vm.filter.profesionales.length">
+					<div class="col-sm-12">
+						<div class="text-center">
+							<div uib-pagination 
+								items-per-page="vm.paginacion.pageSize"
+								total-items="vm.paginacion.totalItems"
+								ng-model="vm.paginacion.currentPage"
+								ng-change="vm.paginacion.pageChanged()"
+								previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button"
+			class="btn btn-borrar" 
+			ng-click="vm.formControl.cancel()" 
+			sa-punto-click="vm.formControl.cancel()" 
+			sa-enter>Cancelar</button>
+	</div>
+</form>

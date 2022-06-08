@@ -1,0 +1,12 @@
+<div class="row">
+	<div class="" ng-class="vm.mostrarDeposito ? 'col-xs-4 ' : 'col-xs-6'">
+		<sa-piso-selector sucursal="vm.sucursal"  piso="vm.piso"></sa-piso-selector>
+	</div>
+	<div class="" ng-class="vm.mostrarDeposito ? 'col-xs-4 ' : 'col-xs-6'">
+		<sa-sector-selector sector="vm.sector" piso="vm.piso"></sa-sector-selector>
+	</div>
+	<div class="col-xs-4" ng-if="vm.mostrarDeposito">
+		<sa-deposito-selector deposito="vm.deposito" sector="vm.sector"></sa-deposito-selector>
+	</div>
+</div>
+<sa-loading-modal ng-if="vm.loading"></sa-loading-modal>

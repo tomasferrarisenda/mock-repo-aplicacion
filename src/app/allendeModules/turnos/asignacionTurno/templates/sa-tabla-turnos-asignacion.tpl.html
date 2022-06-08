@@ -1,0 +1,41 @@
+<div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-if="data">
+		<div class="row">
+			<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 " >
+				<h5 ng-bind="titulogrid"></h5>
+			</div>
+			<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"  ng-if="btnOtorgarText">
+				<button type="button" class="btn btn-default btn-block" ng-class="{ 'color-rojo-turno' : sobreturnos == true }"
+				
+				ng-click="btnClick()">
+				{{btnOtorgarText}}
+				</button>
+				
+			</div>
+			
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " ng-if="data" >
+		
+		<table class="table table-fixed table-cursor-pointer" ng-class="{'table-fixed-lg': tableClass, 'table-fixed-md': tableClassMd}">
+			<thead>
+				<tr>
+					<th class="col-xs-5" ng-class="{ 'color-rojo-turno' : sobreturnos == true }">Recurso</th>
+					<th class="col-xs-3" ng-class="{ 'color-rojo-turno' : sobreturnos == true }">Fecha</th>
+					<th class="col-xs-2" ng-class="{ 'color-rojo-turno' : sobreturnos == true }">Hora</th>
+					<th class="col-xs-2" ng-class="{ 'color-rojo-turno' : sobreturnos == true }">Suc.</th>
+				</tr>
+			</thead>
+			<tbody class="bodyturnos" >
+				<tr ng-repeat="row in data" ng-click="rowClick(row)"  context-menu="menuOptions"
+				ng-class="{'color-aquaorange-turno': row.selected }" class="rowturnos">
+					<td class="col-xs-5" ng-bind="row.Recurso"></td>
+					<td class="col-xs-3" ng-bind="row.Fecha | date:'dd-MM-yyyy'" ></td>
+					<td class="col-xs-2" ng-bind="row.Hora" ></td>
+					<td class="col-xs-2" ng-bind="row.Sucursal" ng-class="row.ColorSucursal"></td>
+				</tr>
+			</tbody>
+		</table>
+		
+	</div>
+</div>

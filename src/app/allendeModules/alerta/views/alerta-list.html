@@ -1,0 +1,231 @@
+<sa-title
+	title-name="vm.title.page"
+	title-icon="LIST"
+
+	btn-new-click="vm.formControl.crearAlerta()"
+	btn-new-disabled="vm.formControl.loading || !vm.formControl.puedeCrear"
+
+	btn-reload-click="vm.formControl.reloadPage()"
+	btn-reload-disabled="vm.formControl.loading"
+></sa-title>
+<!-- El loading se muestra si se esta cargando el inicializador -->
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>
+<!-- El cuerpo se muestra si no se esta cargando el inicializador -->
+<!-- O si se produjo algun error inicializando -->
+<div class="cuerpo" ng-hide="vm.formControl.loading || vm.formControl.error">
+	<div class="fila">
+		<h4>Búsqueda avanzada</h4>
+		<form name="formFilter"  novalidate>
+			<div class="row">
+				<div class="col-xs-12">
+
+					<sa-destinos-alerta tipo-destino="vm.filter.destino" id-destino="vm.filter.idDestino" >
+					</sa-destinos-alerta>
+
+				</div>
+				<!-- <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 form-group">
+					<label for="destino" >Destino</label>
+					<select class="form-control "
+						id="destino"
+						ng-model="vm.filter.destino"
+						ng-change="vm.formControl.selectTipoDestino()"
+						ng-options="destino.Nombre for destino in vm.data.tiposDestino">
+						<option value="">TODOS</option>
+					</select>
+				</div>
+				<div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 form-group" ng-if="vm.tipoDestino.paciente">
+					<sa-selector-paciente
+					ng-model="vm.data.idPaciente">
+					</sa-selector-paciente>
+				</div>
+				<div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 form-group" ng-if="vm.tipoDestino.rol">
+					<label for="" class="label-control ">SelectorRol</label>
+					<input type="text" placeholder="Código" class="form-control"
+						name="rol"
+						ng-model="vm.filter.rol"
+						ng-change="vm.paginacion.pageChanged()">
+				</div>
+				<div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 form-group" ng-if="vm.tipoDestino.usuario">
+					<label for="" class="label-control ">SelectorUsuario</label>
+					<input type="text" placeholder="Nombre del usuario" class="form-control"
+						name="usuario"
+						ng-model="vm.filter.usuario"
+						ng-change="vm.paginacion.pageChanged()">
+				</div> -->
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-4 col-md-2 col-lg-2  form-group">
+					<label for="cmb_tipo_origen" class="label-control">Tipo Origen</label>
+					<select class="form-control"
+						id="cmb_tipo_origen"
+						ng-model="vm.filter.tipoOrigen"
+						ng-change="vm.formControl.selectTipoOrigen()"
+						ng-options="tipoOrigen.Nombre for tipoOrigen in vm.data.tiposOrigen track by tipoOrigen.Id">
+						<option value="">TODOS</option>
+					</select>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 form-group">
+					<label for="cmb_tipo_alerta" >Tipo Alerta</label>
+					<select class="form-control"
+						id="cmb_tipo_alerta"
+						ng-model="vm.filter.tipoAlerta"
+						ng-change="vm.paginacion.pageChanged()" 
+						ng-options="tipoAlerta.Nombre for tipoAlerta in vm.data.tiposAlerta track by tipoAlerta.Id">
+						<option value="">TODOS</option>
+					</select>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 form-group">
+					<label for="cmb_tipo_criticidad" >Tipo Criticidad</label>
+					<select class="form-control"
+						id="cmb_tipo_criticidad"
+						ng-model="vm.filter.tipoCriticidad"
+						ng-change="vm.paginacion.pageChanged()" 
+						ng-options="tipoCriticidad.Nombre for tipoCriticidad in vm.data.tiposCriticidad track by tipoCriticidad.Id">
+						<option value="">TODOS</option>
+					</select>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 form-group">
+					<label for="cmb_tipo_visualizacion" >Tipo Visualizacion</label>
+					<select class="form-control"
+						id="cmb_tipo_visualizacion"
+						ng-model="vm.filter.tipoVisualizacion"
+						ng-change="vm.paginacion.pageChanged()" 
+						ng-options="tipoVisualizacion.Nombre for tipoVisualizacion in vm.data.tiposVisualizacion track by tipoVisualizacion.Id">
+						<option value="">TODOS</option>
+					</select>
+				</div>
+
+				<div class="col-xs-12 col-sm-2 col-md-1 col-lg-1 form-group">
+					<sa-check-box label="Activas" ng-model="vm.filter.activa">
+					</sa-check-box>
+				</div>
+				<div class="col-xs-12 col-sm-2 col-md-1 col-lg-1 form-group">
+					<sa-check-box label="Fechas" ng-model="vm.filter.fechas">
+					</sa-check-box>
+				</div>
+				<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 pull-right">
+					<button sa-btn-search class="btn-row-right" type="button"
+							ng-disabled=""
+							ng-click="vm.formControl.buscar()">
+							Buscar
+					</button>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12 col-sm-3 col-md-3 col-lg-2 form-group" ng-show="vm.filter.fechas">
+					<label for="datePickerDesde" >Fecha Creacion Desde</label>
+					<sa-date-picker model="vm.filter.fechaDesde" max-date="vm.filter.fechaHasta" id="datePickerDesde" >
+					</sa-date-picker>
+				</div>
+
+				<div class="col-xs-12 col-sm-3 col-md-3 col-lg-2 form-group" ng-show="vm.filter.fechas">
+					<label for="datePickerHasta" >Fecha Creacion Hasta</label>
+					<sa-date-picker model="vm.filter.fechaHasta" min-date="vm.filter.fechaDesde" id="datePickerHasta">
+					</sa-date-picker>
+				</div>
+			</div>
+
+		</form>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<table class="table table-hover">
+				<thead>
+					<tr >
+						<th colspan="3" class="text-center"></th>
+					</tr>
+					<!-- <tr class="thead-azul"> -->
+					<tr class="cabecera-tabla">
+						<!-- <th class="text-left">Codigo</th> -->
+						<th class="text-left">Origen</th>
+						<th class="text-left">Tipo</th>
+						<th class="text-left">Descripcion</th>
+						<th class="text-left">Criticidad</th>
+						<th class="text-left">Visualizacion</th>
+						<th class="text-left">Tipo Destino</th>
+						<th class="text-left">Destino</th>
+						<th class="text-left">Fecha Desde</th>
+						<th class="text-left">Fecha Hasta</th>
+						<th class="text-center">Editar</th>
+					</tr>
+				</thead>
+				<tbody ng-hide="formControl.loading || formControl.error || formControl.vacio">
+					<tr ng-repeat="alerta in vm.filter.alertas">
+						<!-- <th class="row text-left">{{ alerta.Id }}</th> -->
+						<td class="row text-left">{{ alerta.TipoOrigen }}</td>
+						<td	class="row text-left">{{ alerta.TipoAlerta }}</td>
+						<td	class="row text-left">{{ alerta.Descripcion | limitTo: 200 }}</td>
+						<td class="row text-left">{{ alerta.TipoCriticidad }}</td>
+						<td class="row text-left">{{ alerta.TipoVisualizacion }}</td>
+						<td class="row text-left">{{ alerta.TipoEntidad }}</td>
+						<td ng-if="alerta.TipoEntidad != 'Usuario'" class="row text-left">{{ alerta.Entidad }}</td>
+						<td ng-if="alerta.TipoEntidad == 'Usuario'" class="row text-left">
+							<button type="button" 
+							class="btn btn-default btn-xs"
+									ng-click="vm.formControl.verDestinatarios(alerta)">Ver Destinatarios
+							</button></td>
+						<td class="row text-left">{{ alerta.FechaDesde | date:"yyyy/MM/dd HH:mm" }}</td>
+						<td ng-if="!alerta.editar" class="row text-left">{{ alerta.FechaHasta | date:"dd/MM/yyyy HH:mm" }}</td>
+						<td ng-if="alerta.editar" class="row text-center btn-normal">
+							<sa-date-time-picker id="alerta.Id" ng-model="alerta.FechaHasta">
+							</sa-date-time-picker>
+							<!-- <sa-date-picker ng-model="alerta.FechaHasta"
+											model="alerta.FechaHasta"
+											min-date="alerta.FechaDesde"
+											ng-change="vm.formControl.guardarEditar(alerta)">
+							</sa-date-picker>
+							<sa-time-picker model="alerta.FechaHasta"
+											disabled="alerta.FechaHasta == ''">
+							</sa-time-picker> -->
+						</td>
+						<td ng-if="!alerta.editar" class="text-center">
+							<button type="button"
+									class="btn btn-white btn-xs"
+									uib-tooltip="Editar"  
+									uib-tooltip-placement="top"
+									ng-click="vm.formControl.editar(alerta)">
+								<sa-icon name="EDIT"></sa-icon>
+							</button>
+						</td>
+						<td ng-if="alerta.editar" class="text-center">
+							<button type="button"
+									class="btn btn-white btn-xs"
+									uib-tooltip="Guardar"  
+									uib-tooltip-placement="top"
+									ng-click="vm.formControl.guardarEditar(alerta)">
+								<sa-icon name="OK"></sa-icon>
+							</button>
+							<button type="button"
+									class="btn btn-white btn-xs"
+									uib-tooltip="Cancelar"  
+									uib-tooltip-placement="top"
+									ng-click="vm.formControl.cancelarEditar(alerta)">
+								<sa-icon name="DEL"></sa-icon>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-xs-12 text-center" ng-show="formControl.vacio" >
+			<label  >No hay alertas cargadas con esas caracteristicas.</label>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="text-center">
+				<div uib-pagination  boundary-links="true"
+					max-size="9"
+					items-per-page="vm.paginacion.pageSize"
+					total-items="vm.paginacion.totalItems"
+					ng-model="vm.paginacion.currentPage"
+					ng-change="vm.paginacion.pageChanged()"
+					previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+				</div>
+			</div>
+		</div>
+	</div><!-- .row>-->
+</div>

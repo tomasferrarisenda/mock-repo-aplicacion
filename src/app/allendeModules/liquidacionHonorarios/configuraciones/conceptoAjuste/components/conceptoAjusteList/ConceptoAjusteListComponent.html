@@ -1,0 +1,63 @@
+<sa-title title-name="vm.title.name" title-icon="{{vm.title.icon}}"></sa-title>
+<form name="formFilter" accept-charset="utf-8" novalidate>
+	<div class="row">
+
+		<!--Input Nombre-->
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group" sa-form-input >
+			<label>Nombre</label>
+			<input type="text" class="form-control" maxlength="40" ng-model="vm.nombre" sa-enter>
+		</div>
+
+		<!--Input Cuenta-->
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group" sa-form-input>
+			<label>Cuenta</label>
+			<input type="number" class="form-control" max="999999999" placeholder="0" ng-model="vm.cuenta" sa-enter>
+		</div>
+
+		<!--Combo -->
+		<div class="col-xs-12 col-sm-6 col-md-3 col-lg-2" sa-form-input>
+			<label>Tipo</label>
+			<select id="tipoConceptoAjuste" name="tipoConceptoAjuste" ng-model="vm.tipoElegido" ng-options="tipoConceptoAjuste.Nombre for tipoConceptoAjuste in vm.tiposConceptoAjuste"
+			 sa-enter>
+				<option value="">TODOS</option>
+			</select>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-1 form-group" sa-form-input>
+			<button type="button" sa-btn-search class="btn-row btn-block" ng-click="vm.buscar()" sa-punto-click="vm.buscar()" sa-enter>Buscar</button>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-1 form-group" sa-form-input>
+			<button type="button" sa-btn-clean class="btn-row btn-block" ng-click="vm.limpiarFiltros()" sa-punto-click="vm.limpiarFiltros()"
+			 sa-enter>Limpiar</button>
+		</div>
+		
+
+	</div>
+
+	<button type="button" class="btn btn-default pull-right" uib-tooltip="Agregar Nuevo Concepto" tooltip-placement="left" uib-dropdown-toggle
+	 ng-click="vm.editarConceptoAjuste(null, null)" sa-punto-click="vm.editarConceptoAjuste(null, null)" sa-enter>
+		<sa-icon name="PLUS"></sa-icon>
+	</button>
+
+	<!--Planilla-->
+	<div class="row">
+		<div class="col-xs-12">
+			<sa-table-ext 
+				data="vm.listadoConceptoAjuste" page-change="vm.buscarPagina(pagination)" 
+				btn-edit-click="vm.editarConceptoAjuste(row.Id, index)"
+				btn-delete-click="vm.eliminarConceptoAjuste(row, index)">
+			</sa-table-ext>
+		</div>
+	</div> 
+
+	<div class="row">
+		<br>
+		<div class="row text-center">
+			<button class="btn btn-cancelar" ng-click="vm.volver()" sa-punto-click="vm.volver()" sa-enter>
+				Volver
+			</button>
+		</div>
+	</div>
+
+</form>

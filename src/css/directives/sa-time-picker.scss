@@ -1,0 +1,32 @@
+table.sa-time-picker {
+
+	.form-control {
+		width: 60px;
+	}
+
+	.sa-hour {
+
+	}
+
+	.sa-separate {
+		padding: 0px 0px 20px 0px;
+	}
+
+	.sa-minute {
+
+	}
+
+	// ToDo: VALIDACION NOT
+	.input-group {
+		.ng-valid {
+			margin-bottom: 0px;
+		}
+	}
+	.ng-valid {
+		margin-bottom: 0px;
+	}
+
+	.ng-invalid {
+		margin-bottom: 0px;
+	}
+}

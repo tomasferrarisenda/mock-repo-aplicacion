@@ -1,0 +1,97 @@
+<div class="row">
+ 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 ">
+		<button type="button" class="btn btn-default"
+			ng-click="autorizacion.new()"
+			ng-disabled="!formControl.esEdit">
+			<sa-icon name="NEW"></sa-icon>
+			Agregar autorizacion
+		</button>
+	</div>
+</div>
+<br>
+<div class="row fila" >
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+		<table class="table table-bordered table-hover table-condensed">
+			<thead>
+				<tr></tr>
+				<tr class="cabecera-tabla">
+					<th class="text-center">Estado autorización</th>
+					<th class="text-center">N° Orden</th>
+					<th class="text-center">Diagnóstico</th>
+					<th class="text-center">Dias autorizados</th>
+					<th class="text-center">Códigos</th>
+					<th class="text-center">Estados Protesis</th>
+					<th class="text-center">Médico</th>
+					<th class="text-center">
+						<span uib-tooltip="Ultimo usuario que modifica">Usuario modifica</span>
+					</th>
+					<th class="text-center">Usuario autoriza</th>
+					<th class="text-center">Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="intervencion in data.internacion.Intervenciones">
+					<td class="text-center" ng-bind="intervencion.EstadoAdmision.nombre_estado_admision"></td>
+					<td class="text-center" ng-bind="intervencion.numero_orden"></td>
+					<td class="">
+						<span uib-tooltip="{{intervencion.diagnostico}}">
+							{{intervencion.diagnostico | limitTo:10 }}
+							<span ng-if="(intervencion.diagnostico + '').length > 10">...</span>
+						</span>
+					</td>
+					<td class="text-center" ng-bind="intervencion.cantidad_dias_autorizados"></td>
+					<td class="text-center">
+						<div ng-repeat="detalle in intervencion.DetallesIntervencion | filter : {id_origen_practica : 29}"
+							uib-tooltip="{{ detalle.PracticaMedica.nombre_practica_medica }}">
+								{{ detalle.PracticaMedica.codigo_practica_medica }} - 
+								{{ detalle.PracticaMedica.nombre_practica_medica | limitTo:8  }} <br>
+							<span ng-if="(detalle.PracticaMedica.nombre_practica_medica + '').length > 10">...</span>
+						</div>
+					</td>
+					<td class="text-center" >
+						<div ng-repeat="protesis in intervencion.ProtesisPreadmision"
+							ng-hide="!protesis.EstadoProtesis"
+							uib-tooltip="{{ protesis.observaciones_protesis }}">
+								{{ protesis.EstadoProtesis.nombre_estado_protesis }} <br>
+						</div>
+						<div ng-hide="intervencion.ProtesisPreadmision.length" >S/PRÓTESIS</div>
+					</td>
+					<td class="">
+						<div					
+							ng-if="intervencion.MedicoCabecera"
+							ng-bind="intervencion.MedicoCabecera.nombre_completo">
+						</div>
+						<div
+							ng-if="!intervencion.MedicoCabecera && intervencion.MedicoSolicitante"
+							ng-bind="intervencion.MedicoSolicitante.nombre_completo">
+						</div>
+					</td>
+					<td ng-bind="intervencion.usuario_modifica"></td>
+					<td ng-bind="intervencion.usuario_autoriza"></td>
+					<td class="text-center">
+						<button class="btn btn-white btn-xs"
+							uib-tooltip="Ver" tooltip-placement="top"
+							ng-click="autorizacion.view(intervencion.id_intervencion_admision)">
+							<sa-icon name="EYE_OPEN"></sa-icon>
+						</button>
+						<button class="btn btn-white btn-xs"
+							uib-tooltip="Edit" tooltip-placement="top"
+							ng-click="autorizacion.edit(intervencion.id_intervencion_admision)">
+							<sa-icon name="EDIT"></sa-icon>
+						</button>
+						<button class="btn btn-white btn-xs"
+							uib-tooltip="Impresiones" tooltip-placement="top"
+							ng-click="autorizacion.print(intervencion)">
+							<sa-icon name="PRINT"></sa-icon>
+						</button>
+						<!-- <button class="btn btn-white btn-xs"
+							uib-tooltip="Anular" tooltip-placement="top"
+							ng-click="autorizacion.edit()">
+							<sa-icon name="DEL"></sa-icon>
+						</button> -->
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,42 @@
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<label class="label-control" ng-if="ifLabel">Mutual</label>
+		<div class="input-group" >
+			<input name="busquedaMutual"
+				autocomplete="off"
+				uib-tooltip="Mutual" tooltip-placement="top" tooltip-enable="ifTooltip"
+				id="busquedaMutual" type="text"
+				placeholder="Buscar mutual..."
+				ng-model="filter.nombreMutual"
+				ng-disabled="formControl.buscando || disabled"
+				uib-typeahead="mutual as mutual.Nombre for mutual in
+				 data.mutuales | filter:$viewValue | limitTo:12"
+				class="form-control text-uppercase"
+				typeahead-select-on-exact="true"
+				typeahead-on-select="updateModel(filter.nombreMutual)"
+				ng-focus="true">
+
+			<span class="input-group-btn">
+				<button class="btn btn-default"
+					uib-tooltip="Buscar"
+					tooltip-placement="top"
+					ng-disabled="formControl.buscando || disabled"
+					ng-click ="buscar()"
+					sa-punto-click ="buscar()"
+					sa-enter>
+					<sa-icon name="SEARCH"></sa-icon>
+				</button>
+				<button class="btn btn-default"
+					uib-tooltip="Limpiar"
+					tooltip-placement="top"
+					ng-disabled="formControl.buscando || disabled"
+					ng-show = 'false'
+					ng-click ="limpiarDatos()"
+					sa-punto-click ="limpiarDatos()"
+					sa-enter>
+					<sa-icon name="DEL"></sa-icon>
+				</button>
+			</span>
+		</div>
+	</div>
+</div>

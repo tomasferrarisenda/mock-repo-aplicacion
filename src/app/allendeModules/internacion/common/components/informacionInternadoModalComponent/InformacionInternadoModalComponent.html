@@ -1,0 +1,90 @@
+<sa-modal-header loading="vm.loading" title-name="Información del Internado N°: {{vm.internado.NumeroInternado}}" title-icon="INFO">
+</sa-modal-header>
+<sa-modal-body loading="vm.loading">
+
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+			<h4>
+				<label>
+					<strong>Paciente: </strong>
+				</label> {{vm.internado.NombreYApellidoInternado}} </h4>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+			<h4>
+				<label>
+					<strong>Tipo y Numero Documento: </strong>
+				</label> {{vm.internado.DocumentoYTipoInternado}}</h4>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+			<h4>
+				<label>
+					<strong>Nro Internado: </strong>
+				</label> {{vm.internado.NumeroInternado}}</h4>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+			<h4>
+				<label>
+					<strong>Mutual: </strong>
+				</label> {{vm.internado.Financiador}}</h4>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+			<h4>
+				<label>
+					<strong>Nro Afiliado: </strong>
+				</label> {{ vm.internado.NroAfiliado }}  </h4>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+			<h4>
+				<label>
+					<strong>Fecha Admision: </strong>
+				</label> {{ vm.internado.FechaAdmision | fwPicker:'date' }} </h4>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+			<h4>
+				<label>
+					<strong>Fecha Alta Medica: </strong>
+				</label> {{ vm.internado.FechaAltaMedica | fwPicker:'date' }}  </h4>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+			<h4>
+				<label>
+					<strong>Diagnostico: </strong>
+				</label> {{ vm.internado.Diagnostico }}  </h4>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+			<h4>
+				<label>
+					<strong>Sector Internación: </strong>
+				</label> {{ vm.internado.SectorInternacion }}  </h4>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+			<h4>
+				<label>
+					<strong>Habitación: </strong>
+				</label> {{ vm.internado.Habitacion }}  </h4>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+			<h4>
+				<label>
+					<strong>Cama: </strong>
+				</label> {{ vm.internado.Cama }}  </h4>
+		</div>
+	</div>
+
+
+
+</sa-modal-body>
+<sa-modal-footer loading="vm.loading">
+	<button type="button" class="btn btn-default" ng-disabled="vm.loading" ng-click="vm.cancel()">Cerrar</button>
+</sa-modal-footer>

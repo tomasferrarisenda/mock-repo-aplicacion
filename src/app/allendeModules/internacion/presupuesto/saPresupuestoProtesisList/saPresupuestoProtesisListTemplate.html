@@ -1,0 +1,51 @@
+<div class="row">
+	<h4>
+		<span>Presupuestos de protesis</span>
+		<div class="btn-group pull-right">
+			<button class="btn btn-default" 
+				uib-tooltip="Nuevo"
+				name="new"
+				ng-click="$ctrl.btnNewClick()">
+				<sa-icon name="NEW"></sa-icon>
+			</button>
+		</div>
+	</h4>
+	<div class="col-xs-12">
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr class="cabecera-tabla">
+					<th class="text-center">Usuario de creación</th>
+					<th class="text-center">Fecha de creación</th>
+					<th class="text-center">Fecha de vencimiento</th>
+					<th class="text-center">Monto</th>
+					<th class="text-center">Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="detalle in $ctrl.data track by $index">
+					<td class="text-center" ng-bind="detalle.NombreUsuarioAlta"></td>
+					<td class="text-center" ng-bind="detalle.FechaAlta | date:'dd/MM/yyyy - HH:mm'"></td>
+					<td class="text-center" ng-bind="detalle.FechaVencimiento | date:'dd/MM/yyyy - HH:mm'"></td>
+					<td class="text-center" ng-bind="detalle.PrecioTotal | currency"></td>
+					<td class="text-center">
+						<button class="btn btn-white btn-xs" uib-tooltip="Editar" tooltip-placement="top"
+							ng-if="$ctrl.btnEditIf"
+							ng-disabled="$ctrl.btnEditDisabled"
+							ng-click="$ctrl.btnEditClick(detalle)">
+							<sa-icon name="EDIT"></sa-icon>
+						</button>
+						<button class="btn btn-white btn-xs" uib-tooltip="Imprimir" tooltip-placement="top"
+							ng-if="$ctrl.btnPrintIf"
+							ng-disabled="$ctrl.btnPrintDisabled"
+							ng-click="$ctrl.btnPrintClick(detalle)">
+							<sa-icon name="PRINT"></sa-icon>
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="text-center">
+			<span ng-show="!$ctrl.data.length" class="text-error">No hay presupuestos creados.</span>	
+		</div>
+	</div>
+</div>

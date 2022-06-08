@@ -1,0 +1,110 @@
+/* Nav Tab Clarika */
+@import '../common/variables';
+
+.main {
+	.nav {
+		> li {
+
+			> div {
+				border-bottom: 0px;
+				background-color: $color-gris;
+				border-radius: 0;
+				color: $color-white;
+				font-family: 'open_sansregular';
+				font-size: 1.1em;
+				padding: 8px 17px;
+				margin-bottom: 1px;
+				/* width: 200px; */
+				text-align: center;
+				// border-right: solid 1px $color-white;
+				border : 0px;
+			}
+
+			> a {
+				background-color: $color-gris;
+				border-radius: 0;
+				color: $color-white;
+				font-family: 'open_sansregular';
+				font-size: 1.1em;
+				padding: 8px 5px;
+				margin-bottom: 1px;
+				/*width:200px;*/
+				text-align: center;
+				border-right: solid 1px $color-white; 
+				
+				.circulo {
+					// background-color: $color-gris;
+					background-color: $color-gris !important;
+					border-radius: 50%;
+					text-align: center;
+					font-size: 1em;
+					width: 40px;
+					height: 40px;
+					position: absolute;
+					top: -15px;
+					left: 45%;
+					font-family: 'open_sansbold';
+				}
+
+				.namewizard {
+					position: relative;
+					z-index: 5;
+				}
+			}
+			
+			a:hover, a:focus {
+				background-color: $color-gris-medio !important;
+				padding-top: 8px;
+				padding-bottom: 8px;
+				position: relative;
+				z-index: 5;
+			}
+
+		}
+
+		> li.active {
+			a {
+				background-color: $color-gris-medio !important;
+				padding-top: 8px;
+				padding-bottom: 8px; 
+
+				.namewizard {
+					position: relative;
+					z-index: 5;
+				}
+			}
+		}
+	}
+
+	// .nav-pills {
+	// 	> li.active {
+	// 		a,  a:hover, a:focus {
+				
+	// 			color: $color-white;
+	// 			background-color: $color-bordo !important;
+
+	// 			.circulo {
+	// 				color: $color-white;
+	// 				background-color: $color-bordo !important;
+	// 			}
+	// 		}
+	// 	}
+	// }
+}
+
+.nav-tabs {
+	border-bottom: none;
+
+	li div {
+		height:60px;
+	}
+}
+
+// .navbar-inverse .navbar-nav > .open > a, .nav > li > a.active {
+// 	background-color: $color-azul-sa !important;
+// 	color: $color-white !important
+// }
+
+.tab-content{
+	padding-left:5px;
+}

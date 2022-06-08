@@ -1,0 +1,96 @@
+	@import '../common/variables';
+
+.row {
+
+	> button, input[type="submit"] {
+		margin-bottom: 5px;
+	}
+
+	button, input[type="submit"] {
+		padding: 4px 10px;
+	}
+
+	h4 {
+		font-size: $font-size-h4;
+		font-family: "open_sanslight";
+		color: $color-azul-sa;
+		margin: 5px 0px 9px 0px;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+
+	.form-control {
+		font-size: $font-size-general;
+		height: 27px;
+		padding: 4px 12px;
+	}
+
+	.help-block {
+		margin: 0px;
+	}
+
+	.form-control-static {
+		min-height: 27px;
+		padding: 4px 0px;
+		margin-bottom: 0;
+	}
+
+	textarea {
+		min-height:62px;
+		//height: 62px !important;
+		resize : vertical;
+	}
+
+	.form-group {
+		margin-bottom: 0px;
+		
+		label {
+			margin-top: 1px;
+			margin-bottom: 1px;
+		}
+	}
+}
+
+.fila {
+	border-bottom: solid 1px $color-gris-clarito;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+}
+
+.fila-not {
+	border-bottom: 0px;
+	padding-bottom: 0px;
+}
+
+.fila-print {
+	margin-bottom: 0px;
+	margin-top: 5px;
+	padding-bottom: 5px;
+
+	h4 {
+		margin-top: 0px;
+		margin-bottom: 5px;
+		font-size: 13px;
+		padding-left: 10px;
+	}
+}
+
+
+.noresize {
+  resize: none !important; 
+}
+
+.defaultresize {
+  resize: default !important; 
+}
+  
+.hresize {
+  resize: horizontal !important;  
+}  
+.textarea-lg{
+	min-height: 130px !important;
+}
+
+.textarea-xl {
+	min-height: 400px !important;
+}

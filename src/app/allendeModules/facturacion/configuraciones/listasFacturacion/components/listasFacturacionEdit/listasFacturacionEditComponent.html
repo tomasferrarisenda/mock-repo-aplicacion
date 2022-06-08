@@ -1,0 +1,101 @@
+<form name="formUnidad" novalidate>
+	<sa-title title-name="vm.title.name" title-icon="{{vm.title.icon}}" btn-reload-disabled="vm.formControl.loading"></sa-title>
+	<!-- El loading se muestra si se esta cargando el inicializador -->
+
+	<!-- <sa-loading ng-if="vm.formControl.loading"></sa-loading> -->
+
+	<!-- El cuerpo se muestra si no se esta cargando el inicializador -->
+	<!-- O si se produjo algun error inicializando -->
+
+	<!-- <div class="cuerpo" ng-hide="vm.formControl.loading || vm.formControl.error">
+        <div class="fila">
+            <h4>Tipo de Unidad</h4> -->
+
+	<!-- <form name="formFilter"  novalidate> -->
+	<div class="row">
+		<!--Input de Nombre-->
+
+		<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 form-group">
+			<div sa-form-input-validate>
+				<label>Nombre</label>
+				<input type="text" name="nombreListaFacturacionEdit" ng-model="vm.listaFacturacionEdit.Nombre" sa-enter>
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 form-group">
+			<div sa-form-input-validate>
+				<label>Descripción</label>
+				<input type="text" name="descripcionListaFacturacionEdit" ng-model="vm.listaFacturacionEdit.Descripcion" sa-enter>
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 form-group" sa-form-input>
+			<label for="tipoPrefacturable">Tipo Prefacturable</label>
+			<select id="tipoPrefacturable" name="tipoPrefacturable" ng-model="vm.tipoPrefacturable" ng-options="tipoPrefacturable.Nombre for tipoPrefacturable in vm.tipoPrefacturablesCombo track by tipoPrefacturable.Id"
+			 sa-enter>
+				<option value="">TODOS</option>
+			</select>
+		</div>
+
+	</div>
+
+	 <button type="button" class="btn btn-default pull-right" uib-tooltip="Agregar nueva Lista" tooltip-placement="left"
+		 uib-dropdown-toggle ng-click="vm.editarItemListaFacturacion(0, 0)" sa-punto-click="vm.editarItemListaFacturacion(0, 0)"
+		 sa-enter>
+		<sa-icon name="PLUS"></sa-icon>
+	</button>
+
+	<div ng-if="vm.listaFacturacionEdit.Items">
+		<sa-table-ext data="vm.listaFacturacionEdit.Items" page-change="vm.buscarPagina(pagination)" 
+			btn-edit-click="vm.editarItemListaFacturacion(row, index)"
+			btn-delete-click="vm.eliminarItem(row, index)">
+		</sa-table-ext>
+	</div>
+
+	<!-- importar / exportar excel  -->
+	<div class="row form-group">
+		<div class="col-xs-1 col-sm-1 col-md-1 col-lg-12 form-group">
+			<!-- ng-disabled="vm.tipoPrefacturable.Id !== 1" -->
+			<button class="btn btn-cancel" 					
+					ng-click="vm.selectorImportacion()"
+					sa-punto-click="vm.selectorImportacion()"
+					sa-enter>
+				Importar desde Excel
+			</button>
+			<!-- ng-disabled="vm.tipoPrefacturable.Id !== 1" -->
+			<button class="btn btn-cancel" 					
+					ng-click="vm.exportarExcel()"
+					sa-punto-click="vm.exportarExcel()"
+					sa-enter>
+				Exportar a Excel
+			</button>
+		</div>
+	</div>
+	<div class="row" ng-if="vm.selectorVisible">
+		<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4 form-group">
+			<fw-file-upload title="Seleccione archivo XLSX a importar" 
+							url="ListasFacturacion/ImportarExcel" 
+							data="vm.listaFacturacionEdit"
+							confirmation-message="Esta operación reemplazará la lista de precios por el contenido del archivo seleccionado. ¿Confirma?"
+							need-confirmation="true"
+							boton-subir="true"
+							file-extensions=".xlsx">
+			</fw-file-upload>
+		</div>
+	</div>
+	<!-- FIN importar / exportar excel -->
+
+
+	<div class="row">
+		<br>
+		<div class="col-xs-12 text-center">
+
+		<input type="submit" class="btn" ng-click="vm.cancelar()" value="Cancelar" sa-enter sa-punto-click="vm.cancelar()">
+		<input type="submit" id="btnAgregarEditar" value="Guardar" class="btn btn-default" ng-click="vm.Guardar()" sa-enter sa-punto-click="vm.Guardar()">
+
+		</div>
+	</div>
+	<sa-loading ng-if="vm.loading"></sa-loading>
+</form>
+
+<!--Para q levante el modulo, importe en la app.ts gral de la carpeta principal, el modulo edti, list etc -->

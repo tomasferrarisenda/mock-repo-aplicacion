@@ -1,0 +1,301 @@
+@import '../common/variables';
+/* Colores */
+
+// Además se cuenta con los colores bootstrap
+// btn-warning, btn-info, btn-success, btn-danger
+
+.color-verde, .btn-verde{
+	background: $color-verde;
+	color: whitesmoke;
+}
+.color-naranja, .btn-naranja, .turnos-Receptado-color, .color-naranja-turno {
+	background: $color-naranja;
+	color: whitesmoke;
+}
+.color-amarillo, .btn-amarillo {
+	background: $color-amarillo !important;
+}
+.color-rojo, .btn-rojo {
+	background: $color-rojo;
+	color: whitesmoke;
+}
+.color-gris{
+	background: $color-gris;
+	color: whitesmoke;
+}
+.color-negro{
+	background: $color-negro;
+	color: whitesmoke;
+}
+.color-azul{
+	background: $color-azul;
+	color: whitesmoke;
+}
+
+.color-violeta{
+	background: #9C27B0;
+	color: whitesmoke;
+}
+
+.solicitud-creado {
+	background-color: $color-creado;
+	color:$color-white;	
+}
+
+.solicitud-progreso {
+	background-color: $color-progreso !important;
+	color:$color-white !important;
+}
+
+.solicitud-cirugia {
+	background-color: $color-cirugia;
+	color:$color-white;	
+}
+
+.solicitud-anulado {
+	background-color: $color-anulado;
+	color:$color-white;	
+}
+
+.solicitud-postergado {
+	background-color: $color-postergado;
+	color:$color-white;	
+}
+
+.solicitud-faltante {
+	background-color: $color-faltante;
+	color:$color-white;
+}
+
+.color-danger {
+	color: $color-white !important;
+    background-color: $color-danger-bg !important;
+    border-color: $color-danger-border !important;
+}
+
+.color-info {
+	color: $color-white !important;
+	background-color: $color-info-bg !important;
+	border-color: $color-info-border !important;
+}
+
+.color-warning {
+	color: $color-white !important;
+	background-color: $color-warning-bg !important;
+	border-color: $color-warning-border !important;
+}
+
+.color-success {
+	color: $color-white !important;
+	background-color: $color-success-bg !important;
+	border-color: $color-success-border !important;
+}
+
+.color-verde-turno, .turnos-Libre-color {
+	background: #5cb85c !important;
+	color: whitesmoke !important;
+}
+
+.color-celeste-turno, .turnos-Asignado-color {
+	background: #6FAADE !important;
+	color: whitesmoke !important;
+}
+
+.color-rojo-turno, .turnos-Cancelado-color {
+	background: rgba(221, 29, 29, 0.74) !important;
+	color: whitesmoke !important;
+}
+
+.color-blanco-turno, .turnos-Ausente-color {
+	background: #f5f5f5 !important;
+	color: black !important;
+}
+
+.color-amarillo-turno, .turnos-Atendiendo-color {
+	background: rgba(232, 228, 44, 0.56) !important;
+	color: black !important;
+}
+
+.color-gris-turno, .turnos-Anulado-color {
+	background: rgba(128, 128, 128, 0.74) !important;
+	color: whitesmoke !important;
+}
+
+.color-aquaorange-turno {
+	background: rgb(239, 202, 149) !important;
+	color: black !important;
+}
+
+.color-turno-duracion-multiple {
+	background: #f12bf19c !important;
+	color: white !important;
+}
+
+.color-pendiente-facturar-prefactura, .color-pendiente-item-prefactura{
+	// blanco
+	background: rgb(255, 255, 255) !important;
+}
+
+.color-parcialmente-facturado-prefactura, .color-pendiente-revisar-item-prefactura{
+	// amarillo
+	background: rgb(255, 255, 0) !important;
+}
+
+.color-facturado-prefactura, .color-listo-facturar-item-prefactura{
+	// celeste
+	background: rgb(128, 255, 255) !important;
+}
+
+.color-anulado-prefactura, .color-anulado-item-prefactura{
+	// gris
+	background: rgb(153, 153, 153) !important;
+}
+
+
+
+// .color-pendiente-item-prefactura{
+// 	// blanco
+// 	background: rgb(255, 255, 255) !important;
+// }
+
+// .color-pendiente-revisar-item-prefactura{
+// 	// amarillo
+// 	background: rgb(255, 255, 0) !important;
+// }
+
+// .color-listo-facturar-item-prefactura{
+// 	// celeste
+// 	background: rgb(128, 255, 255) !important;
+// }
+
+.color-facturado-item-prefactura{
+	// verde
+	background: rgb(0, 204, 0) !important;
+}
+
+// .color-anulado-item-prefactura{
+// 	// gris
+// 	background: rgb(153, 153, 153) !important;
+// }
+
+.color-tabla-total-prefactura{
+	// aquamarine suave
+	background: rgb(204, 242, 255) !important;
+}
+
+.color-rojo-pastel-prefactura{
+	background: rgba(255, 0, 0, 0.3) !important;
+}
+
+.color-verde-pastel-prefactura{
+	background: rgba(0, 255, 0, 0.3) !important;
+}
+
+.color-celeste-pastel-prefactura{
+	background: rgba(60, 141, 173, 0.3) !important;
+}
+
+.color-gray-pastel-prefactura{
+	background: rgba(218, 173, 173, 0.18) !important;
+}
+
+.color-blanco-pastel-prefactura{
+	background: rgba(255, 255, 255, 0) !important;
+}
+
+.color-verde-autorizacion{
+	background: rgb(5, 151, 5) !important;
+	color: whitesmoke;
+}
+.color-rojo-autorizacion{
+	background: rgba(255, 0, 0, 1) !important;
+	color: whitesmoke;
+}
+.color-blanco-autorizacion{
+	background: rgba(255, 255, 255, 1) !important;
+	color: black;
+}
+.color-amarillo-autorizacion{
+	background: rgba(255, 230, 0, 1) !important;
+	color: black;
+}
+.color-naranja-autorizacion{
+	background: rgba(211, 139, 71, 1) !important;
+	color: whitesmoke;
+}
+.color-azul-autorizacion{
+	background: rgba(55, 0, 255, 1) !important;
+	color: whitesmoke;
+}
+.color-gris-autorizacion{
+	background: rgba(238, 238, 238, 1) !important;
+	color: rgba(85, 85, 85, 1);
+}
+
+.color-violeta-turno-reservado{
+	background: #ba2d65 !important;
+	color: whitesmoke;
+}
+
+.color-celeste-sucursales {
+	//nueva cordoba
+	background: rgba(67, 123, 146, 0.94) !important;
+	color: whitesmoke !important;
+	border-color: #38687a;
+
+}
+
+.color-verde-sucursales {
+	//cerro
+	background: #5cb85c !important;
+	color: whitesmoke !important;
+	border-color: #119E0F;
+	
+}
+
+.color-naranja-sucursales {
+	//cerro
+	background: #d8743f !important;
+	color: whitesmoke !important;
+	border-color: #b3653b;
+	
+}
+
+.color-pacientes-vip {
+	background: #757575 !important;
+	color: whitesmoke !important;
+}
+
+.color-row-deshabilitado {
+	background: rgba(90, 90, 90, 0.33) !important;
+	color: #717081 !important;
+}
+
+.turnos-Atendido-color {
+	background: rgba(13, 73, 142, 0.9) !important;
+	color: white !important;
+}
+
+.color-lila {
+	background: #B695C0 !important;
+	color: white !important;
+	border-color: #B695C0;
+}
+
+.color-rosa {
+	background: #F48FB1 !important;
+	color: white !important;
+	border-color: #F48FB1;
+}
+
+.color-amarillo-pendiente-enfermeria {
+	background: rgba(232, 228, 44, 0.56);
+	color: black !important;
+}
+
+.color-rojo-definitivos {
+	//cerro
+	background: white !important;
+	color: rgb(248, 11, 11) !important;
+	
+}

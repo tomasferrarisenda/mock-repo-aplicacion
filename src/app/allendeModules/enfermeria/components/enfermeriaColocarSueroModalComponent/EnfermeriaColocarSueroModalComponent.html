@@ -1,0 +1,205 @@
+<sa-modal-header title-name="{{vm.title.name}}" title-icon="PLUS-SQUARE-2" loading="vm.loading">
+</sa-modal-header>
+<sa-modal-body loading="vm.loading">
+
+	<div class="row fila">
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-5 ">
+			<h4>
+				<label>
+					<strong>Internado: </strong>
+				</label> {{vm.tipoDocumentoInternado}}: {{vm.numeroDocumentoInternado}} - {{ vm.infusion.Paciente}}</h4>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-2 col-lg-1 " style="padding-right: 0px;	padding-left: 0px;">
+			<h4>
+				<label>
+					<strong>Piso:</strong>
+				</label> {{vm.infusion.NumeroPiso }}</h4>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 ">
+			<h4>
+				<label>
+					<strong>Habitacion: </strong>
+				</label> {{vm.infusion.NumeroHabitacion}}</h4>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-2 col-lg-1 " style="padding-right: 0px;	padding-left: 0px;">
+			<h4>
+				<label>
+					<strong>Cama:</strong>
+				</label> {{vm.infusion.NumeroCama}}</h4>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+			<h4>
+				<label>
+					<strong>Fecha/Hora: </strong>
+				</label> {{vm.infusion.FechaHora | date:'dd/MM/yyyy HH:mm'}}</h4>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+			<h4>
+				<label>
+					<strong>Posología: </strong>
+				</label> {{vm.infusion.Posologia}}</h4>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
+			<label class="material-checkbox">
+				<input type="checkbox" ng-model="vm.infusion.PlanAlternativo" ng-disabled="true">
+				<span>Plan Alternado</span>
+			</label>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
+			<label class="material-checkbox">
+				<input type="checkbox" ng-model="vm.infusion.ExtraPlan" ng-disabled="true">
+				<span>Extraplan</span>
+			</label>
+		</div>
+
+	</div>
+
+	<div class="row fila">
+
+		<div class="col-xs-12">
+			<h2>
+				<strong>Colocaciones Previas (Cantidad: {{vm.infusion.ColocacionesRealizadas.length}})</strong>
+			</h2>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" ng-if="vm.infusion.ColocacionesRealizadas && vm.infusion.ColocacionesRealizadas.length > 0" ng-repeat="colocacion in vm.infusion.ColocacionesRealizadas">
+
+			<div class="panel-group" style="margin-bottom: 10px;margin-top: 10px;" >
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-target="#Suerocollapse{{colocacion.Nro}}">{{colocacion.Nro}}° Suero Colocado -
+								Día: {{colocacion.Dia |
+								date:'dd/MM/yyyy'}} - Hora: {{colocacion.Hora}}</a>
+						</h4>
+					</div>
+					<div id="Suerocollapse{{colocacion.Nro}}" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+									<label class="material-checkbox"  style="margin-right: 16px;">
+										<input type="checkbox" ng-model="colocacion.Colocado" ng-disabled="true">
+										<span>Colocado</span>
+									</label>
+									<label class="material-checkbox">
+										<input type="checkbox" ng-model="colocacion.ConAgregado" ng-disabled="true">
+										<span>Con Agregado</span>
+									</label>
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 ">
+									<h4>
+										<label>
+											<strong>Usuario: </strong>
+										</label> {{colocacion.Usuario }} </h4>
+									<h4>
+										<label>
+											<strong>Observación: </strong>
+										</label> {{colocacion.Observaciones }} </h4>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+
+
+	</div>
+
+	<div class="row" ng-if="vm.modoEdicion">
+
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+			<div class="row">
+				<!-- NuevaColocacion -->
+				<div class="col-xs-12">
+					<h2>
+						<strong>Nueva Colocación</strong>
+					</h2>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+					<label class="material-checkbox" style="margin-right: 16px;">
+						<input type="checkbox" ng-model="vm.infusion.NuevaColocacion.Colocado" ng-change="vm.changeColocado()">
+						<span>Colocado</span>
+					</label>
+					<label class="material-checkbox">
+						<input type="checkbox" ng-model="vm.infusion.NuevaColocacion.ConAgregado">
+						<span>Con Agregado</span>
+					</label>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-8">
+					<h4 style="margin-top: 0px;	margin-bottom: 4px;">
+						<label style="margin-top: 0px;	margin-bottom: 0px;	">
+							<strong>Observación Colocación: </strong>
+						</label> </h4>
+					<textarea class="form-control textarea" ng-model="vm.infusion.NuevaColocacion.Observaciones"></textarea>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+			<div class="row">
+				<div class="col-xs-12">
+
+					<!-- tabla Agregados -->
+					<div class="row" style="margin-bottom: 20px">
+
+						<div class="col-xs-12">
+							<h2>
+								<strong>Agregados</strong>
+							</h2>
+							<table class="table color-celeste-pastel-prefactura" ng-show="vm.infusion.Agregados.length > 0">
+								<thead class="levelTwo">
+									<tr></tr>
+									<tr class="cabecera-tabla-celeste">
+										<th>Producto</th>
+										<th>Unidad</th>
+										<th>Cantidad</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="agregado in vm.infusion.Agregados">
+										<td>{{agregado.Producto.CodigoStockeable}} - {{agregado.Producto.NombreStockeable}} -
+											{{agregado.Producto.PresentacionStockeable}}
+											<sa-icon ng-if="agregado.Producto.TipoAntibiotico.Id == 2" name="COPYRIGHT" uib-tooltip="Tipo Antibiótico: {{agregado.Producto.TipoAntibiotico.Nombre}}"
+											 uib-tooltip-placement="top" class="fa-1-3x" style="color: orange"></sa-icon>
+											<sa-icon ng-if="agregado.Producto.TipoAntibiotico.Id == 3" name="REGISTERED" uib-tooltip="Tipo Antibiótico: {{agregado.Producto.TipoAntibiotico.Nombre}}"
+											 uib-tooltip-placement="top" class="fa-1-3x" style="color: red"></sa-icon>
+										</td>
+										<td ng-bind="agregado.Unidad"></td>
+										<td ng-bind="agregado.Cantidad"></td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-12 text-center" ng-show="vm.infusion.Agregados.length && vm.infusion.Agregados.length == 0">
+							<label>No hay AGREGADOS...</label>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+</sa-modal-body>
+<sa-modal-footer loading="vm.loading">
+	<input type="submit" class="btn" ng-click="vm.cancel()" value="Cancelar">
+	<input type="submit" id="btnAgregarEditar" value="Guardar" class="btn btn-default" ng-if="vm.modoEdicion" ng-click="vm.guardar()">
+</sa-modal-footer>

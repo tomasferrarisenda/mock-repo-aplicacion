@@ -1,0 +1,38 @@
+<div id="print-content" ng-hide="vm.formControl.loading">
+	<form name="formCopiaConvenio" accept-charset="utf-8" novalidate>
+		<sa-modal-header title-name="{{vm.title.name}}" title-icon="{{vm.title.icon}}">
+		</sa-modal-header>
+		<sa-modal-body>
+			<div class="alert alert-warning">
+				<strong>Atención: </strong>
+				Se está por copiar el convenio del financiador: {{vm.data.convenioOrigen.CodigoFinanciador}} - {{vm.data.convenioOrigen.NombreFinanciador}}, 
+				del {{vm.data.fechaDesdeOrigen}} al {{vm.data.fechaHastaOrigen}}.
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-12 col-lg-8 form-group" sa-form-input>
+					<sa-new-mutual-selector 
+						model="vm.data.mutualElegida" 
+						codigo-mutual-edit="vm.data.codigoMutual"
+						label-codigo="Código Mutual Destino"
+						label-nombre="Nombre Mutual Destino">
+					</sa-new-mutual-selector>
+				</div>
+				<div class="col-xs-12 col-sm-8 col-md-6 col-lg-2 form-group" ng-controller="DatePickerController">
+					<label class="control-label">Vigencia desde</label>
+					<sa-date-picker model="vm.data.vigenciaDesde" max-date="vm.data.vigenciaHasta"></sa-date-picker>
+				</div>
+				<div class="col-xs-12 col-sm-8 col-md-6 col-lg-2 form-group" ng-controller="DatePickerController">
+					<label class="control-label">Vigencia hasta</label>
+					<sa-date-picker model="vm.data.vigenciaHasta" min-date="vm.data.vigenciaDesde"></sa-date-picker>
+				</div>
+			</div>
+		</sa-modal-body>
+		<sa-modal-footer>
+			<input type="submit" class="btn" sa-punto-click="vm.formControl.cancelar()" ng-click="vm.formControl.cancelar()" sa-enter
+				sa-punto-click="vm.formControl.cancel()" value="Cancelar">
+			<input type="submit" id="btnCopiar" value="Copiar" class="btn btn-default" sa-enter 
+				ng-disabled="vm.data.codigoMutual==0"
+				sa-punto-click="vm.formControl.copiar()" ng-click="vm.formControl.copiar()">
+		</sa-modal-footer>
+	</form>
+</div>

@@ -1,0 +1,181 @@
+<form name="formPlanes" accept-charset="utf-8" novalidate>
+	<div class="modal-header">
+		<h4 class="modal-title">{{ vm.title.page }}</h4>
+	</div>
+	<div ng-hide="vm.formControl.loading">
+		<div class="modal-body">
+			<div class="row">
+				<!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4  form-group">
+						<input type="number" class="form-control"
+							placeholder="Buscar por código"
+							name="codigoMutual"
+							autocomplete="off" 
+							ng-model="vm.filter.codigoMutual"
+							typeahead-on-select="vm.formControl.getPlanes()"
+							uib-typeahead="mutual as mutual.Nombre for mutual in vm.formControl.getMutual($viewValue)"
+							typeahead-template-url="codigo-mutual.tpl.html"
+							typeahead-no-results="vm.formControl.noResult"
+					> 
+				</div> -->
+				<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10" sa-form-input-validate>
+					<!-- <label>Buscar por código o nombre de la mutual</label> -->
+					<input type="text" class="form-control" autofocus
+						placeholder="Buscar por código o nombre de la mutual" name="nombreMutual" autocomplete="off"
+						ng-model="vm.filter.mutual" typeahead-on-select="vm.formControl.getPlanes()"
+						id="txt_nombreMutual"
+						uib-typeahead="mutual as mutual.Nombre for mutual in vm.formControl.getMutual($viewValue)"
+						typeahead-template-url="codigo-mutual.tpl.html" typeahead-min-length="1"
+						typeahead-no-results="vm.formControl.noResult" ng-required="true"
+						ng-change="vm.formControl.cambioMutual()">
+					<!--   					<input type="text" class="form-control"
+						placeholder="Buscar por código o nombre de la mutual"
+						name="nombreMutual"
+						ng-model="vm.filter.mutual"
+						uib-typeahead="mutual as mutual.Nombre for mutual in vm.data.mutuales | filter: $viewValue | limitTo:20"
+						typeahead-template-url="codigo-mutual.tpl.html"
+						typeahead-min-length="2"
+						typeahead-no-results="vm.formControl.noResult"
+					> -->
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 form-group">
+					<button type="button" class="btn btn-default" ng-disabled="vm.formControl.noResult"
+						ng-click="vm.formControl.getPlanes()" id="btn_buscar_planes">
+						Buscar planes
+					</button>
+				</div>
+				<div class="col-sm-12"
+					ng-if="vm.formControl.showCheckAsignableTurnos && vm.filter.mutual.VisibleEnTurnos == false">
+					<div class="text-error text-center">Esta obra social no es asignable en turnos</div>
+				</div>
+			</div>
+			<!-- 			<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4  form-group">
+					<label>Código de mutual</label>
+					<div ng-bind="vm.filter.mutual.Codigo"></div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4  form-group">
+					<label>Tipo de afiliado</label>
+					<div ng-bind="vm.filter.mutual.TipoAfiliado.Nombre"></div>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12  form-group">
+					<label>Descripción de mutual</label>
+					<div ng-bind="vm.filter.mutual.Nombre"></div>
+				</div>
+			</div> -->
+			<div class="row fila">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive" sa-form-input>
+					<table class="table table-hover" id="tabla_planes">
+						<thead>
+							<tr></tr>
+							<tr class="cabecera-tabla">
+								<!-- <th class="">Código de mutual</th> -->
+								<th class="">Código de mapeo</th>
+								<th class="">Nombre de plan</th>
+								<th class="text-center">Seleccionar</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="plan in vm.filter.planes">
+								<!-- <td ng-bind="plan.CodigoMutual"></td> -->
+								<td ng-bind="plan.CodigoMutualMapeo"></td>
+								<td ng-bind="plan.Nombre"></td>
+								<td class="text-center">
+									<input type="radio" class="not-valid" ng-value="plan"
+										id="plan_mutual_radio_{{$index}}" ng-model="vm.formData.planSeleccionado"
+										ng-required="true">
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="col-sm-12" ng-if="!vm.filter.planes.length">
+					<div class="text-error text-center">No hay planes</div>
+				</div>
+				<div class="col-sm-12" ng-if="vm.paginacion.totalItems > vm.paginacion.pageSize">
+					<div class="text-center">
+						<div uib-pagination items-per-page="vm.paginacion.pageSize"
+							total-items="vm.paginacion.totalItems" ng-model="vm.paginacion.currentPage"
+							ng-change="vm.paginacion.pageChanged()" previous-text="&lsaquo;" next-text="&rsaquo;"
+							first-text="&laquo;" last-text="&raquo;">
+						</div>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="row" ng-show="vm.formControl.validarForm()">
+
+				<div class="col-xs-12">
+
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" sa-form-input-validate>
+
+								<label>Nro de Afiliado (Ej: {{vm.filter.mutual.EjemploFormatoNumeroAfiliado}})</label>
+								<!-- N° Afiliado -->
+								<input type="text" autocomplete="off" id="txt_numeroAfiliado" name="txt_numeroAfiliado"
+									placeholder="{{vm.filter.mutual.MascaraNumeroAfiliado}}" 
+									ng-model="vm.formData.numeroAfiliado" ng-required="false"
+									ng-model-options="{debounce:500}" uib-tooltip="INFO: {{vm.filter.mutual.InformacionNumeroAfiliado}}"
+									ng-pattern="{{vm.filter.mutual.ReglaFormatoNumeroAfiliado}}">
+									<!-- <span class="input-group-btn">
+										<button type="button" class="btn btn-default" ng-disabled="false"
+										id="info_mutual_btn" sa-enter
+										>
+										<sa-icon name="INFO"></sa-icon>
+										</button>
+									</span> -->
+								<span class="text-error" ng-show="formPlanes.txt_numeroAfiliado.$error.pattern"> El formato no cumple la especificacion</span>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 " sa-form-input>
+							<label>Tipo de Afiliado</label>
+							<select id="cmb_tipo_afiliado" name="tipoAfiliado" ng-model="vm.formData.tipodeAfiliado"
+								ng-options="tipo.Nombre for tipo in vm.data.tiposAfiliados track by tipo.Id" sa-enter>
+								<option value="">-SELECCIONA-</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="row">
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 " sa-form-input-validate>
+							<label>Vigencia Desde</label>
+							<!-- <sa-date-picker model="vm.formData.fechaDesde" max-date="vm.formData.fechaHasta"></sa-date-picker> -->
+							<sa-date-time-picker ng-model="vm.formData.fechaDesde " id="1000" type="date"
+								max="vm.formData.fechaHasta"></sa-date-time-picker>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" sa-form-input-validate>
+							<label>Vigencia Hasta</label>
+							<!-- <sa-date-picker model="vm.formData.fechaHasta" min-date="vm.formData.fechaDesde"></sa-date-picker> -->
+							<sa-date-time-picker ng-model="vm.formData.fechaHasta " id="2000" type="date"
+								min="vm.formData.fechaDesde"></sa-date-time-picker>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn " ng-click="vm.formControl.cancel()"
+				id="selector_plan_mutual_cancelar_btn">Cancelar</button>
+			<button type="submit" class="btn btn-default" ng-click="vm.formControl.ok(formPlanes)"
+				id="selector_plan_mutual_aceptar_btn">Aceptar</button>
+		</div>
+	</div>
+	<sa-loading ng-if="vm.formControl.loading"></sa-loading>
+</form>
+
+<script type="text/ng-template" id="codigo-mutual.tpl.html">
+	<a id="selector_plan_mutual_typeahead_mutual">
+	  <span ng-bind="match.model.Codigo"></span> |
+	  <span ng-show="match.model.showCheckAsignableTurnos"> {{match.model.VisibleEnTurnos ? 'AT: SI' : 'AT: NO'}} |</span> 
+	  <span ng-bind="match.model.Nombre"></span> 
+	  <span ng-hide="match.model.Descripcion ? false : true"> |
+	  	{{match.model.Descripcion}}
+	  </span> 
+      <!-- <span class="pull-right">
+      	| <span ng-bind="match.model.TipoAfiliado"></span>
+	  </span> -->	  
+   </a>
+  <!-- <table>
+	  <td>{{match.model.Codigo}} | {{match.model.Nombre}}</td>
+  </table> -->
+</script>

@@ -1,0 +1,186 @@
+<sa-loading ng-if="formControl.loading"></sa-loading>
+<div id="print-content" class="container-print" ng-hide="formControl.loading">
+	<sa-modal-header title-name="{{vm.data.Orden.TituloOrden}}" print="true"></sa-modal-header>
+	<div class="modal-body">
+		<div class="row fila fila-print">
+			<div class="col-xs-12 text-right form-group">
+				<label>Operador:</label> {{vm.data.Orden.Autor}}
+			</div>
+			<div class="col-xs-12 text-center form-group">
+				<label>{{vm.data.Orden.Mutual}}</label>
+			</div>
+			<div class="col-xs-12 form-group">
+				<div>&nbsp;</div>
+				<div class="row">
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+						<label>Paciente:</label> {{ vm.data.Orden.NombreAfiliado }}
+					</div>
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+						<label>Tipo y Número Documento:</label> {{ vm.data.Orden.TipoDoc }}
+						<label>-</label> {{ vm.data.Orden.NroDoc }}
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 form-group" ng-show="vm.data.Orden.TieneNumeroPaciente">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<label>Número Paciente:</label> {{ vm.data.Orden.NumeroPaciente }}
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 form-group">
+				<div class="row">
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+						<label>Afiliado:</label> {{ vm.data.Orden.NroAfiliado }}
+					</div>
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+						<label>Plan:</label> {{ vm.data.Orden.Plan }}
+						<label>-</label> {{ vm.data.Orden.TipoAfiliacion }}
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 form-group">
+				<div class="row">
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+						<label>Fecha Solicitud:</label> {{ vm.data.Orden.FechaSolicitud }}
+					</div>
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+						<label>Fecha Autorización:</label> {{ vm.data.Orden.FechaAutorizacion }}
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 form-group">
+				<div class="row">
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+						<label>Servicio:</label> {{ vm.data.Orden.NombreServicio }}
+					</div>
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+					</div>
+					<!-- <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" ng-show="vm.data.Orden.IdServicio != 0 && vm.data.Orden.IdServicio != 32">
+						<label>Profesional:</label> {{ vm.data.Orden.MatriculaProfesional }}
+						<label>-</label> {{ vm.data.Orden.NombreProfesional }}
+					</div> -->
+				</div>
+			</div>
+			<div class="col-xs-12 form-group">
+				<div class="row">
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+						<label>Diagnóstico:</label> {{ vm.data.Orden.Diagnostico }}
+					</div>
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" ng-show="vm.data.Orden.ImporteAfiliado > 0">
+						<label>Importe Afiliado:</label> {{ vm.data.Orden.ImporteAfiliado | number : 2}}
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 form-group">
+				<div>&nbsp;</div>
+				<div class="text-center">
+					<label>PRÁCTICAS AUTORIZADAS</label>
+				</div>
+				<div>&nbsp;</div>
+				<table class="table table-hover table-bordered">
+					<thead>
+						<tr class="cabecera-tabla">
+							<th class="text-left">Código/Homologación</th>
+							<th class="text-left">Descripción</th>
+							<th class="text-center">Cantidad</th>
+							<th class="text-left">Detalle</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in vm.data.Orden.Items">
+							<td class="text-left">{{ item.CodigoPractica }} {{ item.CodigoHomologado }}</td>
+							<td class="text-left">{{ item.Descripcion }}</td>
+							<td class="text-center">{{ item.Cantidad }}</td>
+							<td class="text-left">{{ item.DetalleAutorizacion }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-xs-12 form-group">
+				<div>&nbsp;</div>
+				<div>&nbsp;</div>
+				<div>&nbsp;</div>
+				<div>&nbsp;</div>
+				<div>&nbsp;</div>
+				<div>&nbsp;</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-6" style="text-align: center">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							______________________________________________
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<label>Firma, Aclaración, Tipo y N° Doc. Paciente</label>
+						</div>
+					</div>
+
+					<!-- <div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							______________________________________________
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<label>Aclaración</label>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							______________________________________________
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<label>Documento</label>
+						</div>
+					</div> -->
+				</div>
+
+				<div class="col-xs-6" style="text-align: center">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							______________________________________________
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<label>Firma Profesional</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- <div class="col-xs-12 form-group">
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="text-align: center">
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								______________________________________________
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<label>Firma Paciente</label>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="text-align: center">
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								______________________________________________
+							</div>
+							<div class="row">
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<label >Firma Profesional</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div> -->
+			</div>
+		</div>
+	</div>
+</div>
+</div>

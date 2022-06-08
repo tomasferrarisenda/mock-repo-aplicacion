@@ -1,0 +1,112 @@
+<form name="formFacturacionGuardia" accept-charset="utf-8"
+	ng-hide="vm.formControl.loading" novalidate>
+	<div class="modal-header">
+		<h4 class="modal-title">
+		Facturar
+		</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row"> 
+			<div class="col-xs-12 col-sm-6 col-md-8 col-lg-9"> 
+				<h5 >
+					Paciente: {{vm.data.prescripcion.NombrePaciente}}
+				</h5>
+			</div>
+		</div>
+
+		<div class="row"> 
+				<sa-profesional-selector model='vm.data.participanteConCuentas' title='Matrícula'
+				mostrarlabelnombre='true' mostrarlabelcodigo='true'
+				tooltip='Buscar profesional' 
+				ng-disabled="!vm.formData.mostrarDisable" sa-enter></sa-profesional-selector>
+
+				<div class="col-xs-12 col-sm-8 col-md-6 col-lg-2 form-group">
+					<label class="label-control">Cuenta</label>
+					<select class="form-control"
+						ng-model="vm.data.cuentaElegida"
+						ng-disabled="!vm.formData.mostrarDisable"
+						ng-change="vm.formControl.cambiaCuenta()"
+						ng-options="cuenta as (cuenta.Numero + ' - ' + cuenta.Observacion) for cuenta in vm.data.participanteConCuentas.Cuentas | orderBy:'Numero' track by cuenta.Id"
+						sa-enter>
+					</select>
+				</div>
+
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group"> 
+				<label class="label-control">Mutual</label>
+				<select class="form-control no-valid"
+				id="item_select" 
+				name="item_select"
+				ng-model="vm.formData.destino"
+				ng-change="vm.formControl.cambiaDestino()"
+				ng-disabled="!vm.formData.mostrarDisable"
+				ng-options="destino.Nombre
+				for destino in vm.data.destinos 
+				track by destino.Id"
+				>
+				<option value="">--SELECCIONAR--</option>
+				</select>
+			</div>
+
+		</div>
+
+
+
+		<div class="row ">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> 
+				<table class="table table-hover" fw-no-select>
+
+					<thead>
+						<tr >
+							<th colspan="3" class="text-center"></th>
+						</tr>
+						<tr class="thead-azul">
+							<tr class="cabecera-tabla"> 
+								<th class="text-left">Código</th>
+								<th class="text-left">Descripción</th>
+								<th class="text-left">Tipo</th>
+								<th class="text-left">Cantidad</th>
+								<th class="text-left">Matricula</th>
+								<th class="text-left">Cuenta</th>
+
+								<th class="text-center">
+									<sa-check-box 
+									ng-model="vm.formData.marcarTodos" 
+									ng-change="vm.formControl.selectMarcarTodos()"
+									ng-disabled="vm.formData.checkDisabled">
+								 </sa-check-box>
+								</th>
+
+							</tr>
+						</tr>	
+					</thead>
+					<tbody ng-repeat="facturable in vm.data.itemsfacturables"  ng-hide="formControl.loading">
+						<tr ng-click="vm.formControl.clickFila(facturable)" ng-class="{'color-gris-turno': facturable.Seleccionado}">
+
+							<td class="row text-left">{{ facturable.Codigo}}</td>
+							<td class="row text-left">{{ facturable.Nombre | uppercase}}</td>
+							<td class="row text-left">{{ facturable.Tipo | uppercase}}</td>
+							<td class="row text-left">{{ facturable.Cantidad}}</td>
+							<td class="row text-left">{{ facturable.Matricula}}</td>
+							<td class="row text-left">{{ facturable.Cuenta}}</td>
+							<td class="row text-left" ng-class="facturable.Destino.Color">{{ facturable.Destino.Nombre | uppercase}}</td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+	</div>
+</div>
+
+<div class="modal-footer" ng-hide="vm.formControl.loading">
+	<input type="submit" id="btnAgregarEditar" value="Guardar"
+	class="btn btn-default"
+	ng-click="vm.formControl.guardar()" 
+	ng-disabled="vm.formData.btnDisabled">
+	<input type="submit"
+	class="btn "
+	ng-click="vm.formControl.volver()" value="Cancelar">
+</div>
+</form>
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>

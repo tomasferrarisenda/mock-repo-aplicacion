@@ -1,0 +1,26 @@
+<div class="row">
+	<div class="col-xs-12" ng-if="btnFilterIf" style="margin-bottom: 10px;">
+		<button class="btn btn-info" ng-if="!gridOptions.enableFiltering" ng-click="grid.toggleFiltering()" id="permisosxmodulolist-verfiltros-btn">
+			Ver Filtros de grilla
+		</button>
+		<button class="btn btn-info" ng-if="gridOptions.enableFiltering" ng-click="grid.toggleFiltering()" id="permisosxmodulolist-ocultarfiltros-btn">
+			Ocultar Filtros de grilla
+		</button>
+		<button class="btn btn-info" ng-if="btnShowIf && enablePermisosActivos" ng-click="grid.togglePermisosActivos()" id="permisosxmodulolist-soloactivos-btn">
+			Mostrar Solo Permisos Activos
+		</button>
+		<button class="btn btn-info" ng-if="btnShowIf && !enablePermisosActivos" ng-click="grid.togglePermisosActivos()" id="permisosxmodulolist-mostratodos-btn">
+			Mostrar Todo
+		</button>
+	</div>
+
+	<div class="col-xs-12">
+		<div id="tntGridServices" ui-grid="gridOptions" ui-grid-tree-view class="grid">
+		</div>
+	</div>
+	<div class="col-xs-12">
+		<button class="btn btn-info pull-right" ng-if="btnGuardarIf" ng-click="grid.guardarDatos()" id="permisosxmodulolist-guardarcambios-btn">
+			Guardar Cambios
+		</button>
+	</div>
+</div>

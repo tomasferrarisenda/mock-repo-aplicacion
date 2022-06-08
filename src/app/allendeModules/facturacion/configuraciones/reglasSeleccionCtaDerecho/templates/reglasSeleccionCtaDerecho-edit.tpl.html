@@ -1,0 +1,67 @@
+<div id="print-content" ng-hide="vm.formControl.loading">
+	<form name="formCuenta" accept-charset="utf-8" novalidate>
+		<sa-modal-header
+			title-name="{{vm.title.name}}"
+			title-icon="{{vm.title.icon}}">
+		</sa-modal-header>
+		<sa-modal-body>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 form-group" sa-form-input>
+					<label>Sucursal</label>
+					<select name="sucursal"
+						ng-model="vm.filter.IdSucursalElegida"
+						ng-options="sucursal.Id as sucursal.Nombre for sucursal in vm.filter.sucursales"
+						sa-enter>
+						<option value="">TODAS</option>
+					</select>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 form-group" sa-form-input>
+					<label>Ambito</label>
+					<select name="ambito"
+						ng-model="vm.filter.IdAmbitoElegido"
+						ng-options="ambito.Id as ambito.Nombre for ambito in vm.filter.ambitos"
+						sa-enter>
+						<option value="">TODOS</option>
+					</select>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 form-group" sa-form-input>
+					<label>Servicio</label>
+					<select name="servicio"
+						ng-model="vm.filter.IdServicioElegido"
+						ng-options="servicio.Id as servicio.Nombre for servicio in vm.filter.servicios"
+						sa-enter>
+						<option value="">TODOS</option>
+					</select>
+                </div>
+            </div>    
+            <div class="row">    
+				<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 form-group">
+					<sa-prefacturable-selector model='vm.filter.prefacturable' ng-disabled="false" sa-enter></sa-prefacturable-selector>
+				</div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 form-group" sa-form-input>
+					<label>Tipo Regla</label>
+					<select name="tipoRegla"
+						ng-model="vm.filter.IdTipoReglaElegido"
+                        ng-options="tipoRegla.Id as tipoRegla.Nombre for tipoRegla in vm.filter.tiposRegla"
+                        ng-required  sa-enter>
+						<option value="">--Seleccionar--</option>
+					</select>
+				</div>
+			</div>
+		</sa-modal-body>
+		<sa-modal-footer>
+			<input type="submit"
+				class="btn"
+				value="Cancelar"
+				sa-enter
+				ng-click="vm.formControl.cancel()"
+				sa-punto-click="vm.formControl.cancel()">
+			<input type="submit" id="btnAgregarEditar" value="Guardar"
+				class="btn btn-default"
+				sa-punto-click="vm.formControl.guardar()"
+				ng-click="vm.formControl.guardar()"
+				ng-disabled="formCuenta.$invalid || !vm.filter.IdTipoReglaElegido > 0"
+				sa-enter>
+		</sa-modal-footer>
+	</form>
+</div>

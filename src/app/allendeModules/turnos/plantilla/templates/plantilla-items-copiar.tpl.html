@@ -1,0 +1,40 @@
+<sa-modal-header
+title-name="Copiar items semana"
+>
+</sa-modal-header>
+<sa-modal-body loading="formControl.loading">
+<div class="row">
+	<h4>Seleccione un día 'Origen' para copiar en los dias 'Destino'</h4>
+	
+	<div class="col-xs-5 text-center">
+		<label><strong>Origen</strong></label>
+		<ul class="list-group" >
+			<li class="list-group-item" 
+			ng-repeat="dia in vm.data.diasOrigen"
+			ng-click="vm.formControl.selectDiaOrigen(dia)"
+			ng-class="{'color-aquaorange-turno': dia.Selected}">{{dia.Nombre}}</li>
+		</ul>
+	</div>
+	<div class="col-xs-2 text-center">
+<!-- 		<sa-icon name="RIGHT">
+ -->	</div>
+	<div class="col-xs-5 text-center">
+		<label><strong>Destino</strong></label>
+		<ul class="list-group" >
+			<li class="list-group-item" 
+			ng-repeat="dia in vm.diasDestino"
+			ng-click="vm.formControl.selectDiaDestino(dia)"
+			ng-class="{'color-verde-sucursales': dia.Selected}">{{dia.Nombre}}</li>
+		</ul>
+
+	</div>
+</div>
+</sa-modal-body>
+<sa-modal-footer>
+<input type="submit"
+class="btn"
+ng-click="vm.formControl.cancelar()" value="Cancelar">
+<input type="submit" id="btnAgregarEditar" value="Guardar Copia"
+class="btn btn-default" ng-disabled="vm.diasDestino.length == 0 || (vm.formControl.checkDiasSelected())"
+ng-click="vm.formControl.guardar()">
+</sa-modal-footer>

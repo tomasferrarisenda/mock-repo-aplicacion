@@ -1,0 +1,76 @@
+<!-- <div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group">
+		<sa-table-ext data="vm.data.distribuciones" page-change="vm.formControl.buscarPagina(pagination)"></sa-table-ext>
+	</div>
+</div> -->
+<br>
+<div class="row table-responsive">
+		<div class="col-xs-12">
+			<table class="table table-hover table-condensed table-bordered" id="edit-distribuciones-table">
+				<thead>
+					<tr class="cabecera-tabla thead-azul">
+						<th class="text-center" ng-click="vm.sort('CodigoCuenta')">Cuenta
+							<span class="glyphicon sort-icon" ng-show="sortKey=='CodigoCuenta'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+						</th>
+						<th class="text-center" ng-click="vm.sort('PorcentajeDistribucion')">% Distribución
+							<span class="glyphicon sort-icon" ng-show="sortKey=='PorcentajeDistribucion'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+						</th>
+						<th class="text-center" ng-click="vm.sort('PorcentajeRetencionDerechos')">% Retención Derechos
+							<span class="glyphicon sort-icon" ng-show="sortKey=='PorcentajeRetencionDerechos'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+						</th>
+						<th class="text-center" ng-click="vm.sort('PorcentajeRetencionHonorarios')">% Retención Honorarios
+							<span class="glyphicon sort-icon" ng-show="sortKey=='PorcentajeRetencionHonorarios'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+						</th>
+						<th class="text-center" ng-click="vm.sort('Sucursal')">Sucursal
+							<span class="glyphicon sort-icon" ng-show="sortKey=='Sucursal'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+						</th>
+						<th class="text-center" ng-click="vm.sort('Observacion')">Observación
+							<span class="glyphicon sort-icon" ng-show="sortKey=='Observacion'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+						</th>						
+						<!-- <th class="text-center">Acciones</th> -->
+					</tr>
+				</thead>
+				<tbody ng-repeat="distribucion in vm.data.distribuciones | orderBy:sortKey:reverse|filter:search">
+					<tr>
+						<td ng-click="vm.formControl.verItemsDetalle(distribucion.Id)" class="row text-center">{{ distribucion.CodigoCuenta}}</td>
+						<td ng-click="vm.formControl.verItemsDetalle(distribucion.Id)" class="row text-center">{{ distribucion.PorcentajeDistribucion}}</td>
+						<td ng-click="vm.formControl.verItemsDetalle(distribucion.Id)" class="row text-center">{{ distribucion.PorcentajeRetencionDerechos}}</td>
+						<td ng-click="vm.formControl.verItemsDetalle(distribucion.Id)" class="row text-center">{{ distribucion.PorcentajeRetencionHonorarios}}</td>
+						<td ng-click="vm.formControl.verItemsDetalle(distribucion.Id)" class="row text-center">{{ distribucion.Sucursal}}</td>
+						<td ng-click="vm.formControl.verItemsDetalle(distribucion.Id)" class="row text-center">{{ distribucion.Observacion}}</td>
+						<!-- <td class="row">
+							<button type="button" id="autorizacion_button_editar" class="btn btn-white btn-xs"  ng-show= autorizacion.PuedeEditar ng-click="vm.formControl.editarAutorizacion(autorizacion.Id)">
+								<sa-icon name="EDIT"></sa-icon>
+							</button>
+							<button type="button" id="autorizacion_button_anular" class="btn btn-white btn-xs"  ng-show= autorizacion.PuedeAnular ng-click="vm.formControl.anularAutorizacion(autorizacion.Id)">
+								<sa-icon name="DEL"></sa-icon>
+							</button>							
+						</td> -->
+					</tr>
+					<tr class="animate-hide" ng-hide="!distribucion.VerItems" >
+						<td colspan="14">
+							<div class="col-md-10 col-md-offset-1">
+								<table class="table table-hover table-condensed table-bordered table-striped">
+									<thead class="levelTwo ">
+										<tr></tr>
+										<tr class="cabecera-tabla">
+											<th class="text-center">Matrícula</th>
+											<th class="text-center">Matriculable</th>
+											<th class="text-center">% Distribución - TOTAL= {{ distribucion.Total}} %</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="item in distribucion.Detalle">
+											<td ng-bind="item.NumeroMatricula" class="text-center"></td>
+											<td ng-bind="item.Matriculable"  class="text-center"></td>
+											<td ng-bind="item.PorcentajeDistribucion" class="text-center"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>

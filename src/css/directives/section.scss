@@ -1,0 +1,44 @@
+.section-body-up {
+	
+}
+
+.section-left {
+	min-height: 700px !important;
+	
+}
+
+.section-left-padding {
+
+	padding-right : 0px !important;
+}
+
+.section-left-col {
+	padding-right: 0px !important;
+}
+
+.section-item-up {
+	// display: -webkit-inline-box;
+	// display: -ms-inline-flexbox;
+	// display: inline-flex;
+	display: inline-block;
+	 margin-bottom: 2px !important;
+	 min-height: 60px !important;
+	padding-top: 8px !important;
+    padding-bottom: 8px !important;
+	// margin-left: 5px !important;
+
+}
+
+.section-shadow {
+	-webkit-box-shadow: 1px 1px 3px 0 #888;
+	box-shadow: 1px 1px 3px 0 #888;
+}
+
+.no-margin-button {
+  margin-bottom: 8px !important;
+}
+
+.no-padding-left-right {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}

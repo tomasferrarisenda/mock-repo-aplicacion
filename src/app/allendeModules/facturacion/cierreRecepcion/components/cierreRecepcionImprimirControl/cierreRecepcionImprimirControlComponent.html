@@ -1,0 +1,103 @@
+<div id="print-content" class="container-print">
+
+		<sa-modal-header title-name="{{vm.title.name}}" print="true"></sa-modal-header>
+		<sa-modal-body>
+				
+				<div class="row fila">
+		
+						<div class="col-xs-4 ">
+								<div class="row">
+										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+											 <h4>
+												<label>
+												   <strong>Fecha</strong>
+											  </label> {{vm.fechaCierre | date:'dd/MM/yyyy HH:mm'}}</h4>
+										</div>
+									</div>        
+						</div>
+			
+						<div class="col-xs-4 ">
+								<div class="row">
+										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+											 <h4>
+												<label>
+												   <strong>Usuario </strong>
+											  </label>  {{vm.nombreUsuario}}</h4>
+										</div>
+									</div>        
+						</div>
+			
+			
+				</div>
+
+			<div class="row fila" ng-repeat="itemCierre in vm.listaCierre">
+				  <h2>* TIPO DE CIERRE: {{itemCierre.tipoDeCierre}} ({{itemCierre.importe | currency }})</h2> 
+
+				  <div class="row" ng-repeat="cierre in itemCierre.practicasPorFinanciador">
+                    
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></div>
+                    
+					<h3>{{cierre.financiador}}</h3>
+					
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></divclass>
+						
+						<!-- <h3>{{cierre.financiador}}</h3> -->
+							<table class="table table-bordered table-fina ">
+								 <thead>
+									<tr class="cabecera-tabla">
+										<td class="text-center">Fecha</td>
+										<td class="text-center">Paciente</td>
+										<td class="text-center">DNI</td>
+										<td class="text-center">T.Af</td>
+										<td class="text-center">Profesional</td>
+										<td class="text-center">Practica</td>
+										<td class="text-center">Cant.</td>
+										<td class="text-center">Importe</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="practica in cierre.practicas">
+										<td class="text-left">{{practica.Fecha | date:'dd/MM/yyyy'}}</td>
+										<td class="text-left">{{practica.NombrePaciente}}</td>
+										<td class="text-center">{{practica.DNI}}</td>
+										<td class="text-center">{{practica.TipoAfiliado}}</td>
+										<td class="text-center">{{practica.Profesional}}</td>
+										<td class="text-center">{{practica.CodigoPrefacturable}}</td>
+										<td class="text-center">{{practica.Cantidad}}</td>
+										<td ng-if="practica.ImporteParticular" class="text-center">{{practica.ImporteParticular}}</td>
+										<td ng-if="!practica.ImporteParticular" class="text-center">{{practica.ImporteFinanciador}}</td> 
+									</tr>
+								</tbody>
+							</table> 
+						</div>    
+				</div>    
+
+			</div>
+	
+	
+			<!-- <div class="col-xs-6">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+						<h4>
+							<label>
+								<strong>Total Particular: </strong>
+							</label> {{vm.totalParticular | currency}}</h4>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-6">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+							<h4>
+								<label>
+									<strong>Total Mutual: </strong>
+								</label> {{vm.totalMutual | currency}} </h4>
+						</div>
+					</div>
+			</div> -->
+	
+		</sa-modal-body>
+</div>
+	
+	
+	

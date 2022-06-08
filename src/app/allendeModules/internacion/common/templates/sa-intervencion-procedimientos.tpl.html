@@ -1,0 +1,57 @@
+<ng-form name="formProcedimientos">
+	<div class="row fila">
+		<h4 >
+			<span ng-bind="title"></span>
+			<div class="btn-group pull-right">
+				<button 
+					type="button"
+					class="btn btn-default" 
+					uib-tooltip="Agregar"
+					name="new"
+					ng-disabled="btnNewDisabled || loading"
+					ng-if="btnNewIf"
+					ng-click="btnNewClick()">
+					<sa-icon name="NEW"></sa-icon>
+				</button>
+			</div>
+		</h4>
+
+		<div class="col-xs-12 form-group table-responsive">	
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr></tr>
+					<tr class="cabecera-tabla">
+						<th class="text-center">Código</th>
+						<th class="text-center">Nombre</th>
+						<th class="text-center">Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="detalle in model track by $index" ng-if="detalle.id_origen_practica!=origen">
+						<td class="text-center">{{ detalle.SubpracticaMedica.codigo_subpractica_medica || detalle.PracticaMedica.codigo_practica_medica }}</td>
+						<td>{{ detalle.SubpracticaMedica.nombre_subpractica_medica || detalle.PracticaMedica.nombre_practica_medica }}</td>
+						<td class="text-center">
+							<button type="button" class="btn btn-white btn-xs"
+								uib-tooltip="Anular" tooltip-placement="top"
+								ng-if="btnDeleteIf"
+								ng-disabled="btnDeleteDisabled"
+								ng-click="btnDeleteClick($index)">
+								<sa-icon name="DEL"></sa-icon>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="text-center text-error"
+				ng-show="!cantidadProcedimientos"
+				ng-if="!btnNewDisabled">
+					No hay prácticas médicas agregadas. <span ng-if="required">Agregar al menos una.</span>
+			</div>
+		</div>
+		<input type="number" name="cantidadProcedimientos"
+			ng-show="false"
+			ng-min="cantidadProcedimientosMin"
+			ng-required="required"
+			ng-model="cantidadProcedimientos">
+	</div>
+</ng-form>

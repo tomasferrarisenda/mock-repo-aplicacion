@@ -1,0 +1,53 @@
+<label>
+	<span ng-bind="title || 'Diagnóstico CIE 10'"></span>
+	<span ng-if="required"> (*)</span>
+</label>
+<div uib-tooltip="{{model.titulo_cie_enfermedad}}">
+	<div class="" ng-disabled="true" ng-hide="btnSearch">
+		<span ng-bind="model.codigo_cie_enfermedad"></span> -
+		<span ng-bind="model.titulo_cie_enfermedad"></span>
+	</div>
+	<div ng-if="btnSearch">
+		<button class="btn btn-success"
+			ng-disabled="loading || btnSearchDisabled"
+			ng-class="{ 'btn-danger' : !model && required }"
+			ng-click="openSelector()">
+			Abrir Nomenclador CIE10 <span ng-if="required">(*)</span>
+		</button>
+		<span ng-if="model.titulo_cie_enfermedad">
+			{{ model.codigo_cie_enfermedad }} - {{ model.titulo_cie_enfermedad }}
+		</span>
+		<input type="text" class="form-control" 
+			name="diagnostico"
+			ng-model="model"
+			ng-required="required"
+			ng-show="false" >
+	</div>
+</div>
+<!-- <div class="input-group" ng-if="btnSearch">
+	<div class="form-control" ng-disabled="true">
+		<span ng-bind="model.codigo_mutual"></span> -
+		<span ng-bind="model.nombre_mutual"></span>
+	</div>
+	<span class="input-group-btn">
+		<button
+			type="submit"
+			class="btn btn-default "
+			uib-tooltip="Cambiar"
+			ng-hide="deshabilitado"
+			ng-disabled="false"
+			ng-click="openMutualSelector()">
+			<sa-icon name="CHECK"></sa-icon>
+		</button>
+	</span>
+</div>
+<input type="text" class="form-control" 
+	name="mutual"
+	ng-model="model"
+	ng-required="required"
+	ng-show="false" >
+ -->
+
+
+
+		

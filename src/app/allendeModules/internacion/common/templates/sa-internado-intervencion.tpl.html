@@ -1,0 +1,106 @@
+<div ng-form="formIntervencion">
+	<sa-afiliacion-internado 
+		model="vm.data.autorizacion"
+		edit="vm.editable"
+		manual="true">
+	</sa-afiliacion-internado>
+	<sa-profesional-basic 
+		title="Datos del médico de cabecera"
+		model="vm.data.autorizacion.MedicoCabecera"
+		btn-search-if="!vm.estaAutorizado && vm.editable"
+		required="true">
+	</sa-profesional-basic>
+	<div class="row fila" >
+		<h4>Datos de autorización</h4>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group ">
+			<label>Diagnóstico (*)</label>
+			<textarea type="text" placeholder="Diagnóstico" class="form-control"
+				name="diagnosticoMedico"
+				ng-model="vm.data.autorizacion.diagnostico"
+				ng-disabled="vm.estaAutorizado || !vm.editable"
+				maxlength="255"
+				ng-required="true">
+			</textarea>
+			<sa-text-error model="formTabInforme.diagnosticoMedico"></sa-text-error>
+		</div>
+		<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12  form-group ">
+			<sa-diagnostico-cie
+				model="vm.data.autorizacion.EnfermedadCie"
+				btn-search="true"
+				required="true">
+			</sa-diagnostico-cie>
+		</div> -->
+		<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2  form-group">
+			<label for="cmb_cirugia" >Estado Autorización (*)</label>
+			<select class="form-control"
+				name="estadoAdmision"
+				ng-disabled="vm.estaAutorizado || !vm.editable"
+				ng-model="vm.data.autorizacion.EstadoAdmision"
+				ng-options="estado.nombre_estado_admision for estado in vm.data.estadosAdmision track by estado.id_estado_admision" 
+				ng-required="true">
+				<option value="">--SELECCIONAR--</option>
+			</select>
+			<sa-text-error model="formIntervencion.estadoAdmision"></sa-text-error>
+		</div>	
+		<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 form-group">
+			<sa-cantidad-dias-internacion
+				title="Cantidad de días solicitados"
+				model="vm.data.autorizacion.DiasInternacionDetalle"
+				cantidad="vm.data.autorizacion.cantidad_dias_solicitados"
+				btn-new-if="!vm.estaAutorizado"
+				btn-new-disabled="!vm.editable"
+				>
+			</sa-cantidad-dias-internacion>
+		</div>
+		<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 form-group"
+			ng-if="vm.data.autorizacion.EstadoAdmision.nombre_estado_admision == 'AUTORIZADO'">
+			<label for="txt_fecha_autorizacion" class="control-label">Fecha de autorización (*)</label>
+			<sa-date-picker
+				name="fechaAutorizacion"
+				model="vm.formData.fechaAutorizacion"
+				max-date="vm.today"
+				disabled="vm.estaAutorizado || !vm.editable"
+				required="true">
+			</sa-date-picker>
+		</div>
+		<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 form-group"
+			ng-if="vm.data.autorizacion.EstadoAdmision.nombre_estado_admision == 'AUTORIZADO'">
+			<label for="txt_numero_orden" class="control-label">Número de orden (*)</label>
+			<input type="text" name="numeroOrden" class="form-control"
+				sa-integer
+				placeholder=""
+				maxlength="15" 
+				ng-disabled="vm.estaAutorizado || !vm.editable"
+				ng-model="vm.data.autorizacion.numero_orden"
+				ng-required="true">
+			<sa-text-error model="formIntervencion.numeroOrden"></sa-text-error>
+		</div>
+		<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 form-group" 
+			ng-if="vm.data.autorizacion.EstadoAdmision.nombre_estado_admision == 'AUTORIZADO' && vm.data.autorizacion.DiasInternacionDetalle.length">
+			<label for="txt_numero_orden" class="control-label">Cantidad días autorizados</label>
+			<input type="number" class="form-control"
+				placeholder=""
+				name="cantidadDiasAutorizados"
+				ng-disabled="vm.estaAutorizado || !vm.editable"
+				ng-model="vm.data.autorizacion.cantidad_dias_autorizados" >
+			<sa-text-error model="formIntervencion.cantidadDiasAutorizados"></sa-text-error>
+		</div>
+	</div>
+	<sa-procedimientos-intervencion
+		title="Procedimientos"
+		model="vm.data.autorizacion.DetallesIntervencion"
+		origen-administrativo="vm.editable"
+		btn-new-if="vm.new"
+		btn-delete-if="vm.new" >
+	</sa-procedimientos-intervencion>
+	<sa-protesis-intervencion
+		title="Prótesis y/o Materiales"
+		model="vm.data.autorizacion.ProtesisPreadmision"
+		full="true"
+		user="vm.user"
+		politraumatismo="true"
+		btn-new-if="vm.new"
+		btn-delete-if="vm.new"
+		btn-observaciones-if="!vm.new">
+	</sa-protesis-intervencion>
+</div>

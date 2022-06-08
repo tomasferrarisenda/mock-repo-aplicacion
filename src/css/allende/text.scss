@@ -1,0 +1,23 @@
+@import '../common/variables';
+
+.text-blue {
+	color: $color-azul-sa;
+}
+
+.text-error {
+	color: $color-error;
+	font-size: $font-size-error;
+}
+
+.text-edit-cursor {
+	cursor: text !important;
+}
+
+.marker { 
+	background-color: yellow;
+    color: black;
+}
+
+.fa-1-3x{
+	font-size: 1.3em !important;
+}

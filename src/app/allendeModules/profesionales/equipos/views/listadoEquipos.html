@@ -1,0 +1,90 @@
+<div class="cuerpo" ng-if="!vm.formControl.loading">
+	<sa-title title-name="vm.title.page" title-icon="LIST" btn-new-click="vm.formControl.editar(null, null)"></sa-title>
+	<form name="formListaDeEquipos" accept-charset="utf-8" novalidate>
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-2" sa-form-input>
+				<label>Matrícula</label>
+				<input type="number" name="matricula" ng-model="vm.filter.matricula" placeholder="0" max="99999999999999999999999" 
+				id="lista-equipos-matricula-input" sa-enter autofocus>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" sa-form-input>
+				<label>Nombre del Equipo</label>
+				<input type="text" name="nombre" class="form-control text-uppercase" ng-model="vm.filter.nombre" 
+				id="lista-equipos-nombre-input" maxlength="89" sa-enter>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-1 form-group">
+				<sa-check-box label="Solo Activos" ng-model="vm.filter.activos" color="green" id="lista-equipos-activos-slider"
+				sa-enter ng-change="vm.formControl.activoChange()"></sa-check-box>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+				<button sa-btn-search
+					ng-click="vm.formControl.buscar()" class="btn-row"
+					ng-disabled="!formListaDeEquipos.$valid"
+					id="lista-equipos-buscar-btn"
+					sa-punto-click="vm.formControl.buscar()" sa-enter>
+					Buscar
+				</button>
+				<button sa-btn-clean
+					ng-click="vm.formControl.limpiarFiltros()" class="btn-row"
+					id="lista-equipos-limpiar-btn"
+					sa-punto-click="vm.formControl.limpiarFiltros()" sa-enter>
+					Limpiar
+				</button>
+			</div>
+		</div>
+	</form>
+	<div class="row" ng-if="vm.data.listaEquipos.Rows && vm.data.listaEquipos.Columns">
+		<div class="col-xs-12">
+			<fw-table-container>
+				<fw-table-config
+					exportable="true"
+					sortable="false"
+					filtrable="true"
+					paginable="true"
+					column-config="true">
+				</fw-table-config>
+				<fw-table-rowset data="vm.data.listaEquipos.Rows">
+				</fw-table-rowset>
+				<fw-table-columnset data="vm.data.listaEquipos.Columns">	
+				</fw-table-columnset>
+				<fw-table-buttonset>
+					<fw-table-button
+						label="'Editar'"
+						icon="'EDIT'"
+						action="vm.formControl.editar(row, index)">
+					</fw-table-button>
+					<!-- NO BORRAR, SE ESPERA PARA FUTURA IMPLEMENTACION -->
+					<!-- <fw-table-button
+						label="'Borrar'"
+						icon="'DEL'"
+						action="vm.formControl.borrar(row, index)">
+					</fw-table-button> -->
+				</fw-table-buttonset>
+				<fw-table-filter></fw-table-filter>
+				<fw-table-export>
+					<fw-table-export-csv
+						label="'Exportar página a Excel'"
+						data="page"
+						status="false">
+					</fw-table-export-csv>
+					<fw-table-export-csv-ext label="'Exportar todo a Excel'" status="true" export="vm.table.export(exportation)">
+					</fw-table-export-csv-ext>
+					</fw-table-export>
+				<fw-table-pagination 
+					page-size="15" >
+				</fw-table-pagination>
+				<fw-table></fw-table>
+			</fw-table-container>
+		</div>
+	</div>
+</div>
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>
+<div class="row">
+	<br>
+	<div class="col-xs-12 text-center">
+		<button class="btn btn-cancelar" ng-click="vm.formControl.volver()" id="lista-equipos-volver-btn"
+		sa-punto-click ="vm.formControl.volver()" sa-enter>
+			Volver
+		</button>
+	</div>
+</div>

@@ -1,0 +1,25 @@
+@import '../common/variables';
+
+@media screen and (min-width: 767px) {
+	.contenedor-login {
+		margin-top: 200px;
+	}
+}
+
+@media screen and (max-width: 767px),  (max-height: 767px) {
+
+	.contenedor-login {
+		margin-top: 100px;
+	}
+}
+
+@media screen and (max-width: 480px), (max-height: 480px) {
+
+	.contenedor-login {
+		margin-top: 10px;
+	}
+}
+
+body {
+	background-color: $color-white !important;
+}

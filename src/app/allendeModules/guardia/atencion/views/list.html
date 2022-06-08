@@ -1,0 +1,96 @@
+<sa-title
+	title-name="title.page"
+	title-icon="LIST"
+	
+	btn-reload-click="formControl.reloadPage()"
+
+	btn-personalizado-name="Pedido Urgencia"
+	btn-personalizado-icon-if="false"
+	btn-personalizado-click="formControl.newPedido()"
+	btn-tool-tip-personalizado="Pedido Urgencia"
+	
+></sa-title>
+
+
+<div class="cuerpo" >
+
+	<div class="row" ng-hide="formControl.hayUsuario">
+		<div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 colleft ">
+			<label for="cmb_tipo_documento" id="nombre_paciente_label">Sucursal </label>
+			<select id="select_via"
+				class="form-control"
+				name="internacion"
+				ng-model="formData.sucursal"
+				ng-class="validar.error(formSolicitud.ubicacion.$valid)"
+				ng-change="formControl.elegirSucursal()"
+				ng-options="sucursal.descripcion
+				for sucursal in data.sucursales" 
+				required 
+				>
+			</select>
+		</div>
+	</div>
+	<div class="row" ng-hide="!formControl.hayUsuario">
+		<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 colleft ">
+			<label for="cmb_tipo_documento" id="nombre_paciente_label">Paciente </label>
+			<input name="nombre_paciente" 
+				id="nombre_paciente" type="text" 
+				placeholder="Paciente..." 
+				ng-model="formData.prescripcion"
+				uib-typeahead="prescripcion as prescripcion.NombrePaciente for prescripcion in data.prescripciones | filter:$viewValue | limitTo:8" 
+				class="form-control"
+				typeahead-on-select="paginacion.filterNombre()"
+				ng-change="paginacion.filterNombre()"
+				typeahead-select-on-exact="true">
+		</div>
+
+		<!-- <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 colleft ">
+			<button class="btn btn-default btn-row-right" type="button"
+					ng-disabled=""
+					ng-click="formControl.newPedido()">
+				Pedido Urgencia
+			</button>
+		</div> -->
+
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 colleft">
+			<table class="table table-hover" id="table_movimiento">
+				<thead>
+					<tr >
+						<th colspan="3" class="text-center"></th>
+					</tr>
+					<tr class="thead-azul">
+						<tr class="cabecera-tabla"> 
+							<th class="text-left">Nro Prescripcion</th>
+							<th class="text-left">Nombre y Apellido</th>
+							<th class="text-left">Tipo Documento</th>
+							<th class="text-left">Numero Documento</th>
+							<th class="text-left">Medico Ingreso</th>
+							<th class="text-left">Diagnostico</th>
+							<th class="text-center">Pendientes</th>
+						</tr>
+					</tr>
+				</thead>
+				<tbody ng-hide="formControl.loading">
+					<tr ng-repeat="prescripcion in filter.prescripciones" ng-click="formControl.verDetalle(prescripcion)">
+						<th class="row text-left">{{ prescripcion.Id }}</th>
+						<td class="row text-left">{{ prescripcion.NombrePaciente}}</td>
+						<td class="row text-left">{{ prescripcion.TipoDocumento}}</td>
+						<td class="row text-left">{{ prescripcion.NumeroDocumento}}</td>
+						<td class="row text-left">{{ prescripcion.UsuarioCreacion}}</td>
+						<td class="row text-left">{{ prescripcion.Diagnostico}}</td>
+						<td class="row text-center">
+							<button ng-if="prescripcion.Prioridad" type="button" class="{{formControl.colorearPrioridad(prescripcion.Prioridad)}} btn btn-xs"
+								id=""
+								uib-tooltip="{{prescripcion.Prioridad}}" uib-tooltip-placement="top"
+								ng-disabled="" 
+								ng-click="">
+							<sa-icon name="INFO"></sa-icon>
+						</button> 
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<sa-loading ng-if="formControl.loading"></sa-loading>

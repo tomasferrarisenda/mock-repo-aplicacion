@@ -1,0 +1,88 @@
+<div id="print-content" ng-hide="formControl.loading">
+	<form name="formSistema" accept-charset="utf-8" novalidate>
+		<div class="modal-header">
+	<h4 class="modal-title">
+					<sa-icon name="NEW"></sa-icon>
+					Nueva cama para Habitacion N° {{vm.data.habitacion.Numero}}
+				</h4>		</div>
+		<div class="modal-body">
+			<div class="row ">
+			<!-- 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 " >
+					<sa-sucursal-combo
+					ng-model="vm.data.sucursal"
+					ng-change="vm.formControl.getEdificio(vm.data.sucursal)"
+					required>
+					</sa-sucursal-combo>
+				</div> -->
+			<!-- 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6  ">
+				<label for="">Edificio</label>
+				<select class="form-control"
+					name="edificioHabitacion"
+					ng-model="data.edificios.Nombre"
+					ng-change="vm.formControl.getPisos(data.edificios)"
+					ng-disabled="!vm.sucursalCheck"
+					ng-options="edificios.Nombre for edificios in data.edificios "
+					 required>
+					<option value="">--SELECCIONAR--</option>
+				</select>
+				</div> -->
+				<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6  ">
+				<label for="">Piso</label>
+				<select class="form-control"
+					name="pisosHabitacion"
+					ng-model="data.pisos.Descripcion"
+					ng-change="paginacion.pageChanged()"
+					ng-disabled="!vm.pisosCheck"
+					ng-options="pisos.Descripcion for pisos in data.pisos "
+					 required>
+					<option value="">--SELECCIONAR--</option>
+				</select>
+				</div> -->
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 " >
+					<label>Numero Cama(*)</label>
+					<input type="text" class="form-control"
+						name="nombreSistema"
+						ng-class="validar.error(formSistema.nombreSistema.$valid)"
+						ng-model="vm.data.cama.Numero" 
+						required>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 " >
+					<label>Observaciones (*)</label>
+					<input type="text" class="form-control"
+						name="pathSistema"
+						ng-class="validar.error(formSistema.pathSistema.$valid)"
+						ng-model="vm.data.cama.Observaciones" 
+						required>
+				</div>
+				<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 " >
+					<label>Descripcion (*)</label>
+					<input type="text" class="form-control"
+						name="pathSistema"
+						ng-class="validar.error(formSistema.pathSistema.$valid)"
+						ng-model="vm.data.habitacion.Descripcion" 
+						required>
+				</div> -->
+			<!-- 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6  ">
+				<label for="">Tipo de Habitacion</label>
+				<select class="form-control"
+					name="tipodeHabitacion"
+					ng-model="data.tiposHabitacionFisica.nombre_tipo_habitacion"
+					ng-change="paginacion.pageChanged()"
+					ng-options="tiposHabitacionFisica.nombre_tipo_habitacion for tiposHabitacionFisica in data.tiposHabitacionFisica "
+					 required>
+					<option value="">--SELECCIONAR--</option>
+				</select>
+				</div> -->
+			</div>			
+		</div>
+		<div class="modal-footer">
+			<input type="submit" id="btnAgregarEditar" value="Guardar"
+				class="btn btn-default"
+				ng-click="vm.formControl.ok()" >
+			<input type="submit"
+				class="btn "
+				ng-click="vm.formControl.cancel()" value="Cancelar">
+		</div>
+	</form>
+</div>
+<sa-loading ng-if="formControl.loading"></sa-loading>

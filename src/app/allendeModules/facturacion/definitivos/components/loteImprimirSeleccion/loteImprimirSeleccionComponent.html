@@ -1,0 +1,70 @@
+<div id="print-content" class="container-print">
+	<div class="page" ng-repeat="lote in vm.loteImprime">
+
+		<sa-modal-header title-name="{{vm.title.name}}" print="true"></sa-modal-header>
+    <sa-modal-body>
+        <div class="row fila">
+				
+					<div class="row">
+						<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+							<h4>
+								<label>
+									<strong>Lote Nro: </strong>
+								</label> {{lote.NroLoteLegacy}}</h4>
+						</div>
+						<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+							<h4>
+							<label>
+								<strong>Fecha Impresión: </strong>
+							 </label> {{vm.fechaImpresion | date:"dd/MM/yyyy HH:mm" }}</h4>
+						</div>
+
+						<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+							<h4>
+							<label>
+								<strong>Operador: </strong>
+							 </label> {{lote.NombreOperador}}</h4> 
+						</div>
+
+					</div>
+
+					<div class="row">
+					 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+						<h4>
+						<label>
+							<strong>Sucursal: </strong>
+						 </label> {{lote.NombreSucursal}}</h4>
+					  </div>
+					</div>
+
+					 <h4>* Servicio: {{lote.NombreServicio}}</h4>  
+
+					 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></divclass>
+						<table class="table table-bordered table-fina ">
+							<thead>
+								<tr class="cabecera-tabla">
+									<td class="text-center">Nro Definitivo</td>
+									<td class="text-center">Tipo Afiliado</td>
+									<td class="text-center">Financiador</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="detalleDefinitivo in lote.Items.Rows">
+									<td class="text-left">{{detalleDefinitivo.NroDefinitivo}}</td>
+									<td class="text-left">{{detalleDefinitivo.TipoAfiliado}}</td>
+									<td class="text-center">{{detalleDefinitivo.Financiador}}</td>
+								</tr>
+							</tbody>
+						</table> 
+					</div>    
+
+        </div>
+
+
+
+	</sa-modal-body>
+  </div>
+
+</div>
+
+

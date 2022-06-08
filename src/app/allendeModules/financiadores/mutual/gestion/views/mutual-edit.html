@@ -1,0 +1,76 @@
+<sa-title title-name= "vm.title.name" title-icon="{{vm.title.icon}}"></sa-title>
+<form name="formEdit" accept-charset="utf-8" novalidate>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+			<div sa-form-input-validate>
+				<label>Código</label>
+				<input type="number"
+					name="codigo"
+					ng-model="vm.data.mutual.Codigo"
+					ng-disabled="vm.filter.codigoDeshabilitado"
+					ng-required="true"
+					id="codigoEditMutual"
+					sa-enter
+					autofocus>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+			<div sa-form-input-validate>
+				<label>Nombre completo</label>
+				<input type="text"
+					name="nombreCompleto"
+					ng-model="vm.data.mutual.Nombre" 
+					maxlength="250"
+					ng-required="true"
+					id="nombreCompletoEditMutual"
+					sa-enter>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+			<div sa-form-input-validate>
+				<label>Nombre corto</label>
+				<input type="text" class="text-uppercase"
+					name="nombreCorto"
+					ng-model="vm.data.mutual.NombreCorto"
+					maxlength="30"
+					ng-required="true"
+					id="nombreCortoEditMutual"
+					sa-enter>
+			</div>
+		</div>
+	</div>
+	<uib-tabset class="prueba">
+		<uib-tab ng-repeat="tab in vm.tabs"
+			uib-tooltip="{{tab.TITLE_CONTENT}}"
+			class="{{ tab.CLASSBG }}"
+			role="presentation"
+			ng-init="$index === 0"
+			ui-sref-active ="active"
+			ui-sref="{{tab.STATE}}"
+			disable="tab.DISABLED">
+			<uib-tab-heading class="{{ tab.CLASS }}" id={{tab.NAME}}>
+				{{ tab.TITLE_TAB }}
+			</uib-tab-heading>
+		</uib-tab>
+	</uib-tabset>
+	<ui-view></ui-view>
+	<br>
+	<div class="row">
+		<div class="col-xs-12 col-sm-8 col-md-6 col-lg-12 form-group text-center">
+			<button class="btn btn-cancelar" 
+					ng-click="vm.formControl.cancelar()"
+					sa-punto-click="vm.formControl.cancelar()"
+					id="cancelarEditMutual_btn"
+					sa-enter>
+				Cancelar
+			</button>
+			<button class="btn btn-default" type="submit"
+					ng-click="vm.formControl.guardar(!formEdit.$invalid)"
+					sa-punto-click="vm.formControl.guardar(!formEdit.$invalid)"
+					id="guardarEditMutual_btn"
+					sa-enter>
+				Guardar
+			</button>
+		</div>
+	</div>
+</form>

@@ -1,0 +1,32 @@
+<!-- <div ng-hide="login.showLogin">
+	Redireccionando...
+</div> -->
+<form name="formLogin" ng-submit="vm.formControl.ok()" role="form" accept-charset="utf-8" ng-if="!login.showLogin">
+	<sa-modal-header title-name="Iniciar sesión"></sa-modal-header>
+	<sa-modal-body loading="vm.formControl.loading">
+		<div class="row contenedor-login">
+			<div class="col-xs-12">
+				<sa-form-login 
+					username="vm.username"
+					password="vm.password"
+					loading="vm.dataLoading">
+				</sa-form-login>
+				<div class="labellogin">
+					<span class="glyphicon glyphicon-lock " aria-hidden="true"></span>
+					Para recuperar su contraseña, por favor contáctese con el área de sistemas.
+				</div>	
+			</div>
+		</div>
+		<div class="row"><div class="linea-login"></div></div>
+		<div class="row">
+			<br>
+			<div class="pull-right">
+				<button type="submit" class="btn btn-default btn-loading"
+					ng-disabled="formLogin.$invalid || vm.dataLoading" >Ingresar</button>
+				<button type="button"
+					class="btn "
+					ng-click="vm.formControl.cancel()">Cancelar</button>
+			</div>
+		</div>
+	</sa-modal-body>
+</form>

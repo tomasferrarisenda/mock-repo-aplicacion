@@ -1,0 +1,27 @@
+<!-- Se define un contenedor de dropdown el cual recibe   -->
+<!-- Si bien label e icon son opcionales, uno de los dos debe ser declarado requerido -->
+<!-- label 		[valor]  		opcional 	etiqueta a mostrar-->
+<!-- icon 		[valor]  		opcional 	icono de boton -->
+<!-- btn-class	[string]		opcional 	le da clase al botón-->
+<!-- change 	[function]  	opcional 	funcion como ng-change -->
+<!-- required 	[boolean]  		opcional 	Si es requerido uno elegido (por defecto false) -->
+<fw-drop-down-container
+	btn-class="pull-right"
+	icon="'MENU'"
+	change="vm.algoCambio()"
+	label="'Opciones'"
+	required="true">
+	<fw-drop-down-set>
+		<!-- Se declara items.Cada item debe tener -->
+		<!-- item 		[valor]  		requerido 	referencia al item original-->
+		<!-- label 		[string]  		requerido 	nombre del atributo que tiene el nombre a mostrar -->
+		<!-- active		[string]		requerido 	nombre del atributo que contiene el bool -->
+		<fw-drop-down-item ng-repeat="item in vm.items"
+			item="item"
+			label="label"
+			active="visible">
+		</fw-drop-down-item>
+	</fw-drop-down-set>
+	<!-- Es el encargado de renderizar el dropdown -->
+	<fw-drop-down></fw-drop-down>
+</fw-drop-down-container>

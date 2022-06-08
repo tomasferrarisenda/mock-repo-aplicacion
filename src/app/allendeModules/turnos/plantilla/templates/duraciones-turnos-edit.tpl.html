@@ -1,0 +1,103 @@
+<div id="duracion-turnos" ng-hide="vm.formControl.loading">
+	<form name="formDuracionTurno" accept-charset="utf-8" novalidate>
+		<div class="modal-header">
+			<h4 class="modal-title">
+			<sa-icon name="LIST"></sa-icon>
+			Reglas de duración de turnos
+			</h4>
+		</div>
+		<div class="modal-body">
+			<div class="row">								
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-5 form-group" sa-form-input-validate>
+					<label>Tipo de Turno</label>
+					<select
+						name="tipoTurnoPlantilla" class="form-control"
+						ng-model="vm.data.tipoTurno.Id"						
+						ng-options="tipoTurno.Id as tipoTurno.Nombre for tipoTurno in vm.data.tiposDeTurno"
+						>
+						<option value="">-SELECCIONAR-</option>
+					</select>
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-5 form-group" sa-form-input-validate>
+					<label>Prestaciones</label>
+					<select
+						name="prestacionesDuracion" class="form-control"
+						ng-model="vm.data.prestacion.Id"						
+						ng-options="prestacion.Id as prestacion.Nombre for prestacion in vm.data.prestaciones"
+						>
+						<option value="">-SELECCIONAR-</option>
+					</select>
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">					
+					<div class="row">						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" sa-form-input-validate>
+							<label>Duracion Individual (minutos)</label>
+							<input type="number" placeholder="" class="form-control "
+							name="duracionIndividualDuracionTurno"
+							min="0"
+							max="2000"
+							ng-model="vm.data.duracionTurnoNuevo.DuracionIndividual"
+							autocomplete="off"
+							required>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" sa-form-input-validate>
+							<label>Duracion Conjunta (minutos)</label>
+							<input type="number" placeholder="" class="form-control "
+							name="duracionConjuntaDuracionTurno"
+							min="0"
+							max="2000"
+							ng-model="vm.data.duracionTurnoNuevo.DuracionConjunta"
+							autocomplete="off"
+							required>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+					<div class="row">
+						<sa-check-box label="Filtrar Por Edad" ng-model="vm.data.duracionTurnoNuevo.FiltrarEdad"
+						color="green">
+						</sa-check-box>						
+					</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-6 col-md-2 col-lg-2" sa-form-input-validate ng-if="vm.data.duracionTurnoNuevo.FiltrarEdad">
+					<label>Edad Minima</label>
+					<input type="number" placeholder="años..." class="form-control "
+					name="edadMinimaDuracionTurno"
+					min="0"
+					max="150"
+					ng-model="vm.data.duracionTurnoNuevo.FiltrarEdadMinima"
+					autocomplete="off"
+					required>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-2 col-lg-2" sa-form-input-validate ng-if="vm.data.duracionTurnoNuevo.FiltrarEdad">
+					<label>Edad Maxima</label>
+					<input type="number" placeholder="años.." class="form-control "
+					name="edadMaximaDuracionTurno"
+					min="0"
+					max="150"
+					ng-model="vm.data.duracionTurnoNuevo.FiltrarEdadMaxima"
+					autocomplete="off"
+					required>
+				</div>
+		
+				
+			</div>
+		</div>
+		
+	</div>
+	<div class="modal-footer" ng-hide="vm.formControl.loading">
+		<input type="submit" id="btnAgregarEditar" value="Guardar"
+		class="btn btn-default"
+		ng-disabled="formDuracionTurno.$invalid"
+		ng-click="vm.formControl.ok()" >
+		<input type="submit"
+		class="btn "
+		ng-click="vm.formControl.cancel()" value="Cancelar">
+	</div>
+</form>
+</div>
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>

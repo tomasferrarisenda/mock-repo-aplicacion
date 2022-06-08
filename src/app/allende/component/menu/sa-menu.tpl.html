@@ -1,0 +1,32 @@
+<fw-menu-container>
+	<fw-menu-item ng-repeat="item in items" ng-if="showItems"
+		route="item.Nombre"
+
+		label="item.Titulo"
+		show-label="showNames"
+
+		icon="item.Icono"
+		icon-class="iconos"
+		ng-if="item.Visible" >
+	</fw-menu-item>
+	<!-- <li ng-repeat="itemMenu in items" class="dropdown" >
+		<a data-toggle="collapse" data-parent="#menu-bar" href="#collapsetree{{itemMenu.Id}}" >
+			<span ng-class="itemMenu.Icono" class="iconos"></span>
+			<span ng-bind="itemMenu.Titulo" ng-if="showNames"></span>
+		</a>
+		<ul id="collapsetree{{itemMenu.Id}}" class="panel-collapse collapse submenu" >
+			<fw-menu-item ng-repeat="subitem in itemMenu.Hijos"
+				class="item"
+				route="subitem.Url"
+				label="subitem.Titulo"
+				show-label="showNames"
+				ui-sref="{{subitem.Nombre}}"
+				ng-if="subitem.Visible"
+				icon-name="MENU_RIGHT" >
+			</fw-menu-item>
+		</ul>
+	</li> -->
+	<fw-menu-item route="'login'" label="'CERRAR SESIÓN'" icon-name="OFF2" icon-class="iconos" show-label="showNames"></fw-menu-item>
+	<fw-menu-item route="'signed.about'" label="'ACERCA DE'" icon-name="ABOUT" icon-class="iconos" show-label="showNames"></fw-menu-item>
+	<!-- <fw-menu-item sa-toggle-menu-click label="'OCULTAR MENÚ'" icon-name="LEFT_DOUBLE" icon-class="iconos"></fw-menu-item> -->
+</fw-menu-container>

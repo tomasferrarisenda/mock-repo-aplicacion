@@ -1,0 +1,87 @@
+<div class="row">
+	<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 form-group">
+		<label>Fecha alta médica</label>
+		<div ng-if="data.internacion.fecha_alta_medica" 
+			ng-bind="data.internacion.fecha_alta_medica | date:'dd/MM/yyyy - HH:mm'">
+		</div>
+		<div ng-hide="data.internacion.fecha_alta_medica">Pendiente</div>
+	</div>
+	<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 form-group">
+		<label>Fecha alta enfermería</label>
+		<div ng-if="data.internacion.fecha_alta_enfemeria" 
+			ng-bind="data.internacion.fecha_alta_enfemeria | date:'dd/MM/yyyy - HH:mm'">
+		</div>
+		<div ng-hide="data.internacion.fecha_alta_enfemeria">Pendiente</div>
+	</div>
+	<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 form-group">
+		<label>Fecha alta administrativa</label>
+		<div ng-if="data.internacion.fecha_alta_administrativa">
+			<span ng-bind="data.internacion.fecha_alta_administrativa | date:'dd/MM/yyyy - HH:mm'"></span>
+			<span> ({{ data.internacion.usuario_alta_administrativa }})</span>
+		</div>
+		<div ng-hide="data.internacion.fecha_alta_administrativa">Pendiente</div>
+	</div>
+	<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 form-group">
+		<label>Días aprobados</label>
+		<div ng-bind="data.internacion.cantidad_dias_aprobados || data.internacion.cantidad_dias_internacion || 0"></div>
+	</div>
+	<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 pull-right">
+		<button type="button" class="btn btn-default btn-row btn-block"
+			ng-click="internacion.darDeAlta()"
+			ng-disabled="formControl.deAlta || !data.internacion.PuedeLevantarAltaAdministrativa">
+			<sa-icon name="OPEN"></sa-icon>&nbsp;
+			Alta administrativa
+		</button>
+	</div>
+ 	<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 pull-right">
+		<button type="button" class="btn btn-default btn-row btn-block"
+			ng-click="internacion.nuevoMovimiento()"
+			ng-disabled="formControl.deAlta || !formControl.esEdit">
+			<sa-icon name="NEW"></sa-icon>&nbsp;
+			Movimiento
+		</button>
+	</div>
+</div>
+<br>
+<div class="row fila">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+		<table class="table table-bordered table-hover table-condensed">
+			<thead>
+				<tr></tr>
+				<tr class="cabecera-tabla">
+					<th class="text-center">Habitación</th>
+					<th class="text-center">Cama</th>
+					<th class="text-center">Usuario Ingreso</th>
+					<th class="text-center">Fecha/Hora Ingreso</th>
+					<th class="text-center">Fecha/Hora Egreso</th>
+					<th class="text-center">Volver atrás</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="movimiento in data.internacion.MovimientosCama">
+					<td class="text-center"> {{ movimiento.Cama.Habitacion.numero_habitacion }} </td>
+					<td class="text-center"> {{ movimiento.Cama.numero_cama }} </td>
+					<td class="text-center"> {{ movimiento.usuario_ingreso }} </td>
+					<td class="text-center"> {{ movimiento.fecha_hora_ingreso | date: 'dd/MM/yyyy - HH:mm' }} </td>
+					<td class="text-center"> {{ movimiento.fecha_hora_egreso | date: 'dd/MM/yyyy - HH:mm' }} </td>
+					<td class="text-center">
+						<button class="btn btn-white btn-xs"
+							ng-if="$last
+								&& !movimiento.fecha_hora_egreso
+								&& data.internacion.MovimientosCama.length > 1
+								&& (data.internacion.MovimientosCama[$index-2].Cama.id_cama != movimiento.Cama.id_cama)
+								&& !formControl.deAlta"
+							ng-click="internacion.vueltaAtrasMovimiento($index)">
+							<!-- No se muestra si: -->
+							<!-- *El movimniento No tiene fecha de egreso -->
+							<!-- *Existe mas de un movimiento -->
+							<!-- *La cama no es la misma que el penultimo movimiento -->
+							<!-- *Mientras no tenga alta -->
+							<sa-icon name="RELOAD"></sa-icon>
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

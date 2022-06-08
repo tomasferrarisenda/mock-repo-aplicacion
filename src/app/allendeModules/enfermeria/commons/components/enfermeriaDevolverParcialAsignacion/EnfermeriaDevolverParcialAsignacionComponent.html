@@ -1,0 +1,116 @@
+<sa-modal-header title-name="Devolución Parcial de Asignación" title-icon="REPLY" loading="vm.loading">
+</sa-modal-header>
+<sa-modal-body loading="vm.loading">
+
+	<div class="row fila">
+
+		<div class="col-xs-4">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+					<h4>
+						<label>
+							<strong>Fecha: </strong>
+						</label> {{vm.movimientoStockAsignacionView.Fecha | date:"dd/MM/yyyy HH:mm"}} </h4>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+					<h4>
+						<label>
+							<strong>Destinatario Movimiento: </strong>
+						</label> {{vm.movimientoStockAsignacionView.DestinatarioMovimientoStock}} </h4>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-4">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+					<h4>
+						<label>
+							<strong>Usuario: </strong>
+						</label> {{vm.movimientoStockAsignacionView.Usuario}} </h4>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+					<h4>
+						<label>
+							<strong>Deposito Origen: </strong>
+						</label> {{vm.movimientoStockAsignacionView.DepositoOrigen}} </h4>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+					<h4>
+						<label>
+							<strong>Estado Movimiento: </strong>
+						</label> {{vm.movimientoStockAsignacionView.EstadoMovimientoStock}} </h4>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-4">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+					<h4>
+						<label>
+							<strong>Observacion: </strong>
+						</label> {{vm.movimientoStockAsignacionView.Observacion}} </h4>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<table class="table " id="productos_table" ng-show="vm.movimientoStockAsignacionView && vm.movimientoStockAsignacionView.Items && vm.movimientoStockAsignacionView.Items.length">
+				<thead>
+					<tr class="cabecera-tabla">
+						<th class="text-left">Codigo Producto</th>
+						<th class="text-left">Nombre Producto</th>
+						<th class="text-left">Presentación Producto</th>
+						<th class="text-left">Cantidad</th>
+						<th class="text-center">Devolver
+							<label class="material-checkbox" uib-tooltip="Seleccionar Todos" uib-tooltip-placement="top">
+								<input type="checkbox" ng-model="vm.seleccionarTodos" ng-change="vm.seleccionarTodosChange()">
+								<span class="check-verde"></span>
+							</label>
+						</th>
+					</tr>
+				</thead>
+				<!-- BODY -->
+				<tbody ng-show="vm.movimientoStockAsignacionView.Items" ng-repeat="item in vm.movimientoStockAsignacionView.Items">
+					<tr>
+						<th class="row text-left">
+							{{ item.CodigoProducto}}</th>
+						<th class="row text-left">
+							{{ item.NombreProducto}}</th>
+						<th class="row text-left">
+							{{ item.PresentacionProducto}}</th>
+						<th class="row text-left">
+							{{ item.Cantidad}}</th>
+						<td class="text-center" ng-show="item.PuedeDevolver">
+							<label class="material-checkbox">
+								<input type="checkbox" ng-model="item.Devolver" ng-change="vm.changeSelectItem(item)">
+								<span class="check-verde"></span>
+							</label>
+						</td>
+						<td class="text-center" ng-show="!item.PuedeDevolver">
+							{{ item.ObservacionDevolucion}}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-8">
+			<label>Observaciones:</label>
+			<textarea type="text" style="border-radius:4px; width:100%; margin-bottom:0px;" ng-model="vm.movimientoStockAsignacionView.ObservacionDevolucion"
+			 rows="1" maxlength="255"></textarea>
+		</div>
+	</div>
+</sa-modal-body>
+
+<sa-modal-footer loading="vm.loading">
+	<button type="button" class="btn btn-default" ng-disabled="vm.loading" ng-click="vm.cancel()">Cancelar</button>
+	<button type="button" class="btn btn-success" ng-disabled="vm.loading " ng-click="vm.devolver()">Devolver</button>
+</sa-modal-footer>

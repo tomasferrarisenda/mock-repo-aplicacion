@@ -1,0 +1,7 @@
+<li>
+	<a class="fw-noselect" ng-class="{active : isActive()}">
+		<fw-icon ng-if="iconName" name="{{iconName}}" class="{{iconClass}}"></fw-icon>
+		<span ng-if="!iconName" ng-class="icon" class="{{iconClass}}"></span>
+		<span ng-if="showLabel" ng-bind="label"></span>
+	</a>
+</li>

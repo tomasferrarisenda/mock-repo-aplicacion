@@ -1,0 +1,118 @@
+<sa-title title-name="'Facturación por Internado'" title-icon="LIST"></sa-title>
+<div class="row" ng-show="!vm.loading">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<div class="row">
+
+			<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+				<sa-selector-internado internado="vm.internado" numero-internado="vm.numeroInternado">
+				</sa-selector-internado>
+			</div>
+
+			<div class="col-xs-12 col-sm-12 col-md-8 col-lg-2 pull-right">
+				<button type="button" class="btn btn-row btn-success pull-right"
+					ng-click="vm.modificarPorcentajesMedicamentosInternado()" id="farmacia-facturacion-mod-porcenajes-btn">
+					Modificar Porcentajes Medicamentos 
+				</button>
+			</div>
+
+		</div>
+
+		<div class="row fila">
+			<div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 pull-right">
+				<div class="row">
+					<div class="col-xs-6">
+						<button sa-btn-search ng-click="vm.buscarFacturacionDeInternado()" class="btn-row"
+							sa-punto-click="vm.buscarFacturacionDeInternado()" id="farmacia-facturacion-buscar-btn">
+							Buscar
+						</button>
+					</div>
+					<div class="col-xs-6">
+						<button sa-btn-clean ng-click="vm.limpiar()" class="btn-row" 
+						sa-punto-click="vm.limpiar()" id="farmacia-facturacion-limpiar-btn">
+							Limpiar
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row fila" ng-if="vm.internado && vm.internado.Id">
+
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<button type="button" class="btn btn-success pull-right" 
+				ng-click="vm.agregarProductoAFacturado()" id="farmacia-facturacion-agregar-producto-internado-btn">
+					Agregar Producto A Internado
+				</button>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12"
+				ng-if="vm.facturacionPorInternado.Columns && vm.facturacionPorInternado.Columns.length &&  vm.internado">
+				<div class="row">
+					<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 ">
+						<h2 id="farmacia-facturacion-productos-internado-h2">Productos facturados para internado: {{vm.internado.NombreYApellidoInternado}}</h2>
+					</div>
+					<!-- <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 " style=" margin-bottom: 2px; ">
+						<button type="button" class="btn btn-success pull-right" ng-click="vm.agregarProductoAFacturado()">
+							Agregar Producto
+						</button>
+					</div> -->
+				</div>
+			</div>
+
+
+			<div class="col-xs-12" ng-if="vm.facturacionPorInternado.Rows && vm.facturacionPorInternado.Rows.length && 
+			vm.facturacionPorInternado.Columns && vm.facturacionPorInternado.Columns.length && vm.internado">
+				<!-- Se define el container que gestiona la tabla-->
+				<fw-table-container>
+					<fw-table-config exportable="true" sortable="true" filtrable="true" paginable="true"
+						column-config="true">
+					</fw-table-config>
+					<fw-table-sorting sort-change="vm.table.sorting(sorting)">
+
+					</fw-table-sorting>
+					<fw-table-rowset data="vm.facturacionPorInternado.Rows" click-action="clickAction({row:row})">
+					</fw-table-rowset>
+					<!-- Se define un columnset en el cual se setean (opcional) las columnas por datos -->
+					<fw-table-columnset data="vm.facturacionPorInternado.Columns">
+						<!-- Se define una column con los datos de una columna (opcional)-->
+						<!-- Se pueden agregar las columnas por datos y además agregarlas de a una. -->
+						<!-- <fw-table-column
+								label="'Prueba'"
+								field="'otroCampo'">
+							</fw-table-column> -->
+					</fw-table-columnset>
+					<!-- Se definen los botones de la lista de "Acciones" u "Opciones" -->
+					<fw-table-buttonset>
+						<!-- Cada boton tiene label para tooltip, nombre de icono de iconList, accion (function) y si es visible-->
+
+						<fw-table-button visible="true" label="'Ver Detalle'" icon="'VIEW'"
+							action="vm.verDetalleItem({row})">
+						</fw-table-button>
+
+						<fw-table-button visible="true" label="'Editar'" icon="'EDIT'" action="vm.editarItem({row})">
+						</fw-table-button>
+
+						<fw-table-button visible="true" label="'Eliminar'" icon="'DEL'" action="vm.eliminarItem({row})">
+						</fw-table-button>
+
+					</fw-table-buttonset>
+
+					<fw-table-filter init="true"></fw-table-filter>
+					<!-- Si se desea paginacion pueden ser de 2 (dos) tipos: -->
+					<!-- Paginacion externa : se usa con el back-end: se deben setear todos los datos -->
+					<!-- <fw-table-pagination-ext page-change="vm.table.getPage(pagination)" page-size="vm.tableOption.PageSize" total-items="vm.facturacionPorInternado.RowCount"
+					    current-page="vm.tableOption.CurrentPage">
+					</fw-table-pagination-ext> -->
+					<!-- Paginacion interna : no se necesita definir ningun valor, se toman los por defecto.-->
+					<!-- Opcionalmente se puede redefinir page-size -->
+					<fw-table-pagination page-size="10"></fw-table-pagination>
+					<!-- Por ultimo el renderizado de la tabla -->
+					<fw-table></fw-table>
+				</fw-table-container>
+			</div>
+		</div>
+	</div>
+</div>
+<sa-loading-modal ng-if="vm.loading"></sa-loading-modal>

@@ -1,0 +1,14 @@
+<sa-sidebar show-menu="vm.menuIf"></sa-sidebar>
+<div id="wrapper" class="wrapper" ng-class="classWrapper">
+	<sa-header 
+		ng-if="vm.headerIf"
+		menu-if="vm.menuIf"
+		name-module="{{vm.module}}"
+		path-module="#/{{vm.path}}" >
+	</sa-header>
+	<sa-work-spinner></sa-work-spinner>
+	<sa-work-spinner-not></sa-work-spinner-not>
+	<div id="main" class="main">
+		<ui-view><sa-loading></sa-loading></ui-view>
+	</div>
+</div>

@@ -1,0 +1,20 @@
+<ng-form name="formTabEsterilizacion">
+
+	<sa-protesis-intervencion
+		model="data.solicitud.ProtesisPreadmision"
+		changed="vm.formControl.protesisChanged"
+		user="vm.user"
+		deposito-esterilizacion="true"
+
+		btn-verificar-if="true"
+		btn-verificar-disabled="!vm.formControl.esEditPendiente"
+		
+		btn-recepcion-if="true"
+		btn-recepcion-disabled="!vm.formControl.esEditPendiente"
+
+		btn-esterilizar-if="true"
+		btn-esterilizar-disabled="!vm.formControl.esEditPendiente"
+
+		btn-observaciones-if="true">
+	</sa-protesis-intervencion>
+</ng-form>

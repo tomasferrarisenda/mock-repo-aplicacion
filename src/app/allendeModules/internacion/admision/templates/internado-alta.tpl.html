@@ -1,0 +1,53 @@
+<form name="formAlta" accept-charset="utf-8" novalidate>
+	<sa-modal-header
+		title-name="Seleccionar un motivo de alta"
+		 >
+	</sa-modal-header>
+	<sa-modal-body loading="vm.formControl.loading" id="#prueba">
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 ">
+				<label>Fecha de alta</label>
+				<sa-date-picker
+					model="vm.formData.fechaAlta"
+					min-date="vm.formData.fechaAdmision"
+					max-date="vm.today" 
+					required="true">
+				</sa-date-picker>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 ">
+				<label for="">Tipo de Alta</label>
+				<select class="form-control"
+					name="tipoAltaInternacion"
+					ng-model="vm.data.internacion.TipoAlta"
+					ng-required="true"
+					ng-options="tipoAlta.nombre_tipo_alta_internacion for tipoAlta in vm.data.tiposAlta track by tipoAlta.id_tipo_alta_internacion" >
+					<option value="">--SELECCIONAR--</option>
+				</select>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 ">
+				<label>Hora de alta</label>
+				<sa-time-picker
+					name="horaAlta"
+					model="vm.formData.horaAlta"
+					max="vm.formControl.horaAltaMax"
+					required="true">
+				</sa-time-picker>
+				<!-- <uib-timepicker
+				 	name="horaAlta"
+				 	show-spinners="true"
+				 	ng-model="vm.formData.horaAlta"
+				 	max="vm.formControl.horaAltaMax">
+				 </uib-timepicker> -->
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6  ">
+				<label for="">Usuario</label>
+				<div ng-bind="vm.data.user.userName"></div>
+			</div>
+		</div>
+	</sa-modal-body>
+	<sa-modal-footer
+		btn-ok-click="vm.formControl.ok()"
+		btn-ok-disabled="!formAlta.$valid"
+		btn-cancel-click="vm.formControl.cancel()">
+	</sa-modal-footer>
+</form>

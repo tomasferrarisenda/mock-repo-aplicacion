@@ -1,0 +1,51 @@
+<div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-if="data">
+        <div class="row">
+            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 ">
+                <h5 ng-bind="titulogrid"></h5>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" ng-if="btnOtorgarText">
+                <button type="button" class="btn btn-default btn-block" ng-click="btnClick()">
+                    {{btnOtorgarText}}
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " ng-if="data">
+
+        <table class="table table-fixed table-fixed-lg table-cursor-pointer" ng-class="{'table-fixed-large': tableClass}">
+            <thead>
+                <tr>
+                    <th ng-class=" multiPaciente ? 'col-xs-1' : 'col-xs-2'">Hora</th>
+                    <th ng-class=" multiPaciente ? 'col-xs-5' : 'col-xs-6'">Profesional/Servicio</th>
+                    <th ng-class=" multiPaciente ? 'col-xs-2' : 'col-xs-4'">Suc.</th>
+                    <th ng-class=" multiPaciente ? 'col-xs-4' : ''" ng-if="multiPaciente">Paciente</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="row in data" ng-class="{'color-aquaorange-turno': row.selected }" context-menu="menuOptions">
+                    <td ng-class=" multiPaciente ? 'col-xs-1' : 'col-xs-2'" class="{{row.Criterios[0].criterioClass.class}}"
+                    ng-bind="row.Hora" ng-click="rowClick(row)" ng-right-click="rowClick(row)" ></td>
+                    <td ng-class=" multiPaciente ? 'col-xs-5' : 'col-xs-6'" ng-click="rowClick(row)" ng-right-click="rowClick(row)" >{{row.Recurso}} |
+                        <i> {{row.Criterios[0].nombreServicio}}</i>
+                    </td>
+                    <td ng-class=" multiPaciente ? 'col-xs-2' : 'col-xs-4'" ng-bind="row.Sucursal" ng-class="row.ColorSucursal" ng-click="rowClick(row)" ng-right-click="rowClick(row)" ></td>
+                    <td ng-class=" multiPaciente ? 'col-xs-4' : ''" ng-click="rowClick(row)" ng-right-click="rowClick(row)"  ng-if="multiPaciente">
+
+                        <div style="display: inline-flex;">
+                            <div ng-repeat="criterio in row.Criterios" style=" margin-right: 4px;">
+                                <button type="button" class="btn btn-default" uib-tooltip="{{criterio.nombrePaciente}}" tooltip-placement="top">
+                                    Pac {{criterio.Id}}
+                                </button>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>

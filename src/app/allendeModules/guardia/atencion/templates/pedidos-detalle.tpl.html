@@ -1,0 +1,124 @@
+
+<form name="formPersona" accept-charset="utf-8" novalidate >
+	<div class="modal-header">
+		<h4 class="modal-title">Devoluciones</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 colleft ">
+				<h2>
+					Pedidos de urgencia:
+				</h2>
+
+				<!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4 colleft ">
+					<label for="cmb_tipo_documento">Cargar nuevo: </label>
+					<input 	type="text" 
+							placeholder="Nuevo Medicamento..." 
+							ng-model="formData.material"
+							ng-disabled=""
+							uib-typeahead="material as (material.nombre +' * '+ material.presentacion) for material in constante.materiales | filter:$viewValue | limitTo:8" 
+							class="form-control"
+							typeahead-on-select="formControl.cargaMaterial()"
+							ng-change="formControl.cargaMaterial()"
+							typeahead-select-on-exact="true">
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 colleft ">
+					<BR><BR>
+					<button type="button"
+							class="btn btn-default"
+							ng-disabled="!formControl.materialCargado"
+							ng-click="formControl.newMaterial()">Agregar</button>				
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-6 colleft ">
+					<label for="cmb_tipo_documento">Retira:</label>
+					<input 	type="text" 
+							placeholder="Entregado a..." 
+							ng-model="formData.usuarioRecibe"
+							ng-disabled=""
+							uib-typeahead="usuario as usuario.NombreCompleto for usuario in data.usuarios | filter:$viewValue | limitTo:8" 
+							class="form-control"
+							typeahead-on-select="formControl.cargaUsuario()"
+							ng-change="formControl.cargaUsuario()"
+							typeahead-select-on-exact="true">
+				</div> -->
+	
+			   <table class="table table-hover"">
+					<thead>
+				 		<tr >
+							<th colspan="3" class="text-center"></th>
+						</tr>
+						<tr class="thead-azul">
+						<tr class="cabecera-tabla"> 
+							<th class="text-left">Solicito</th>
+							<th class="text-left">Fecha Hora</th>
+							<th class="text-center">Asociar</th>
+						</tr>
+					</thead>
+					<tbody ng-repeat="pedido in data.pedidos"  ng-hide="formControl.loading || formControl.vacio">
+						<tr>
+							<td ng-click="formControl.verDetalle([$index])" class="row text-left">{{ pedido.ProfesionalSolicita}}</td>
+							<td ng-click="formControl.verDetalle([$index])" class="row text-left">{{ pedido.FechaCarga | date:"dd/MM/yyyy HH:mm"}}</td>
+							<td class="text-center">
+								<sa-check-box ng-model="data.pedidos[$index].asociado" 
+								ng-disabled="pedido.yaAsociado" 
+								ng-change="formControl.asociar([$index])">
+								</sa-check-box>
+								<!-- <input type="checkbox" name="asociar"
+								ng-disabled="pedido.yaAsociado"
+								ng-model="data.pedidos[$index].asociado"
+								ng-change="formControl.asociar([$index])"> -->
+							</td>
+						</tr>
+						<tr class="animate-hide" ng-hide="!pedido.verDetalle" >
+							<td colspan="7">
+								<div class="span9">
+									<div class="col-md-10 col-md-offset-1">
+										<!-- Second Layer -->
+									    <table class="table table-hover table-condensed table-striped">
+									        <thead class="levelTwo">
+									        	<tr></tr>
+									            <tr class="cabecera-tabla-celeste">
+									                <th>Descripcion</th>
+									                <th>Presentacion</th>
+									                <th>Cantidad</th>
+									            </tr>
+									        </thead>
+									        <tbody>
+									        	<tr ng-repeat="detalle in pedido.Detalles">
+										        	<td ng-bind="detalle.Material.Nombre"></td>
+										        	<td ng-bind="detalle.Material.Presentacion"></td>
+										        	<td ng-bind="detalle.CantidadPedida"></td>
+									        	</tr>
+									        </tbody>
+									    </table>
+									    <!-- End Second Layer -->
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+						</tr>
+					</tbody>
+				</table>
+				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-12 colleft text-center" ng-hide="!formControl.vacio" >
+					<label  >No hay pedidos sin asignar...</label>
+				</div>
+
+				<sa-loading ng-if="formControl.loading"></sa-loading>
+			</div>
+		</div>
+		<div class="modal-footer" >
+			<button type="button"
+					class="btn btn-default"
+					ng-disabled="!formControl.hayCargado"
+					ng-click="formControl.ok()">Aceptar</button>
+			<button type="button"
+					class="btn btn-cancelar"
+					ng-disabled=""
+					ng-click="formControl.cancel()">Cancelar</button>
+		
+		</div>
+
+</div>

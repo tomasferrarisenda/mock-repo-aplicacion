@@ -1,0 +1,81 @@
+<form name="formUnidad" novalidate>
+    <sa-title title-name="vm.title.name" title-icon="{{vm.title.icon}}" btn-reload-disabled="vm.formControl.loading"></sa-title>
+
+    <div class="row">
+        <div class="col-xs-12">
+
+            <form name="formFilter" accept-charset="utf-8" novalidate>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-4" form-group>
+                        <div sa-form-input>
+                            <label>Nombre</label>
+                            <input type="text" name="nombrePlantillaTexto" ng-model="vm.bateriaEdit.Nombre" autofocus sa-enter>
+                            <!-- Se coloca vm.bateriaEdit.Nombre debido a que "bateriEdit" lo captamos desde el  -->
+                        </div>
+                    </div>
+
+                    <!-- Servicio Propietario-->
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3" sa-form-input>
+                        <label>Servicio</label>
+                        <select id="idServicio" name="servicio" ng-model="vm.servicioElegido" ng-options="servicio.Nombre for servicio in vm.servicios track by servicio.Id" sa-enter ng-change="vm.getItemsFiltered()" autocomplete="off">>
+                            </select>
+                    </div>
+
+                    <!-- Profesional Propósito-->
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-5">
+                        <sa-profesional-selector model='vm.profesionalElegido' title='Profesional' mostrarlabelnombre='true' mostrarlabelcodigo='true' tooltip='Buscar' disabled="vm.data.prefactura.TieneItemsAutorizados"></sa-profesional-selector>
+                    </div>
+
+                </div>
+            </form>
+
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-if="vm.bateriaEdit.Items && vm.columnasTabla && vm.columnasTabla.length">
+
+                    <!--Corroborar con Pedro si esta bien la Ubicacion en este lugar Btn Agregar-->
+
+                    <button type="button" class="btn btn-default pull-right" uib-tooltip="Agregar nueva Lista" tooltip-placement="left" uib-dropdown-toggle ng-click="vm.editarItemBateriaEstudios(null, null)" sa-punto-click="vm.editarItemBateriaEstudios(null, null)" sa-enter>
+                        <sa-icon name="PLUS"></sa-icon>
+                    </button>
+
+                    <!--Tabla de Contenido-->
+                    <fw-table-container>
+                        <fw-table-config exportable="false" sortable="false" filtrable="true" paginable="true" column-config="true">
+                        </fw-table-config>
+                        <fw-table-sorting-ext sort-change="sortChangeInternal(sorting)">
+                        </fw-table-sorting-ext>
+                        <fw-table-rowset data="vm.bateriaEdit.Items">
+                        </fw-table-rowset>
+                        <!-- Se define un columnset en el cual se setean (opcional) las columnas por datos -->
+                        <fw-table-columnset data="vm.columnasTabla">
+                        </fw-table-columnset>
+                        <fw-table-export>
+                        </fw-table-export>
+                        <fw-table-buttonset>
+                            <fw-table-button label="'Editar'" icon="'EDIT'" action="vm.editarItemBateriaEstudios(row, index)"></fw-table-button>
+                            <fw-table-button label="'Borrar'" icon="'DEL'" action="vm.borrarItemBateriaEstudios(row, index)"></fw-table-button>
+                        </fw-table-buttonset>
+                        <!-- FILTRADO DINAMICO [Opcional] -->
+                        <!-- Debe estar configurado en true la configuracion correspondiente -->
+                        <!-- Solo debería funcionar si se trata de una tabla interna -->
+                        <fw-table-filter init="true"></fw-table-filter>
+                        <!-- Paginacion interna : no se necesita definir ningun valor, se toman los por defecto.-->
+                        <!-- Opcionalmente se puede redefinir page-size -->
+                        <fw-table-pagination page-size="10"></fw-table-pagination>
+                        <!-- Por ultimo el renderizado de la tabla -->
+                        <fw-table></fw-table>
+                    </fw-table-container>
+                </div>
+            </div>
+
+            <div class="row">
+                <br>
+                <div class="row text-center">
+                    <input type="submit" class="btn" ng-click="vm.cancelar()" value="Cancelar" sa-enter sa-punto-click="vm.cancelar()">
+                    <input type="submit" id="btnAgregarEditar" value="Guardar" class="btn btn-default" ng-click="vm.Guardar()" sa-enter sa-punto-click="vm.Guardar()">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

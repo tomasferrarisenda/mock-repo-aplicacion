@@ -1,0 +1,81 @@
+<sa-modal-header loading="vm.loading" title-name="Detalle Indicación Medica - Fecha/Hora de Indicacion: {{vm.indicacionMedicaView.TipoIndicacion.Nombre}}  {{vm.indicacionMedicaView.FechaHora | date : 'dd/MM/yyyy - HH:mm'}}hs." title-icon="VIEW">
+</sa-modal-header>
+<sa-modal-body loading="vm.loading">
+
+	<div class="row">
+
+		<div class="col-xs-6">
+
+			<div class="row">
+
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+					<h4>
+						<label>
+							<strong>Posología: </strong>
+						</label> {{vm.indicacionMedicaView.Posologia}} </h4>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+					<h4>
+						<label>
+							<strong>Profesional: </strong>
+						</label> {{vm.indicacionMedicaView.Profesional}} - {{vm.indicacionMedicaView.MatriculaProfesional}} </h4>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+					<h4>
+						<label>
+							<strong>Fecha/Hora Suspension: </strong>
+						</label> {{vm.indicacionMedicaView.FechaSuspension | date : 'dd/MM/yyyy HH:mm'}}</h4>
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+					<h4>
+						<label>
+							<strong>Usuario Suspension: </strong>
+						</label> {{vm.indicacionMedicaView.UsuarioSuspension}}</h4>
+				</div>
+
+				<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+					<h4>
+						<label>
+							<strong>Cantidad Cargada: </strong>
+						</label> {{vm.indicacionMedicaView.CantidadCargada}}</h4>
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+						<h4>
+							<label>
+								<strong>Cantidad Entregada: </strong>
+							</label> {{vm.indicacionMedicaView.CantidadEntregada}}</h4>
+					</div> -->
+
+
+
+			</div>
+		</div>
+		<div class="col-xs-6">
+			<div class="row">
+
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<label>
+						<strong>Observación Medica</strong>
+					</label>
+					<textarea class="form-control textarea-lg" ng-model="vm.indicacionMedicaView.ObservacionMedica" ng-disabled="true"></textarea>
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<label>
+							<strong>Observación Farmacia</strong>
+						</label>
+						<textarea class="form-control textarea-lg" ng-model="vm.indicacionMedicaView.ObservacionFarmacia" ng-disabled="true"></textarea>
+					</div>
+
+			</div>
+		</div>
+	</div>
+
+</sa-modal-body>
+<sa-modal-footer loading="vm.loading">
+	<div class="row text-center">
+		<input type="submit" class="btn" value="Cerrar" sa-enter ng-click="vm.cancel()" sa-punto-click="vm.cancel()">
+	</div>
+</sa-modal-footer>

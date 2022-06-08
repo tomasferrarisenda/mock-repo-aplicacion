@@ -1,0 +1,28 @@
+# docker-compose.yaml
+version: "3"
+
+services:
+  devserver1:
+    image: entorno-front-1
+    build:
+      context: .
+    ports:
+      - "8888:8888"
+    volumes:
+      - ".:/bindmount:delegated"
+  build:
+    image: entorno-front-1
+    build:
+      context: .
+    volumes:
+      - ".:/bindmount:rw"
+    command: ["npm", "run", "build"]
+  reportbundle:
+    image: entorno-front-1
+    build:
+      context: .
+    ports:
+      - "8890:8888"
+    volumes:
+      - ".:/bindmount:rw"
+    command: ["npm", "run", "report-bundle"]

@@ -1,0 +1,30 @@
+<!-- <div class="encabezado">
+	<div class="row">
+		<h2>{{ constante.nombrePagina }}</h2>
+	</div>
+</div> -->
+<div class="cuerpo" id="cuerpo">
+	<form name="formSolicitud" accept-charset="utf-8" novalidate>
+		<uib-tabset >
+			<uib-tab ng-repeat="tab in vm.tabs track by $index"
+				class="{{ tab.CLASSBG }}"
+				role="presentation"
+				ng-hide="tab.HIDE"
+				active="tab.ACTIVE"
+				uib-tooltip="{{tab.TITLE_CONTENT}}"
+				disable="tab.DISABLED"
+				ng-click="formControl.selectTab(tab)">
+				<uib-tab-heading class="{{ tab.CLASS }}">
+					{{ tab.TITLE_TAB }}
+				</uib-tab-heading>
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 colleft">
+						<h3>{{tab.TITLE_CONTENT}}</h3>
+					</div>
+				</div>
+				<div ng-include="tab.CONTENT" ></div>
+			</uib-tab>
+		</uib-tabset>
+	</form>
+</div>
+<sa-loading ng-if="formControl.loading || formControl.loadingInternaciones"></sa-loading>

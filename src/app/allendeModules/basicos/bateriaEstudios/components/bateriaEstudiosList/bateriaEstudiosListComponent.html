@@ -1,0 +1,44 @@
+<sa-title title-name="vm.title.name" title-icon="LIST" btn-new-click="vm.editarBateriaEstudios(null, null)"></sa-title>
+
+<div class="row">
+    <div class="col-xs-12">
+
+        <form name="formFilter" accept-charset="utf-8" novalidate>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 form-group">
+                    <div sa-form-input-validate>
+                        <label>Buscar por Nombre</label>
+                        <input type="text" name="nombrePlantillaTexto" ng-model="vm.nombre" autofocus sa-enter>
+                    </div>
+                </div>
+
+                <!-- Servicio Propietario-->
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" sa-form-input>
+                    <!--Para cargar los meses y quede TODAS se creo en config » mesesConstan.ts-->
+                    <sa-selector-servicio-medico ng-model="vm.servicioElegido"></sa-selector-servicio-medico>
+                </div>
+
+                <!-- Profesional Propósito-->
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                    <sa-matricula-profesional model='vm.profesionalElegido' title='Profesional' mostrarlabelnombre='true' mostrarlabelmatricula='true' tooltip='Buscar profesional'></sa-matricula-profesional>
+                </div>
+
+                <!-- Botón Buscar-->
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-1 form-group" sa-form-input>
+                    <button type="button" sa-btn-search class="btn-row btn-block" ng-click="vm.buscar()" sa-punto-click="vm.buscar()" sa-enter>Buscar</button>
+                </div>
+
+                <!-- Botón Limpiar-->
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-1 form-group" sa-form-input>
+                    <button type="button" sa-btn-clean class="btn-row btn-block" ng-click="vm.limpiarFiltros()" sa-punto-click="vm.limpiarFiltros()" sa-enter>Limpiar</button>
+                </div>
+
+            </div>
+        </form>
+
+        <!-- Tabla de Bateria -->
+        <sa-table-ext data="vm.listadoBateriaEstudios" page-change="vm.buscarPagina(pagination)" btn-edit-click="vm.editarBateriaEstudios(row.Id, index)" btn-delete-click="vm.borrarBateriaEstudios(row, index)">
+        </sa-table-ext>
+
+    </div>
+</div>

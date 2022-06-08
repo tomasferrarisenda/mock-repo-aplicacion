@@ -1,0 +1,47 @@
+<form name="formRolesNew" accept-charset="utf-8" ng-hide="vm.formControl.loading" novalidate>
+
+		<div class="modal-header">
+			<h4 class="modal-title">
+				<sa-icon name="NEW"></sa-icon>
+				Nuevo Rol
+			</h4>
+		</div>
+
+		<div class="modal-body">
+			<div class="row ">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 ">
+					<label>Nombre (*)</label>
+					<input type="text" class="form-control text-capitalize" name="pathSistema" ng-class="validar.error(formSistema.pathSistema.$valid)"
+					 ng-model="vm.data.rol.Nombre" >
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 ">
+					<label>Abreviación Rol (*)</label>
+					<input type="text" class="form-control text-capitalize" name="pathSistema" ng-class="validar.error(formSistema.pathSistema.$valid)"
+					 ng-model="vm.data.rol.Abreviatura " >
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 " sa-form-input-validate>
+					<label for="">Sistema App</label>
+					<select class="form-control" name="tipoSistemasApp" ng-model="vm.data.sistema" ng-change="vm.formControl.sistemaChanged()"
+					 ng-options="sistema.Nombre for sistema in vm.data.sistemasApp track by sistema.Id" required>
+						<option value="">--SELECCIONAR--</option>
+					</select>
+				</div>
+			</div>
+
+			<h4 style="margin-top: 10x;">Agregar Permisos al Rol</h4>
+			<sa-permisos-x-modulo-list ng-model="vm.filter.data" ng-if="vm.filter.data" btn-filter-disabled="vm.formControl.loading"
+			 btn-filter-if="!vm.formControl.loading">
+			</sa-permisos-x-modulo-list>
+
+		</div>
+
+
+
+	<div class="modal-footer" ng-hide="vm.formControl.loading">
+		<input type="submit" sa-btn-cancel ng-click="vm.formControl.cancel()" value="Cancelar">
+		<input type="submit" id="btnAgregarEditar" value="Guardar" sa-btn-save ng-click="vm.formControl.ok(formRolesNew.$valid)">
+	</div>
+
+</form>
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>

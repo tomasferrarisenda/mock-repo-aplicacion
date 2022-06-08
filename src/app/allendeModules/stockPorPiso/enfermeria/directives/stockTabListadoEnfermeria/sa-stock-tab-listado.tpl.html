@@ -1,0 +1,327 @@
+<div class="row">
+	<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+		<label for="cmb_tipo_documento" id="piso_label">Piso</label>
+		<select class="form-control"
+			id="piso_select" 
+			name="Piso"
+			ng-model="formData.piso"
+			ng-class="validar.error(formSolicitud.piso.$valid)"
+			ng-change="pisoChanged()"
+			ng-disabled="formControl.loading"
+			ng-options="piso.descripcion 
+						for piso in data.pisos 
+						track by piso.id_piso"
+			required >
+			<option value="">--SELECCIONAR--</option>
+		</select>
+	</div>
+	<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+		<label id="ubicacion_label" for="cmb_tipo_documento">Ubicacion</label>
+		<select id="ubicacion_select" 
+			class="form-control"
+			name="ubicacion"
+			ng-model="formData.ubicacion"
+			ng-class="validar.error(formSolicitud.ubicacion.$valid)"
+			ng-change="ubicacionChanged()"
+			ng-disabled="formControl.loading"
+			ng-options="ubicacion.nombre_ubicacion_piso for ubicacion in data.ubicaciones track by ubicacion.id_ubicacion_piso" 
+			required >
+			<option value="">--SELECCIONAR--</option>
+		</select>
+	</div>
+	<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" >
+		<label for="txt_fecha_movimiento" id="fecha_movimiento_label" class="control-label">Fecha Desde</label>
+		<sa-date-picker
+			model="formData.fecha_desde"
+			max-date="today"
+			change="cambiaFecha()"
+			required="true">
+		</sa-date-picker>
+	</div>
+	<!-- <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" ng-controller="DatePickerController">
+		<label for="txt_fecha_movimiento" id="fecha_movimiento_label" class="control-label">Fecha Desde</label>
+		<span class="input-group">
+			<div class="form-control"
+				ng-bind="formData.fecha_desde | date: 'dd/MM/yyyy'">
+			</div>
+			<input type="text"  class="form-control" 
+				uib-datepicker-popup
+				ng-model="formData.fecha_desde"
+				is-open="opened1"
+				min-date="minDateCommon"
+				max-date="today"
+				placeholder="Filtrar por fecha..." 
+				ng-show="false"
+				ng-change="cambiaFecha()"
+				ng-required="">
+			<span class="input-group-btn">
+				<button type="button" class="btn btn-default"
+					id="calendario_button" 
+					uib-tooltip="Calendario"
+					ng-disabled="" 
+					ng-click="open1($event)">
+					<sa-icon name="CALENDAR"></sa-icon>
+				</button>
+			</span>
+		</span>
+	</div> -->
+	<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+		<label for="txt_fecha_movimiento" id="fecha_movimiento_label" class="control-label">Fecha Hasta</label>
+		<sa-date-picker
+			model="formData.fecha_hasta"
+			min-date="formData.fecha_desde"
+			max-date="today"
+			change="cambiaFecha()"
+			required="true">
+		</sa-date-picker>
+	</div>
+	<!-- <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" ng-controller="DatePickerController">
+		<label for="txt_fecha_movimiento" id="fecha_movimiento_label" class="control-label">Fecha Hasta</label>
+		<span class="input-group">
+			<div class="form-control"
+				ng-bind="formData.fecha_hasta | date: 'dd/MM/yyyy'">
+			</div>
+			<input type="text"  class="form-control" 
+			uib-datepicker-popup
+			ng-model="formData.fecha_hasta"
+			is-open="opened1"
+			min-date="formData.fecha_desde"
+			max-date="today"
+			placeholder="Filtrar por fecha..." 
+			ng-show="false"
+			ng-change="cambiaFecha()"
+			ng-required="">
+			<span class="input-group-btn">
+				<button type="button" class="btn btn-default"
+					id="calendario_button" 
+					uib-tooltip="Calendario"
+					ng-disabled="" 
+					ng-click="open1($event)">
+					<sa-icon name="CALENDAR"></sa-icon>
+				</button>
+			</span>
+		</span>
+	</div> -->
+	<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+
+		<div class="btn-group pull-right">
+			<button type="button" 
+					id="limpiarFiltros_button" 
+					ng-disabled= ""
+					class="btn btn-default"
+					uib-tooltip="Limpiar Filtros" 
+					uib-tooltip-placement="top"
+					ng-click="limpiar()">
+				<sa-icon name="REPEAT"></sa-icon>
+			</button>
+			
+			<button type="button" 
+					id="prestar_enfermera_button" 
+					class="btn btn-default"
+					uib-tooltip="Prestar Enfermera" 
+					uib-tooltip-placement="top"
+					ng-disabled="!formControl.puedeAutorizar"
+					ng-click="prestarEnfermera()">
+				<sa-icon name="TRANSFER"></sa-icon>
+			</button>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
+		<label for="cmb_tipo_documento" id="buscar_movimiento_label">Codigo:</label>
+		<input id="buscar_movimiento" name="searchText" placeholder="Codigo" class="form-control"
+			ng-model="formData.id_movimiento" ng-change="paginacion.pageChanged()">
+	</div>
+
+	<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+		<label for="cmb_tipo_documento" id="usuario_label">Usuario </label>
+		<input name="usuario" 
+			id="usuario" type="text" 
+			placeholder="Filtrar por usuario..." 
+			ng-model="filter.usuario"
+			uib-typeahead="usuario as usuario.NombreCompleto for usuario in data.usuarios | filter:$viewValue | limitTo:8" 
+			class="form-control"
+			typeahead-on-select="paginacion.pageChanged()"
+			ng-change="paginacion.pageChanged()"
+			typeahead-select-on-exact="true">
+	</div>
+	<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+		<label for="cmb_tipo_documento" id="internado_label">Internado </label>
+		<input name="internado" 
+			id="internado" type="text"
+			ng-disabled="!formControl.internado"
+			placeholder="Filtrar por internado..." 
+			ng-model="formData.internacion"
+			uib-typeahead="internado as internado.nombre_paciente for internado in data.internaciones | filter:$viewValue | limitTo:8" 
+			class="form-control"
+			typeahead-on-select="filtroInternacion()"
+			ng-change="filtroInternacion()"
+			typeahead-select-on-exact="true">
+	</div>
+	<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+		<label for="cmb_tipo_documento" id="internado_label">Producto </label>
+		<input name="producto" 
+			id="producto" type="text"
+			ng-disabled="!formControl.internado"
+			placeholder="Filtrar por producto..." 
+			ng-model="formData.material"
+			uib-typeahead="material as (material.nombre +' | '+ material.presentacion) for material in data.materiales | filter:$viewValue | limitTo:8" 
+			class="form-control"
+			typeahead-on-select="filtroMaterial()"
+			ng-change="filtroMaterial()"
+			typeahead-select-on-exact="true">
+	</div>
+
+	<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
+		<BR>
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" name="esScrap"
+				id="scrap_checkbox" 
+				ng-model="formData.esScrap"
+				ng-change="esScrap()">
+				Scrap
+			</label>
+		</div>
+	</div>
+
+	<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
+		<BR>
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" name="pendientes"
+						id="pendiente_checkbox" 
+						ng-model="formData.pendientes"
+						ng-change="pendientes()">
+						Pendientes
+			</label>
+		</div>
+	</div>
+
+	<div class="col-xs-12">
+		<table class="table table-hover" id="table_movimiento">
+			<thead>
+		 		<tr >
+					<th colspan="3" class="text-center"></th>
+				</tr>
+				<!-- <tr class="thead-azul"> -->
+				<tr class="cabecera-tabla"> 
+					<th class="text-left">Codigo</th>
+					<th class="text-left">Usuario</th>
+					<th class="text-left">Origen</th>
+					<th class="text-left">Destino</th>
+					<th class="text-left">Fecha y Hora</th>
+					<th class="text-center">Detalle Movimiento</th>
+				</tr>
+			</thead>
+			<tbody ng-hide="formControl.loading || formControl.error">
+				<tr ng-repeat="movimiento in filter.movimientos">
+					<th ng-disabled="expression"
+						class="row text-left">{{ movimiento.id_movimiento }}
+					</th>
+					<td class="row text-left">
+						{{ movimiento.Usuario.Nombre}}
+					</td>
+					<td class="row text-left">
+						{{ movimiento.UbicacionDesde.nombre}}
+					</td>
+					<td class="row text-left">
+						{{ movimiento.UbicacionHasta.nombre}}
+					</td>
+					<td class="row text-left">{{ movimiento.fecha_alta | date:"yyyy/MM/dd HH:mm"}}</td>
+					<td class="text-center">
+						<!-- Mostrar detalle movimiento -->
+						<button type="button" 
+								id="detalle_movimiento_button"
+								class="btn btn-white btn-xs"
+								uib-tooltip="Ver Detalle"  
+								uib-tooltip-placement="top"
+								ng-click="mostrarDetalleMovimiento(movimiento)">
+							<sa-icon name="LIST3"></sa-icon>
+						</button>
+							<!-- Autorizar Scrap -->
+						<button type="button" 
+								id="autorizarScrap_button"
+								ng-hide="!movimiento.UbicacionHasta.scrap || movimiento.autorizado || movimiento.cancelado"
+								ng-disabled="!formControl.puedeAutorizar"
+								class="btn btn-white btn-xs"
+								uib-tooltip="Autorizar Movimiento" 
+								uib-tooltip-placement="top"
+								ng-click="autorizarScrap(movimiento)">
+							<sa-icon name="DEL"></sa-icon>
+						</button>
+							<!-- Movimiento ya autorizado SCRAP-->
+						<button type="button" 
+								id="autorizadoScrap_button"
+								ng-hide="!movimiento.UbicacionHasta.scrap || !movimiento.autorizado || movimiento.cancelado"
+								class="btn btn-white btn-xs"
+								uib-tooltip="Ya autorizado" 
+								uib-tooltip-placement="top"
+								ng-click="">
+							<sa-icon name="OK"></sa-icon>
+						</button>
+							<!-- Validar ingreso -->
+						<!-- <button type="button"
+								id="autorizarIngreso_button"
+								ng-hide="true"
+								ng-disabled="!formControl.supervisor"
+								class="btn btn-white btn-xs"
+								uib-tooltip="Validar Movimiento" 
+								uib-tooltip-placement="top"
+								ng-click="formControl.autorizarIngreso(movimiento)">
+						<sa-icon name="DEL"></sa-icon> -->
+						<!-- </button> -->
+								<!-- Movimiento ya autorizado FARMACIA-->
+						<!-- 	<button type="button"
+								id="autorizadoIngreso_button" 
+								ng-hide="true"
+								class="btn btn-white btn-xs"
+								uib-tooltip="Ya autorizado" 
+								uib-tooltip-placement="top" 
+								ng-click="">
+						<sa-icon name="OK"></sa-icon>
+						</button> -->
+							<!-- Cancelar Movimiento -->
+						<button type="button"
+								id="autorizadoIngreso_button" 
+								ng-hide="movimiento.UbicacionDesde.farmacia || movimiento.facturado || movimiento.cancelado"
+								class="btn btn-white btn-xs"
+								ng-disabled="!formControl.puedeAutorizar"
+								uib-tooltip="Cancelar Movimiento" 
+								uib-tooltip-placement="top" 
+								ng-click="cancelarMovimiento(movimiento)">
+							<sa-icon name="TRASH"></sa-icon>
+						</button>
+						<button type="button"
+								id="autorizadoIngreso_button" 
+								ng-hide="movimiento.UbicacionDesde.farmacia || !movimiento.cancelado "
+								class="btn btn-white btn-xs"
+								uib-tooltip="Movimiento Cancelado" 
+								uib-tooltip-placement="top" 
+								ng-click="">
+							<sa-icon name="ERROR"></sa-icon>
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<sa-loading ng-if="formControl.loading"></sa-loading>
+	</div>
+	<div class="col-xs-12">
+		<div ng-hide="!formControl.vacio" class="text-center">
+			<label  >No hay movimientos...</label>
+		</div>
+		<div class="text-center">
+			<div uib-pagination  boundary-links="true"
+				id="paginator"
+				max-size="9"
+				items-per-page="paginacion.pageSize"
+				total-items="paginacion.totalItems"
+				ng-model="paginacion.currentPage"
+				ng-change="paginacion.pageChanged()"
+				previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+			</div>
+		</div>
+	</div>
+</div>

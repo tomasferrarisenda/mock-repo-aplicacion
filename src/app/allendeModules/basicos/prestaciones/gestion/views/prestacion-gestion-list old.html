@@ -1,0 +1,83 @@
+<sa-title title-name="vm.title.page" title-icon="LIST" btn-new-click="vm.prestacion.new()" btn-new-disabled="vm.formControl.loading && !vm.validar.puedeAgregar()"
+ btn-reload-click="vm.formControl.reloadPage()" btn-reload-disabled="vm.formControl.loading"></sa-title>
+<div id="cuerpo" ng-hide="vm.formControl.loading || vm.formControl.error">
+
+	<div class="col-xs-12" ng-if="vm.data.prestaciones">
+
+		<fw-table-container>
+
+			<fw-table-config sortable="true" paginable="true" filtrable="true" exportable="true">
+			</fw-table-config>
+
+			<fw-table-columnset>
+				<fw-table-column field="'Id'" label="'Prestacion N°'" class-col="'text-center'">
+				</fw-table-column>
+
+				<fw-table-column field="'Nombre'" class-col="'text-center'" label="'Nombre Prestacion'">
+				</fw-table-column>
+
+				<fw-table-column field="'Prefacturables'" class-col="'text-center'" label="'Prefacturables'" format="'html'">
+				</fw-table-column>
+
+				<fw-table-column field="'Activo'" class-col="'text-center'" format="'boolean'">
+				</fw-table-column>
+
+			</fw-table-columnset>
+
+			<fw-table-buttonset>
+
+				<fw-table-button visible="vm.formControl.loading && !vm.validar.puedeEditar()" label="'Editar'" icon="'EDIT'" action="vm.prestacion.edit(row)">
+				</fw-table-button>
+				<fw-table-button visible="vm.formControl.loading && !vm.validar.puedeEliminar()" label="'Borrar'" icon="'DEL'" action="vm.prestacion.delete(row)">
+				</fw-table-button>
+				<fw-table-button visible="vm.formControl.loading && !vm.validar.puedeVer()" label="'Ver'" icon="'EYE_OPEN'" action="vm.prestacion.view(row)">
+				</fw-table-button>
+
+			</fw-table-buttonset>
+
+			<fw-table-rowset data="vm.data.prestaciones">
+			</fw-table-rowset>
+
+			<fw-table-sorting></fw-table-sorting>
+			<fw-table-filter init="true"></fw-table-filter>
+			<fw-table-pagination page-size="10"></fw-table-pagination>
+
+			<fw-table-export>
+				<fw-table-export-csv label="'Exportar página a Excel'" status="true">
+				</fw-table-export-csv>
+			
+				<!--Uso para exportacion externa "csv-ext" lo maneja el back-end-->
+				<fw-table-export-csv-ext label="'Exportar todo a Excel'" status="true" export="vm.table.export(exportation)">
+				</fw-table-export-csv-ext>
+			<fw-table-export>
+
+			<fw-table></fw-table>
+
+		</fw-table-container>
+	</div>
+
+	<!-- <sa-prestacion-list
+		
+		ng-model="vm.data.prestaciones"
+
+		view-estado-if="true"
+		view-acciones-if="true"
+		view-seleccionar-if="false"
+
+		btn-edit-click="vm.prestacion.edit(pPrestacion)"
+		btn-edit-disabled="vm.formControl.loading && !vm.validar.puedeEditar()"
+		btn-edit-if="!vm.formControl.loading"
+
+		btn-view-click="vm.prestacion.view(pPrestacion)"
+		btn-view-disabled="vm.formControl.loading && !vm.validar.puedeVer()"
+		btn-view-if="!vm.formControl.loading"
+
+		btn-delete-click="vm.prestacion.delete(pPrestacion)"
+		btn-delete-disabled="vm.formControl.loading && !vm.validar.puedeEliminar()"
+		btn-delete-if="!vm.formControl.loading"
+
+		items-per-page="10" >
+	</sa-prestacion-list> -->
+
+</div>
+<sa-loading-modal ng-if="vm.formControl.loading"></sa-loading-modal>

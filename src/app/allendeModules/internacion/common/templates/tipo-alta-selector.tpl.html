@@ -1,0 +1,31 @@
+<sa-modal-header
+	title-name="{{vm.title.page}}" >
+</sa-modal-header>
+<sa-modal-body loading="vm.formControl.loading">
+	<div class="row " ng-if="!vm.formControl.loading">
+		<div class="col-xs-12  " >
+			<table class="table table-hover">
+				<thead>
+					<tr></tr>
+					<tr class="cabecera-tabla">
+						<th class="text-center">Tipo de alta</th>
+						<th class="text-center">Seleccionar</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="tipoAlta in vm.data.tiposAlta">
+						<td ng-bind="tipoAlta.nombre_tipo_alta_internacion"></td>
+						<td class="text-center">
+							<input type="radio" ng-value="tipoAlta" ng-model="vm.formData.tipoSeleccionado">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</sa-modal-body>
+<sa-modal-footer
+	btn-ok-click="vm.formControl.ok()"
+	btn-ok-disabled="!vm.formControl.valid()"
+	btn-cancel-click="vm.formControl.cancel()">
+</sa-modal-footer>

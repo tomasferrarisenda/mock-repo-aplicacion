@@ -1,0 +1,99 @@
+@import '../common/variables';
+
+.btn {
+	font-size: $font-size-general;
+
+	&.badge  {
+		font-size: 9px
+	}
+}
+.btn-default {
+	background-color: $color-azul-sa;
+	border-color: $color-azul-sa;
+	color: $color-white;
+}
+
+.btn-guardar {
+	background-color: $color-azul-sa;
+	border-color: $color-azul-sa;
+	color: $color-white;
+
+	float: right;
+	// margin-top:70px;
+	margin-top: 50px;
+	margin-left: 10px;
+}
+
+.btn-white {
+	background-color: transparent;
+}
+
+.btn-white-toolbar {
+	color: white !important;
+}
+
+
+.btn-row {
+	margin-top: 18px;
+}
+
+.btn-row-right {
+	margin-top: 18px;
+	float: right !important;
+}
+
+.btn-block {
+	margin-bottom: 5px;
+}
+
+.btn-loading.disabled, .btn-loading[disabled] {
+	cursor: wait;
+}
+
+.input-group {
+	.btn-loading.disabled, .btn-loading[disabled], fieldset[disabled] .btn-loading {
+		cursor: wait;
+	}
+}
+
+.btn-no-pad {
+	padding-right: 0px !important;
+	padding-left: 0px !important;
+}
+
+.btn-dropdown-header {
+	background: unset;
+	padding: 0px 0px;
+}
+
+.pulse {
+	overflow: visible;
+	position: relative;
+  }
+  .pulse:before {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background-color: inherit;
+	border-radius: inherit;
+	transition: opacity .3s, transform .3s;
+	animation: pulse-animation 1s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+  }
+  @keyframes pulse-animation {
+	0% {
+	  opacity: 1;
+	  transform: scale(1);
+	}
+	50% {
+	  opacity: 0;
+	  transform: scale(1.5);
+	}
+	100% {
+	  opacity: 0;
+	  transform: scale(1.5);
+	}
+  }

@@ -1,0 +1,146 @@
+<sa-title title-name="vm.title.page" title-icon="{{ vm.title.icon }}" btn-reload-click="vm.formControl.reloadPage()"></sa-title>
+<!--<sa-loading ng-if="vm.dataLoading"></sa-loading> -->
+<!-- <div id="cuerpo" ng-hide="vm.dataLoading || vm.formControl.error"> -->
+<div id="cuerpo">
+	<div class="row fila fila-not">
+		<h4>Búsqueda avanzada</h4>
+		<form name="formFilter" accept-charset="utf-8" novalidate>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+				<div class="row">
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+						<label class="control-label">Fecha Desde</label>
+						<!-- <sa-date-picker model="vm.data.fechaDesde">
+						</sa-date-picker> -->
+						<sa-date-time-picker ng-model="vm.data.fechaDesde" id="1" type="date" ng-change="vm.formControl.changeFechaDesde()">
+						</sa-date-time-picker>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+						<label class="control-label">Fecha Hasta</label>
+						<!-- <sa-date-picker model="vm.data.fechaHasta" min-date="vm.data.fechaDesde">
+						</sa-date-picker> -->
+						<sa-date-time-picker ng-model="vm.data.fechaHasta " id="2" type="date" min="vm.fechadesdeMin">
+						</sa-date-time-picker>
+					</div>
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
+						<sa-selector-servicio-medico ng-model="vm.data.servicioMedico" ng-change="vm.formControl.changeServicioMedico()"
+						 solo-visibles-turnos="true">
+						</sa-selector-servicio-medico>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
+						<sa-selector-recurso ng-model="vm.data.recurso" idservicio="vm.data.servicioMedico" ng-change="vm.formControl.changeRecurso()"
+						 buscador-recurso-en-servicios-if="true" ng-disabled="!vm.data.servicioMedico">
+						</sa-selector-recurso>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+
+					</div>
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pull-left">
+						<sa-check-box label="Mostrar solo agenda activa" ng-model="vm.data.soloAgendaActiva" color="green" id="listaturno-agendaactiva-slider">
+						</sa-check-box>
+					</div>
+
+					<div class="col-xs-3">
+						<label>Filtro Día de Semana</label>
+						<div uib-dropdown class="fw-dropdown-container" auto-close="outsideClick">
+							<button class="btn dropdown-toggle btn-default" type="button" id="dropdownMenu2" 
+							uib-dropdown-toggle style="width: 100%;">
+								Seleccionar Día
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="btn-open-options" style="width: 100%;">
+								<li ng-repeat="dia in vm.diasSemana" class="no-valid" id="listaturno-dia-$index">
+									<div class="fw-dropdown-item">
+										<div class="fw-dropdown-item-left fw-noselect">
+											<fw-icon name="{{item.icon}}"></fw-icon>
+											<span>• {{dia.Nombre}}</span>
+										</div>
+										<div class="fw-dropdown-item-right text-right">
+											<sa-check-box ng-model="dia.Selected" color="green" id-element="listaturno-dia-slider-{{$index}}">
+											</sa-check-box>
+										</div>
+									</div>
+									<div ng-if="!$last" class="divider"></div>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-1 col-lg-1 pull-right form-group">
+						<button type="button" class="btn-block btn-row" id="listaturno-limpiar-btn" sa-btn-clean uib-tooltip="Limpiar filtros" ng-click="vm.formControl.clean()">
+							Limpiar
+						</button>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-1 col-lg-1 pull-right form-group">
+						<button type="button" class="btn-block btn-row" sa-btn-search id="listaturno-buscar-btn"  ng-disabled="!vm.data.servicioMedico || !vm.data.recurso"
+						 ng-click="vm.formControl.buscar()">
+							Buscar
+						</button>
+					</div>
+				</div>
+			</div>
+
+		</form>
+	</div>
+
+
+	<div class="row">
+
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-if="vm.data.turnos && vm.data.turnos.length && vm.columnasTabla && vm.columnasTabla.length">
+
+			<!-- Se define el container que gestiona la tabla-->
+			<fw-table-container>
+				<fw-table-config exportable="true" sortable="false" filtrable="true" paginable="true" column-config="true">
+				</fw-table-config>
+				<fw-table-sorting-ext sort-change="sortChangeInternal(sorting)">
+				</fw-table-sorting-ext>
+				<fw-table-rowset data="vm.data.turnos">
+				</fw-table-rowset>
+				<!-- Se define un columnset en el cual se setean (opcional) las columnas por datos -->
+				<fw-table-columnset data="vm.columnasTabla" id-elements="lista-turnos-rows">
+
+				</fw-table-columnset>
+
+				<fw-table-export>
+
+					<fw-table-export-csv label="'Exportar todo a Excel'" data="all" status="true">
+					</fw-table-export-csv>
+				</fw-table-export>
+
+				<fw-table-buttonset>
+
+					<fw-table-button visible="vm.formControl.permisoVerMotivoDeReceso" label="'Ver Motivo Cancelación Turno'" icon="'INFO'" 
+					type="'context'" id-element="lista-turnos-btn-info"
+					 action="vm.table.verMotivoCancelacionTurno({row:row})">
+					</fw-table-button>
+					<fw-table-button visible="btnViewIf" label="'Ver Observacion Turno'" icon="'VIEW'"  id-element="lista-turnos-btn-view"
+					type="'context'" action="vm.table.verObservacionTurno({row:row})">
+					</fw-table-button>
+
+				</fw-table-buttonset>
+
+				<!-- FILTRADO DINAMICO [Opcional] -->
+				<!-- Debe estar configurado en true la configuracion correspondiente -->
+				<!-- Solo debería funcionar si se trata de una tabla interna -->
+				<fw-table-filter></fw-table-filter>
+
+				<!-- Paginacion interna : no se necesita definir ningun valor, se toman los por defecto.-->
+				<!-- Opcionalmente se puede redefinir page-size -->
+				<fw-table-pagination page-size="10"></fw-table-pagination>
+				<!-- Por ultimo el renderizado de la tabla -->
+				<fw-table></fw-table>
+			</fw-table-container>
+		</div>
+
+	</div>
+
+</div>
+<sa-loading-modal ng-if="vm.formControl.loading"></sa-loading-modal>

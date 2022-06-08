@@ -1,0 +1,58 @@
+<!-- Se define el contenedor que maneja toda la información -->
+<!-- Se declara el nombre del data service -->
+<fw-abmc-container
+	data-service="TipoDocumentoDataService">
+
+	<!-- Se define el modelo del ABMC -->
+	<fw-abmc-model>
+		<fw-abmc-model-atribute
+			label="'Id'"
+			type="'number'"
+			required="true"
+			field="'id'">
+		</fw-abmc-model-atribute>
+		<fw-abmc-model-atribute
+			label="'Nombre'"
+			type="'text'"
+			required="true"
+			field="'nombre'">
+		</fw-abmc-model-atribute>
+		<fw-abmc-model-atribute
+			label="'Descripción'"
+			type="'text'"
+			required="true"
+			field="'descripcion'">
+		</fw-abmc-model-atribute>
+	</fw-abmc-model>
+
+	<!-- Se definen los items del ABM -->
+	<!-- Siendo las opciones: list, add, edit y delete -->
+	<!-- Cada opción debería tener opciones por defecto para title e icon -->
+	<!-- Se debe validar que el dataService contenga los métodos que se le declaran -->
+	<!-- Ejemplo: si tiene un listado, deberia tener el metodo getAll o getAllByFIltro -->
+
+	<!-- ABMC-list: tiene tipos: all o filtro -->
+	<fw-abmc-list
+		title="'Lista de tipo documentos'"
+		icon="'LIST'"
+		type="'all'"
+		method="getAll">
+	</fw-abmc-list>
+	<fw-abmc-add
+		title="'Agregar Tipo documento'"
+		icon="'NEW2'"
+		method="add">
+	</fw-abmc-add>
+	<fw-abmc-edit
+		title="'Editar Tipo documento'"
+		icon="'EDIT'"
+		method="update">
+	</fw-abmc-edit>
+	<fw-abmc-delete
+		title="'Borrar Tipo documento'"
+		icon="'DELETE'"
+		method="delete">
+	</fw-abmc-delete>
+	<!-- Renderizado -->
+	<fw-abmc-view></fw-abmc-view>
+</fw-abmc-container>

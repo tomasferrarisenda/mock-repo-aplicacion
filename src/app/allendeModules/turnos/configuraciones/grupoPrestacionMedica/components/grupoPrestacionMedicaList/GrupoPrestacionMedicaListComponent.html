@@ -1,0 +1,47 @@
+<form name="formGrupoPrestacion" novalidate>
+    <sa-title title-name="vm.title.name" title-icon="LIST" btn-reload-disabled="vm.formControl.loading" btn-new-click="vm.editarGrupoPrestacion(null)"></sa-title>
+    <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 form-group">
+            <sa-selector-servicio-medico ng-model="vm.servicio" ng-change=""></sa-selector-servicio-medico>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2 form-group">
+            <sa-sucursal-combo name="sucursal" ng-model="vm.sucursal"></sa-sucursal-combo>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 form-group">
+            <sa-selector-recurso ng-model="vm.recurso" idservicio="">
+            </sa-selector-recurso>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 form-group">
+            <div sa-form-input-validate>
+                <label>Nombre</label>
+                <input type="text" name="nombre" ng-model="vm.nombre" autocomplete="off" sa-enter>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+            <button sa-btn-search
+                ng-click="vm.buscar()" class="btn-row"
+                sa-punto-click="vm.buscar()" sa-enter>
+                Buscar
+            </button>
+            <button sa-btn-clean
+                ng-click="vm.limpiarFiltros()" class="btn-row"
+                sa-punto-click="vm.limpiarFiltros()" sa-enter>
+                Limpiar
+            </button>
+        </div>
+    </div>
+
+    <sa-table-ext data="vm.grupoPrestacion" page-change="vm.buscarPagina(pagination)" btn-new-click="vm.editarGrupoPrestacion(null)"  btn-edit-click="vm.editarGrupoPrestacion(row.Id, index)"
+        btn-delete-click="vm.eliminar(row, index)">
+    </sa-table-ext>
+
+    <div class="row">
+        <br>
+        <div class="row text-center">
+            <button class="btn btn-cancelar" ng-click="vm.volver()" sa-punto-click="vm.volver()" sa-enter>
+                Volver
+            </button>
+        </div>
+    </div>
+    <sa-loading ng-if="vm.loading"></sa-loading>
+</form>

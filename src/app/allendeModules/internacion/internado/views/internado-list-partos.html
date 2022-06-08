@@ -1,0 +1,170 @@
+<sa-title
+	title-name="vm.title.page"
+	title-icon="LIST"
+
+	btn-new-click="vm.nacimiento.byNumeroInternado()"
+
+	btn-reload-click="vm.formControl.reloadPage()"
+	btn-reload-disabled="vm.formControl.loading"
+></sa-title>
+<!-- El loading se muestra si se esta cargando el inicializador -->
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>
+<!-- El cuerpo se muestra si no se esta cargando el inicializador -->
+<!-- O si se produjo algun error inicializando -->
+<div class="cuerpo" ng-hide="vm.formControl.loading || vm.formControl.error">
+	<div class="row fila">
+		<h4>Búsqueda avanzada</h4>
+		<form name="formFilter" accept-charset="utf-8" novalidate>
+			<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 form-group">
+				<!-- <sa-sucursal-combo
+					ng-model="vm.filter.sucursal"
+					ng-change="vm.paginacion.pageChanged()">
+				</sa-sucursal-combo> -->
+
+				<label for="sucursal" >Sucursal Habilitadas</label>
+				<select class="form-control "
+					id="sucursal"
+					ng-model="vm.filter.sucursal"
+					ng-change="vm.paginacion.pageChanged()"
+					ng-options="sucursal.Nombre for sucursal in vm.data.sucursales track by sucursal.Id">
+					<option value="">TODOS</option>
+				</select>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 form-group">
+				<label for="cmb_tipo_documento" class="label-control">Tipo de internación</label>
+				<select class="form-control"
+					id="cmb_tipo_documento"
+					ng-change="vm.paginacion.pageChanged()"
+					ng-model="vm.filter.tipoInternacion"
+					ng-options="tipoInternacion.nombre_tipo_internacion for tipoInternacion in vm.data.tiposInternacion track by tipoInternacion.id_tipo_internacion " >
+					<option value="">TODOS</option>
+				</select>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 form-group">
+				<sa-tipo-documento-combo
+					ng-change="vm.paginacion.pageChanged()"
+					old="true"
+					ng-model="vm.filter.tipoDocumento">
+				</sa-tipo-documento-combo>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 form-group">
+				<label for="txt_numero_documento" class="label-control ">Número de documento</label>
+				<input type="number" placeholder="Numero documento" class="form-control"
+					name="numeroDocumento"
+					ng-disabled="vm.formControl.externo"
+					ng-model="vm.filter.numeroDocumento"
+					ng-change="vm.paginacion.pageChanged()">
+				<sa-text-error model="formFilter.numeroDocumento"></sa-text-error>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 form-group">
+				<label for="txt_numero_documento" class="label-control ">Nombre del paciente</label>
+				<input type="text" placeholder="Nombre del paciente" class="form-control"
+					name="nombreCompletoPaciente"
+					ng-disabled="vm.formControl.externo"
+					ng-model="vm.filter.nombreCompletoPaciente"
+					ng-change="vm.paginacion.pageChanged()">
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 form-group">
+				<label for="txt_numero_documento" class="label-control ">Nombre de mutual</label>
+				<input type="text" placeholder="Nombre del paciente" class="form-control"
+					name="nombreMutual"
+					ng-disabled="vm.formControl.externo"
+					ng-model="vm.filter.nombreMutual"
+					ng-change="vm.paginacion.pageChanged()">
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 form-group">
+				<label for="" class="label-control ">N° de internado</label>
+				<input type="number" placeholder="Número de internado" class="form-control"
+					name="numeroInternado"
+					ng-model="vm.filter.numeroInternado"
+					ng-change="vm.paginacion.pageChanged()">
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 pull-right">
+					<button type="button" class="btn btn-default btn-row btn-block" ng-click="vm.filter.clean()">Limpiar</button>
+			</div>
+		</form>
+	</div>
+	<div class="row ">
+		<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 form-group pull-right">
+			<select class="form-control"
+				id="cmb_orderby"
+				ng-model="vm.order"
+				ng-change="vm.paginacion.pageChanged()"
+				ng-options="order.descripcion for order in vm.listOrderBy track by order.id">
+				<option value="">ORDENAR POR</option>
+			</select>
+		</div>
+	</div>
+	<div id="printArea" class="row">
+		<div class="col-xs-12 table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr></tr>
+					<tr class="cabecera-tabla">
+						<th class="text-center">Nº internado</th>
+						<th class="text-center">
+							Fecha ingreso
+						</th>
+						<th class="text-center">Documento</th>
+						<th >Nombre paciente</th>
+						<th class="text-center">Edad paciente</th>
+						<th >Mutual</th>
+						<th >Nº afiliado</th>
+						<th class="text-center">Habitación</th>
+						<th class="text-center">Cama</th>
+						<th class="text-center">Diagnóstico</th>
+						<th class="text-center">Hijos</th>
+						<th class="text-center">Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="internacion in vm.filter.internaciones">
+						<th class="text-center">{{ internacion.numero_internado }}</th>
+						<td class="text-center">{{ internacion.fecha_admision | date: 'dd/MM/yyyy' }}</td>
+						<td >
+							{{ internacion.nombre_tipo_documento }}: {{ internacion.numero_documento }}
+						</td>
+						<td ng-bind="internacion.nombre_paciente"></td>
+						<td class="text-center" ng-bind="internacion.Edad"></td>
+						<td ng-bind="internacion.nombre_mutual"></td>
+						<td class="text-center" ng-bind="internacion.numero_afiliado"></td>
+						<td class="text-center" ng-bind="internacion.numero_habitacion"></td>
+						<td class="text-center" ng-bind="internacion.numero_cama"></td>
+						<td class="">
+							<span uib-tooltip="{{internacion.diagnostico}}">
+								{{ internacion.diagnostico | limitTo:10 }}
+								<span ng-if="(internacion.diagnostico + '').length > 10">...</span>
+							</span>
+						</td>
+						<td class="text-center" >
+							<span ng-bind="internacion.CantidadHijosInternados" uib-tooltip="Internados con mismo N° documento"></span>
+						</td>
+						<td class="text-center">
+							<button type="button" class="btn btn-default btn-block"
+								uib-tooltip="Registrar nacimiento" tooltip-placement="top"
+								ng-click="vm.nacimiento.byInternacion(internacion)">
+								<sa-icon name="NEW"></sa-icon>
+								Nuevo nacimiento
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div><!-- .row>-->
+	<div class="row" ng-if="vm.filter.internaciones.length">
+		<div class="col-sm-12">
+			<div class="text-center">
+				<div uib-pagination
+					boundary-links="true"
+					max-size="9"
+					items-per-page="vm.paginacion.pageSize"
+					total-items="vm.paginacion.totalItems"
+					ng-model="vm.paginacion.currentPage"
+					ng-change="vm.paginacion.pageChanged()"
+					previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+				</div>
+			</div>
+		</div>
+	</div><!-- .row>-->
+</div>

@@ -1,0 +1,85 @@
+<div id="print-content" class="container-print" >
+	<div class="page" >
+		<sa-modal-header
+			title-name="{{vm.title.page}}"
+			print="true"
+			fecha="vm.today"
+			sucursal="vm.data.solicitud.Sucursal">
+		</sa-modal-header>
+		<sa-modal-body loading="vm.formControl.vm.dataLoading">
+			<sa-paciente-print
+				title="Datos del paciente"
+				model="vm.data.solicitud.Paciente" >
+			</sa-paciente-print>
+			<sa-afiliacion-internado
+				print="true"
+				model="vm.data.solicitud.IntervencionAdmision">
+			</sa-afiliacion-internado>
+			<div class="row fila fila-print">
+				<h4>Datos de admisión</h4>
+				<div class="col-xs-12 ">
+					<label class="">Diagnóstico</label>
+					<div ng-bind="vm.data.solicitud.diagnostico"></div>
+				</div>
+			</div>
+			<div class="row fila-print">
+				<h4>Datos del médico solicitante</h4>
+				<div class="col-xs-5 ">
+					<label class="">Nombre y apellido</label>
+					<div ng-bind="vm.data.solicitud.MedicoSolicitante.nombre_completo" ></div>
+				</div>
+				<div class="col-xs-2 ">
+					<label class="">Matrícula</label>
+					<div ng-bind="vm.data.solicitud.MedicoSolicitante.numero_matricula" ></div>
+				</div>
+			</div>
+			<!-- Para hacer linea -->
+			<div class="row fila fila-print" ></div>
+			<div class="row fila-print" >
+				<h4>Prescripción de elementos solicitados</h4>
+				<div class="col-xs-12 ">
+					<table class="table">
+						<thead>
+							<tr></tr>
+							<tr class="cabecera-tabla">
+								<th class="text-center">Nombre de protesis</th>
+								<th class="text-center" >Observaciones</th>
+								<th class="text-center" >Tipo de prótesis</th>
+								<th class="text-right" >Precio</th>
+								<th class="text-right" ng-hide="vm.formControl.hide">Seleciconar</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="protesis in vm.data.solicitud.ProtesisPreadmision" 
+								ng-hide="vm.formControl.hide && !protesis.seleccionada">
+								<td class="text-center">{{ protesis.nombre_protesis }}</td>
+								<td class="text-center" >{{ protesis.observaciones_protesis }}</td>
+								<td class="text-center" >{{ protesis.TipoProtesis.nombre_tipo_protesis }}</td>
+								<td class="text-right ">
+									<div> {{ protesis.presupuesto | currency }}</div>
+								</td>
+								<th class="text-right" ng-hide="vm.formControl.hide">
+									<input type="checkbox" name="" 
+										ng-model="protesis.seleccionada">
+								</th>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br>
+				<h5 class="text-center" >TOTAL: {{ vm.protesis.totalPresupuesto | currency}}</h5>
+			</div>
+		<sa-modal-body>
+		<sa-modal-footer>
+			<div class="row">
+				<div class="col-xs-6">
+					<div class="pull-left">Usuario: <span>{{ vm.data.user.userName }}</span></div>
+				</div>
+				<div class="col-xs-6" id="print-not">
+					<button class="btn btn-primary" ng-show="vm.formControl.hide" ng-click="vm.formControl.show()">Mostrar</button>
+					<button class="btn btn-success" ng-click="vm.formControl.print()">Imprimir</button>
+				</div>
+			</div>
+		<sa-modal-footer>
+	</div>
+</div>

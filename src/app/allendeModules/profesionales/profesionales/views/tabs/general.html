@@ -1,0 +1,203 @@
+<br>
+<div ng-form="formTabGeneral">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+            <div sa-form-input-validate>
+                <label for="edit-profesionales-general-tipodoc-select">Tipo Documento</label>
+                <select id="edit-profesionales-general-tipodoc-select"
+                    name="tipoDocumento" class="form-control"
+                    ng-model="vm.filter.idTipoDocumento"
+                    ng-required="false"
+                    ng-change="vm.formControl.tipoDocumentoChange()"
+                    ng-options="tipo.Id as tipo.Nombre for tipo in vm.data.tiposDocumentos"
+                    sa-enter>
+                    <option value="">-SELECCIONAR-</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+            <div sa-form-input-validate>
+                <label>Número Documento</label>
+                <input type="text"
+                    name="numeroDocumento"
+                    placeholder="0"
+                    ng-model="vm.filter.numeroDocumento" 
+                    ng-required="false" 
+                    ng-change="vm.formControl.numeroDocumentoChange()"   
+                    min = "0"
+                    id="edit-profesionales-general-numerodoc-input"
+                    max="9999999999999999999"
+                    sa-enter
+                    sa-integer>
+            </div>  
+        </div>
+        <!-- <div class="col-xs-12 col-sm-8 col-md-6 col-lg-2 form-group" ng-controller="DatePickerController">
+        <div sa-form-input-validate>
+                <label class="control-label">Fecha de Nacimiento</label>
+                <sa-date-picker id="edit-profesionales-general-fechanac-date"  name="fechaNacimiento"  model="vm.filter.fechaNacimiento" 
+                     srequired="true" min="vm.filter.startDate" ng-max="vm.filter.fechaHoy"></sa-date-picker>
+                <input type="date" class="form-control" name="fechaNacimiento" id="edit-profesionales-general-fechanac-date"
+                ng-model="vm.filter.fechaNacimiento" ng-min="vm.filter.startDate" ng-max="vm.filter.fechaHoy" ng-required="true" sa-enter>   
+        </div>
+
+        </div> -->
+        <div class="col-xs-12 col-sm-6 col-md-5 col-lg-2 form-group ">
+            <label class="control-label">Fecha de Nacimiento</label>
+            <sa-date-time-picker ng-model="vm.filter.fechaNacimiento" id="2" type="date" required="true" min="vm.filter.startDate" max="vm.filter.fechaHoy">
+            </sa-date-time-picker>  
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2  form-group">
+            <label for="edit-profesionales-general-sexo-select">Sexo</label>
+            <select id="edit-profesionales-general-sexo-select"
+                name="sexo" class="form-control"
+                ng-model="vm.filter.idTipoSexo"
+                ng-required="false"
+                ng-change="vm.formControl.tipoSexoChange()"
+                ng-options="sexo.Id as sexo.Nombre for sexo in vm.data.tiposSexo"
+                sa-enter>
+                <option value="">-SELECCIONAR-</option>
+            </select>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3  form-group">
+            <label for="edit-profesionales-general-email-input">Email</label>
+            <input type="email" id="edit-profesionales-general-email-input"
+                name="email" class="form-control"
+                ng-change="vm.formControl.emailChange()"
+                ng-model="vm.filter.email" 
+                maxlength="100" sa-enter>
+            <sa-text-error model="formTabGeneral.email"></sa-text-error>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+                <label for="edit-profesionales-general-servicio-input">Servicio</label>
+                <select id="edit-profesionales-general-servicio-input"
+                    name="servicio" class="form-control"
+                    ng-model="vm.filter.idServicioPorDefecto"
+                    ng-required="false"
+                    ng-change="vm.formControl.servicioPorDefectoChange()"                
+                    ng-options="servicio.Id as servicio.Nombre for servicio in vm.data.servicios"
+                    sa-enter>
+                    <option value="">-SELECCIONAR-</option>
+                </select>
+            </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+            <label for="cmb_especialidadMedica">Especialidad</label>
+            <select id="cmb_especialidadMedica"
+                name="especialidad" class="form-control"
+                ng-model="vm.filter.idEspecialidadMedica"
+                ng-required="false"
+                ng-change="vm.formControl.especialidadMedicaChange()"                
+                ng-options="especialidad.Id as especialidad.Nombre for especialidad in vm.data.especialidadesMedicas"
+                sa-enter>
+                <option value="">-SELECCIONAR-</option>
+            </select>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
+            <div sa-form-input-validate>
+                <label>Matrícula Especialista</label>
+                <input type="number"
+                    name="numeroMatriculaEspecialista"
+                    placeholder="0"
+                    id="edit-profesionales-general-matespecialista-input"
+                    ng-model="vm.filter.numeroMatriculaEspecialista" 
+                    ng-change="vm.formControl.numeroMatriculaEspecialistaChange()" 
+                    ng-required="false"
+                    min = "0"
+                    max = "999999" 
+                    sa-enter
+                    sa-integer>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+            <label for="cmb_tipoProfesional">Tipo Profesional</label>
+            <select id="cmb_tipoProfesional"
+                name="tipoProfesional" class="form-control"
+                ng-model="vm.filter.idTipoDeProfesional"
+                ng-required="false"
+                ng-change="vm.formControl.tipoDeProfesionalChange()"
+                ng-options="tipoProfesional.Id as tipoProfesional.Nombre for tipoProfesional in vm.data.tiposProfesionales"
+                sa-enter>
+                <option value="">-SELECCIONAR-</option>
+            </select>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-1 form-group">
+            <sa-check-box label="Residente" ng-model="vm.filter.esResidente" color="green" sa-enter ng-change="vm.formControl.esResidenteChange()"></sa-check-box>
+        </div> 
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
+            <div sa-form-input-validate>
+                <label>CUIT</label>
+                <input type="text"
+                    name="cuit"
+                    id="edit-profesionales-general-cuit-input"
+                    ng-model="vm.filter.cuit" 
+                    ng-required="false"
+                    maxlength="25"
+                    ng-change="vm.formControl.cuitChange()"
+                    sa-enter>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
+            <div sa-form-input-validate>
+                <label>Número IIBB</label>
+                <input type="text"
+                    name="numeroIibb"
+                    placeholder="0"
+                    id="edit-profesionales-general-iibb-input"
+                    ng-model="vm.filter.numeroIibb" 
+                    ng-change="vm.formControl.numeroIibbChange()"
+                    ng-required="false"
+                    maxlength="50"
+                    sa-enter
+                    sa-integer>
+            </div>
+        </div>
+        <!-- <div class="col-xs-12 col-sm-8 col-md-6 col-lg-2 form-group" ng-controller="DatePickerController">
+            <div sa-form-input-validate>
+                    <label class="control-label">Fecha Vigencia Eximición IIBB</label>
+                    <input type="date" class="form-control" id="fechaVigenciaEximicionIibb" name="fechaVigenciaEximicionIibb" 
+                    ng-min="vm.filter.startDate" ng-model="vm.filter.fechaVigenciaEximicionIibb" ng-required="false" sa-enter>
+            </div>
+        </div> -->
+        
+        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-2 form-group ">
+                <label class="control-label">Fecha Vigencia Eximición IIBB</label>
+                <sa-date-time-picker ng-model="vm.filter.fechaVigenciaEximicionIibb" id="3" type="date" >
+                </sa-date-time-picker>  
+        </div>
+    
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+            <label for="edit-profesionales-general-tipocategoria-input">Tipo Categoría</label>
+            <select id="edit-profesionales-general-tipocategoria-input"
+                name="categoria" class="form-control"
+                ng-model="vm.filter.idCategoriaDelProfesional"
+                ng-required="false"
+                ng-change="vm.formControl.cambioCategoriaChange()"
+                ng-options="categoria.Id as categoria.Nombre for categoria in vm.data.tiposCategoria"
+                sa-enter>
+                <option value="">Ninguna</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+            <div sa-form-input-validate>
+                <label>Observaciones</label>
+                <textarea name="observaciones" class="form-control noresize" id="edit-profesionales-general-observaciones-textarea"
+                    ng-model="vm.filter.observaciones" ng-change="vm.formControl.observacionesChange()" 
+                    maxlength="250" ng-required="false"></textarea>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 form-group">
+            <sa-check-box label="Visible Portal Web" ng-model="vm.filter.visiblePortalWeb" id="edit-profesionales-general-visibleportal-slider"
+            color="green" sa-enter ng-change="vm.formControl.visiblePortalWebChange()"></sa-check-box>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-1 form-group">
+            <sa-check-box label="Activo" ng-model="vm.filter.activo" color="green" sa-enter id="edit-profesionales-general-activo-slider"
+            ng-change="vm.formControl.activoChange()"></sa-check-box>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<label for="cmb_tipo_documento" >
+	<span ng-bind="title || 'Tipo documento'"></span><span ng-if="required"> (*)</span>
+</label>
+<select class="form-control" ng-class="{'not-valid': !marginBottom }"
+	name="tipoDocumentoCombo"
+	id="cmb_tipo_documento"
+	ng-model="tipoDocSelect"
+	ng-disabled="disabled"
+	ng-change="tipoDocumentoChanged(tipoDocSelect)"
+	ng-options="tipoDoc.Nombre for tipoDoc in tiposDocumentos track by tipoDoc.Id">
+	<option value="">{{opcionVacia}}</option>
+</select>

@@ -1,0 +1,224 @@
+<div ng-form="formTabGeneral">
+	<div class="row">
+		<h4>Datos personales</h4>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div sa-form-input-validate>
+				<sa-tipo-documento-combo
+					name="tipoDocumento"
+					margin-bottom="true"
+					ng-model="vm.data.paciente.TipoDocumentoPaciente"
+					ng-disabled="vm.formControl.TipoDocumentoHabilitado"
+					ng-change = "vm.formControl.validaNumeroDocumentoRequerido()"
+					required="true"
+					select-default ="vm.formControl.tipoDocumentoSelectDefault"
+					error="!formTabGeneral.$pristine && formTabGeneral.tipoDocumento.$error.required">
+				</sa-tipo-documento-combo>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div sa-form-input-validate>
+				<sa-numero-documento ng-model="vm.data.paciente.NumeroDocumento"
+					name = "numeroDocumento"
+					ng-disabled="vm.formControl.NumeroDocumentoHabilitado"
+					ng-required= "vm.formControl.numeroDocumentoRequerido"
+					blured="vm.formControl.validarPacientePorDocumento(formTabGeneral.numeroDocumento.$dirty)"
+					></sa-numero-documento>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div sa-form-input-validate>
+				<label for="txt_apellido_paciente">Apellido (*)</label>
+				<span class="input-group">
+					<input type="text" id="txt_apellido_paciente" class="text-uppercase"
+						sa-text
+						autocomplete="off"
+						name="apellidoPaciente"
+						ng-disabled="vm.formControl.deshabilitaEditarNombre"
+						ng-required="true"
+						ng-blur="vm.formControl.validarPacientePorNombre(formTabGeneral.apellidoPaciente.$dirty)"
+						ng-model="vm.data.paciente.Apellido">
+					<span class="input-group-btn">
+						<button class="btn btn-default"
+								ng-disabled="vm.formControl.btnAgregaApellidoDesahabilitado"
+								ng-click='vm.formControl.agregarNombre(vm.data.paciente)'
+								uib-tooltip="Pasar Apellido al Nombre" tooltip-placement="left"
+								id="btn_agregar_nombre">
+							<sa-icon name="RIGHT"></sa-icon>
+						</button>
+					</span>
+				</span>		
+				<!-- <sa-text-error model="formTabGeneral.apellidoPaciente"></sa-text-error> -->
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div sa-form-input-validate>
+				<label for="txt_nombre_paciente">Nombre (*)</label>
+				<span class="input-group">
+					<span class="input-group-btn">
+						<button class="btn btn-default"
+								ng-disabled="vm.formControl.btnAgregaApellidoDesahabilitado"
+								ng-click='vm.formControl.agregarApellido(vm.data.paciente)'
+								uib-tooltip="Pasar Nombre al Apellido" tooltip-placement="right"
+								id="btn_agregar_apellido">
+							<sa-icon name="LEFT"></sa-icon>
+						</button>
+					</span>
+					<input type="text" id="txt_nombre_paciente"
+						sa-text
+						autocomplete="off" 
+						class="text-uppercase"
+						name="nombrePaciente"
+						ng-disabled="vm.formControl.deshabilitaEditarNombre"
+						ng-required="true"
+						ng-blur="vm.formControl.validarPacientePorNombre(formTabGeneral.nombrePaciente.$dirty)"
+						ng-model="vm.data.paciente.Nombre">
+				</span>
+			</div>
+			<!-- <sa-text-error model="formTabGeneral.nombrePaciente"></sa-text-error> -->
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div sa-form-input-validate>
+				<label for="txt_fecha_nacimiento_paciente">Fecha de Nacimiento</label>
+				<!-- <sa-date-picker model="vm.data.paciente.FechaNacimiento" max-date = "vm.formControl.today"
+				change ="vm.formControl.validarPacientePorNombre(formTabGeneral.nombrePaciente.$dirty)"
+				disabled="vm.formControl.pacienteValidado"></sa-date-picker> -->
+
+				<sa-date-time-picker ng-model="vm.data.paciente.FechaNacimiento " id="100-$index" type="date" max="vm.formControl.today"
+					ng-change ="vm.formControl.validarPacientePorNombre(formTabGeneral.nombrePaciente.$dirty)"
+					ng-disabled="vm.formControl.pacienteValidado"></sa-date-time-picker>
+				<!-- <sa-text-error model="formTabGeneral.fechaNacimiento"></sa-text-error> -->
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" >
+			<div sa-form-input>
+				<label for="txt_edad_paciente">Edad</label>
+				<div class="form-control" ng-bind="vm.data.paciente.FechaNacimiento | ageFilter"></div>
+				<!-- <input type="number" class="form-control"
+					id="txt_edad_paciente"
+					ng-model="vm.data.paciente.Edad"
+					ng-disabled="true"> -->
+				</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div sa-form-input-validate>
+				<label for="cmb_estado_civil">Estado civil (*)</label>
+				<select id="cmb_estado_civil"
+					name="estadoCivil"
+					ng-model="vm.data.paciente.IdEstadoCivil"
+					ng-required="true"
+					ng-options="estadoCivil.Id as estadoCivil.Nombre for estadoCivil in vm.data.estadosCivil">
+					<option value="">-SELECCIONAR-</option>
+				</select>
+				<!-- <sa-text-error model="formTabGeneral.estadoCivil"></sa-text-error> -->
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div sa-form-input-validate>
+				<label for="cmb_sexo">Sexo (*)</label>
+				<select id="cmb_sexo"
+					name="sexo" 
+					ng-model="vm.data.paciente.IdTipoSexo"
+					ng-disabled="(vm.formControl.pacienteValidado || vm.formControl.pacienteFusionado ) && !vm.data.paciente.PuedeFusinarPaciente"
+					ng-required="true"
+					ng-options="sexo.Id as sexo.Nombre for sexo in vm.data.tiposSexo">
+					<option value="">-SELECCIONAR-</option>
+				</select>
+				<!-- <sa-text-error model="formTabGeneral.sexo"></sa-text-error> -->
+			</div>
+		</div>
+	</div>
+	<div class="row fila">
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div sa-form-input-validate>
+				<label for="txt_email_paciente">Email</label>
+				<input type="email" id="txt_email_paciente"
+					autocomplete="off" 
+					name="emailPaciente"
+					ng-model="vm.data.paciente.Email">
+				<!-- <sa-text-error model="formTabGeneral.emailPaciente"></sa-text-error> -->
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div sa-form-input-validate>
+				<label for="txt_profesion_paciente">Profesión</label>
+				<input type="text" id="txt_profesion_paciente"
+					autocomplete="off" 
+					name="profesionPaciente"
+					ng-disabled="vm.formControl.pacienteValidado"
+					ng-model="vm.data.paciente.Profesion">
+				<!-- <sa-text-error model="formTabGeneral.profesionPaciente"></sa-text-error> -->
+			</div>
+		</div>
+	</div>
+	<div class="row fila">
+		<h4>Datos de paciente</h4>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div sa-form-input>
+				<label for="txt_fecha_deceso_paciente">Fecha de deceso</label>
+				<input type="text"  class="form-control" 
+				id="txt_fecha_deceso_paciente"
+				name="fechaDeceso"
+				ng-bind="vm.data.paciente.FechaFallecido | date : 'dd/MM/yyyy'" 
+				ng-disabled="true"/>
+			</div>	
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div sa-form-input>
+				<label for="cmb_estado_paciente">Estado de paciente</label>
+				<select id="cmb_estado_paciente"
+					name="estadoPaciente" class="form-control"	
+					ng-if="vm.formControl.visualizaEstadosPaciente(vm.data.paciente)"
+					ng-disabled="(vm.formControl.pacienteValidado || !vm.formControl.permisoEditarEstadoEmpadronamiento 
+							|| vm.formControl.pacienteFusionado ) && !vm.data.paciente.PuedeFusinarPaciente"
+					ng-model="vm.data.paciente.IdEstadoEmpadronamiento"
+					ng-options="estado.Id as estado.Nombre for estado in vm.data.estadosPacired">
+					<option value="">-SELECCIONAR-</option>
+				</select>
+				<input type="text" class="form-control" 
+					ng-readonly="true" 
+					id="txt_estado_paciente"
+					name ="txt_estadoPaciente"
+					ng-if="!vm.formControl.visualizaEstadosPaciente(vm.data.paciente)"
+					ng-model="vm.data.paciente.EstadoEmpadronamientoNombre">
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div sa-form-input>
+				<label for="cmb_tipo_paciente">Tipo de paciente</label>
+				<select id="cmb_tipo_paciente"
+					name="tipoPaciente" class="form-control"	
+					ng-if="vm.formControl.visualizaTiposPaciente(vm.data.paciente)"
+					ng-disabled="(vm.formControl.pacienteValidado || !vm.formControl.permisoEditarTipoPaciente 
+							|| vm.formControl.pacienteFusionado ) && !vm.data.paciente.PuedeFusinarPaciente"
+					ng-model="vm.data.paciente.IdTipoPaciente"
+					ng-options="tipo.Id as tipo.Nombre for tipo in vm.data.tiposPaciente">
+					<option value="">-SELECCIONAR-</option>
+				</select>
+				<input type="text" class="form-control" 
+					ng-readonly="true" 
+					id="txt_tipo_paciente"
+					name ="txt_tipoPaciente"
+					ng-if="!vm.formControl.visualizaTiposPaciente(vm.data.paciente)"
+					ng-model="vm.data.paciente.TipoPacienteNombre">
+		  	</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div sa-form-input>
+				<label>Informe Web</label>
+				<div class="">
+					<label>
+						<input type="checkbox" name="informeWeb" id="chk_informeWeb"
+							ng-model="vm.data.paciente.InformeWeb"
+							ng-disabled="!vm.formControl.puedeEditarInformeWeb" >
+						Acepta
+					</label>
+				</div>
+			</div>	
+		</div>
+	</div>
+	<div class="row text-center">
+		(*) Campos obligatorios
+	</div>
+</div>

@@ -1,0 +1,31 @@
+<div class="col-xs-12 col-sm-8 col-md-6 col-lg-3 form-group no-valid">
+	<label class="label-control">Matrícula</label>
+	<div class="input-group">
+		<input type="text" class="form-control"
+			ng-blur="busquedaRapidaSociedad()"
+			ng-change = "cambioSociedad()"
+			ng-model="filter.numeroMatricula"
+			min = "0"
+			ng-disabled='disabled'
+			sa-enter
+			sa-integer>
+		<span class="input-group-btn">
+			<button class="btn btn-default btn-loading" 
+					uib-tooltip="Buscar sociedad" 
+					tooltip-placement="top"
+					ng-click="searchSociedades()"
+					sa-punto-click="searchSociedades()"
+					ng-disabled='disabled'
+					sa-enter>
+				<span ng-class="icono.SEARCH" class="glyphicon glyphicon-search"></span>
+			</button>
+		</span>
+	</div>
+</div>
+<div class="col-xs-12 col-sm-8 col-md-6 col-lg-9 form-group">
+	<label class="">Nombre Sociedad</label>
+	<input type="text" class="form-control"
+		ng-model="filter.nombre"
+		ng-disabled="true"
+		sa-enter>
+</div>

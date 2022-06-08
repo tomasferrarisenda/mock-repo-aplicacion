@@ -1,0 +1,63 @@
+<form name="formUnidad" novalidate>
+    <sa-title title-name="vm.title.name" title-icon="LIST" btn-reload-disabled="vm.formControl.loading"></sa-title>
+    <!-- El loading se muestra si se esta cargando el inicializador -->
+
+    <!-- <sa-loading ng-if="vm.formControl.loading"></sa-loading> -->
+
+    <!-- El cuerpo se muestra si no se esta cargando el inicializador -->
+    <!-- O si se produjo algun error inicializando -->
+
+    <!-- <div class="cuerpo" ng-hide="vm.formControl.loading || vm.formControl.error">
+        <div class="fila">
+            <h4>Tipo de Unidad</h4> -->
+
+    <!-- <form name="formFilter"  novalidate> -->
+    <div class="row">
+        <!--Input de Nombre-->
+       
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 form-group">
+            <div sa-form-input-validate>
+                <label>Nombre</label>
+                <input type="text" name="nombreUnidadArancelarias" ng-model="vm.nombre" sa-enter>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 form-group" sa-form-input>
+            <label for="tipoRequisito">Tipo de Requisito</label>
+            <select id="tipoRequisito" name="cmbtipoRequisito" ng-model="vm.tipoRequisito" ng-options="tipoRequisito.Nombre for tipoRequisito in vm.tipoRequisitoAdministrativo track by tipoRequisito.Id"
+                sa-enter>
+                <option value="">TODOS</option>
+            </select>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-1 form-group" sa-form-input>
+            <button type="button" sa-btn-search class="btn-row btn-block" ng-click="vm.buscar()" sa-punto-click="vm.buscar()" sa-enter>Buscar</button>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-1 form-group" sa-form-input>
+            <button type="button" sa-btn-clean class="btn-row btn-block" ng-click="vm.limpiarFiltros()" sa-punto-click="vm.limpiarFiltros()"
+                sa-enter>Limpiar</button>
+        </div>
+    </div>
+
+    <button type="button" class="btn btn-default pull-right" uib-tooltip="Agregar nuevo requisito" tooltip-placement="left" uib-dropdown-toggle
+	 ng-click="vm.editarRequisitoAdministrativo(null, null)" sa-punto-click="vm.editarRequisitoAdministrativo(null, null)" sa-enter>
+		<sa-icon name="PLUS"></sa-icon>
+    </button>
+    
+    <sa-table-ext data="vm.requisitoAdministrativo" page-change="vm.buscarPagina(pagination)" 
+        btn-edit-click="vm.editarRequisitoAdministrativo(row.Id, index)"
+        btn-delete-click="vm.eliminar(row, index)">
+    </sa-table-ext>
+
+    <div class="row">
+        <br>
+        <div class="row text-center">
+            <button class="btn btn-cancelar" ng-click="vm.volver()" sa-punto-click="vm.volver()" sa-enter>
+                Volver
+            </button>
+        </div>
+    </div>
+    <sa-loading ng-if="vm.loading"></sa-loading>
+</form>
+
+<!--Para q levante el modulo, importe en la app.ts gral de la carpeta principal, el modulo edti, list etc -->

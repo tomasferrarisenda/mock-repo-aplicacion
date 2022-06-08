@@ -1,0 +1,63 @@
+<form name="formTemplates" accept-charset="utf-8" novalidate>
+	<sa-modal-header
+		title-icon="LIST"
+		title-name="{{ vm.title.page }}">
+	</sa-modal-header>
+	<sa-modal-body loading="vm.formControl.loading">
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6  form-group">
+				<label>Nombre de plantilla</label>
+				<input type="text" class="form-control"
+					ng-change="vm.paginacion.pageChanged()"
+					ng-model="vm.filter.nombreTemplate">
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 ">
+				<button type="button" class="btn btn-default btn-block btn-row"
+					ng-click="vm.filter.clean()">
+					Limpiar
+				</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+				<table class="table table-hover">
+					<thead>
+						<tr></tr>
+						<tr class="cabecera-tabla">
+							<th class="text-center">Nombre plantilla</th>
+							<th class="text-center">Diagnóstico</th>
+							<th class="text-center">Seleccionar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="solicitud in vm.filter.internaciones">
+							<th class="row text-center">{{ solicitud.NombreTemplate }}</th>
+							<th class="row text-center">{{ solicitud.Diagnostico }}</th>
+							<td class="text-center">
+								<input type="radio" ng-value="solicitud" ng-model="vm.formData.plantillaSeleccionada">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div><!-- .row>-->
+		<div class="row" ng-if="vm.filter.internaciones.length">
+			<div class="col-sm-12 ">
+				<div class="text-center">
+					<div uib-pagination
+						items-per-page="vm.paginacion.pageSize"
+						total-items="vm.paginacion.totalItems"
+						ng-model="vm.paginacion.currentPage"
+						ng-change="vm.paginacion.pageChanged()"
+						previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+					</div>
+				</div>
+			</div>
+		</div><!-- .row>-->
+	</sa-modal-body>
+	<sa-modal-footer
+		btn-ok-click="vm.formControl.ok()"
+		btn-ok-disabled="!vm.formData.plantillaSeleccionada"
+		btn-cancel-click="vm.formControl.cancel()">
+	</sa-modal-footer>
+</form>

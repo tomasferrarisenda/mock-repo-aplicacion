@@ -1,0 +1,231 @@
+@import '../../../../css/common/variables';
+
+#cssload-cupcake {
+	flex-direction: row;
+		-o-flex-direction: row;
+		-ms-flex-direction: row;
+		-webkit-flex-direction: row;
+		-moz-flex-direction: row;
+	justify-content: center;
+		-o-justify-content: center;
+		-ms-justify-content: center;
+		-webkit-justify-content: center;
+		-moz-justify-content: center;
+	height: 100%;
+	width: 100%;
+}
+
+.cssload-letter {
+	font-size: 97px;
+	color: rgb(34,34,34);
+	font-family: tahoma;
+}
+
+.cssload-box {
+	display: box;
+	display: box;
+		display: -o-box;
+		display: -ms-box;
+		display: -webkit-box;
+		display: -moz-box;
+	display: flex;
+		display: -o-flex;
+		display: -ms-flex;
+		display: -webkit-flex;
+		display: -moz-flex;
+}
+
+.cssload-cupcakeCircle,
+.cssload-cupcakeInner,
+.cssload-cupcakeCore {
+	border-radius: 50%;
+}
+
+.cssload-cupcake,
+.cssload-letter,
+.cssload-cupcakeCircle,
+.cssload-cupcakeInner,
+.cssload-cupcakeCore {
+	flex: none;
+		-o-flex: none;
+		-ms-flex: none;
+		-webkit-flex: none;
+		-moz-flex: none;
+}
+
+.cssload-letter,
+.cssload-cupcakeCircle {
+	align-self: center;
+	align-self: center;
+		-o-align-self: center;
+		-ms-align-self: center;
+		-webkit-align-self: center;
+		-moz-align-self: center;
+}
+
+.cssload-cupcakeCircle {
+	align-items: center;
+		-o-align-items: center;
+		-ms-align-items: center;
+		-webkit-align-items: center;
+		-moz-align-items: center;
+	justify-content: center;
+		-o-justify-content: center;
+		-ms-justify-content: center;
+		-webkit-justify-content: center;
+		-moz-justify-content: center;
+	height: 97px;
+	width: 97px;
+	background-color: $color-azul-sa;
+}
+
+.cssload-cupcakeInner {
+	align-self: center;
+		-o-align-self: center;
+		-ms-align-self: center;
+		-webkit-align-self: center;
+		-moz-align-self: center;
+	justify-content: center;
+		-o-justify-content: center;
+		-ms-justify-content: center;
+		-webkit-justify-content: center;
+		-moz-justify-content: center;
+	height: 50%;
+	width: 50%;
+	background-color: rgb(255,255,255);
+	animation-name: cssload-cupcakeAnimate;
+		-o-animation-name: cssload-cupcakeAnimate;
+		-ms-animation-name: cssload-cupcakeAnimate;
+		-webkit-animation-name: cssload-cupcakeAnimate;
+		-moz-animation-name: cssload-cupcakeAnimate;
+	animation-duration: 575ms;
+		-o-animation-duration: 575ms;
+		-ms-animation-duration: 575ms;
+		-webkit-animation-duration: 575ms;
+		-moz-animation-duration: 575ms;
+	animation-direction: alternate;
+		-o-animation-direction: alternate;
+		-ms-animation-direction: alternate;
+		-webkit-animation-direction: alternate;
+		-moz-animation-direction: alternate;
+	animation-timing-function: ease-in-out;
+		-o-animation-timing-function: ease-in-out;
+		-ms-animation-timing-function: ease-in-out;
+		-webkit-animation-timing-function: ease-in-out;
+		-moz-animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+		-o-animation-iteration-count: infinite;
+		-ms-animation-iteration-count: infinite;
+		-webkit-animation-iteration-count: infinite;
+		-moz-animation-iteration-count: infinite;
+}
+
+.cssload-cupcakeCore {
+	align-self: center;
+		-o-align-self: center;
+		-ms-align-self: center;
+		-webkit-align-self: center;
+		-moz-align-self: center;
+	height: 25%;
+	width: 25%;
+	background-color: $color-azul-sa;
+	animation-name: coreAnimate;
+		-o-animation-name: coreAnimate;
+		-ms-animation-name: coreAnimate;
+		-webkit-animation-name: coreAnimate;
+		-moz-animation-name: coreAnimate;
+	animation-duration: 1.15s;
+		-o-animation-duration: 1.15s;
+		-ms-animation-duration: 1.15s;
+		-webkit-animation-duration: 1.15s;
+		-moz-animation-duration: 1.15s;
+	animation-direction: alternate;
+		-o-animation-direction: alternate;
+		-ms-animation-direction: alternate;
+		-webkit-animation-direction: alternate;
+		-moz-animation-direction: alternate;
+	animation-timing-function: ease-in-out;
+		-o-animation-timing-function: ease-in-out;
+		-ms-animation-timing-function: ease-in-out;
+		-webkit-animation-timing-function: ease-in-out;
+		-moz-animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+		-o-animation-iteration-count: infinite;
+		-ms-animation-iteration-count: infinite;
+		-webkit-animation-iteration-count: infinite;
+		-moz-animation-iteration-count: infinite;
+}
+
+
+
+
+
+@keyframes cssload-cupcakeAnimate {
+	to {
+		height: 90%;
+		width: 90%;
+	}
+}
+
+@-o-keyframes cssload-cupcakeAnimate {
+	to {
+		height: 90%;
+		width: 90%;
+	}
+}
+
+@-ms-keyframes cssload-cupcakeAnimate {
+	to {
+		height: 90%;
+		width: 90%;
+	}
+}
+
+@-webkit-keyframes cssload-cupcakeAnimate {
+	to {
+		height: 90%;
+		width: 90%;
+	}
+}
+
+@-moz-keyframes cssload-cupcakeAnimate {
+	to {
+		height: 90%;
+		width: 90%;
+	}
+}
+
+@keyframes coreAnimate {
+	to {
+		height: 90%;
+		width: 90%;
+	}
+}
+
+@-o-keyframes coreAnimate {
+	to {
+		height: 90%;
+		width: 90%;
+	}
+}
+
+@-ms-keyframes coreAnimate {
+	to {
+		height: 90%;
+		width: 90%;
+	}
+}
+
+@-webkit-keyframes coreAnimate {
+	to {
+		height: 90%;
+		width: 90%;
+	}
+}
+
+@-moz-keyframes coreAnimate {
+	to {
+		height: 90%;
+		width: 90%;
+	}
+}

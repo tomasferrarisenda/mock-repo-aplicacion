@@ -1,0 +1,112 @@
+<sa-menu></sa-menu>
+<snap-content>
+	<div class="right">
+		<sa-header name-module="SERVICIOS" path-module="#/Servicios/Gestion" ></sa-header>
+
+		<div class="main">
+			<section class="contentwhite">
+				<div class="container-fluid">
+					<sa-title
+						title-name="vm.title.page"
+						title-icon="LIST"
+
+						btn-new-click="vm.servicio.new()"
+						btn-new-disabled="vm.formControl.loading"
+
+						btn-reload-click="vm.formControl.reloadPage()"
+						btn-reload-disabled="vm.formControl.loading"
+					></sa-title>
+					<div id="cuerpo" ng-hide="vm.formControl.loading || vm.formControl.error">
+						<div class="row fila">
+							<form name="formFilter" accept-charset="utf-8" novalidate>
+								<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+									<label for="txt_numero_servicio" class="label-control">Nº Especialidad</label>
+									<input type="number" class="form-control"
+										id="txt_numero_servicio"
+										name="idServicio"
+										min="0"
+										max="9999"
+										ng-model="vm.filter.id"
+										ng-change="vm.paginacion.pageChanged()">
+								</div>
+					
+								<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pull-left">
+									<label for="txt_cantaidad_camas" class="label-control">Cantidad Especialidades</label>
+									<div >
+										<strong ng-bind="vm.paginacion.totalItems"></strong>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pull-right">
+									<button type="button" class="btn btn-default btn-row btn-block"
+										ng-click="vm.filter.clean()">
+										Limpiar
+									</button>
+								</div>
+							</form>
+						</div>
+						<div class="row table-responsive">
+							<div class="col-xs-12">
+								<table class="table table-hover">
+									<thead>
+										<tr></tr>
+										<tr class="cabecera-tabla">
+											<th class="text-center">Especialidad N°</th>
+											<th class="text-center">Nombre Especialidad</th>
+											<!-- <th class="text-center">Telefono</th> -->
+											<th class="text-center" >Estado</th>
+ 											<!-- <th class="text-center" >Tipo Habitación</th> -->
+											<!-- <th class="text-center" >Observaciones</th> -->
+											<th class="text-center">Acciones</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="especialidad in vm.filter.especialidades">
+											<td class="text-center" ng-bind="especialidad.Id"></td>
+											<td class="text-center" ng-bind="especialidad.Nombre"></td>
+ 											<!-- <td class="text-center" ng-bind="servicio.Descripcion"></td> -->
+											<td class="text-center"  ng-bind="especialidad.Estado"></td>
+											<!-- <td class="text-center"  ng-bind="habitacion.NombreTipoHabitacionFisica"></td> -->
+											<!-- <td class="text-center"  ng-bind="habitacion.Observaciones"></td> -->
+											<td class="text-center">
+												<button type="button" class="btn btn-white btn-xs"
+													uib-tooltip="Ver Servicio" tooltip-placement="top"
+													ng-click="vm.especialidad.view(servicio)">
+													<sa-icon name="EYE_OPEN"></sa-icon>
+												</button>
+												<button type="button" class="btn btn-white btn-xs"
+													uib-tooltip="Editar Servicio" tooltip-placement="top"
+													ng-click="vm.especialidad.edit(servicio)">
+													<sa-icon name="EDIT"></sa-icon>
+												</button>
+												<button type="button" class="btn btn-white btn-xs"
+													uib-tooltip="Borrar Servicio" tooltip-placement="top"
+													ng-click="vm.especialidad.delete(servicio)">
+													<sa-icon name="DEL"></sa-icon>
+												</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div><!-- .row>--> 
+						<div class="row" >
+							<div class="col-sm-12">
+								<div class="text-center">
+									<div uib-pagination 
+										max-size="5"
+										items-per-page="vm.paginacion.pageSize"
+										total-items="vm.paginacion.totalItems"
+										ng-model="vm.paginacion.currentPage"
+										ng-change="vm.paginacion.pageChanged()"
+										previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+									</div>
+								</div>
+							</div>
+						</div><!-- .row>-->
+					</div>
+					<sa-loading ng-if="vm.formControl.loading"></sa-loading>
+				</div>
+			</section>
+		</div>
+	</div>
+</snap-content>

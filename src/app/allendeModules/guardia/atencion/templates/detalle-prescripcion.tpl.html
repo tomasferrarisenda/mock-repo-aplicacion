@@ -1,0 +1,98 @@
+<div class="table-responsive">
+
+	<table class="table table-hover" >
+		<thead>
+	 		<tr >
+				<th colspan="3" class="text-center"></th>
+			</tr>
+			<tr class="thead-azul">
+			<tr class="cabecera-tabla"> 
+				<th class="text-left">Tipo Indicacion</th>
+				<th class="text-left">Descripcion</th>
+				<th class="text-left">Medico Carga</th>
+				<th class="text-left">Fecha/Hora Carga</th>
+				<th class="text-center">Estado</th>
+				<th class="text-center">Prioridad</th>
+				<th ng-show="esEnfermeria" class="text-center">Realizar</th>
+			</tr>
+		</thead>
+		<tbody ng-repeat="detalle in prescripcion.Detalles"  ng-hide="loading || vacio">
+			<tr>
+
+				<td ng-click="verMedicamentos([$index])" class="row text-left">{{ detalle.Indicacion.TipoIndicacion.Nombre}}</td>
+				<td ng-click="verMedicamentos([$index])" class="row text-left">{{detalle.Indicacion.Nombre}}</td>
+				<td ng-click="verMedicamentos([$index])" class="row text-left">{{ detalle.UsuarioCarga}}</td>
+				<td ng-click="verMedicamentos([$index])" class="row text-left">{{ detalle.FechaCarga | date:"dd/MM/yyyy HH:mm"}}</td>
+				<td ng-click="verMedicamentos([$index])" class="row text-center">{{ detalle.Estado}}</td>
+				<td ng-click="verMedicamentos([$index])" class="row text-center" >
+					<button type="button" class="{{colorearPrioridad(detalle.Prioridad)}} btn btn-xs"
+							uib-tooltip="{{detalle.Prioridad}}" uib-tooltip-placement="top"
+							ng-disabled="" 
+							ng-click="">
+						<sa-icon name="INFO"></sa-icon>
+					</button> 
+				</td>
+				<td  ng-show="esEnfermeria" class="row text-center" >
+					<button type="button" class="btn btn-white btn-xs"
+							uib-tooltip="Realizar" tooltip-placement="top"
+							ng-disabled="" 
+							ng-click="realizar({detalle})">
+						<sa-icon name="LIST2"></sa-icon>
+					</button> 
+				</td>
+			</tr>
+			<tr ng-hide="!detalle.verMateriales" >
+				<td colspan="7">
+					<div class="span9">
+						<div class="col-md-10 col-md-offset-1">
+							<!-- Second Layer -->
+						     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-12 colleft text-center" ng-hide="!detalle.observacionMedica" >
+								<label  >Observaciones Medicas: {{detalle.ObservacionMedica}}</label>
+							</div>
+						    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-12 colleft text-center" ng-hide="!detalle.observacionEnfermeria" >
+								<label  >Observaciones Enfermeria: {{detalle.ObservacionEnfermeria}}</label>
+							</div>
+						    <table class="table table-hover table-condensed table-striped" ng-hide="detalle.noMateriales">
+						        <thead class="levelTwo">
+						        	<tr></tr>
+						            <tr class="cabecera-tabla-celeste">
+						                <th>Descripcion</th>
+						                <th>Presentacion</th>
+						                <th>Dosis</th>
+						                <th>Tipo Dosis</th>
+						                <th>Via</th>
+						                <th ng-show="detalle.Realizado">Cantidad</th>
+						            </tr>
+						        </thead>
+						        <tbody>
+						        	<tr ng-repeat="material in detalle.Materiales">
+							        	<td ng-hide="material.Reemplazado" ng-bind="material.Producto.Nombre"></td>
+							        	<td ng-hide="material.Reemplazado" ng-bind="material.Producto.Presentacion"></td>
+							        	<td ng-hide="material.Reemplazado" ng-bind="material.Dosis"></td>
+							        	<td ng-hide="material.Reemplazado" ng-bind="material.TipoDosis"></td>
+							        	<td ng-hide="material.Reemplazado" ng-bind="material.Via"></td>
+							        	<td ng-hide="material.Reemplazado || !detalle.Realizado" ng-bind="material.Cantidad"></td>
+
+						        	</tr>
+						        </tbody>
+						    </table>
+							<div class="col-xs-12 col-sm-6 col-md-3 col-lg-12 colleft text-center" ng-hide="!detalle.verMateriales || !detalle.noMateriales" >
+								<label  >No hay medicamentos asignados</label>
+							</div>
+						    <!-- End Second Layer -->
+
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+			</tr>
+		</tbody>
+	</table>
+	<div class="col-xs-12 col-sm-6 col-md-3 col-lg-12 colleft text-center" ng-show="vacio && !esEnfermeria" >
+		<label  >No hay indicaciondes cargadas...</label>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-3 col-lg-12 colleft text-center" ng-show="vacio && esEnfermeria" >
+		<label  >No hay indicaciondes pendientes...</label>
+	</div>
+</div>

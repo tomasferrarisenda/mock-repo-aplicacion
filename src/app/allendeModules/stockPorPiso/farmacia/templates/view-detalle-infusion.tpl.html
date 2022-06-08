@@ -1,0 +1,180 @@
+<form name="formPersona" accept-charset="utf-8" novalidate >
+	<div class="modal-header">
+		<h4 class="modal-title">Detalle Infusion</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+
+			<div class="col-xs-12">
+				<h4>
+					Infusion de: {{data.internacion}}
+				</h4>
+				<h5>
+					{{data.infusion.infusion}}, Volumen:  {{data.infusion.volumen}}  cc
+				</h5>
+				<h5>
+					Goteo: {{data.infusion.goteo}} {{data.infusion.unidad_medida}} 
+				</h5>
+				<div class="col-xs-12">
+					<label for="observaciones">Observaciones:</label>
+					<input type="text" class="form-control input-sm" 
+							name="observaciones"
+							ng-disabled="!data.infusion.esHoy || data.infusion.Estado.deshabilitado || formControl.facturacion"
+							ng-model="data.infusion.observacion_farmacia"
+							maxlength="120"
+							ng-change="">
+				</div>
+				<div class="row">
+					<div class="col-xs-12 table-responsive">
+						<table class="table table-hover" >
+							<thead>
+								<tr>
+									<th colspan="3" class="text-center"></th>
+								</tr>
+								<tr class="cabecera-tabla">
+									<td class="text-left">Codigo</td>
+									<td class="text-left">Nombre</td>
+									<td class="text-left">Presentacion</td>
+									<td class="text-center">Cantidad</td>
+									<td class="text-center">Unidad</td>
+									<td class="text-center">Stock</td>
+									<td class="text-center">Estado</td>
+									<td class="text-center">Entregado</td>
+									<td class="text-center" ng-if="!formControl.facturacion" style="width: 15%;">Entregar</td>
+									<th class="text-center" ng-if="formControl.facturacion">Facturar</th>
+								</tr>
+							</thead>
+							<tbody ng-hide="formControl.loading">
+								<tr ng-repeat="agregado in data.infusion.Agregados">
+									<td class="row text-center">{{ agregado.Material.numero_articulo }}</td>
+									<td class="row text-center">{{ agregado.Material.nombre }}</td>
+									<td class="row text-center">{{ agregado.Material.presentacion }}</td>
+									<td class="row text-center">{{ agregado.cantidad }}</td>
+									<td class="row text-center">{{ agregado.unidad }}</td>
+									<td ng-if="formControl.nuevaCordoba" class="row text-left">{{ agregado.Material.stock_nueva_cordoba }}</td>
+									<td ng-if="formControl.cerro" class="row text-left">{{ agregado.Material.stock_cerro }}</td>
+									<td	ng-if="!agregado.cambiarEstado" ng-click="formControl.botonEstado(agregado)" class="row text-center" ng-class="agregado.Estado.color">
+										{{ agregado.Estado.nombre_estado}}
+									</td>
+									<td ng-if="agregado.cambiarEstado" class="row text-left">
+										<select id="estado_select"
+												class="form-control"
+												ng-model="agregado.Estado"
+												ng-change="formControl.estadoChanged(agregado)"
+												ng-options="estado.nombre_estado 
+															for estado in data.estados 
+															track by estado.id_estado" 
+												required >
+										</select>
+									</td>
+									<td class="row text-center">{{ agregado.cantidad_entregada }}</td>
+									<td class="row text-center" ng-if="!formControl.facturacion">
+										<div class="input-group">
+											<span class="input-group-btn">
+												<button type="button" 
+													class="btn btn-white btn-xs"
+													ng-disabled="agregado.minimo || !data.infusion.esHoy || agregado.deshabilitado"
+													ng-click="formControl.resta($index)">
+													<sa-icon name="MINUS"></sa-icon>
+												</button>
+											</span>
+											<input type="text" min="0" class="form-control input-sm"
+												ng-model="agregado.cantidad_cargada"
+												ng-disabled="true"
+												required>
+													
+											<span class="input-group-btn">
+												<button type="button"
+													ng-disabled="agregado.deshabilitado || !data.infusion.esHoy"
+													class="btn btn-white btn-xs"
+													ng-click="formControl.suma($index)">
+													<sa-icon name="NEW"></sa-icon>
+												</button>
+											</span>
+										</div>
+									</td>
+									<td  class="row text-center" ng-if="formControl.facturacion">
+										<button type="button" 
+												id="facturar_button"
+												ng-hide="agregado.facturado || agregado.devuelto || agregado.newFacturacion || agregado.newDevolucion"
+												ng-disabled="agregado.noEntregados"
+												class="btn btn-white btn-xs"
+												uib-tooltip="Facturar" 
+												uib-tooltip-placement="top"
+												ng-click="formControl.facturarAgregado(agregado)">
+											<sa-icon name="NEW"></sa-icon>
+										</button>
+
+										<button type="button" 
+												id="facturado_button"
+												ng-show="agregado.newFacturacion"
+												class="btn btn-white btn-xs"
+												uib-tooltip="Cancelar Facturacion" 
+												uib-tooltip-placement="top"
+												ng-click="formControl.facturarAgregado(agregado)">
+											<sa-icon name="DEL"></sa-icon>
+										</button>
+
+										<button type="button" 
+												id="facturado_button"
+												ng-show="agregado.facturado"
+												class="btn btn-white btn-xs"
+												uib-tooltip="Ya facturado" 
+												uib-tooltip-placement="top"
+												ng-click="">
+											<sa-icon name="OK"></sa-icon>
+										</button>
+
+										<button type="button" 
+												id="facturado_button"
+												ng-hide="agregado.facturado || agregado.devuelto || agregado.newFacturacion || agregado.newDevolucion"
+												ng-disabled="agregado.noEntregados"
+												class="btn btn-white btn-xs"
+												uib-tooltip="Recepcionar" 
+												uib-tooltip-placement="top"
+												ng-click="formControl.devolucionAgregado(agregado)">
+											<sa-icon name="REPLY"></sa-icon>
+										</button>
+
+										<button type="button" 
+												id="facturado_button"
+												ng-show="agregado.devuelto"
+												class="btn btn-white btn-xs"
+												uib-tooltip="Ya recepcionado" 
+												uib-tooltip-placement="top"
+												ng-click="">
+											<sa-icon name="REPLY"></sa-icon>
+										</button>
+
+										<button type="button" 
+												id="facturado_button"
+												ng-show="agregado.newDevolucion"
+												class="btn btn-white btn-xs"
+												uib-tooltip="Cancelar Devolucion" 
+												uib-tooltip-placement="top"
+												ng-click="formControl.devolucionAgregado(agregado)">
+											<sa-icon name="DEL"></sa-icon>
+										</button>
+			
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<sa-loading ng-if="formControl.loading"></sa-loading>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer" >
+		<button type="button"
+				class="btn btn-default"
+				ng-disabled=" formControl.loading"
+				ng-click="formControl.ok()">Aceptar</button>
+		<button type="button"
+				class="btn btn-cancelar"
+				ng-disabled=""
+				ng-click="formControl.cancel()">Cancelar</button>
+	
+	</div>
+</form>

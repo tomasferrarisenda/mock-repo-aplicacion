@@ -1,0 +1,14 @@
+<div class="modal-footer">
+	<div ng-if="!empty">
+		<button type="button"
+			class="btn"	
+			ng-if="btnCancelIf"
+			ng-click="btnCancelClick()">Cancelar</button>
+		<button type="button"
+			class="btn btn-default"
+			ng-disabled="btnOkDisabled"
+			ng-click="btnOkClick()">
+		<span ng-bind="btnOkTitle || 'Aceptar'"></span>
+	</div>
+	<div ng-if="empty" ng-transclude><div>
+</div>

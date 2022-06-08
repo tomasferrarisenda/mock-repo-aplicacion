@@ -1,0 +1,128 @@
+<snap-content>
+	<div class="right">
+		<section class="contentwhite">
+			<div class="container-fluid">
+				<sa-title-list
+					title-name="vm.title.page"
+					btn-reload-click="vm.formControl.reloadPage()"
+					btn-reload-disabled="vm.formControl.loading"
+				></sa-title-list>
+				<div class="cuerpo" ng-hide="vm.formControl.loading || vm.formControl.error">
+					<div class="row fila colleft">
+						<div class="row ">
+							<h4 class="ng-binding">Filtros</h4>
+						</div>
+						<div class="row colleft">
+							<div class="col-xs-12 col-sm-8 col-md-6 col-lg-1 colleft">
+								<div class="input-group">
+									<label for="codigoInternado">Número</label>
+							<!--<label for="txt_codigo_internado_desde" class="label-control">Desde</label> -->
+								
+									<input type="number" class="form-control"
+										ng-model="codigoInternadoDesde"
+										name="codigoInternadoDesde">
+									<span ng-show='!formFilter.$pristine && formFilter.codigoInternado.$error.number' class="text-error">Código incorrecto.</span>
+								</div>
+									<!-- <label for="txt_codigo_internado_hasta" class="label-control"> - Hasta</label>
+									<div class="input-group">
+										<input type="number" class="form-control"
+											ng-model="codigoInternadoDesde"
+											name="codigoInternadoHasta">
+										<span ng-show='!formFilter.$pristine && formFilter.codigoInternado.$error.number' class="text-error">Código incorrecto.</span>
+									</div> -->
+								
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 colleft">
+								<label for="txt_nombre" class="label-control ">Nombre</label>
+								<div class = "input-group">
+									<input type="text" class="form-control"
+											name="nombre_Internado">
+									<span class="input-group-btn">
+										<button class="btn btn-default btn-loading" 
+												uib-tooltip="Buscar internado" 
+												tooltip-placement="top" 
+												ng-click = "formControl.searchInternados()">
+											<span ng-class="icono.SEARCH" class="glyphicon glyphicon-search"></span>
+										</button>
+									</span>
+								</div>
+								
+							</div>
+							<div class="col-xs-12 col-sm-8 col-md-6 col-lg-2 colleft">
+								<label class="">Tipo de Fecha</label>
+								<select class="form-control"
+									ng-click = "formControl.habilitarFechas = true">
+									<option value="">No aplica</option>
+									<option value="">Ingreso</option>
+									<option value="">Alta</option>
+								</select>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 colleft">
+								<label class="">Desde</label>
+								<div class="input-group">
+									<input type="date" class="form-control"
+										name="fechaPractica"
+										ng-disabled="!formControl.habilitarFechas"
+										value="2016-08-12">
+									<span ng-show='!formFilter.$pristine && formFilter.fechaPractica.$error.number' class="text-error">Fecha inválida.</span>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 colleft">
+								<label class="">Hasta</label>
+								<div class="input-group">
+									<input type="date" class="form-control"
+										name="fechaPractica"
+										ng-disabled="!formControl.habilitarFechas"
+										value="2016-08-25">
+									<span ng-show='!formFilter.$pristine && formFilter.fechaPractica.$error.number' class="text-error">Fecha inválida.</span>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-8 col-md-6 col-lg-1 colleft">
+								<div class="input-group">
+									<label for="txt_fecha" class="label-control">Obra social</label>
+									<select class="form-control"
+										id="cmb_obraSocial"
+										ng-disabled="false">
+										<option value="">No aplica</option>
+										<option value="">MET</option>
+										<option value="">OSDE</option>
+										<option value="">Swiss Medical</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-8 col-md-6 col-lg-1 colleft">
+								<div class="input-group">
+									<label for="txt_fecha" class="label-control">Estado</label>
+									<select class="form-control"
+										id="cmb_estado"
+										ng-disabled="false">
+										<option value="">No aplica</option>
+										<option value="">Sin visar</option>
+										<option value="">Visado</option>
+										<option value="">Facturado</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-8 col-md-6 col-lg-1">
+								<button sa-btn-search class="btn-row" type="button">Buscar</button>
+							</div>
+						</div>
+					<!-- </div>
+					<div class="row colleft"> -->
+					</div>
+					<div class="row fila">
+						<h4 class="ng-binding">Listado</h4>
+						<div class="col-xs-12 col-sm-8 col-md-6 col-lg-12 colleft">
+							<div class="col-xs-12 ">
+								<div id="grid1" 
+									ui-grid="{ data: myData }" 
+									class="grid">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</snap-content>					

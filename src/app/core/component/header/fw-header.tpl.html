@@ -1,0 +1,32 @@
+<!-- Habilitar snap-dragger para que solo el header acepte desplizar -->
+<nav class="navbar navbar-default" ng-class="classHeader">
+	<div class="container-fluid">
+		<ul class="nav navbar-nav navbar-left">
+			<li class="navbar-margin-sa">
+				<button ng-if="menuIf" sa-toggle-menu-click class="btn btn-white " ng-class="{ 'btn-white-toolbar': whiteClass}" sa-enter>
+					<sa-icon  name="MENU"></sa-icon>
+				</button>
+			</li>
+		</ul>
+		<div class="navbar-header">
+			<a href="{{ pathModule }}" id="paciente-home" class="navbar-brand">
+				<span class="navbar-brand-text" ng-bind="nameModule" ng-class="{ 'btn-white-toolbar': whiteClass}"></span>
+				<!-- <img class="logo-hat argentina-hat" src="../../../../img/gorrito.png"> -->
+				<!-- <img class="logo-hat christmas-hat" src="../../../../img/christmas-hat.png"> -->
+			</a>
+		</div>
+		<ul class="nav navbar-nav navbar-right hide-mobile">
+			<li class="navbar-margin-sa">
+				<sa-menu-alertas origen="'Usuario'">
+				</sa-menu-alertas>
+			</li>
+			<li class="navbar-margin-sa">
+				<sa-user-empresa>
+				</sa-user-empresa>
+			</li>
+			<li class="navbar-margin-sa">
+				<sa-user-data></sa-user-data>
+			</li>
+		</ul>
+	</div>
+</nav>

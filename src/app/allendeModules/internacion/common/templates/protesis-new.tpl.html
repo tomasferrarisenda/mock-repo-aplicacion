@@ -1,0 +1,67 @@
+<form name="formProtesis" accept-charset="utf-8" novalidate>
+	<sa-modal-header
+		title-name="{{vm.title.page}}"
+		title-icon="EDIT" >
+	</sa-modal-header>
+	<sa-modal-body loading="vm.formControl.loading">
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4  form-group">
+				<label for="txt_elemento_principal" >Nombre elemento</label>
+				<input type="text" placeholder="Nombre" class="form-control"
+					name="nombreElemento"
+					maxlength="50"
+					ng-model="vm.data.protesisActual.nombre_protesis"
+					ng-required="true">
+				<sa-text-error model="formProtesis.nombreElemento"></sa-text-error>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4  form-group">
+				<label for="cmb_proveedor_principal" >Marca sugerida</label>
+				<div class="input-group">
+					<select class="form-control"
+						name="proveedorPrincipal"
+						ng-model="vm.data.protesisActual.ProveedorPreadmisionSugerido"
+						ng-options="proveedor.nombre for proveedor in vm.data.proveedoresPreAdmision track by proveedor.numpro"
+						ng-required="true">
+						<option value="">--SELECCIONAR--</option>
+					</select>
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default"
+							uib-tooltip="Nueva marca"
+							ng-click="vm.formControl.addProveedor()">
+							<sa-icon name="NEW2"></sa-icon>
+						</button>
+					</span>
+				</div>
+				<sa-text-error model="formProtesis.proveedorPrincipal"></sa-text-error>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4  form-group">
+				<label for="cmb_tipo_protesis" class="label-control">Prioridad prótesis</label>
+				<select class="form-control"
+					id="cmb_tipo_protesis"
+					name="prioridadProtesis"
+					ng-required="true" 
+					ng-model="vm.data.protesisActual.PrioridadProtesis"
+					ng-options="prioridadProtesis.nombre for
+						prioridadProtesis in vm.data.prioridadesProtesis
+						track by prioridadProtesis.id " >
+					<option value="">--SELECCIONAR--</option>
+				</select>
+				<sa-text-error model="formProtesis.prioridadProtesis"></sa-text-error>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-8  form-group">
+				<label for="txt_elemento_principal" >Observaciones</label>
+				<textarea type="text" rows="2" placeholder="Observaciones de elemento: medidas, cantidades, etc." class="form-control"
+					name="observacionesElemento"
+					maxlength="255" 
+					ng-model="vm.data.protesisActual.observaciones_protesis" >
+				</textarea>
+				<sa-text-error model="formProtesis.observacionesElemento"></sa-text-error>
+			</div>
+		</div>
+	</sa-modal-body>
+	<sa-modal-footer
+		btn-ok-click="vm.formControl.ok()"
+		btn-ok-disabled="!formProtesis.$valid"
+		btn-cancel-click="vm.formControl.cancel()">
+	</sa-modal-footer>
+</form>

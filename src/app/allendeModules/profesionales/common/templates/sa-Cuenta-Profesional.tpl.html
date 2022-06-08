@@ -1,0 +1,31 @@
+<div class="row">
+	<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4 form-group">
+		<label class="label-control" ng-show="{{mostrarlabelcuenta}}">{{title}}</label>
+		<div class="input-group">
+			<input type="number" class="form-control"
+				sa-integer
+				ng-model="filter.numero"
+				ng-change="cambioCuentaProfesional()"
+				ng-blur="busquedaRapidaProfesional()"
+				sa-enter
+				min= "0">
+			<span class="input-group-btn">
+				<button class="btn btn-default btn-loading" 
+					uib-tooltip="{{tooltip}}"
+					tooltip-placement="top"
+					ng-click="searchProfesional()"
+					sa-punto-click="searchProfesional()"
+					sa-enter>
+					<sa-icon name="SEARCH"></sa-icon>
+				</button>
+			</span>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-8 col-md-6 col-lg-8 form-group">
+		<label class="" ng-show="{{mostrarlabelnombre}}">Nombre</label>
+		<input type="text" class="form-control"
+			ng-model="filter.nombre"
+			ng-disabled="true"
+			sa-enter>
+	</div>
+</div>

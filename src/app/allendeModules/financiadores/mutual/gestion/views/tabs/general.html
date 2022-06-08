@@ -1,0 +1,143 @@
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+		<sa-organizacion-selector model="vm.filter.organizacionElegida" codigo-organizacion="vm.filter.codigoOrganizacion"></sa-organizacion-selector>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+		<div sa-form-input-validate>
+			<label>Tipo Afiliado</label>
+			<select name="tipoAfiliadoElegido"
+				ng-model="vm.filter.idTipoAfiliadoElegido"
+				ng-change="vm.formControl.tipoAfiliadoChange()"
+				ng-required="true"
+				ng-options="tipoAfiliado.Id as tipoAfiliado.Nombre for tipoAfiliado in vm.filter.tipoAfiliado"
+				id="tipoAfiliadoElegidoEditMutualGeneral_cmb"
+				sa-enter>
+			<option value="">--SELECCIONAR--</option>
+		</select>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+		<div sa-form-input-validate>
+			<label>Tipo Mutual</label>
+			<select name="tipoMutualElegida"
+				ng-model="vm.filter.idTipoMutualElegida"
+				ng-change="vm.formControl.tipoMutualChange()"
+				ng-options="tipoMutual.Id as tipoMutual.Nombre for tipoMutual in vm.filter.tipoMutual"
+				ng-required="true"
+				id="tipoMutualElegidaEditMutualGeneral_cmb"
+				sa-enter>
+			<option value="">--SELECCIONAR--</option>
+		</select>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+		<div sa-form-input-validate>
+			<label>Condición IVA</label>
+			<select name="condicionImpositivaElegida"
+				ng-model="vm.filter.idCondicionImpositivaElegida"
+				ng-change="vm.formControl.condicionChange()"
+				ng-options="condicionImpositiva.Id as condicionImpositiva.Nombre for condicionImpositiva in vm.filter.condicionImpositiva"
+				ng-required="true"
+				id="condicionImpositivaElegidaEditMutualGeneral_cmb"
+				sa-enter>
+			<option value="">--SELECCIONAR--</option>
+		</select>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+		<div sa-form-input-validate>
+			<label>Télefono Autorizaciones</label>
+			<input type="text"
+				name="telefonoAutorizaciones"
+				ng-model="vm.filter.telefono" 
+				ng-blur="vm.formControl.telefonoBlur()"
+				ng-required="false"
+				id="telefonoAutorizacionesEditMutualGeneral"
+				sa-enter>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+		<div sa-form-input-validate>
+			<label>URL Autorizaciones</label>
+			<input type="text"
+				name="urlAutorizaciones"
+				ng-model="vm.filter.url" 
+				ng-blur="vm.formControl.urlBlur()"
+				ng-required="false"
+				id="urlAutorizacionesEditMutualGeneral"
+				sa-enter>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-1 form-group">
+		<sa-check-box label="Activo" ng-model="vm.filter.estadoMutual" color="green" id-element="activoEditMutualGeneral" 
+		sa-enter ng-change="vm.formControl.activoChange()"></sa-check-box>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-1 form-group">
+		<sa-check-box label="Usa padrones" ng-model="vm.filter.usaPadrones" color="green" id-element="usaPadronesEditMutualGeneral"
+		 sa-enter ng-change="vm.formControl.usaPadronesChange()"></sa-check-box>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 form-group">
+		<sa-check-box label="Visible en Turnos" ng-model="vm.filter.visibleEnTurnos" color="green" id-element="visibleTurnoEditMutualGeneral"
+		sa-enter ng-change="vm.formControl.visibleEnTurnosChange()"></sa-check-box>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 form-group">
+		<sa-check-box label="Visible en Turnos Web" ng-model="vm.filter.visibleEnTurnosWeb" color="green" id-element="visibleTurnoWebEditMutualGeneral"
+		 sa-enter ng-change="vm.formControl.visibleEnTurnosWebChange()"></sa-check-box>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-7 form-group" sa-form-input-validate> 
+		<sa-new-mutual-selector 
+			model="vm.filter.mutualMadre" 
+			label-codigo="Código Mutual Madre"
+			label-nombre="Nombre Mutual Madre">
+		</sa-new-mutual-selector>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 form-group">
+		<sa-check-box label="Modulada" ng-model="vm.filter.modulada" color="green" id-element="moduladaEditMutualGeneral"
+		 sa-enter ng-change="vm.formControl.moduladaChange()"></sa-check-box>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-7 form-group" sa-form-input-validate> 
+		<sa-new-mutual-selector 
+			model="vm.filter.mutualFactura" 
+			label-codigo="Código Mutual Factura"
+			label-nombre="Nombre Mutual Factura">
+		</sa-new-mutual-selector>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<div sa-form-input-validate>
+			<label>Descripción</label>
+			<input type="text"
+				name="descripcion"
+				ng-model="vm.filter.descripcion"
+				ng-blur="vm.formControl.descripcionBlur()"
+				maxlength="250"
+				ng-required="false"
+				id="descripcionEditMutualGeneral"
+				sa-enter>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<div sa-form-input-validate>
+			<label>Observaciones</label>
+			<textarea
+			    type="text"
+			    class="form-control"
+				name="observaciones"
+				ng-model="vm.filter.observaciones"
+				ng-blur="vm.formControl.observacionesBlur()"
+				maxlength="2000"
+				ng-required="false"
+				rows="10"
+				id="observacionesEditMutualGeneral">
+		</div>
+	</div>
+</div>

@@ -1,0 +1,28 @@
+<sa-title
+	title-name="vm.title.page"
+	today="true"
+	title-icon="EYE_OPEN"
+
+	btn-reload-click="vm.formControl.reloadPage()"
+	btn-reload-disabled="vm.formControl.loading"
+	>
+</sa-title>
+<div class="cuerpo" ng-hide="vm.formControl.loading || vm.formControl.error">
+	<form name="formAutorizacion" accept-charset="utf-8" novalidate>
+		<sa-persona-basic
+			title="Datos del paciente"
+			model="vm.data.internacion.Paciente">
+		</sa-persona-basic>
+		<sa-internado-intervencion></sa-internado-intervencion>
+		<div class="row text-center">
+			(*) Campos obligatorios
+		</div>
+		<br>
+		<div class="row text-center">
+			<button class="btn" ng-click="vm.formControl.volver()">
+				<span>Volver</span>
+			</button>
+		</div>
+	</form>
+</div>
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>

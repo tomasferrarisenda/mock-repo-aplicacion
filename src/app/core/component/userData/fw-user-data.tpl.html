@@ -1,0 +1,12 @@
+<div class="userdata" ng-if="show">
+	<!--<div class="fotouser"><img src="img/user.png" alt="foto usauario" class="img-circle"></div>-->
+	<div class="nameuser">
+		<span class="name" ng-class="{ 'btn-white-toolbar': whiteClass}"> {{ userName }}</span>
+		<a ng-click="irAMisDatosV2()" style="cursor: pointer;">
+			<span class="passwordchange" ng-class="{ 'btn-white-toolbar': whiteClass}">Mis Datos</span>
+		</a>
+	</div>
+	<a ui-sref="login">
+		<span class="glyphicon glyphicon-off salir" ng-class="{ 'btn-white-toolbar': whiteClass}" aria-hidden="true" uib-tooltip="Cerrar Sesión" tooltip-placement="bottom"></span>
+	</a>
+</div>

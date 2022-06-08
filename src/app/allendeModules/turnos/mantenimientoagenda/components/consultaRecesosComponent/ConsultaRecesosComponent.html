@@ -1,0 +1,158 @@
+<sa-loading ng-if="vm.loading"></sa-loading>
+<div ng-show="!vm.loading">
+	<sa-modal-header title-name="Consulta Recesos" title-icon="">
+	</sa-modal-header>
+	<sa-modal-body>
+		<div class="row">
+
+			<!-- <div class="col-xs-12 col-sm-6 col-md-6 col-lg-5  form-group no-valid">
+				<sa-selector-servicio-medico ng-model="vm.Servicio" solo-visibles-turnos="true" ng-disabled="true">
+				</sa-selector-servicio-medico>
+			</div>
+
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-5 form-group no-valid">
+				<sa-selector-recurso ng-model="vm.Recurso" ng-disabled="!vm.data.servicioMedico" ng-disabled="true">
+				</sa-selector-recurso>
+			</div> -->
+
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 ">
+				<h4>
+					<label>
+						<strong>Servicio: </strong>
+					</label> {{ vm.Servicio.Nombre }} </h4>
+			</div>
+
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 ">
+				<h4>
+					<label>
+						<strong>Recurso: </strong>
+					</label> {{ vm.Recurso.Nombre }}  </h4>
+			</div>
+
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 form-group ">
+				<label for="datePickerDesde ">Fecha Desde</label>
+				<sa-date-time-picker ng-model="vm.fechaDesde " id="1" type="date">
+				</sa-date-time-picker>
+			</div>
+
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 form-group ">
+				<label for="datePickerHasta ">Fecha Hasta</label>
+				<sa-date-time-picker ng-model="vm.fechaHasta " id="2" type="date" min="vm.fechaDesde">
+				</sa-date-time-picker>
+			</div>
+
+			<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2 pull-right">
+				<button class="btn btn-default btn-row btn-block" ng-click="vm.buscar()" >Buscar</button>
+			</div>
+
+		</div>
+
+		<div class="row">
+
+			<table class="table table-hover table-condensed table-bordered table-cursor-pointer" id="detalle_recesos" ng-show="vm.recesos.length > 0">
+				<thead>
+					<tr class="thead-azul">
+						<tr class="cabecera-tabla">
+							<th class="text-center" ng-click="vm.sort('Recurso')">
+								Recurso
+								<span class="glyphicon sort-icon" ng-show="sortKey=='Recurso'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+							</th>
+							<th class="text-center" ng-click="vm.sort('Recurso')">
+								Servicio
+								<span class="glyphicon sort-icon" ng-show="sortKey=='Recurso'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+							</th>
+							<th class="text-center" ng-click="vm.sort('Recurso')">
+								Sucursal
+								<span class="glyphicon sort-icon" ng-show="sortKey=='Recurso'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+							</th>
+							<th class="text-center" ng-click="vm.sort('FechaDesde')">
+								Desde
+								<span class="glyphicon sort-icon" ng-show="sortKey=='FechaDesde'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+							</th>
+							<th class="text-center" ng-click="vm.sort('FechaHasta')">
+								Hasta
+								<span class="glyphicon sort-icon" ng-show="sortKey=='FechaHasta'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+							</th>
+							<th class="text-center" ng-click="vm.sort('Caracteristicas')">
+								Caracteristicas
+								<span class="glyphicon sort-icon" ng-show="sortKey=='Caracteristicas'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+							</th>
+							<th class="text-center" ng-click="vm.sort('Estado')">
+								Estado
+								<span class="glyphicon sort-icon" ng-show="sortKey=='Estado'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+							</th>
+							<th class="text-center" ng-click="vm.sort('Motivo')" ng-if="vm.permisoVerMotivoDeReceso">
+								Motivo
+								<span class="glyphicon sort-icon" ng-show="sortKey=='Motivo'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+							</th>
+							<th class="text-center" ng-click="vm.sort('Observacion')">
+								Observación
+								<span class="glyphicon sort-icon" ng-show="sortKey=='Observacion'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+							</th>
+							<th class="text-center" ng-click="vm.sort('TurnosAfectados')">
+								Turnos Afectados
+								<span class="glyphicon sort-icon" ng-show="sortKey=='TurnosAfectados'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+							</th>
+						
+						</tr>
+				</thead>
+				<tbody ng-repeat="receso in vm.recesos | orderBy:sortKey:reverse|filter:search">
+					<tr>
+						<td ng-click="vm.formControl.verItems(receso.Id)" class="row text-center">{{ receso.RecursoConProfesionalAtiende}}</td>
+						<td ng-click="vm.formControl.verItems(receso.Id)" class="row text-center">{{ receso.Servicio}}</td>
+						<td ng-click="vm.formControl.verItems(receso.Id)" class="row text-center">{{ receso.Sucursal}}</td>
+			
+						<td ng-click="vm.formControl.verItems(receso.Id)" class="row text-center">{{ receso.FechaDesde | date:"dd/MM/yy"}}</td>
+						<td ng-click="vm.formControl.verItems(receso.Id)" class="row text-center">{{ receso.FechaHasta | date:"dd/MM/yy"}}</td>
+			
+						<td ng-click="vm.formControl.verItems(receso.Id)" class="row text-center">
+							<div ng-repeat="item in receso.ResumenDeItems track by $index">
+								{{item}}
+							</div>
+						</td>
+			
+						<td ng-click="vm.formControl.verItems(receso.Id)" ng-class="receso.ColorEstado" class="row text-center">{{ receso.EstadoReceso}}</td>
+						<td ng-click="vm.formControl.verItems(receso.Id)" class="row text-center" ng-if="vm.permisoVerMotivoDeReceso">{{ receso.Motivo}}</td>
+						<td ng-click="vm.formControl.verItems(receso.Id)" class="row text-center">{{ receso.Observacion}}</td>
+						<td ng-click="vm.formControl.verItems(receso.Id)" class="row text-center">{{ receso.TurnosAfectados}}</td>
+						
+					</tr>
+					<tr class="animate-hide" ng-hide="!receso.VerItems">
+						<td colspan="7">
+							<div class="span9">
+								<div class="col-md-10 col-md-offset-1" ng-show="receso.TieneItems">
+									<table class="table table-hover table-condensed table-striped">
+										<thead class="levelTwo">
+											<tr></tr>
+											<tr class="cabecera-tabla-celeste">
+												<th>Dia Semana</th>
+												<th>Hora Desde</th>
+												<th>Hora Hasta</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="item in receso.Items">
+												<td ng-bind="item.DiaSemana"></td>
+												<td ng-bind="item.HoraDesde"></td>
+												<td ng-bind="item.HoraHasta"></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div ng-show="!receso.TieneItems">El receso incluye todos los días de la semana</div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+
+	</sa-modal-body>
+	<sa-modal-footer>
+		<div class="row text-center">
+			<input type="submit" class="btn" value="Cerrar" sa-enter ng-click="vm.cancel()" sa-punto-click="vm.cancel()">
+		</div>
+	</sa-modal-footer>
+
+</div>

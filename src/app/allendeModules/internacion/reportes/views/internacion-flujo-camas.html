@@ -1,0 +1,37 @@
+<sa-title
+	title-name="vm.title.name"
+	title-icon="{{vm.title.icon}}"
+
+	btn-reload-click="vm.formControl.reloadPage()"
+	btn-reload-disabled="vm.formControl.loading"
+></sa-title>
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>
+<div class="cuerpo">
+	<div class="row fila">
+		<h4>Búsqueda avanzada</h4>
+		<form name="formFilter" accept-charset="utf-8" novalidate>
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 form-group">
+				<label>Fecha de admisión (*)</label>
+				<sa-date-picker
+					name="fechaAdmision"
+					model="vm.filter.fechaAdmision">
+				</sa-date-picker>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group" >
+				<button class="btn-row"
+					sa-btn-search
+					ng-click="vm.formControl.reloadPage()">
+					Buscar
+				</button>
+			</div>
+		</form>
+	</div>
+	<div ng-if="!vm.data.reporte.length" class="row text-center">
+		<span >No hay registros</span>
+	</div>
+	<div ng-if="vm.data.reporte.length" class="row">
+		<div class="col-xs-12">
+			<sa-grid-reporte-flujo-camas data="vm.data.reporte"></sa-grid-reporte-flujo-camas>
+		</div>
+	</div>
+</div>

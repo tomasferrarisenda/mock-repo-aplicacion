@@ -1,0 +1,98 @@
+@import '../common/variables';
+#sidebar {
+	background-color: $color-dark;
+	position: fixed;
+	height : 100%;
+	z-index: 1031;
+	width: $toggle-menu-size-min;
+	transition: width ease $toggle-menu-time;
+
+	&.complete {
+		width: $toggle-menu-size-full;
+		transition: width ease $toggle-menu-time;
+	}
+
+	.sidebar-brand {
+		height: $header-height;
+		background-color: #006fc1;
+		color: $color-white;
+		font-size: 1.1em;
+
+		a {
+			color: $color-white;
+			display: -webkit-box;
+			
+		}
+
+		.sidebar-brand-name {
+			float: right;
+			padding: 12px 10px;
+		}
+		
+		.sidebar-brand-img {
+			width: 50px;
+			margin: 4px 0px 4px 1px;
+			padding: 0;
+		}
+	}
+
+	.nav {
+		> li {
+			cursor: pointer;
+			
+			> a {
+				font-family: 'open_sansregular';
+				font-size: 10.5px;
+				font-weight: normal;
+				padding: 0.5em 1em;
+				color: $color-white;
+				
+				&:hover, &:focus, &:active {
+					background-color: $color-black !important;
+					// width: 200px;
+				}
+
+				&.active {
+					background-color: $color-black !important;
+					
+				 	span.iconos {
+					 	color: $color-white !important;
+					}
+				}
+			}
+		}
+	}
+}
+
+.navbar {
+	border-radius: 0px;
+	border: 0px;
+}
+
+.submenu {
+
+	background-color: $color-black;
+
+	li {
+		padding: 8px 0px;
+		list-style:none;
+		// color: $color-white;
+		// cursor: pointer;
+		
+		a {
+			// cursor: pointer;
+			color: $color-white;
+			font-family: "open_sansregular";
+			font-size: 0.9em;
+			&:hover {
+				color: $color-azul-sa;
+				font-size: 0.9em;	
+			}
+
+			&.active {
+				color: $color-azul-sa;
+				font-size: 0.9em;
+			}
+		}
+	}
+}

@@ -1,0 +1,38 @@
+<sa-modal-header title-name="Seleccione un Internado" title-icon="'CHECK'" loading="vm.loading">
+
+</sa-modal-header>
+<sa-modal-body loading="vm.loading">
+
+
+	<div class="row" ng-repeat="internado in vm.internados">
+
+		<div class="col-xs-10" style="padding-left: 0px;	padding-right: 0px;">
+			<div class="card" ng-click="vm.selectOption(internado)" ng-class="{'{{internado.Color}}': internado.TieneDosificacionesPendientes}"
+			 style="margin-bottom: 16px;">
+				<div class="container" style="padding-top: 10px;padding-bottom: 10px; width: auto !important; padding-left: 15px;">
+					<strong> {{internado.TipoDocumento}}: {{internado.NumeroDocumento}} || {{internado.Paciente}} || Hab:
+						{{internado.Habitacion}}
+						Cama: {{internado.Cama}}</strong>
+						<div ng-if="internado.TieneColocacionesPendientes">
+							Tiene infusion pendiente
+						</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-2 pull-right">
+				<div class="card" ng-click="vm.imprimirEtiqueta(internado)"
+				style="margin-bottom: 16px;">
+				   <div class="container" style="padding-top: 10px;padding-bottom: 10px; width: auto !important; padding-left: 15px;" uib-tooltip="Imprimir Etiqueta de internado"  
+				   uib-tooltip-placement="top">
+						<sa-icon name="PRINT" class="fa-1-3x"></sa-icon>
+				   </div>
+			   </div>
+		</div>
+
+
+	</div>
+
+</sa-modal-body>
+<sa-modal-footer loading="vm.loading">
+	<input type="submit" class="btn" ng-click="vm.cancel()" value="Cancelar">
+</sa-modal-footer>

@@ -1,0 +1,19 @@
+<sa-modal-header loading="vm.loading" title-name="Buscar Paciente Para HCE" title-icon="SEARCH">
+</sa-modal-header>
+<sa-modal-body loading="vm.loading">
+
+	
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<sa-buscador-paciente ng-model="vm.data.paciente" 
+				telefono-if="true" celular-if="true"
+				email-if="true" buscador-nombre-apellido-if="true" nombre-apellido-if="false" >
+			   </sa-buscador-paciente>
+		</div>
+	</div>
+
+
+</sa-modal-body>
+<sa-modal-footer loading="vm.loading">
+	<button type="button" class="btn btn-default" ng-disabled="vm.loading" ng-click="vm.cancel()">Cerrar</button>
+</sa-modal-footer>

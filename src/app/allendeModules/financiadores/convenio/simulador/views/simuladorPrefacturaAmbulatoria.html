@@ -1,0 +1,233 @@
+<div class="cuerpo">
+	<sa-title title-name="vm.title.name" title-icon="{{vm.title.icon}}"></sa-title>
+	<form name="formSimulador" accept-charset="utf-8" novalidate>
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-10 col-lg-8 form-group">
+                <sa-selector-paciente ng-model="vm.filter.idPaciente" class="" ></sa-selector-paciente>
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-6 col-lg-2 form-group" sa-form-input ng-controller="DatePickerController">
+				<label class="control-label">Fecha</label>
+				<sa-date-picker model="vm.filter.fecha" disabled="false"></sa-date-picker>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2 form-group">
+                <label class="control-label">Sucursal</label>
+                <select class="form-control" id="cmb_Sucursal" ng-model="vm.filter.sucursal" ng-options="sucursal.Nombre for sucursal in vm.data.sucursales track by sucursal.Id" 
+                    sa-enter>
+                </select>
+            </div>
+        </div>
+		<div class="row">
+			<!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-8 form-group" sa-form-input> -->
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 form-group">
+				<sa-new-mutual-selector model="vm.filter.mutual" class=""></sa-new-mutual-selector>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 form-group">
+                <button type="button" class="btn btn-default btn-row" tooltip-placement="top" uib-tooltip="Información Financiador"
+                    ng-click="vm.formControl.infoFinanciador()" sa-punto-click="vm.formControl.infoFinanciador()" id="pref-amb-edit-infofinanciador-btn"
+                    sa-enter>
+                    <sa-icon name="INFO"></sa-icon>
+                </button>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2 form-group">
+				<sa-plan-mutual ng-model="vm.filter.plan" id-mutual="vm.filter.mutual.Id"></sa-plan-mutual>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2  form-group">
+                <label class="label-control">Tipo Afiliación</label>
+                <select class="form-control" id="cmb_TipoAfiliado" ng-model="vm.filter.tipoAfiliado" ng-options="tipoAfiliado.Nombre for tipoAfiliado in vm.data.tiposAfiliado track by tipoAfiliado.Id" 
+                    sa-enter>
+                </select>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
+                <label class="label-control">Servicio</label>
+                <select class="form-control" id="cmb_Servicio" ng-model="vm.filter.servicio" ng-options="servicio.Nombre for servicio in vm.data.servicios track by servicio.Id"
+                    sa-enter>
+                </select>
+            </div>
+        </div>        
+		<div class="row">						
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-5 form-group">
+                <sa-prestacion-selector model="vm.filter.prestacion" ng-disabled="!vm.filter.servicio"
+                id-servicio="vm.filter.servicio ? vm.filter.servicio.Id : 0"
+                id-sucursal="vm.filter.sucursal ? vm.filter.sucursal.Id : 0">
+				</sa-prestacion-selector>
+            </div>            
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-7 form-group">
+                <sa-new-selector-recurso recurso="vm.filter.recurso" ng-model="vm.filter.recurso" class="" >
+                </sa-new-selector-recurso>
+            </div>            
+		</div>
+	</form>
+	<div class="row col-xs-12 col-sm-6 col-md-4 col-lg-12">
+		<div class="pull-right">
+			<button class="btn btn-default form-group" ng-click="vm.formControl.evaluar()" sa-punto-click="vm.formControl.evaluar()"
+			 type="submit" sa-enter>
+				Evaluar
+            </button>
+            <button sa-btn-clean ng-click="vm.formControl.limpiarFiltros()" class="btn btn-default form-group" sa-punto-click="vm.formControl.limpiarFiltros()"
+	   		sa-enter>
+		    	Limpiar
+    		</button>
+
+			<!-- <button class="btn btn-cancelar form-group" ng-click="vm.formControl.volver()" sa-punto-click="vm.formControl.volver()" sa-enter>
+				Volver
+			</button> -->
+		</div>
+    </div>
+    <div class="row">
+        <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-12">
+            <label>Resultado Evaluación:</label>
+        </div> -->
+        <sa-title title-name="vm.title.resultado" ></sa-title>
+    </div>
+    <div class="row" ng-if="!vm.formControl.loading && !vm.formControl.prefacturaValida">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-12">
+            <label>----------SIN RESULTADOS----------</label>
+        </div>
+    </div>
+	<div class="row" ng-if="!vm.formControl.loading && vm.formControl.prefacturaValida">
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12">
+			<label>Prefactura:</label>
+        </div>        
+    </div>
+    <div class="row" ng-if="!vm.formControl.loading && vm.formControl.prefacturaValida">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-2 form-group">
+            <label class="">Matrícula</label>
+            <input type="text" class="form-control"
+                ng-model="vm.data.prefactura.NumeroMatriculaProfesionalEfector"
+                ng-disabled="true"
+                sa-enter>
+        </div>
+        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4 form-group">
+            <label class="">Profesional Efector</label>
+            <input type="text" class="form-control"
+                ng-model="vm.data.prefactura.NombreProfesionalEfector"
+                ng-disabled="true"
+                sa-enter>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-1 form-group">
+            <sa-check-box label="Req Autorizacion" ng-model="vm.data.prefactura.RequiereAutorizacion" color="green" sa-enter ng-disabled="true"></sa-check-box>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-1 form-group">
+                <sa-check-box label="Req Presupuesto" ng-model="vm.data.prefactura.RequierePresupuesto" color="green" sa-enter ng-disabled="true"></sa-check-box>
+            </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 form-group pull-right">
+            <label>Requisitos Administrivos</label>
+            <table class="table table-bordered table-condensed">
+                <tbody>
+                    <tr ng-repeat="req in vm.data.prefactura.Requisitos">
+                        <td>                            
+                            <span ng-bind="req.Texto"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- COMIENZO DE ZONA DE TABLA -->
+	<div class="row table-responsive" ng-if="!vm.formControl.loading && vm.formControl.prefacturaValida">
+        <div class="col-xs-12">
+            <table class="table table-hover table-condensed table-bordered" id="item_prefactura">
+                <thead>
+                    <tr class="cabecera-tabla thead-azul">
+                        <th class="text-center">Prefacturable
+                        </th>
+                        <th class="text-center">Coseguro
+                        </th>
+                        <th class="text-center">Cantidad
+                        </th>
+                        <th class="text-center">Total
+                        </th>
+                        <th class="text-center">Total Convenio
+                        </th>
+                        <th class="text-center" >Incluido
+                        </th>
+                        <th class="text-center" >Req Autorización
+                        </th>                  
+                        <th class="text-center" >Req Presupuesto
+                            </th>                      
+                    </tr>
+                </thead>
+                <tbody ng-repeat="item in vm.data.prefactura.Items | orderBy:sortKey:reverse|filter:search">
+                    <tr>
+                        <td ng-click="vm.formControl.verItemsDetalle(item.CodigoPrefacturable)" class="row text-center">{{ item.Prefacturable}}</td>
+                        <td ng-click="vm.formControl.verItemsDetalle(item.CodigoPrefacturable)" class="row text-center">{{ item.Coseguro}}</td>
+                        <td ng-click="vm.formControl.verItemsDetalle(item.CodigoPrefacturable)" class="row text-center">{{ item.Cantidad}}</td>
+                        <td ng-click="vm.formControl.verItemsDetalle(item.CodigoPrefacturable)" class="row text-center">{{ item.ImporteTotal}}</td>
+                        <td ng-click="vm.formControl.verItemsDetalle(item.CodigoPrefacturable)" class="row text-center">{{ item.ImporteTotalConvenio}}</td>
+                        <td ng-click="vm.formControl.verItemsDetalle(item.CodigoPrefacturable)" class="row text-center">
+                                <sa-check-box label="" ng-model="item.EstaIncluido" color="green" sa-enter ng-disabled="true"></sa-check-box>
+                        </td>
+                        <td ng-click="vm.formControl.verItemsDetalle(item.CodigoPrefacturable)" class="row text-center">
+                            <sa-check-box label="" ng-model="item.RequiereAutorizacion" color="green" sa-enter ng-disabled="true"></sa-check-box>
+                        </td>                        
+                        <td ng-click="vm.formControl.verItemsDetalle(item.CodigoPrefacturable)" class="row text-center">
+                            <sa-check-box label="" ng-model="item.RequierePresupuesto" color="green" sa-enter ng-disabled="true"></sa-check-box>
+                        </td>                        
+                    </tr>
+                    <tr class="animate-hide" ng-hide="!item.VerDetalle" >
+                        <td colspan="7">
+                            <div class="col-md-10 col-md-offset-1">
+                                <table class="table table-hover table-condensed table-bordered table-striped">
+                                    <thead class="levelTwo ">
+                                        <tr></tr>
+                                        <tr class="cabecera-tabla">
+                                            <th class="text-center">Importe</th>
+                                            <th class="text-center">Tipo Componente</th>
+                                            <th class="text-center">Cuenta</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="participante in item.Partipantes">
+                                            <td ng-bind="participante.Importe" class="text-center"></td>
+                                            <td ng-bind="participante.TipoComponente"  class="text-center"></td>
+                                            <td ng-bind="participante.Cuenta" class="text-center"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-12 text-left" >
+                                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-2 form-group">
+                                        <label class="">Cláusula Valorización</label>
+                                        <input type="text" class="form-control"
+                                            ng-model="item.IdClausulaValorizacion"
+                                            ng-disabled="true"
+                                            sa-enter>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-2 form-group">
+                                        <label class="">Cláusula Inclusión</label>
+                                        <input type="text" class="form-control"
+                                            ng-model="item.IdClausulaInclusion"
+                                            ng-disabled="true"
+                                            sa-enter>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-2 form-group">
+                                        <label class="">Cláusula Autorización</label>
+                                        <input type="text" class="form-control"
+                                            ng-model="item.IdClausulaAutorizacion"
+                                            ng-disabled="true"
+                                            sa-enter>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-2 form-group">
+                                        <label class="">Cláusula Req Adm</label>
+                                        <input type="text" class="form-control"
+                                            ng-model="item.IdClausulaRequisitosAdministrativos"
+                                            ng-disabled="true"
+                                            sa-enter>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-2 form-group">
+                                        <label class="">Cláusula Coseguro</label>
+                                        <input type="text" class="form-control"
+                                            ng-model="item.IdClausulaCoseguro"
+                                            ng-disabled="true"
+                                            sa-enter>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- FIN ZONA TABLA, que zona?-->
+	<sa-loading ng-if="vm.formControl.loading"></sa-loading>
+</div>

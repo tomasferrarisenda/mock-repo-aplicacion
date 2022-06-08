@@ -1,0 +1,121 @@
+<sa-title title-name="vm.title.page" title-icon="LIST" btn-new-disabled="true" btn-reload-disabled="true" ></sa-title>
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>
+<div class="cuerpo" ng-hide="vm.formControl.loading || vm.formControl.error">
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 form-group">
+			<label class="label-control">Desde</label>
+			<input type="date" class="form-control" id="fechaDesde" name="fechaDesde" ng-model="vm.filter.fecActualD" sa-enter>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 form-group">
+			<label class="label-control ">Hasta</label>
+			<input type="date" class="form-control" id="fechaHasta" name="fechaHasta" ng-model="vm.filter.fecActualH" sa-enter>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 form-group">
+			<label class="label-control">Tipo de Bandeja</label>
+			<select class="form-control" id="cmb_tipoBandeja" ng-model="vm.filter.tipoBandeja" ng-options="tipo.Nombre for tipo in vm.data.tiposBandeja track by tipo.Id" sa-enter></select>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 form-group">
+			<label class="label-control">Tipo de Origen</label>
+			<select class="form-control" id="cmb_tipoOrigen" ng-model="vm.filter.tipoOrigen" ng-options="tipo.Nombre for tipo in vm.data.tiposOrigen track by tipo.Id" ng-change="vm.formControl.cmbTipoOrigenChange()" sa-enter></select>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 form-group">
+			<label class="label-control">SubTipo Origen</label>
+			<select class="form-control" id="cmb_subtipoOrigen" ng-model="vm.filter.subtipoOrigen" ng-options="tipo.Nombre for tipo in vm.data.subtiposOrigen track by tipo.Id" sa-enter>
+				<option value="">TODOS</option>
+			</select>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 form-group">
+			<label class="label-control">Estado Bandeja</label>
+			<select class="form-control" id="cmb_estadoBandeja" ng-model="vm.filter.estadoBandeja" ng-options="estado.Nombre for estado in vm.data.estadosBandeja track by estado.Id" sa-enter>
+				<option value="">TODOS</option>
+			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-2 col-lg-1 form-group">
+			<label class="label-control">Id Origen</label>
+			<input type="number" name="input" class="form-control" ng-model="vm.filter.idOrigen" sa-enter>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 form-group">
+			<label class="label-control">Integrable</label>
+			<input type="text" name="input" class="form-control" ng-model="vm.filter.origen" sa-enter>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 form-group pull-right">
+			<div class="pull-right">
+				<button sa-btn-clean class="btn-row" ng-click="vm.filter.clean()" sa-punto-click="vm.filter.clean()" sa-enter >Limpiar</button>
+				<button sa-btn-search class="btn-row" ng-click="vm.formControl.buscar() " sa-punto-click="vm.formControl.buscar()" sa-enter >Buscar</button>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group">
+			<button class="btn btn-default pull-right" uib-tooltip="Reprocesar Masivo" tooltip-placement="top" value = "Reprocesar" name = "Reprocesar" ng-click="vm.formControl.reenviarItems()" sa-punto-click="vm.formControl.reenviarItems()" sa-enter>
+				<sa-icon name="REPEAT"></sa-icon>
+			</button>
+		</div>
+	</div>
+	<!-- COMIENZO DE ZONA DE TABLA -->
+	<div class="row table-responsive">
+		<div class="col-xs-12">
+			<table class="table table-hover table-condensed table-bordered" id="detalle_itemsbandeja">
+				<thead>
+					<tr class="cabecera-tabla thead-azul">
+						<th class="text-center">
+							<input type="checkbox" ng-model="vm.filter.checkAll" ng-change="vm.formControl.checkItems()"/>
+						</th>
+						<th class="text-center" ng-click="vm.sort('Id')">Código
+							<span class="glyphicon sort-icon" ng-show="sortKey=='Id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+						</th>
+						<th class="text-center" ng-click="vm.sort('IdOrigen')">Id Origen
+							<span class="glyphicon sort-icon" ng-show="sortKey=='IdOrigen'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+						</th>
+						<th class="text-center" ng-click="vm.sort('Integrable')">Integrable
+							<span class="glyphicon sort-icon" ng-show="sortKey=='Integrable'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+						</th>
+						<th class="text-center" ng-click="vm.sort('Fecha')">Fecha
+							<span class="glyphicon sort-icon" ng-show="sortKey=='Fecha'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+						</th>
+						<th class="text-center" ng-click="vm.sort('TipoOrigenBandeja')">Tipo Origen
+							<span class="glyphicon sort-icon" ng-show="sortKey=='TipoOrigenBandeja'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+						</th>
+						<th class="text-center" ng-click="vm.sort('EstadoBandeja')">Estado
+							<span class="glyphicon sort-icon" ng-show="sortKey=='EstadoBandeja'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+						</th>
+						<th class="text-center">Acciones</th>
+					</tr>
+				</thead>
+				<tbody ng-repeat="item in vm.filter.itemsBandeja | orderBy:sortKey:reverse|filter:search">
+					<tr>
+						<td class="row text-center">
+							<input type="checkbox" ng-model="item.Seleccionado" ng-disabled="!item.PuedeReenviar" />
+						</td>
+						<td class="row text-center">{{ item.Id }}</td>
+						<td class="row text-center">{{ item.IdOrigen }}</td>
+						<td class="row text-center">{{ item.Integrable }}</td>
+						<td class="row text-center">{{ item.Fecha }}</td>
+						<td class="row text-center">{{ item.TipoOrigenBandeja }}</td>
+						<td ng-class="item.EstadoBandejaColor" class="row text-center">{{ item.EstadoBandeja }}</td>
+						<td class="row text-center">
+							<button type="button" id="item_button_reenviar" class="btn btn-white btn-xs" ng-show= item.PuedeReenviar ng-click="vm.formControl.reenviar(item.Id)">
+								<sa-icon name="REPEAT"></sa-icon>
+							</button>
+							<button type="button" id="item_button_detalle" class="btn btn-white btn-xs" ng-click="vm.formControl.verDetalle(item.Id)">
+								<sa-icon name="LIST3"></sa-icon>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="text-center">
+				<div uib-pagination boundary-links="true" max-size="9" items-per-page="vm.paginacion.pageSize" total-items="vm.paginacion.totalItems" ng-model="vm.paginacion.currentPage" ng-change="vm.paginacion.pageChanged(vm.paginacion.currentPage)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></div>
+			</div>
+		</div>
+	</div>
+	<div class="row text-center">
+		<button class="btn btn-cancel" ng-click="vm.formControl.volver()" sa-punto-click="vm.formControl.volver()" sa-enter>Volver</button>
+	</div>
+</div>

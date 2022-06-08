@@ -1,0 +1,198 @@
+<form name="formPlantillaNew" accept-charset="utf-8" novalidate ng-if="!vm.formControl.loading">
+
+	<div class="modal-header" ng-class="{ 'color-warning' : vm.data.esSobreTurnoBack }">
+
+		<h4 class="modal-title" ng-if="!vm.data.itemPlantillaToEdit && !vm.data.esSobreTurnoBack">
+			<sa-icon name="NEW"></sa-icon>
+			Nuevo Item Plantilla - {{vm.data.diaSemana | uppercase}}
+		</h4>
+
+		<h4 class="modal-title" ng-if="vm.data.itemPlantillaToEdit && !vm.data.esSobreTurnoBack">
+			<sa-icon name="EDIT"></sa-icon>
+			Editar Item Plantilla - {{vm.data.diaSemana | uppercase}}
+		</h4>
+
+		<h4 class="modal-title" ng-if="!vm.data.itemPlantillaToEdit && vm.data.esSobreTurnoBack">
+			<sa-icon name="NEW"></sa-icon>
+			Nuevo Sobreturno - {{vm.data.DiaSemana.Nombre | uppercase}}
+		</h4>
+		<h4 class="modal-title" ng-if="vm.data.itemPlantillaToEdit && vm.data.esSobreTurnoBack">
+			<sa-icon name="NEW"></sa-icon>
+			Editar Sobreturno - {{vm.data.DiaSemana.Nombre | uppercase}}
+		</h4>
+
+		<div class="pull-left" ng-if="!vm.data.itemPlantillaToEdit">
+			<sa-check-box label="{{vm.data.esSobreTurnoBack ? 'SobreTurno' : 'Turno Común'}}" ng-model="vm.data.esSobreTurnoBack" color="green">
+			</sa-check-box>
+		</div>
+
+	</div>
+
+
+	<!-- <div ng-show="vm.data.esSobreTurnoBack">
+
+		<div class="modal-header color-warning" ng-if="!vm.data.itemPlantillaToEdit">
+			<h4 class="modal-title">
+				<sa-icon name="NEW"></sa-icon>
+				Nuevo Sobreturno - {{vm.data.DiaSemana.Nombre | uppercase}}
+			</h4>
+		</div>
+
+	</div> -->
+
+
+	<div class="modal-body">
+		<div class="row ">
+
+			<!-- primera fila INICIO -->
+
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" sa-form-input-validate>
+				<label>Día de Semana</label>
+				<select name="diaSemana" ng-model="vm.data.DiaSemana" ng-options="diaSemanaObj.Nombre for diaSemanaObj in vm.data.diasDeSemana track by diaSemanaObj.Id"
+				    required>
+					<option value="">-SELECCIONAR-</option>
+				</select>
+			</div>
+
+
+			<div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 form-group">
+				<label>Desde</label>
+				<sa-time-picker name="horaDesde" model="vm.data.horaDesde" required="true">
+				</sa-time-picker>
+			</div>
+
+			<div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 form-group">
+				<label>Hasta</label>
+				<sa-time-picker name="horaHasta" model="vm.data.horaHasta" required="true">
+				</sa-time-picker>
+			</div>
+
+
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" sa-form-input-validate>
+				<label>Duración Turno</label>
+				<select name="duracionTurnoPlantilla" ng-model="vm.data.minutosTurno" ng-options="tiempo.minutosText for tiempo in vm.minutosTurno track by tiempo.minutos"
+				    required>
+					<option value="">-SELECCIONAR-</option>
+				</select>
+			</div>
+
+			<!-- primera fila END -->
+
+			<!-- segunda fila INICIO -->
+
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4  " sa-form-input-validate>
+				<label>Sucursal</label>
+				<select name="sucursalPlantilla" class="form-control" ng-model="vm.data.sucursal" ng-init="vm.formControl.getPrestacionXSucursal(vm.data.sucursal)"
+					ng-change="vm.formControl.getPrestacionXSucursal(vm.data.sucursal); vm.formControl.getSalasXSucursal(vm.data.sucursal); 
+					vm.formControl.getGruposPrestacionesXSucursal(vm.data.sucursal); vm.formControl.getProfesionalesXSucursal(vm.data.sucursal)"
+				    ng-options="sucursal as sucursal.Nombre for sucursal in vm.data.sucursales track by sucursal.Id" required>
+					<option value="">-SELECCIONAR-</option>
+				</select>
+			</div>
+
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 " sa-form-input-validate>
+				<label>Tipo de Turno</label>
+				<select name="tipoTurnoPlantilla" class="form-control" ng-model="vm.data.tipoTurno" ng-options="tipoTurno.Nombre for tipoTurno in vm.data.tiposDeTurno track by tipoTurno.Id"
+				    required>
+					<option value="">-SELECCIONAR-</option>
+				</select>
+			</div>
+
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 " sa-form-input-validate>
+				<label>Tipo de Prestaciones Asignables</label>
+				<select name="tipoPrestacionPlantilla" class="form-control" ng-model="vm.data.prestacionesAsignables" ng-options="tipoPrestacionesAsignables.Nombre for tipoPrestacionesAsignables
+								in vm.data.tiposDePrestacionesAsignables track by tipoPrestacionesAsignables.Id" required ng-disabled="!vm.data.sucursal">
+					<option value="">-SELECCIONAR-</option>
+				</select>
+			</div>
+
+
+
+			<!-- segunda fila END -->
+
+			<!-- tercera fila INICIO -->
+
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" sa-form-input-validate>
+				<label>Sala de Espera</label>
+				<select name="salaPlantilla" ng-model="vm.data.salaSucursal" ng-options="salaEspera.Nombre for salaEspera in vm.data.salasXSucursal track by salaEspera.Id"
+				    ng-change="vm.formControl.getConsultoriosXSala(vm.data.salaSucursal)" required ng-disabled="!vm.data.sucursal">
+					<option value="">-SELECCIONAR-</option>
+				</select>
+			</div>
+
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" sa-form-input-validate>
+				<label>Consultorio</label>
+				<select name="consultorioPlantilla" ng-model="vm.data.consultorio" ng-options="consultorio.Nombre for consultorio in vm.data.consultoriosXSala track by consultorio.Id"
+				    required ng-disabled="!vm.data.salaSucursal">
+					<option value="">-SELECCIONAR-</option>
+				</select>
+			</div>
+
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" sa-form-input-validate ng-if="!vm.data.esSobreTurnoBack">
+				<label>Visible Portal Web</label>
+				<div class="checkbox">
+					<label>
+						<input name="visiblePortalPlantilla" type="checkbox" ng-model="vm.data.visiblePortal">SI</label>
+				</div>
+			</div>
+
+
+			<!-- tercera fila END -->
+
+			<!-- cuarta fila INICIO -->
+
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 " sa-form-input-validate>
+				<label for="cmb_sexo">Sexo (*)</label>
+				<select id="cmb_sexo" name="sexoPlantilla" class="form-control" ng-model="vm.data.nuevaPlantillaTurno.Sexo" ng-options="sexo.Nombre for sexo in vm.data.tiposSexo track by sexo.Id"
+				    required>
+					<option value="">-SELECCIONAR-</option>
+				</select>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 " sa-form-input-validate>
+				<label>Edad Mínima</label>
+				<input type="number" placeholder="años..." class="form-control " name="edadMinimaPlantilla" min="0" max="200" ng-model="vm.data.EdadMinima"
+				    autocomplete="off" required>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 " sa-form-input-validate>
+				<label>Edad Máxima</label>
+				<input type="number" placeholder="años.." class="form-control " name="edadMaximaPlantilla" ng-min="0" max="200" ng-model="vm.data.EdadMaxima"
+				    autocomplete="off" required>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 " sa-form-input-validate>
+				<label>Cupo</label>
+				<input type="number" placeholder="" class="form-control " name="cupoPlantilla" min="1" max="20" ng-model="vm.data.nuevaPlantillaTurno.Cupo"
+				    autocomplete="off" required>
+			</div>
+
+			<!-- cuarta fila END -->
+			
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 " sa-form-input-validate ng-hide="vm.data.ocultarProfesionalSelect">
+				<label for="cmb_profesionales">Profesionales</label>
+				<select id="cmb_profesionales" name="profesionalesPlantilla" class="form-control" ng-model="vm.data.ProfesionalAtiende" ng-options="profesional.Nombre for profesional in vm.data.profesionalesDeUnServicioEnSucursal track by profesional.Id"
+					>
+					<option value="">-SELECCIONAR-</option>
+				</select>
+			</div>
+	
+		</div>
+
+		<div class="row">
+			<sa-prestacion-list ng-show="vm.data.prestacionesAsignables.Id == 4" ng-model="vm.data.prestacionesXsucursal" view-estado-if="true"
+			    items-per-page="4" view-acciones-if="false" view-seleccionar-if="true">
+			</sa-prestacion-list>
+
+			<sa-grupo-prestacion-list ng-show="vm.data.prestacionesAsignables.Id == 5" ng-model="vm.data.grupoPrestacionesXsucursal" view-estado-if="false"
+			    items-per-page="4" view-acciones-if="false" view-seleccionar-if="true">
+			</sa-grupo-prestacion-list>
+		</div>
+	</div>
+	<div class="well well-sm color-warning" ng-if="!vm.data.itemPlantillaToEdit && vm.data.esSobreTurnoBack">Atencion, esta agregando un sobreturno.</div>
+	<div class="modal-footer" ng-hide="vm.formControl.loading">
+		<input type="submit" class="btn btn-default" ng-if="vm.data.itemPlantillaToEdit" ng-click="vm.formControl.guardarCopia(formPlantillaNew.$valid)"
+		    value="Guardar Copia">
+		<input type="submit" class="btn btn-danger" ng-if="vm.data.itemPlantillaToEdit" ng-click="vm.formControl.borrarItem()" value="Borrar Item">
+		<input type="submit" class="btn " ng-click="vm.formControl.cancel()" value="Cancelar">
+		<input type="submit" id="btnAgregarEditar" value="Guardar" ng-click="vm.formControl.ok(formPlantillaNew.$valid)" class="btn btn-default">
+	</div>
+</form>
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>

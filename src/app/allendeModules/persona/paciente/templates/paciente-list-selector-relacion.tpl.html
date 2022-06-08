@@ -1,0 +1,87 @@
+<form name="formFilter" accept-charset="utf-8" novalidate>
+	<sa-modal-header title-name="{{vm.title.page}}" title-icon="NEW2">
+	</sa-modal-header>
+	<sa-modal-body>
+		<sa-loading ng-if="vm.formControl.loading"></sa-loading>
+		<div ng-hide="vm.formControl.loading">
+			<div class="row fila">
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div sa-form-input-validate>
+						<label for="txt_nombre_paciente">Nombre de paciente</label>
+						<input type="text" id="txt_nombre_paciente"
+							sa-text
+							name="nombrePaciente"
+							autocomplete="off"
+							class="form-control"
+							placeholder="Requiere por lo menos 2 letras." 
+							minlength="2"
+							ng-model="vm.filter.nombrePaciente">
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div sa-form-input-validate>
+						<label for="txt_apellido_paciente">Apellido de paciente</label>
+						<input type="text" id="txt_apellido_paciente"
+							sa-text
+							name="apellidoPaciente"
+							autocomplete="off"
+							class="form-control"
+							placeholder="Requiere por lo menos 2 letras." 
+							minlength="2"
+							ng-model="vm.filter.apellidoPaciente">
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+					<div sa-form-input-validate>
+						<sa-tipo-documento-combo ng-model="vm.filter.tipoDocumento"></sa-tipo-documento-combo>
+					</div>	
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+					<sa-numero-documento ng-model="vm.filter.numeroDocumento"></sa-numero-documento>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-1 form-group">
+					<button sa-btn-search id="btn_buscar"
+						ng-click="vm.formControl.buscarPaciente()" class="btn-row"
+						uib-tooltip="Buscar filtros"
+						sa-punto-click="vm.formControl.buscarPaciente()"
+						ng-disabled="!vm.formControl.validaFiltro()">
+						Buscar
+					</button>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-1 form-group">
+					<button sa-btn-clean id="btn_limpiar"
+						ng-click="vm.filter.clean()" class="btn-row"
+						uib-tooltip="Limpiar filtros"
+						sa-punto-click="vm.filter.clean()">
+						Limpiar
+					</button>
+				</div>
+				<div class="col-xs-12 form-group">
+					<p class="help-block"><sa-icon name="INFO"></sa-icon> La búsqueda se puede realizar por tipo y número de documento o por nombre y apellido.</p>
+				</div>
+			</div>
+			<div class="row" ng-show="vm.data.pacientes.Rows.length > 0">
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div sa-form-input>
+						<label for="cmb_tipo_responsable">Tipo de relación (*)</label>
+						<select id="cmb_tipo_responsable"
+							name="tipoResponsable" class="form-control"
+							ng-required="true"
+							ng-model="vm.filter.tiposResponsable"
+							ng-options="tipo.Nombre for tipo in vm.data.tiposResponsable track by tipo.Id">
+							<option value="">-SELECCIONAR-</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12">
+					<sa-table-ext data="vm.data.pacientes" page-change="vm.buscarPagina(pagination)" 
+						click-action="vm.formControl.ok(row)">
+					</sa-table-ext>
+				</div>
+			</div>
+		</div>
+	</sa-modal-body>
+	<sa-modal-footer>
+		<button type="button" class="btn" ng-click="vm.formControl.cancel()" id="btn_cancelar">Cancelar</button>	
+	</sa-modal-footer>
+</form>

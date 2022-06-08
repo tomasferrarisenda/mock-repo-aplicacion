@@ -1,0 +1,77 @@
+<div class="cuerpo">
+	<sa-title title-name="vm.title.name" title-icon="{{vm.title.icon}}"></sa-title>
+	<form name="formComparadorPrecios" accept-charset="utf-8" novalidate>
+		<div class="row col-xs-12 col-sm-6 col-md-4 col-lg-12">
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-8 form-group">
+				<sa-codigo-nomenclador-selector
+					label-codigo="CN"
+					label-nombre="Seleccionar CN"
+					model="vm.filter.codigoNomenclador">
+				</sa-codigo-nomenclador-selector>
+			</div>
+			<div class="col-xs-12 col-sm-8 col-md-6 col-lg-2 form-group" sa-form-input ng-controller="DatePickerController">
+				<label class="control-label">Fecha</label>
+				<sa-date-picker model="vm.filter.fecha" disabled="false"></sa-date-picker>
+			</div>
+		</div>
+	</form>
+	<div class="row col-xs-12 col-sm-6 col-md-4 col-lg-12">
+		<div class="pull-right form-group">
+			<button class="btn btn-default"
+				ng-click="vm.formControl.evaluar()" sa-punto-click="vm.formControl.evaluar()"
+				type="submit" sa-enter>
+				Evaluar
+			</button>
+			<!-- <button class="btn btn-cancelar"
+				ng-click="vm.formControl.volver()" sa-punto-click="vm.formControl.volver()" sa-enter>
+				Volver
+			</button> -->
+		</div>
+	</div>
+	<div class="row" ng-if="vm.data.precios.Rows && vm.data.precios.Columns">
+		<div class="col-xs-12">
+			<fw-table-container>
+				<fw-table-config
+					exportable="true"
+					sortable="false"
+					filtrable="true"
+					paginable="true"
+					column-config="true">
+				</fw-table-config>
+
+				<fw-table-rowset data="vm.data.precios.Rows">
+				</fw-table-rowset>
+				<fw-table-columnset data="vm.data.precios.Columns">	
+				</fw-table-columnset>
+
+				<fw-table-buttonset>
+					<fw-table-button
+						label="'Ver detalle'"
+						icon="'VIEW'"
+						action="vm.formControl.verDetalle(row)">
+					</fw-table-button>
+				</fw-table-buttonset>
+				<fw-table-filter></fw-table-filter>
+				
+				<fw-table-export>
+					<fw-table-export-csv
+						label="'Exportar página a Excel'"
+						data="page"
+						status="false">
+					</fw-table-export-csv>
+					<fw-table-export-csv
+						label="'Exportar todo a Excel'"
+						data="all"
+						status="true">
+					</fw-table-export-csv>
+				</fw-table-export>
+	
+				<fw-table-pagination 
+					page-size="20" >
+				</fw-table-pagination>
+				<fw-table></fw-table>
+			</fw-table-container>
+		</div>
+	</div>
+	<sa-loading ng-if="vm.formControl.loading"></sa-loading>
+</div>

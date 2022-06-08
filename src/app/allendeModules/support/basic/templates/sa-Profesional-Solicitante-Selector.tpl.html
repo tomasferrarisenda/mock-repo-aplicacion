@@ -1,0 +1,35 @@
+<div class="row">
+	<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4 form-group">
+		<label class="label-control" ng-show="{{mostrarlabelcodigo}}">{{title}}</label>
+		<div class="input-group">
+			<input type="number" class="form-control"
+				sa-integer
+				ng-model="filter.matricula"
+				ng-change="cambioMatriculaProfesional()"
+				ng-blur="busquedaRapidaProfesionalSolicitante()"
+				min= "0"
+				id="sa-profesi-solicitante-matriculaprof-input"
+				max="999999999"
+				sa-enter>
+			<span class="input-group-btn">
+				<button class="btn btn-default btn-loading" 
+					uib-tooltip="{{tooltip}}"
+					tooltip-placement="top" 
+					ng-click="searchProfesionalSolicitante()"
+					id="sa-profesi-solicitante-search-btn"
+					sa-punto-click="searchProfesionalSolicitante()"
+					sa-enter>
+					<sa-icon name="SEARCH"></sa-icon>
+				</button>
+			</span>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-8 col-md-6 col-lg-8 form-group">
+		<label class="" ng-show="{{mostrarlabelnombre}}" id="sa-profesi-solicitante-nombre-label">Nombre</label>
+		<input type="text" class="form-control"
+			ng-model="filter.nombre"
+			id="sa-profesi-solicitante-nombre-input"
+			ng-disabled="true"
+			sa-enter>
+	</div>
+</div>

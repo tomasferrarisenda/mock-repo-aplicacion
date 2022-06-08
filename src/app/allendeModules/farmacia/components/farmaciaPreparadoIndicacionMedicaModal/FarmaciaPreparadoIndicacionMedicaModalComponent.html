@@ -1,0 +1,392 @@
+<sa-modal-header loading="vm.loading" title-name="{{vm.title.name}}" title-icon="LIST">
+</sa-modal-header>
+<sa-modal-body loading="vm.loading">
+
+	<!-- <div class="row fila">
+		<div ng-if="vm.indicacionMedica.TipoIndicacion.Id == 1">
+			<h4>Dosificación de: {{vm.internado.NumeroInternado}} || {{vm.internado.Paciente}} || Hab: {{vm.internado.Habitacion}} Cama:
+				{{vm.internado.Cama}}
+			</h4>
+		</div>
+		<div ng-if="vm.indicacionMedica.TipoIndicacion.Id == 2">
+			<h4>Infusión de: {{vm.internado.NumeroInternado}} || {{vm.internado.Paciente}} || Hab: {{vm.internado.Habitacion}} Cama: {{vm.internado.Cama}}</h4>
+		</div>
+	</div> -->
+
+	<div class="row fila">
+		<div class="col-xs-4">
+			<h5>
+				Producto:
+				<strong>{{vm.entidad.Producto.CodigoStockeable}} - {{vm.entidad.Producto.NombreStockeable}} -
+					{{vm.entidad.Producto.PresentacionStockeable}}</strong>
+			</h5>
+			<h5>
+				Posología:
+				<strong>{{vm.entidad.Posologia}}</strong>
+			</h5>
+			<h5>
+				Stock Actual:
+				<strong>{{vm.entidad.Producto.StockFarmacia}}</strong>
+				- Stock Drogueria:
+				<strong>{{vm.entidad.Producto.StockDrogueria}}</strong>
+			</h5>
+
+
+		</div>
+
+		<div class="col-xs-2">
+			<h5 ng-if="vm.entidad.EstadoIndicacionFarmacia && vm.entidad.EstadoIndicacionFarmacia.Nombre">Estado:</h5>
+			<button ng-if="vm.entidad.EstadoIndicacionFarmacia && vm.entidad.EstadoIndicacionFarmacia.Nombre" type="button"
+			 ng-click="vm.changeEstadoFarmacia()" class="btn" ng-class="vm.entidad.EstadoIndicacionFarmacia.Color">{{vm.entidad.EstadoIndicacionFarmacia.Nombre}}</button>
+		</div>
+
+		<div class="col-xs-3">
+			<label style="margin-top: 0px;">Observación Farmacia Interna</label>
+			<textarea class="form-control " ng-model="vm.entidad.ObservacionFarmacia" style="min-height: 80px !important;margin-bottom: 0px;"></textarea>
+			<!-- <h5 ng-show="vm.entidad.ObservacionFarmacia">
+				<strong>{{vm.entidad.ObservacionFarmacia}}</strong>
+			</h5>
+			<h5 ng-show="!vm.entidad.ObservacionFarmacia">
+				<strong>-</strong>
+			</h5>
+			 -->
+		</div>
+
+		<div class="col-xs-3">
+			<label style="margin-top: 0px;">Observación Médica</label>
+			<!-- <textarea class="form-control " ng-model="vm.entidad.ObservacionMedica" style="min-height: 80px !important;margin-bottom: 0px;"></textarea> -->
+			<h5 ng-show="vm.entidad.ObservacionMedica">
+				<strong>{{vm.entidad.ObservacionMedica}}</strong>
+			</h5>
+			<h5 ng-show="!vm.entidad.ObservacionMedica">
+				<strong>-</strong>
+			</h5>
+
+		</div>
+
+	</div>
+
+	<div class="row fila">
+		<div ng-if="vm.indicacionMedica.TipoIndicacion.Id == 1">
+			<div class="col-xs-12" ng-show="vm.dosificacion.Ejecuciones.length > 0">
+				<h2 style="margin-top: 5px">
+					<strong>Ejecuciones</strong>
+				</h2>
+				<table class="table color-verde-pastel-prefactura">
+					<thead class="levelTwo">
+						<tr></tr>
+						<tr class="cabecera-tabla-celeste">
+							<th>Fecha</th>
+							<th>Fecha Ejecucion</th>
+							<th class="">Ejecución</th>
+							<th class="">Facturación</th>
+							<th>Cantidad Entregada</th>
+							<th class="text-center">
+								<div class="input-group">
+									<span class="input-group-btn">
+										<button type="button" ng-hide="" class="btn btn-white btn-xs" ng-disabled="" ng-click="vm.restaTodas(vm.dosificacion.Ejecuciones)">
+											<sa-icon name="MINUS_CIRCLE" class="fa-2x"></sa-icon>
+										</button>
+									</span>
+									<label for="">Cargar</label>
+									<span class="input-group-btn">
+										<button type="button" ng-hide="" class="btn btn-white btn-xs" ng-disabled="" ng-click="vm.sumaTodas(vm.dosificacion.Ejecuciones)">
+											<sa-icon name="PLUS_CIRCLE" class="fa-2x"></sa-icon>
+										</button>
+									</span>
+								</div>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="ejecucion in vm.dosificacion.Ejecuciones">
+							<td>{{ejecucion.FechaProgramada | date : 'dd/MM/yy HH:mm'}}</td>
+							<td ng-if="ejecucion.EstadoEjecucion.Id == 2">{{ejecucion.Fecha | date : 'dd/MM/yy HH:mm'}}</td>
+							<td ng-if="ejecucion.EstadoEjecucion.Id != 2">-</td>
+
+
+							<td class="row ">
+								<button type="button" id="icon_sinfacturar" class="btn btn-white " ng-if="ejecucion.EstadoEjecucion.Id == 1"
+								 uib-tooltip="{{ejecucion.EstadoEjecucion.Nombre}}" uib-tooltip-placement="top">
+									<sa-icon name="CLOCK" class="fa-2x"></sa-icon>
+								</button>
+								<button type="button" id="icon_facturado" class="btn btn-white " ng-if="ejecucion.EstadoEjecucion.Id == 2"
+								 style=" color: green; " uib-tooltip="{{ejecucion.EstadoEjecucion.Nombre}}" uib-tooltip-placement="top">
+									<sa-icon name="CHECK" class="fa-2x"></sa-icon>
+								</button>
+								<button type="button" id="icon_devuelto" class="btn btn-white " ng-if="ejecucion.EstadoEjecucion.Id == 3" tyle=" color: red; "
+								 uib-tooltip="{{ejecucion.EstadoEjecucion.Nombre}}" uib-tooltip-placement="top">
+									<sa-icon name="DEL" class="fa-2x"></sa-icon>
+								</button>
+							</td>
+
+							<td class="row ">
+								<button type="button" id="icon_sinfacturar" class="btn btn-white " ng-if="ejecucion.EstadoFacturacion.Id == 1"
+								 style=" color: red; " uib-tooltip="{{ejecucion.EstadoFacturacion.Nombre}}" uib-tooltip-placement="top">
+									<sa-icon name="PESOS" class="fa-2x"></sa-icon>
+								</button>
+								<button type="button" id="icon_facturado" class="btn btn-white " ng-if="ejecucion.EstadoFacturacion.Id == 2"
+								 style=" color: green; " uib-tooltip="{{ejecucion.EstadoFacturacion.Nombre}}" uib-tooltip-placement="top">
+									<sa-icon name="PESOS" class="fa-2x"></sa-icon>
+								</button>
+								<button type="button" id="icon_devuelto" class="btn btn-white " ng-if="ejecucion.EstadoFacturacion.Id == 3"
+								 style=" color: darkgoldenrod; " uib-tooltip="{{ejecucion.EstadoFacturacion.Nombre}}" uib-tooltip-placement="top">
+									<sa-icon name="REPLY" class="fa-2x"></sa-icon>
+								</button>
+							</td>
+							<td>{{ejecucion.CantidadEntregada}}</td>
+							<td>
+								<div class="input-group">
+									<span class="input-group-btn">
+										<button type="button" ng-hide="" class="btn btn-white btn-xs" ng-disabled="" ng-click="vm.resta(ejecucion)">
+											<sa-icon name="MINUS"></sa-icon>
+										</button>
+									</span>
+									<input type="text" min="0" class="form-control input-sm text-right" ng-model="ejecucion.CantidadCargada"
+									 ng-disabled="true">
+									<span class="input-group-btn">
+										<button type="button" ng-hide="" class="btn btn-white btn-xs" ng-disabled="" ng-click="vm.suma(ejecucion)">
+											<sa-icon name="NEW"></sa-icon>
+										</button>
+									</span>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-xs-12 text-center" ng-show="vm.dosificacion.Ejecuciones.length == 0">
+				<label>No hay EJECUCIONES...</label>
+			</div>
+
+			<div class="col-xs-12">
+				<div class="row" ng-if="vm.indicacionMedica.TipoIndicacion.Id == 1">
+
+					<div class="col-xs-10">
+						<!-- <sa-selector-producto stockeable="vm.stockeable" loading="vm.loading">
+						</sa-selector-producto> -->
+						<sa-buscador-dinamico-producto stockeable="vm.stockeable" borrar-datos="false"></sa-buscador-dinamico-producto>
+					</div>
+					<div class="col-xs-2 pull-right">
+						<button type="button" ng-click="vm.nuevoProducto()" class="btn btn-default btn-row pull-right" ng-disabled="!vm.stockeable">
+							<fw-icon name="NEW"></fw-icon>Nuevo Producto
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xs-12">
+				<h2 style="margin-top: 5px">
+					<strong>Descartables</strong>
+				</h2>
+				<table class="table color-aquaorange-turno" ng-show="vm.dosificacion.Descartables.length > 0">
+					<thead class="levelTwo">
+						<tr></tr>
+						<tr class="cabecera-tabla-celeste">
+							<th>Producto</th>
+							<th>Cantidad Entregada</th>
+							<th class="text-center">
+								<div class="input-group">
+									<span class="input-group-btn">
+										<button type="button" ng-hide="" class="btn btn-white btn-xs" ng-disabled="" ng-click="vm.restaTodas(vm.dosificacion.Descartables)">
+											<sa-icon name="MINUS_CIRCLE" class="fa-2x"></sa-icon>
+										</button>
+									</span>
+									<label for="">Cargar</label>
+									<span class="input-group-btn">
+										<button type="button" ng-hide="" class="btn btn-white btn-xs" ng-disabled="" ng-click="vm.sumaTodas(vm.dosificacion.Descartables)">
+											<sa-icon name="PLUS_CIRCLE" class="fa-2x"></sa-icon>
+										</button>
+									</span>
+								</div>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="descartable in vm.dosificacion.Descartables">
+							<td>{{descartable.Producto.CodigoStockeable}} - {{descartable.Producto.NombreStockeable}} -
+								{{descartable.Producto.PresentacionStockeable}}</td>
+							<td>{{descartable.CantidadEntregada}}</td>
+							<td>
+								<div class="input-group">
+									<span class="input-group-btn">
+										<button type="button" ng-hide="" class="btn btn-white btn-xs" ng-disabled="" ng-click="vm.resta(descartable)">
+											<sa-icon name="MINUS"></sa-icon>
+										</button>
+									</span>
+									<input type="text" min="0" class="form-control input-sm text-right" ng-model="descartable.CantidadCargada"
+									 ng-disabled="true">
+									<span class="input-group-btn">
+										<button type="button" ng-hide="" class="btn btn-white btn-xs" ng-disabled="" ng-click="vm.suma(descartable)">
+											<sa-icon name="NEW"></sa-icon>
+										</button>
+									</span>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="col-xs-12 text-center" ng-show="vm.dosificacion.Descartables.length == 0">
+					<label>No hay DESCARTABLES...</label>
+				</div>
+			</div>
+		</div>
+
+
+		<div ng-if="vm.indicacionMedica.TipoIndicacion.Id == 2">
+
+
+			<!-- tenemos que mostrar el producto en las infusiones -->
+			<div class="col-xs-12" ng-show="vm.entidad.Producto.IdStockeable > 0">
+				<h2 style="margin-top: 5px;">
+					<strong>Producto</strong>
+				</h2>
+				<table class="table color-celeste-pastel-prefactura">
+					<thead class="levelTwo">
+
+						<tr class="cabecera-tabla-celeste">
+							<th>Producto</th>
+							<th>Farmacia</th>
+							<th>Facturación</th>
+							<th>Cantidad Entregada</th>
+							<th>Cargar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>{{vm.entidad.Producto.CodigoStockeable}} - {{vm.entidad.Producto.NombreStockeable}} -
+								{{vm.entidad.Producto.PresentacionStockeable}}</td>
+
+							<td class="row text-left" ng-class="vm.entidad.EstadoIndicacionFarmacia.Color">{{
+								vm.entidad.EstadoIndicacionFarmacia.Nombre}}</td>
+
+							<td class="row ">
+								<button type="button" id="icon_sinfacturar" class="btn btn-white " ng-if="vm.entidad.EstadoFacturacion.Id == 1"
+								 style=" color: red; " uib-tooltip="{{vm.entidad.EstadoFacturacion.Nombre}}" uib-tooltip-placement="top">
+									<sa-icon name="PESOS" class="fa-2x"></sa-icon>
+								</button>
+								<button type="button" id="icon_facturado" class="btn btn-white " ng-if="vm.entidad.EstadoFacturacion.Id == 2"
+								 style=" color: green; " uib-tooltip="{{vm.entidad.EstadoFacturacion.Nombre}}" uib-tooltip-placement="top">
+									<sa-icon name="PESOS" class="fa-2x"></sa-icon>
+								</button>
+								<button type="button" id="icon_devuelto" class="btn btn-white " ng-if="vm.entidad.EstadoFacturacion.Id == 3"
+								 style=" color: darkgoldenrod; " uib-tooltip="{{vm.entidad.EstadoFacturacion.Nombre}}" uib-tooltip-placement="top">
+									<sa-icon name="REPLY" class="fa-2x"></sa-icon>
+								</button>
+							</td>
+							<td>{{vm.entidad.CantidadEntregada}}</td>
+							<td>
+								<div class="input-group">
+									<span class="input-group-btn">
+										<button type="button" ng-hide="" class="btn btn-white btn-xs" ng-disabled="" ng-click="vm.resta(vm.entidad)">
+											<sa-icon name="MINUS"></sa-icon>
+										</button>
+									</span>
+									<input type="text" min="0" class="form-control input-sm text-right" ng-model="vm.entidad.CantidadCargada"
+									 ng-disabled="true">
+									<span class="input-group-btn">
+										<button type="button" ng-hide="" class="btn btn-white btn-xs" ng-disabled="" ng-click="vm.suma(vm.entidad)">
+											<sa-icon name="NEW"></sa-icon>
+										</button>
+									</span>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="col-xs-12 text-center" ng-show="!vm.entidad.Producto.IdStockeable">
+					<label>No hay PRODUCTO...</label>
+				</div>
+			</div>
+
+
+			<!-- mostramos los AGREGADOS para las INFUSIONES (indicacionMedica.TipoIndicacion.Id == 2) -->
+			<div class="col-xs-12" ng-show="vm.infusion.Agregados.length > 0">
+				<h2 style="margin-top: 5px;">
+					<strong>Agregados</strong>
+				</h2>
+				<table class="table color-celeste-pastel-prefactura">
+					<thead class="levelTwo">
+
+						<tr class="cabecera-tabla-celeste">
+							<th>Producto</th>
+							<th>Cantidad</th>
+							<th>Unidad</th>
+							<th>Farmacia</th>
+							<th>Facturación</th>
+							<th>Cantidad Entregada</th>
+							<th class="text-center">
+								<div class="input-group">
+									<span class="input-group-btn">
+										<button type="button" ng-hide="" class="btn btn-white btn-xs" ng-disabled="" ng-click="vm.restaTodas(vm.infusion.Agregados)">
+											<sa-icon name="MINUS_CIRCLE" class="fa-2x"></sa-icon>
+										</button>
+									</span>
+									<label for="">Cargar</label>
+									<span class="input-group-btn">
+										<button type="button" ng-hide="" class="btn btn-white btn-xs" ng-disabled="" ng-click="vm.sumaTodas(vm.infusion.Agregados)">
+											<sa-icon name="PLUS_CIRCLE" class="fa-2x"></sa-icon>
+										</button>
+									</span>
+								</div>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="agregado in vm.infusion.Agregados">
+							<td>{{agregado.Producto.CodigoStockeable}} - {{agregado.Producto.NombreStockeable}} -
+								{{agregado.Producto.PresentacionStockeable}}</td>
+							<td>{{agregado.Cantidad}}</td>
+							<td>{{agregado.Unidad}}</td>
+
+							<td class="row text-left" ng-class="agregado.EstadoFarmacia.Color" ng-click="vm.cambiarEstadoAgregado(agregado)">{{
+								agregado.EstadoFarmacia.Nombre}}</td>
+
+							<td class="row ">
+								<button type="button" id="icon_sinfacturar" class="btn btn-white " ng-if="agregado.EstadoFacturacion.Id == 1"
+								 style=" color: red; " uib-tooltip="{{agregado.EstadoFacturacion.Nombre}}" uib-tooltip-placement="top">
+									<sa-icon name="PESOS" class="fa-2x"></sa-icon>
+								</button>
+								<button type="button" id="icon_facturado" class="btn btn-white " ng-if="agregado.EstadoFacturacion.Id == 2"
+								 style=" color: green; " uib-tooltip="{{agregado.EstadoFacturacion.Nombre}}" uib-tooltip-placement="top">
+									<sa-icon name="PESOS" class="fa-2x"></sa-icon>
+								</button>
+								<button type="button" id="icon_devuelto" class="btn btn-white " ng-if="agregado.EstadoFacturacion.Id == 3"
+								 style=" color: darkgoldenrod; " uib-tooltip="{{agregado.EstadoFacturacion.Nombre}}" uib-tooltip-placement="top">
+									<sa-icon name="REPLY" class="fa-2x"></sa-icon>
+								</button>
+							</td>
+							<td>{{agregado.CantidadEntregada}}</td>
+							<td>
+								<div class="input-group">
+									<span class="input-group-btn">
+										<button type="button" ng-hide="" class="btn btn-white btn-xs" ng-disabled="" ng-click="vm.resta(agregado)">
+											<sa-icon name="MINUS"></sa-icon>
+										</button>
+									</span>
+									<input type="text" min="0" class="form-control input-sm text-right" ng-model="agregado.CantidadCargada"
+									 ng-disabled="true">
+									<span class="input-group-btn">
+										<button type="button" ng-hide="" class="btn btn-white btn-xs" ng-disabled="" ng-click="vm.suma(agregado)">
+											<sa-icon name="NEW"></sa-icon>
+										</button>
+									</span>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="col-xs-12 text-center" ng-show="vm.infusion.Agregados.length == 0">
+					<label>No hay AGREGADOS...</label>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+</sa-modal-body>
+<sa-modal-footer loading="vm.loading">
+	<button type="button" class="btn btn-default" ng-disabled="vm.loading" ng-click="vm.cancel()">Cancelar</button>
+	<button type="button" class="btn btn-success" ng-disabled="vm.loading" ng-click="vm.guardar()">Guardar</button>
+</sa-modal-footer>

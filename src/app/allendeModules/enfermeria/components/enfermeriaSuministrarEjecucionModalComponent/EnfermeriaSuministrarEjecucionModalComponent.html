@@ -1,0 +1,109 @@
+<sa-modal-header title-name="Suministrar Ejecución"
+    title-icon="MEDIKIT" loading="vm.loading">
+</sa-modal-header>
+<sa-modal-body loading="vm.loading">
+
+	<div class="row fila">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+			<h4>
+				<label>
+					<strong>Internado: </strong>
+				</label> {{vm.tipoDocumentoInternado}}: {{vm.numeroDocumentoInternado}} - {{ vm.ejecucion.Paciente}}</h4>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 ">
+			<h4>
+				<label>
+					<strong>Piso: </strong>
+				</label> {{vm.ejecucion.NumeroPiso }}</h4>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 ">
+			<h4>
+				<label>
+					<strong>Habitacion: </strong>
+				</label> {{vm.ejecucion.NumeroHabitacion}}</h4>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 ">
+			<h4>
+				<label>
+					<strong>Cama: </strong>
+				</label> {{vm.ejecucion.NumeroCama}}</h4>
+		</div>
+	</div>
+
+	<div class="row fila">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<h4>
+				<label>
+					<strong>Producto: </strong>
+				</label> {{vm.ejecucion.Producto.CodigoStockeable}} - {{vm.ejecucion.Producto.NombreStockeable}} - {{vm.ejecucion.Producto.PresentacionStockeable}}</h4>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<h4>
+				<label>
+					<strong>Posología: </strong>
+				</label> {{vm.ejecucion.Posologia}}</h4>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<h4>
+				<label>
+					<strong>Observación Médica: </strong>
+				</label> {{vm.ejecucion.ObservacionMedica}}</h4>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<h4>
+				<label>
+					<strong>Hidratación: </strong>
+				</label> {{vm.ejecucion.Hidratacion}}-</h4>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-5">
+			<h4>
+				<label>
+					<strong>Fecha Programada: </strong>
+				</label> {{vm.ejecucion.FechaProgramada | date:'dd/MM/yyyy'}}</h4>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-5">
+			<h4>
+				<label>
+					<strong>Hora Programada: </strong>
+				</label> {{vm.ejecucion.FechaProgramada | date:'HH:mm'}}</h4>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+			<h4 style="margin-bottom: 0px;">
+				<label>
+					<strong>Suministrado:</strong>
+				</label>
+			</h4>
+			<label class="material-checkbox" style="margin-left: 10px;margin-right: 40px;">
+				<input type="checkbox" ng-model="vm.suministrarSi" ng-change="vm.changeCheckAccion(true)">
+				<span>SI</span>
+			</label>
+			<label class="material-checkbox">
+				<input type="checkbox" ng-model="vm.suministrarNo" ng-change="vm.changeCheckAccion(false)">
+				<span>NO</span>
+			</label>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
+			<h4>
+				<label>
+					<strong>Observación: </strong>
+				</label> </h4>
+				<textarea class="form-control textarea" ng-model="vm.ejecucion.Observaciones"></textarea>
+		</div>
+	</div>
+
+</sa-modal-body>
+<sa-modal-footer loading="vm.loading">
+	<input type="submit" class="btn" ng-click="vm.cancel()" value="Cancelar">
+	<input type="submit" id="btnAgregarEditar" value="Guardar" class="btn btn-default" ng-click="vm.guardar()">
+</sa-modal-footer>

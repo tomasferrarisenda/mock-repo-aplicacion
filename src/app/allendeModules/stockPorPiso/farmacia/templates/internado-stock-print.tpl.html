@@ -1,0 +1,62 @@
+
+<sa-loading ng-if="formControl.loading"></sa-loading>
+<div id="print-content" class="container-print" ng-hide="formControl.loading">
+	<div class="page"  ng-repeat="internado in data.internaciones">
+		<div class="modal-header ">
+			<!-- <div class="row fila-print"> -->
+			<div class="row">
+				<div class="col-xs-3" >
+					<sa-logo></sa-logo>
+				</div>
+				<div class="col-xs-12 text-center">
+					<h4>Informe por internado</h4>
+				</div>
+				<!-- <div class="col-xs-3 pull-right">
+					<label class="pull-right">Sucursal: {{ data.internaciones[0].Sucursal.descripcion }} </label>
+				</div> -->
+			</div>
+		</div> 
+		<div class="modal-body" >
+			<div class="row fila fila-print">
+				<div>
+					<div class="col-xs-6">
+						<H5 class="text-left">Piso: {{data.ubicacionPiso.nombre_ubicacion_piso}}</H5>
+					</div>
+					<div class="col-xs-6">
+						<H5 class="text-right"> Fecha/Hora: {{data.movimiento.fecha_alta | date:"dd/MM/yyyy HH:mm"}}</H5>
+					</div>
+					<H4 class="text-left" > Internado nro:  {{internado.numero_internado}},  {{internado.nombre_paciente}} </H4>
+					
+					<table class="table-fina table" >
+						<thead>
+							<tr></tr>
+							<tr class="cabecera-tabla">
+								<th class="text-left">Codigo</th>
+								<th class="text-left">Descripción</th>
+								<th class="text-left">Presentación</th>
+								<th class="text-center">Cantidad</th>
+								<th class="text-left">Fecha / Hora</th>
+								<!-- <th class="text-left">Usuario</th> -->
+								<th class="text-center">Movimiento</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr ng-repeat="detalle in internado.movimientosDetalle | orderBy : 'fecha_alta' ">
+								<td class="text-left">{{ detalle.Producto.codigo }}</td>
+								<td class="text-left">{{ detalle.Producto.nombre }}</td>
+								<td class="text-left">{{ detalle.Producto.presentacion }}</td>
+								<td class="text-center">{{ detalle.cantidad_productos }}</td>
+								<td class="text-left">{{ detalle.MovimientoStock.fecha_alta | date:"dd/MM/yyyy HH:mm"}}</td>
+								<!-- <td class="text-left">{{ detalle.MovimientoStock.Usuario.nombre_usuario }}</td> -->
+								<td class="text-center">{{ detalle.MovimientoStock.id_movimiento }}</td>
+							</tr>
+						</tbody>
+					</table> 
+				</div> 
+			</div>
+		</div>
+		<div class="modal-footer" >
+		</div>
+	</div>
+</div>

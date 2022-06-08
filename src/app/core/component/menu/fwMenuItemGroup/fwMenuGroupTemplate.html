@@ -1,0 +1,10 @@
+<li class="fw-selectable-item fw-noselect" ng-click="selectItem()" >
+	<a >
+		<fw-icon name="{{iconName}}" class="{{iconClass}}"></fw-icon>
+		<span ng-if="showName" ng-bind="name"></span>
+	</a>
+	<fw-icon ng-if="showName && isActive()" name="TRIANGLE_LEF" class="pull-right"></fw-icon>
+</li>
+<div>
+	<ul ng-transclude></ul>
+</div>

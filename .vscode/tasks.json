@@ -1,0 +1,22 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+   "version": "2.0.0",
+    "command": "explorer",    
+    "windows": {
+        "command": "C:\\Users\\emansilla\\AppData\\Local\\Google\\Chrome SxS\\Application\\chrome.exe"
+    },
+    "args": [
+        "http://localhost:8888/"
+    ],
+    "tasks": [
+        {
+            "label": "C:\\Users\\emansilla\\AppData\\Local\\Google\\Chrome SxS\\Application\\chrome.exe",
+            "args": [
+                "http://localhost:8888/"
+            ],
+            "problemMatcher": [],
+            "group": "build"
+        }
+    ]
+}

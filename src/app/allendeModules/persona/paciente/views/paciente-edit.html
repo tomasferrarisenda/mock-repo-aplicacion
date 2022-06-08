@@ -1,0 +1,81 @@
+
+	<sa-title
+		title-name="vm.title.pageEdit | uppercase"
+		title-icon="{{vm.title.icon}}"
+		btn-reload-disabled="vm.formControl.loading"
+	></sa-title>
+	<div class="cuerpo" ng-hide="vm.formControl.loading || vm.formControl.error">
+		<form name="formPaciente" accept-charset="utf-8" novalidate sa-valid-refresh valid-if="formPaciente.$dirty">
+			<uib-tabset>
+				<uib-tab ng-repeat="tab in vm.tabs track by $index"
+					uib-tooltip="{{ tab.TITLE_CONTENT }}"
+					class="{{ tab.CLASSBG }}"
+					role="presentation"
+					ng-hide="tab.HIDE"
+					active="tab.ACTIVE"
+					disable="tab.DISABLED">
+					<uib-tab-heading class="{{ tab.CLASS }}" id={{tab.NAME}}>
+						{{ tab.TITLE_TAB }}
+					</uib-tab-heading>
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+							<!-- <h3>{{tab.TITLE_CONTENT}}</h3> -->
+						</div>
+					</div>
+					<!-- <div ng-include="tab.CONTENT" ></div> -->
+					<div ng-bind-html="tab.CONTENT | saToHtml" fw-init-bind></div>
+				</uib-tab>
+			</uib-tabset>
+			<br>
+			<div class="row text-center">
+				<button class="btn btn" ng-click="vm.formControl.cancel(formPaciente.$pristine)" id="btn_cancelar">
+					<span ng-if="!formPaciente.$pristine">Cancelar</span>
+					<span ng-if="formPaciente.$pristine">Volver</span>
+				</button>
+				<input class="btn btn-default" type="submit" id="btn_guardar"
+				value="Guardar"
+				ng-disabled="formPaciente.$pristine || vm.formControl.validationLoading || (vm.formControl.pacienteFusionado && !vm.data.paciente.PuedeFusinarPaciente) || vm.formControl.saveDisabled"				
+				ng-click='vm.formControl.disabledSave() ;vm.formControl.save(formPaciente)'>
+				<!-- ng-disabled="formPaciente.$pristine || vm.formControl.pacienteFusionado || vm.formControl.validationLoading" -->
+				<!-- ng-disabled="formPaciente.$pristine || !formPaciente.$valid || vm.formControl.pacienteFusionado || vm.formControl.validationLoading" -->
+			</div>
+			<div class="row ">
+				<div ng-if="!formPaciente.$pristine && !formPaciente.formTabGeneral.$valid"
+					class="text-error">
+					Error en solapa General
+				</div>
+				<div ng-if="!formPaciente.$pristine && !formPaciente.formTabDomicilios.$valid"
+					class="text-error">
+					Error en solapa Domicilios
+				</div>
+				 <!-- <div ng-if="!formPaciente.$pristine && !formPaciente.formTabMutuales.$valid"
+					class="text-error">
+						<div ng-messages="!formPaciente.formTabMutuales.numeroAfiliado.$error">
+						<div ng-messages="required">
+							El número de afilidado es obligatorio
+					    </div>
+					</div>
+				</div> -->
+				<!--<div ng-if="!formPaciente.$pristine && !formPaciente.formTabTelefonos.$valid"
+					class="text-error">
+					Error en solapa Telefonos
+				</div> -->
+				<div ng-if="!formPaciente.$pristine && !formPaciente.formTabNacionalidades.$valid"
+					class="text-error">
+					Error en solapa Nacionalidad
+				</div> 
+<!-- 	<div ng-if="!formPaciente.$pristine && !formPaciente.formTabResponsables.$valid"
+					class="text-error">
+					Error en solapa Responsables
+					<div ng-messages="!formPaciente.formTabResponsables.tipoRelacion.$error">
+						<div ng-messages="required">
+							El tipo de relacion es obligatorio											
+					    </div>
+					</div>
+				</div>  -->
+			</div>
+		</form>
+	</div>
+	<sa-loading ng-if="vm.formControl.loading" ></sa-loading>
+
+<!-- /Contenido de la vista -->

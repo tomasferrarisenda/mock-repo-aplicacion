@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="col-xs-12" ng-if="vm.data">
+        <div class="row">
+            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 ">
+                <h3 id="farmacia-conf-table-titulo">{{vm.titulogrid}}</h3>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 pull-right" style=" margin-bottom: 2px; ">
+                <button type="button" class="btn btn-success pull-right" id="farmacia-conf-table-agregar-btn" ng-click="vm.btnOk()" uib-tooltip="{{vm.tooltipBtn}}" uib-tooltip-placement="top">
+                    Agregar Producto A Deposito
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 " ng-if="vm.data && vm.data.length && vm.columnasList && vm.columnasList.length">
+
+        <fw-table-container>
+            <fw-table-config exportable="false" sortable="false" filtrable="true" paginable="true" column-config="true">
+            </fw-table-config>
+            <fw-table-sorting-ext sort-change="sortChangeInternal(sorting)">
+            </fw-table-sorting-ext>
+            <fw-table-rowset data="vm.data" id-elements="farmacia-config-prod-table-rows">
+            </fw-table-rowset>
+            <!-- Se define un columnset en el cual se setean (opcional) las columnas por datos -->
+            <fw-table-columnset data="vm.columnasList">
+
+            </fw-table-columnset>
+
+            <fw-table-export>
+            </fw-table-export>
+
+            <fw-table-buttonset>
+                <!-- Cada boton tiene label para tooltip, nombre de icono de iconList, accion (function) y si es visible-->
+
+                <fw-table-button label="'Editar Stock Normal'" icon="'EDIT'" action="vm.editStockNormal({row:row})" id-element="farmacia-confi-prod-table-editstock-btn">
+                </fw-table-button>
+
+                <fw-table-button label="'Editar Cantidad Máxima'" icon="'EDIT2'" action="vm.editarCantidadMaxima({row:row})" id-element="farmacia-confi-prod-table-editcantmaxima-btn">
+                </fw-table-button>
+
+                <fw-table-button label="'Eliminar producto del deposito'" icon="'DEL'" action="vm.eliminarProducto({row:row})" id-element="farmacia-confi-prod-table-eliminarprod-btn">
+                </fw-table-button>
+
+            </fw-table-buttonset>
+            <!-- FILTRADO DINAMICO [Opcional] -->
+            <!-- Debe estar configurado en true la configuracion correspondiente -->
+            <!-- Solo debería funcionar si se trata de una tabla interna -->
+            <fw-table-filter init='true'></fw-table-filter>
+
+            <!-- Paginacion interna : no se necesita definir ningun valor, se toman los por defecto.-->
+            <!-- Opcionalmente se puede redefinir page-size -->
+            <fw-table-pagination page-size="12"></fw-table-pagination>
+            <!-- Por ultimo el renderizado de la tabla -->
+            <fw-table></fw-table>
+        </fw-table-container>
+    </div>
+
+</div>

@@ -1,0 +1,146 @@
+<sa-title
+	title-name="vm.title.name"
+	title-icon="vm.title.icon"
+
+	btn-new-click="vm.habitacion.new()"
+	btn-new-disabled="vm.formControl.loading"
+
+	btn-reload-click="formControl.reloadPage()"
+	btn-reload-disabled="vm.formControl.loading"
+></sa-title>
+<sa-loading ng-if="formControl.loading"></sa-loading>
+<div id="cuerpo" ng-hide="formControl.loading || formControl.error">
+	<div class="row fila">
+		<form name="formFilter" accept-charset="utf-8" novalidate>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+				<label for="txt_numero_habitacion" class="label-control">Nº Habitación</label>
+				<input type="number" class="form-control"
+					id="txt_numero_habitacion"
+					name="numeroHabitacion"
+					min="0"
+					max="999"
+					ng-class="{ error : formFilter.numeroHabitacion.$error.number }"
+					ng-model="vm.filter.numeroHabitacion"
+					ng-change="vm.paginacion.pageChanged()">
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 " >
+				<label for="cmb_categoria_habitacion" class="label-control">Categorías Habitación</label>
+				<select class="form-control"
+					id="cmb_categoria_habitacion"
+					ng-model="vm.filter.categoriaHabitacion"	
+					ng-change="formControl.getTiposFisicaByCategoria(vm.filter.categoriaHabitacion)"
+					ng-options="categoria.nombre_categoria for
+						categoria in data.categoriasHabitacion 
+						track by categoria.id_categoria_habitacion">
+					<option value="">TODOS</option>
+				</select>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 " >
+				<label for="cmb_tipo_habitacion_fisica" class="label-control">Tipo Habitación</label>
+				<select class="form-control"
+					id="cmb_tipo_habitacion_fisica"
+					ng-model="vm.filter.tipoHabitacionFisica"
+					ng-change="vm.paginacion.pageChanged()"
+					ng-disabled="!data.tiposHabitacionFisica.length"
+					ng-options="tipoHabitacion.nombre_tipo_habitacion for
+						tipoHabitacion in data.tiposHabitacionFisica
+						track by tipoHabitacion.id_tipo_habitacion_fisica">
+					<option ng-if="!data.tiposHabitacionFisica.length" value="">TODOS</option>
+					<option ng-if="data.tiposHabitacionFisica.length" value="">--SELECCIONAR--</option>
+				</select>
+			</div>
+			<!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+			<sa-sucursal-combo
+				ng-model="vm.filter.sucursal"
+				ng-change="vm.paginacion.pageChanged()">
+			</sa-sucursal-combo>
+			</div> -->
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 " >
+				<label for="cmb_sucursal" class="label-control">Sucursal</label>
+				<select class="form-control"
+					id="cmb_sucursal"
+					ng-model="vm.filter.sucursal"
+					ng-change="vm.paginacion.pageChanged()"
+					ng-options="sucursal.descripcion for sucursal in data.sucursales track by sucursal.suc">
+					<option value="">TODOS</option>
+				</select>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pull-left">
+				<label for="txt_cantaidad_camas" class="label-control">Cantidad habitaciones</label>
+				<div >
+					<strong ng-bind="vm.paginacion.totalItems"></strong>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pull-right">
+				<button type="button" class="btn btn-default btn-row btn-block"
+					ng-click="vm.filter.clean()">
+					Limpiar
+				</button>
+			</div>
+		</form>
+	</div>
+	<div class="row table-responsive">
+		<div class="col-xs-12">
+			<table class="table table-hover">
+				<thead>
+					<tr></tr>
+					<tr class="cabecera-tabla">
+						<th class="text-center">Hab.</th>
+						<th class="text-center">Nombre Hab. </th>
+						<th class="text-center">Descripcion</th>
+						<th class="text-center" >Sucursal</th>
+						<th class="text-center" >Tipo Habitación</th>
+						<th class="text-center" >Observaciones</th>
+						<th class="text-center">Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="habitacion in vm.filter.habitaciones | orderBy : vm.order.value:vm.order.reverse">
+						<td class="text-center" ng-bind="habitacion.Numero"></td>
+						<td class="text-center" ng-bind="habitacion.Nombre"></td>
+						<td class="text-center" ng-bind="habitacion.Descripcion"></td>
+						<td class="text-center"  ng-bind="habitacion.NombreSucursal"></td>
+						<td class="text-center"  ng-bind="habitacion.NombreTipoHabitacionFisica"></td>
+						<td class="text-center"  ng-bind="habitacion.Observaciones"></td>
+						<td class="text-center">
+							<button type="button" class="btn btn-white btn-xs"
+								uib-tooltip="Ver habitacion" tooltip-placement="top"
+								ng-click="vm.habitacion.view(habitacion)">
+								<sa-icon name="EYE_OPEN"></sa-icon>
+							</button>
+							<button type="button" class="btn btn-white btn-xs"
+								uib-tooltip="Nueva Cama" tooltip-placement="top"
+								ng-click="vm.habitacion.addCama(habitacion)">
+								<sa-icon name="NEW"></sa-icon>
+							</button>
+							<button type="button" class="btn btn-white btn-xs"
+								uib-tooltip="Editar Habitacion" tooltip-placement="top"
+								ng-click="vm.habitacion.edit(habitacion)">
+								<sa-icon name="EDIT"></sa-icon>
+							</button>
+							<button type="button" class="btn btn-white btn-xs"
+								uib-tooltip="Borrar" tooltip-placement="top"
+								ng-click="vm.habitacion.delete(habitacion)">
+								<sa-icon name="DEL"></sa-icon>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div><!-- .row>--> 
+	<div class="row" >
+		<div class="col-sm-12">
+			<div class="text-center">
+				<div uib-pagination 
+					max-size="5"
+					items-per-page="vm.paginacion.pageSize"
+					total-items="vm.paginacion.totalItems"
+					ng-model="vm.paginacion.currentPage"
+					ng-change="vm.paginacion.pageChanged()"
+					previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+				</div>
+			</div>
+		</div>
+	</div><!-- .row>-->
+</div>

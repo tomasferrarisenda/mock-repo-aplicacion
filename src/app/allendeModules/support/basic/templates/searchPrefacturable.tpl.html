@@ -1,0 +1,106 @@
+<form name="formPrefacturablesSelector" accept-charset="utf-8" novalidate >
+	<div class="modal-header">
+		<h4 class="modal-title">Buscar Items</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 form-group">
+				<label>Tipo Item</label>
+				<select class="form-control" 
+					ng-model="vm.filter.tipoPrefacturableElegido"
+					ng-options="tipoPrefacturables.Nombre for tipoPrefacturables in vm.data.tipoPrefacturables"
+					ng-disabled="vm.data.deshabilitarTipo"
+					sa-enter
+					autofocus>
+				</select>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 form-group" ng-show="vm.filter.tipoPrefacturableElegido.Id == 1">
+				<label>Tipo Nomenclador</label>
+				<select class="form-control" 
+					ng-model="vm.filter.tipoNomenclador"
+					ng-options="tipoNomenclador.Nombre for tipoNomenclador in vm.data.tipoPrefacturables[vm.filter.tipoPrefacturableElegido.Id-1].listaNomenclador"
+					sa-enter>
+					<option value="">TODOS</option>
+				</select>
+			</div>
+			<div class="col-xs-12 col-sm-8 col-md-2 col-lg-2 form-group">
+				<label class="label-control">Código</label>
+				<input type="number" min="0" max="9999999999" class="form-control" ng-model="vm.filter.codigo" sa-enter>
+			</div>
+			<div class="col-xs-12 col-sm-8 col-md-4 col-lg-3 form-group">
+					<label class="label-control">Nombre</label>
+					<input type="text-uppercase" class="form-control text-uppercase" ng-model="vm.filter.nombre" maxlength="255" sa-enter>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-8 col-md-4 col-lg-6 form-group">
+					<label class="label-control">Descripción</label>
+					<input type="text-uppercase" class="form-control text-uppercase" ng-model="vm.filter.descripcion" maxlength="255" sa-enter>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
+				<button sa-btn-search
+					ng-click="vm.formControl.filtrarPrefacturables()" class="btn-row"
+					sa-punto-click="vm.formControl.filtrarPrefacturables()" sa-enter>
+					Buscar
+				</button>
+				<button sa-btn-clean
+					ng-click="vm.formControl.limpiarFiltros()" class="btn-row"
+					sa-punto-click="vm.formControl.limpiarFiltros()" sa-enter>
+					Limpiar
+				</button>
+			</div>
+		</div>
+		<div class="row fila fila-not ">
+				<div class="col-xs-12 col-sm-8 col-md-6 col-lg-12 form-group">
+				<sa-loading ng-if="vm.formControl.loading"></sa-loading>	
+				<table class="table table-hover table-condensed table-bordered" ng-if="!vm.formControl.loading">
+					<thead>						 		
+						<tr class="thead-azul">
+							<tr class="cabecera-tabla"> 
+								<th class="text-left" ng-click="vm.sort('Codigo')">
+									Código
+									<span class="glyphicon sort-icon" ng-show="sortKey=='Codigo'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+								</th>
+								<th class="text-left" ng-click="vm.sort('Nombre')">
+									Nombre
+									<span class="glyphicon sort-icon" ng-show="sortKey=='Nombre'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+								</th>
+								<th class="text-left" ng-click="vm.sort('Nombre')">
+									Descripción
+									<span class="glyphicon sort-icon" ng-show="sortKey=='Descripcion'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+								</th>
+							</tr>
+						</tr>
+					</thead>
+					<tbody ng-repeat="prefacturable in vm.filter.prefacturables | orderBy:sortKey:reverse|filter:search">
+						<tr ng-click="vm.formControl.prefacturableSeleccion(prefacturable)">
+							<td class="row text-left">{{prefacturable.Codigo}}</td>
+							<td class="row text-left">{{prefacturable.Nombre}}</td>
+							<td class="row text-left">{{prefacturable.Descripcion}}</td>
+						</tr>
+					</tbody>
+				</table>
+				<div ng-if="vm.filter.prefacturables.length">
+					<div class="col-sm-12">
+						<div class="text-center">
+							<div uib-pagination 
+								items-per-page="vm.paginacion.pageSize"
+								total-items="vm.paginacion.totalItems"
+								ng-model="vm.paginacion.currentPage"
+								ng-change="vm.paginacion.pageChanged()"
+								previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button"
+			class="btn btn-borrar" 
+			ng-click = "vm.formControl.cancel()" 
+			sa-punto-click = "vm.formControl.cancel()" 
+			sa-enter>Cancelar</button>
+	</div>
+</form>

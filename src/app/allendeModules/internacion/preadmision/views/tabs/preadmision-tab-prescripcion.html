@@ -1,0 +1,11 @@
+<ng-form name="formTabPrescripcion">
+	<sa-protesis-intervencion
+		model="data.solicitud.ProtesisPreadmision"
+		user="vm.user"
+		btn-new-if="true"
+		btn-new-disabled="!vm.formControl.esEditCreado"
+		btn-delete-if="true"
+		btn-delete-disabled="!vm.formControl.esEditCreado"
+		required="vm.formData.requiereProtesis">
+	</sa-protesis-intervencion>
+</ng-form>

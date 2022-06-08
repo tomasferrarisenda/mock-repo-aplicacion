@@ -1,0 +1,104 @@
+/* Icons Clarika */
+@import '../common/variables';
+
+.icon-acercade:before {
+	content: "a";
+}
+.icon-auditoria:before {
+	content: "b";
+}
+.icon-habitaciones:before {
+	content: "c";
+}
+.icon-home:before {
+	content: "d";
+}
+.icon-pacientes:before {
+	content: "e";
+}
+.icon-pre-admision:before {
+	content: "f";
+}
+.icon-seguridad:before {
+	content: "g";
+}
+
+.iconos {
+	// font-size: 1.5em;
+	color: $color-white;
+	font-size: 1.8em;
+	line-height: 1.2em;
+	margin-right: 10px;
+	vertical-align: middle;
+}
+
+.icon-edit{
+	width:32px;
+	height:30px;
+	background-image:url(../img/ic-edit.png);
+	margin-left:5px;
+	margin-right:5px;
+	float:right;
+	cursor:pointer;
+	margin-top:4px;
+}
+
+.icon-edit a {
+	width:32px;
+	height:30px;
+	display:block;
+}
+
+.icon-edit:hover {
+	background-position: center -30px;
+}
+
+.icon-print {
+	width:32px;
+	height:30px;
+	background-image:url(../img/ic-print.png);
+	margin-left:5px;
+	margin-right:5px;
+	float:right;
+	cursor:pointer;
+	margin-top:4px;
+}
+
+.icon-print a {
+	width:32px;
+	height:30px;
+	display:block;
+}
+
+.icon-print:hover {
+	background-position: center -30px;
+}
+
+.icon-delete {
+	width:32px;
+	height:30px;
+	background-image:url(../img/ic-delete.png);
+	margin-left:5px;
+	margin-right:5px;
+	float:right;
+	cursor:pointer;
+	margin-top:4px;
+}
+
+.icon-delete a {
+	width:32px;
+	height:30px;
+	display:block;
+}
+
+.icon-delete:hover {
+	background-position: center -30px;
+}
+
+.icon-update {
+	width:21px;
+	height:21px;
+	float:left;
+	margin-right:10px;
+	margin-top:25px;
+}

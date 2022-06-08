@@ -1,0 +1,122 @@
+@import '../common/variables';
+
+.contenedor-login {
+
+	background-color: $color-azul-sa;
+	padding-top:60px;
+	padding-bottom:60px;
+	// margin-top: 0px;
+
+	.labellogin {
+		color: $color-white;
+		font-family: 'open_sansregular';
+		font-size: 1em;
+		font-weight: normal;
+		margin-top: 0px !important;
+	}
+
+	.form-group {
+		margin-bottom: 15px; 
+	}
+
+	// ToDo: VALIDACION NOT
+	.input-group {
+		.ng-valid {
+			margin-bottom: 0px;
+		}
+	}
+	.ng-valid {
+		margin-bottom: 0px;
+	}
+
+	.ng-invalid {
+		margin-bottom: 0px;
+	}
+
+	.formulario-login {
+		// margin-top:20px;
+		margin-top:0px;
+	}
+
+	.btnlogin {
+		float: right;
+		margin-top: 20px;
+		background-color: $color-dark;
+		color:$color-white;
+
+		&:hover, &:focus, &.hover  {
+			color: $color-white;
+			text-decoration: none;
+		}
+	}
+
+	.remember {
+		margin-top: 20px;
+		width: 65%;
+		float: left;
+		color: $color-white;
+		a {
+			color: $color-white;
+			font-family: 'open_sansregular';
+
+			&:hover {
+				color: $color-white;
+				font-weight: normal;
+			}
+		}
+
+		span {
+			margin-right: 7px;
+		}
+	}
+}
+
+.modal-body {
+	.contenedor-login {
+		background-color: $color-white;
+		padding-top:30px;
+		padding-bottom:30px;
+		margin-top: -15px;
+
+		.labellogin {
+			color : $color-black;
+		}
+	}
+}
+
+.linea-login {
+	height:5px;
+	background-image:url(../img/bg-login.png);
+	background-position:center right;
+	margin-top:4px;
+}
+
+.login-header {
+	h1 {
+		font-size:30px;
+		margin:20px;
+
+		text-align:center;
+		font-family: "open_sanslight";
+		color: $color-shadow;
+		font-size:41px;
+		margin:0px;
+		margin-top:130px;
+	}
+}
+
+.login-footer {
+	p {
+		text-align:center;
+		font-family: "open_sanslight";
+		color: $color-dark;
+		font-size:12px;
+		position: fixed;
+		bottom: 30px;
+		left: 0;
+		width: 100%;
+	}
+	span {
+		font-family: "open_sansregular";	
+	}
+}

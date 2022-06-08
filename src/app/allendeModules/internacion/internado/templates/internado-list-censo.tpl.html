@@ -1,0 +1,73 @@
+<div class="col-xs-12 table-responsive">
+	<table class="table table-hover">
+		<thead>
+			<tr></tr>
+			<tr class="cabecera-tabla">
+				<th class="text-center">Nº internado</th>
+				<th class="">Nombre</th>
+				<th class="">Documento</th>
+				<th class="text-center">Sexo</th>
+				<th class="text-center">Hab</th>
+				<th class="text-center">Cama</th>
+				<th class="text-center">Edad</th>
+				<th class="">Médico de cabecera</th>
+				<th class="">Mutual</th>
+				<th class="">Nº afiliado</th>
+				<th class="text-center">Ingreso</th>
+				<th class="text-center">Diagnóstico</th>
+				<th class="text-center">Acciones</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="internacion in vm.filter.internaciones">
+				<th class="text-center">{{ internacion.numero_internado }}</th>
+				<td >{{ internacion.nombre_paciente }}</td>
+				<td >
+					{{ internacion.nombre_tipo_documento }}: {{ internacion.numero_documento }}
+				</td>
+				<td class="text-center">{{ internacion.sexo_paciente | limitTo:1 }}</td>
+				<td class="text-center">{{ internacion.numero_habitacion }}</td>
+				<td class="text-center">{{ internacion.numero_cama }}</td>
+				<td class="text-center">{{ internacion.Edad }}</td>
+				<td class="">
+					<div ng-if="!internacion.nombre_medico_cabecera" ng-bind="internacion.nombre_medico_solicitante"></div>
+					<div ng-if="internacion.nombre_medico_cabecera" ng-bind="internacion.nombre_medico_cabecera"></div>
+				</td>
+				<td class="">{{ internacion.codigo_mutual }} - {{ internacion.nombre_mutual_busqueda || internacion.nombre_mutual }}</td>
+				<td class="text-center">{{ internacion.numero_afiliado }}</td>
+				<td class="text-center">{{ internacion.fecha_admision | date: 'dd/MM/yy' }}</td>
+				<td class="">
+					<span uib-tooltip="{{internacion.diagnostico}}">
+						{{ internacion.diagnostico | limitTo:10 }}
+						<span ng-if="(internacion.diagnostico + '').length > 10">...</span>
+					</span>
+				</td>
+				<td class="text-center">
+					<button type="button" class="btn btn-white btn-xs"
+						ng-disabled="!vm.internado.puedeEditar()"
+						uib-tooltip="Editar" tooltip-placement="top"
+						ng-click="vm.internado.edit(internacion.id_internacion, internacion.numero_internado)">
+						<sa-icon name="EDIT"></sa-icon>
+					</button>
+					<button type="button" class="btn btn-white btn-xs"
+						uib-tooltip="Impresiones" tooltip-placement="top"
+						ng-disabled="!vm.internado.puedeImprimir()"
+						ng-click="vm.internado.print(internacion.id_internacion, internacion.numero_internado)">
+						<sa-icon name="PRINT"></sa-icon>
+					</button>
+					<button type="button" class="btn-white btn-xs" sa-btn-cancel
+						uib-tooltip="Anular" tooltip-placement="top"
+						ng-if="vm.internado.puedeAnular()"
+						ng-click="vm.internado.anular(internacion.id_internacion, internacion.numero_internado)">
+					</button>
+					<button type="button" class="btn btn-white btn-xs"
+						uib-tooltip="Revertir" tooltip-placement="top"
+						ng-if="vm.internado.puedeRevertir()"
+						ng-click="vm.internado.revert(internacion.id_internacion, internacion.numero_internado)">
+						<sa-icon name="BACKWARD"></sa-icon>
+					</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

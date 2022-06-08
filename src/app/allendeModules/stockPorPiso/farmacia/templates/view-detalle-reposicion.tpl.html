@@ -1,0 +1,94 @@
+<div class="modal-header">
+	<h4 class="modal-title">Detalle Movimiento</h4>
+</div>
+<div class="modal-body">
+	<div class="row">
+		<div class="col-xs-12 ">
+			<h2 id="movimientoDetalle_detalle">
+				Movimientos de {{data.ubicacionDetalle.Producto.nombre}}:
+			</h2>
+			<table class="table table-hover" id="movimientoDetalle_table">
+				<thead>
+					<tr class="cabecera-tabla">
+						<th class="text-left">Codigo</th>
+						<th class="text-left">Fecha y Hora</th>
+						<th class="text-left">Destino</th>
+						<th class="text-left">Observaciones</th>
+						<th class="text-center">Cantidad</th>
+						<th class="text-center">Reponer</th>
+						<!-- <th class="text-left">Stock Anterior</th> -->
+					</tr>
+				</thead>
+				<tbody ng-repeat="movimientoDetalle in data.movimientosDetalle" ng-hide="formControl.loadingModal">
+					<tr >
+						<th ng-click="formControl.verObservaciones([$index])" class="row text-left">{{ movimientoDetalle.MovimientoStock.id_movimiento }}</th>
+						<th ng-click="formControl.verObservaciones([$index])" class="row text-left">{{ movimientoDetalle.MovimientoStock.fecha_alta | date:"yyyy/MM/dd HH:mm" }}</th>
+						<th ng-click="formControl.verObservaciones([$index])" class="row text-left">{{ movimientoDetalle.MovimientoStock.UbicacionHasta.id }}</th>
+						<th ng-click="formControl.verObservaciones([$index])" class="row text-left">{{ movimientoDetalle.MovimientoStock.UbicacionHasta.nombre }}</th>
+						<td ng-click="formControl.verObservaciones([$index])" class="row text-center">{{ movimientoDetalle.MovimientoStock.cantidad_productos }}</td>
+						<td class="row text-center">
+							<button type="button" 
+									id="movimientoDetalle_repuesto_button"
+									ng-hide="!movimientoDetalle.cargado || movimientoDetalle.descartado"
+									class="btn btn-white btn-xs"
+									uib-tooltip="Ya repuesto"  
+									uib-tooltip-placement="top"
+									ng-click="">
+									<sa-icon name="OK"></sa-icon>
+							</button>
+							<button type="button" 
+									id="movimientoDetalle_reponer_button"
+									ng-hide="movimientoDetalle.cargado || movimientoDetalle.descartado"
+									class="btn btn-white btn-xs"
+									uib-tooltip="Reponer"  
+									uib-tooltip-placement="top"
+									ng-click="formControl.reponer(movimientoDetalle)">
+									<sa-icon name="NEW"></sa-icon>
+							</button>
+							<!-- <button type="button" 
+									id="movimientoDetalle_descartar_button"
+									ng-hide="movimientoDetalle.cargado || movimientoDetalle.descartado || movimientoDetalle.MovimientoStock.ajuste || movimientoDetalle.MovimientoStock.scrapReposicion"
+									class="btn btn-white btn-xs"
+									uib-tooltip="Descartar"  
+									uib-tooltip-placement="top"
+									ng-click="formControl.descartar(movimientoDetalle)">
+									<sa-icon name="DEL"></sa-icon>
+							</button>
+							<button type="button" 
+									id="movimientoDetalle_descartado_button"
+									ng-hide="movimientoDetalle.cargado || !movimientoDetalle.descartado"
+									class="btn btn-white btn-xs"
+									uib-tooltip="Ya descartado"  
+									uib-tooltip-placement="top"
+									ng-click="">
+									<sa-icon name="DEL"></sa-icon>
+							</button>
+								-->
+						</td>
+						<!-- <td class="row text-left">{{ detalle.stock_anterior }}</td> -->
+					</tr>
+					<tr class="animate-hide" ng-hide="!movimientoDetalle.verObservaciones || !movimientoDetalle.MovimientoStock.hayObservaciones" >
+						<td colspan="7">
+							<div class="span9">
+								<div class="col-md-10 col-md-offset-1">
+									<!-- Second Layer -->
+									<div class="col-xs-12 text-left">
+										<label  >Observaciones Enfermeria: {{movimientoDetalle.MovimientoStock.observaciones}}</label>
+									</div>
+									<!-- End Second Layer -->
+
+								</div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<sa-loading ng-if="formControl.loadingModal"></sa-loading>
+		</div>
+	</div>
+</div>
+<div class="modal-footer" >
+	<button type="button"
+	class="btn btn-guardar"
+	ng-click="formControl.ok()">Cerrar</button>
+</div>

@@ -1,0 +1,60 @@
+<form name="formConfirm" accept-charset="utf-8" novalidate>
+	<sa-modal-header
+		title-icon="QUESTION"
+		title-name="Confirmar solicitud de preadmisión">
+	</sa-modal-header>
+	<sa-modal-body loading="vm.formControl.loading">
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+				¿Desea guardar la nueva solicitud?
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 ">
+				<label>Paciente</label>
+				<div ng-bind="data.solicitud.Paciente.nombre_completo"></div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 ">
+				<label>Sucursal</label>
+				<div ng-bind="data.solicitud.Sucursal.descripcion"></div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+				<label>Informe médico</label>
+				<div ng-bind="data.solicitud.informe_medico"></div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 ">
+				<label>Fecha de Solicitud</label>
+				<div ng-bind="today | date: 'dd/MM/yyyy'"></div>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 ">
+				<sa-check-box
+					label="Guardar internación como plantilla"
+					ng-model="formData.saveTemplate">
+				</sa-check-box>
+				<!-- <label>Guardar internación como plantilla</label>
+				<div class="">
+					<label>
+					<input type="checkbox" name="saveTemplate"
+						ng-model="formData.saveTemplate" >
+						Si
+					</label>
+				</div> -->
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 "
+				ng-if="formData.saveTemplate">
+				<label for="txt_nombre_plantilla">Nombre de plantilla</label>
+				<input type="text" class="form-control"
+					ng-model="data.solicitud.nombre_template"
+					ng-required="formData.saveTemplate">
+			</div>
+		</div>
+	</sa-modal-body>
+	<sa-modal-footer
+		btn-ok-click="$close('ok')"
+		btn-ok-disabled="!formConfirm.$valid"
+		btn-cancel-click="$dismiss('cancel')">
+	</sa-modal-footer>
+</form>

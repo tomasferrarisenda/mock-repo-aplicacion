@@ -1,0 +1,31 @@
+<div class="modal-body" >
+        <sa-loading></sa-loading>
+    <!-- 
+    <span id="percentage" ng-if="vm.progress">$ {{vm.size}} ({{vm.progress}}%)</span>
+    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{vm.getPercentage()}}"
+        aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( vm.getPercentage() + '%' ) }">
+        <span class="sr-only">{{vm.getPercentage()}}% Complete (warning)</span>
+    </div> -->
+    <div class="row">
+        <div class="col-6" >
+            <div class="text-center">
+                <h3>Revaluando...</h3>
+                <h3>{{vm.progress.pProgress}} / {{vm.size}} Paginas Completadas</h3>
+                
+                <div ng-if="vm.error">
+                        <div class="alert alert-warning" role="alert">Atención, algunos elementos en el proceso no pudieron revaluarse. Estos elementos aparecerán sin el fondo naranja pastel</div>
+                </div>
+            </div>
+            <!-- <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{vm.getPercentage()}}"
+            aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( vm.getPercentage() + '%' ) }">
+            <span class="sr-only">{{vm.getPercentage()}}% Complete (warning)</span>
+            </div> -->
+
+        </div>
+
+        <input type="text" class="form-control" ng-show="false"
+			ng-model="vm.progress"
+			>
+    </div>
+    
+</div>

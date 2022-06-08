@@ -1,0 +1,47 @@
+<sa-menu></sa-menu>
+<!-- Contenido de la vista -->
+<snap-content>
+	<div class="right">
+		<sa-header name-module="{{ vm.title.module }}" path-module="#/HistoriaClinica" ></sa-header>
+
+		<div class="main">
+			<section class="contentwhite">
+				<div class="container-fluid">
+					<sa-title
+						title-name="vm.title.page"
+						title-icon="NEW2"
+						btn-reload-click="vm.formControl.reload()">
+					</sa-title>
+					<div class="cuerpo" ng-hide="vm.formControl.loading || vm.formControl.error">
+						<div class="row ">
+							<div class="col-xs-12 ">
+								<div 
+									id="textEvolucion"
+									name="textEvolucion"
+									ckeditor="vm.optionCk"
+									ng-model="vm.formData.textEvolucion"
+									ng-change="vm.formControl.verEvolucion()"
+									>
+								</div>
+							</div>
+						</div>
+						<div class="row fila">
+							<h4>Angular Bind HTML</h4>
+							<div class="col-xs-12 ">
+								<div ng-bind-html="vm.formData.textEvolucion | saToHtml"></div>
+							</div>
+						</div>
+						<div class="row fila">
+							<h4>Plano</h4>
+							<div class="col-xs-12 ">
+								<div ng-bind="vm.formData.textEvolucion | saToPlainText"></div>
+							</div>
+						</div>
+					</div>
+					<sa-loading ng-if="vm.formControl.loading"></sa-loading>
+				</div>
+			</section>
+		</div>
+	</div>
+</snap-content>
+<!-- /Contenido de la vista -->

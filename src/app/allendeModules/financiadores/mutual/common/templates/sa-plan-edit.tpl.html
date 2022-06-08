@@ -1,0 +1,55 @@
+<form name="formPlanes" accept-charset="utf-8" novalidate >
+	<sa-modal-header
+		title-name="{{vm.title.name}}"
+		title-icon="{{vm.title.icon}}">
+	</sa-modal-header>
+	<sa-modal-body>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-9 col-lg-7 form-group">
+				<div sa-form-input-validate>
+					<label>Nombre Plan</label>
+					<input type="text" class="form-control" name="nombrePlan" ng-model="vm.filter.nombre" id="nombre-plan-modal-plan"
+						autofocus ng-required="true" sa-enter>
+				</div>
+			</div> 
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group">
+				<div sa-form-input-validate>
+					<label>Código Mapeo</label>
+					<input type="number" class="form-control" name="codigoMapeo" placeholder="0" ng-model="vm.filter.codigoMapeo"
+						id="codigo-mapeo-modal-plan" ng-required="false" sa-enter>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-9 col-lg-2 form-group">
+				<sa-check-box label="Activo" ng-model="vm.filter.activo" 
+					id-element="activo_plan"
+					color="green">
+				</sa-check-box>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-9 col-lg-12 form-group">
+				<label>Plan Según Autorizador</label>
+				<textarea rows="3" class="form-control" id="planSegunAutorizador" 
+					name="planSegunAutorizador" ng-model="vm.filter.planSegunAutorizador" maxlength="777">
+				</textarea>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-9 col-lg-12 form-group">
+				<i><label>
+					Ayuda plan según autorizador:<br>
+					; -> Separador de planes.<br>
+					? -> Cualquier tipo caracter.<br>
+					* -> Cualquier tipo y cantidad de caracteres siguientes.
+				</label></i>
+			</div>
+		</div>
+
+	</sa-modal-body>
+	<sa-modal-footer>
+		<button type="submit" class="btn" ng-click="vm.formControl.cancelar()" id="cancelar-modal-plan-btn" sa-punto-click="vm.formControl.cancelar()" sa-enter>Cancelar</button>
+		<button type="submit" class="btn btn-default" ng-disabled="formPlanes.$invalid" id="guardar-modal-plan-btn"
+		 	ng-click="vm.formControl.guardar()" sa-punto-click="vm.formControl.guardar()" sa-enter>Guardar</button>
+	</sa-modal-footer>
+</form>

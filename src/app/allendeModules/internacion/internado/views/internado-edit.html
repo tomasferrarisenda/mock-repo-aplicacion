@@ -1,0 +1,29 @@
+<sa-title
+	title-name="vm.title.page"
+	today="true"
+	small="vm.title.detail"
+	title-icon="EDIT"
+
+	btn-reload-click="formControl.reloadPage()"
+	btn-reload-disabled="formControl.loading"
+	>
+</sa-title>
+<sa-loading ng-if="formControl.loading"></sa-loading>
+<div class="cuerpo" ng-hide="formControl.loading || formControl.error">
+	<form name="formSolicitud" accept-charset="utf-8" novalidate>
+		<sa-tabs model="tabs"></sa-tabs>
+		<div class="row text-center">
+			(*) Campos obligatorios
+		</div>
+		<br>
+		<div class="row text-center">
+			<button class="btn" ng-click="formControl.volver()">
+				<span ng-if="!formSolicitud.$pristine">Cancelar</span>
+				<span ng-if="formSolicitud.$pristine">Volver</span>
+			</button>
+			<button class="btn btn-default"
+				ng-disabled='!validar.form() || formSolicitud.$pristine'
+				ng-click='internacion.guardar()'>Guardar</button>
+		</div>
+	</form>
+</div>

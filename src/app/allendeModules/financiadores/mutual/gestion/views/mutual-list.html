@@ -1,0 +1,76 @@
+<sa-title title-name="vm.title.name" title-icon="LIST" btn-new-click="vm.formControl.editar(null)"></sa-title>
+<div ng-hide="vm.formControl.loading">
+	<form name="formMutuales" accept-charset="utf-8" novalidate>
+		<div class="row">
+			<div class="col-xs-12 col-sm-8 col-md-4 col-lg-1 form-group" sa-form-input>
+				<label class="control-label">Código</label>
+				<input type="text" class="form-control" ng-model="vm.filter.codigo" min = "0" sa-enter sa-integer id="codigo_mutual">
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 form-group" sa-form-input>
+				<label class="control-label">Nombre</label>
+				<input type="text" id="codigo_mutual_list" class="form-control text-uppercase" ng-model="vm.filter.nombre" sa-enter>
+			</div>
+			<!-- <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 form-group" sa-form-input>
+					<label class="control-label">Nombre Corto</label>
+					<input type="text" class="form-control text-uppercase" ng-model="vm.filter.nombreCorto" sa-enter>
+				</div>				 -->
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+				<label>Tipo Afiliado</label>
+				<select class="form-control"
+					id="cmb_tipo_afiliado_list"
+					ng-model="vm.filter.IdTipoAfiliado"
+					ng-options="tipoAfiliado.Id as tipoAfiliado.Nombre for tipoAfiliado
+					in vm.data.tipoAfiliado" sa-enter>
+						<option value="">TODOS</option>
+				</select>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+				<label>Tipo Mutual</label>
+				<select class="form-control"
+					id="cmb_tipo_mutual_list"
+					ng-model="vm.filter.IdTipoMutual"
+					ng-options="tipoMutual.Id as tipoMutual.Nombre for tipoMutual
+					in vm.data.tipoMutual" sa-enter>
+						<option value="">TODOS</option>
+				</select>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+				<sa-check-box ng-model="vm.filter.soloActivos" label="Sólo activos" color="green" id-element="solo-activos-mutuales-list"></sa-check-box>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 form-group">
+				<button sa-btn-search
+					ng-click="vm.formControl.buscar()" class="btn-row" id="buscar_list_mutual_btn"
+					sa-punto-click="vm.formControl.buscar()" sa-enter>
+					Buscar
+				</button>
+				<button sa-btn-clean
+					ng-click="vm.formControl.limpiarFiltros()" class="btn-row" id="limpiar_list_mutual_btn"
+					sa-punto-click="vm.formControl.limpiarFiltros()" sa-enter>
+					Limpiar
+				</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12 form-group">
+				<sa-table-ext data="vm.data.mutuales" 
+						page-change="vm.formControl.buscarPagina(pagination)"
+						export="vm.table.export(exportation)"
+						btn-edit-click="vm.formControl.editar(row.Id)"
+						btn-delete-click ="vm.formControl.borrar(row, index)"
+						btn-id-element="mutual-list-btn">
+				</sa-table-ext>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 text-center">
+				<button class="btn btn-cancelar" id="cancelar_list_mutual_btn"
+						ng-click="vm.formControl.volver()"
+						sa-punto-click="vm.formControl.volver()"
+						sa-enter>
+					Volver
+				</button>
+			</div>
+		</div>
+	</form>
+</div>
+<sa-loading-modal ng-if="vm.formControl.loading"></sa-loading-modal>

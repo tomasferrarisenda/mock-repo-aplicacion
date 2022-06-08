@@ -1,0 +1,133 @@
+<sa-modal-header title-name="Calendario Turnos de {{vm.recurso.Nombre}} en {{vm.servicio.Nombre}} de {{vm.sucursal.Nombre}}"
+ title-icon="INFO" loading="vm.loading" >
+
+</sa-modal-header>
+<sa-modal-body loading="vm.loading" >
+
+	<div class="row">
+		<div class="col-xs-3" sa-form-input>
+			<label for="cmb_sucursal">
+                <span ng-bind="'Sucursal'"></span>
+            </label>
+            <select id="cmb_sucursal" name="selectSucursal" ng-model="vm.sucursal"
+                ng-options="sucursal as sucursal.Nombre for sucursal in vm.sucursales track by sucursal.Id">
+                <option value="">-SELECCIONAR-</option>
+            </select>
+        </div>
+        
+        <div class="col-xs-2 btn-row">
+            <sa-check-box ng-model="vm.soloAgendaActiva" color="red" label-right="'Solo Agenda Activa'" pull-right="true"></sa-check-box>
+        </div>
+	</div>
+	<div class="row">
+
+		<!-- calendar zone -->
+		<div class="col-xs-4">
+			<div class="row">
+				<div class="col-xs-12" ng-if="vm.infoCalendario.SituacionesPorDia && vm.infoCalendario.SituacionesPorDia.length"
+				 style="margin-bottom: 6px;">
+					<div class="calendar" calendar="calendarOcupacionTurnos" ui-calendar="vm.uiConfig.calendarOcupacionTurnos">
+					</div>
+				</div>
+			</div>
+
+			<div class="row" ng-show="vm.infoCalendario.SituacionesPorDia && vm.infoCalendario.SituacionesPorDia.length">
+				<div class="col-xs-6">
+					<table class="table table-bordered table-condensed">
+						<tbody>
+							<tr ng-repeat="color in vm.coloresEstadoTurno | limitTo : 3">
+								<td>
+									<div class="pull-left">
+										<div class="circulito" ng-class="color.color"></div>
+									</div>
+									&nbsp;
+									<span ng-bind="color.nombre"></span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="col-xs-6">
+					<table class="table table-bordered table-condensed">
+						<tbody>
+							<tr ng-repeat="color in vm.coloresEstadoTurno | limitTo : 3 : 3">
+								<td>
+									<div class="pull-left">
+										<div class="circulito" ng-class="color.color"></div>
+									</div>
+									&nbsp;
+									<span ng-bind="color.nombre"></span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- table zone -->
+		<div class="col-xs-8" ng-show="vm.turnosDisponiblesDelDia && vm.turnosDisponiblesDelDia.length">
+			<h4>Lista de Turnos de {{vm.diaElegidoText}}</h4>
+			<div class="tableturnos">
+                <table class="table table-fixed table-cursor-pointer table-hover">
+                    <thead>
+                        <tr class="cabecera-tabla">
+                            <th class="col-xs-2">
+                                <div class="row">
+                                    <div class="col-xs-6" >
+                                        Hora
+                                    </div>
+                                    <div class="col-xs-6">
+                                        ST
+                                    </div>
+                                </div>
+                            </th>
+                            <th class="col-xs-2">Estado</th>
+                       
+                            <th class="col-xs-2">Sucursal</th>
+                            <th class="col-xs-2">Tipo Turno</th>
+                            <th class="col-xs-2">Prestaciones</th>
+                            <th class="col-xs-2">Paciente</th>
+
+                        </tr>
+                    </thead>
+                    <tbody style="height: 380px !important;" class="bodyturnos">
+                        <tr ng-repeat="row in vm.turnosDisponiblesDelDia" >
+                            <td class="col-xs-2">
+                                <div class="row">
+                                    <div class="col-xs-6" ng-class="{'color-turno-duracion-multiple' : row.Duracion.length > 0}">
+                                        {{row.Hora}}
+                                    </div>
+                                    <div class="col-xs-6">
+                                        {{row.ST}}
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="col-xs-2" ng-bind="row.NombreEstado" ng-class="row.ColorEstado"></td>
+                            <td class="col-xs-2" ng-bind="row.Sucursal" ng-class="row.ColorSucursal"></td>
+                            <td class="col-xs-2" ng-bind="row.TipoTurno"></td>
+                            <td class="col-xs-2" ng-bind="row.Prestaciones"></td>
+                            <td class="col-xs-2" ng-bind="row.Paciente"></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+        
+        <div class="col-xs-8" ng-show="!vm.turnosDisponiblesDelDia && !vm.turnosDisponiblesDelDia.length">
+            <h2>No existen turnos para la fecha seleccionada</h2>
+        </div>
+
+
+	</div>
+
+</sa-modal-body>
+<sa-modal-footer loading="vm.loading">
+    <button type="button" class="btn btn-default" ng-disabled="vm.loading" ng-click="vm.cancel()">Cerrar</button>
+    <button type="button" class="btn btn-success" ng-disabled="vm.loading" ng-if="vm.seleccionarDiaEstado" ng-click="vm.seleccionarDia()">Seleccionar Día</button>
+</sa-modal-footer>

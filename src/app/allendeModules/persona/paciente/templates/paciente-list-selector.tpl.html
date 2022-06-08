@@ -1,0 +1,98 @@
+<div class="modal-header">
+	<h4 class="modal-title">
+		<sa-icon name="NEW2"></sa-icon>
+		{{ vm.title.page }}
+	</h4>
+</div>
+<sa-loading ng-if="vm.formControl.loading"></sa-loading>
+<div class="modal-body" ng-hide="vm.formControl.loading">
+	<form name="formFilter" accept-charset="utf-8" novalidate>
+		<div class="row">
+			<div class="col-xs-12  form-group">
+				<label for="txt_nombre_paciente">Nombre de paciente</label>
+				<input type="text" id="txt_nombre_paciente"
+					name="nombrePaciente"
+					class="form-control"
+					placeholder="Búsqueda solo por nombre. Requiere por lo menos 4 letras." 
+					minlength="5"
+					ng-change="vm.filter.cleanDni()"
+					ng-model="vm.filter.nombrePaciente">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3  form-group">
+				<sa-tipo-documento-old-combo
+					ng-model="vm.filter.tipoDocumento">
+				</sa-tipo-documento-old-combo>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3  form-group">
+				<sa-numero-documento
+					ng-model="vm.filter.numeroDocumento"
+					ng-change="vm.filter.cleanNombre()" >
+				</sa-numero-documento>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3  form-group">
+				<sa-check-box
+					name="mayor"
+					label="Mayor de 18 años"
+					ng-model="vm.filter.mayorEdad"
+					ng-change="vm.filter.cleanNombre()"
+					ng-disabled="!vm.data.pacientes.length">
+				</sa-check-box>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3  ">
+				<button type="button" class="btn btn-default btn-block btn-row"
+					ng-click="vm.formControl.buscarPaciente()" id="btn_buscar">
+					Buscar
+				</button>
+			</div>
+		</div>
+	</form>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12  table-responsive">
+			<table class="table table-hover" id="tabla_pacientes">
+				<thead>
+					<tr></tr>
+					<tr class="cabecera-tabla">
+						<th class="text-center">Documento</th>
+						<th class="text-center">Nombre paciente</th>
+						<th class="text-center">Fecha Nacimiento</th>
+						<th class="text-center">Edad</th>
+						<th class="text-center">Email</th>
+						<th class="text-center">Telefono</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="paciente in vm.filter.pacientes" class="fw-noselect" 
+						ng-click="vm.formControl.ok(paciente)">
+						<td class="" ng-bind="paciente.TipoDocumento.nombre_tipo_documento + ': ' + paciente.numero_documento"></td>
+						<td class="text-center" ng-bind="paciente.nombre_completo"> </td>
+						<td class="text-center" ng-bind="paciente.fecha_nacimiento | date: 'dd/MM/yyyy'"> </td>
+						<td class="text-center" ng-bind="paciente.edad"> </td>
+						<td class="text-center" ng-bind="paciente.email"> </td>
+						<td class="text-center" ng-bind="paciente.telefono"> </td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-sm-12" ng-if="!vm.data.pacientes.length">
+			<div class="text-center">Sin registros.</div>
+		</div>
+		<div class="col-sm-12">
+			<div class="text-center">
+				<div uib-pagination 
+					items-per-page="vm.paginacion.pageSize"
+					total-items="vm.paginacion.totalItems"
+					ng-model="vm.paginacion.currentPage"
+					ng-change="vm.paginacion.pageChanged()"
+					previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer" >
+	<button type="button" id="btn_cancelar"
+		class="btn"
+		ng-click="vm.formControl.cancel()">Cancelar</button>
+</div>

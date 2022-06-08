@@ -1,0 +1,208 @@
+	<sa-title
+	title-name="vm.title.page"
+	title-icon="LIST"
+	btn-new-click="vm.formControl.agregar()"
+	btn-new-disabled="vm.formControl.loading"
+	btn-reload-click="vm.formControl.reloadPage()"
+	btn-reload-disabled="vm.formControl.loading"
+	></sa-title>
+	<div class="cuerpo" ng-hide="vm.formControl.loading || vm.formControl.error">
+		<div class="row fila">
+			<h4>Búsqueda avanzada</h4>
+			<form name="formFilter"  novalidate>
+				<div>
+					
+					<div class="col-xs-12 col-sm-4 col-md-4 col-lg-2  form-group">
+						<label class="label-control">Estado</label>
+						<select class="form-control"
+							id="cmb_feriados"
+							ng-model="vm.filter.estado"
+							ng-options="estado.Nombre for estado in vm.data.estados track by estado.Id"
+							sa-enter>
+							<option value="">TODOS</option>
+						</select>
+					</div>
+					
+					<div class="col-xs-6 col-sm-4 col-md-4 col-lg-2  form-group">
+						<label class="label-control">Desde</label>
+						<!-- <sa-date-picker model="vm.filter.fechaDesde"
+						min-date="vm.data.fecha"
+						sa-enter>
+						</sa-date-picker> -->
+						<sa-date-time-picker ng-model="vm.filter.fechaDesde" id="1" type="date">
+						</sa-date-time-picker>
+					</div>
+					<div class="col-xs-6 col-sm-4 col-md-4 col-lg-2  form-group">
+						<label class="label-control colleft">Hasta</label>
+						<!-- <sa-date-picker model="vm.filter.fechaHasta"
+						min-date="vm.filter.fechaHasta"
+						sa-enter>
+						</sa-date-picker> -->
+						<sa-date-time-picker ng-model="vm.filter.fechaHasta " id="2" type="date" min="vm.filter.fechaDesde">
+						</sa-date-time-picker>
+					</div>
+					<div class="col-xs-6 col-sm-4 col-md-4 col-lg-2 pull-right">
+					<button type="button" class="btn-block btn-row" sa-btn-clean ng-click="vm.filter.clean()">
+							Limpiar
+						</button>
+					</div>
+					
+					<div class="col-xs-6 col-sm-4 col-md-4 col-lg-2 pull-right">
+						<button type="button" class="btn-block btn-row" sa-btn-search ng-click="vm.formControl.buscar()">
+							Buscar
+						</button>
+					</div>
+					
+					<div class="col-xs-6 col-sm-4 col-md-4 col-lg-2 ">
+						<label for="txt_cantidad_usuarios" class="label-control">Cantidad Feriados </label>
+						<div >
+							<strong ng-bind="vm.paginacion.totalItems"></strong>
+						</div>
+					</div>
+					
+					<!-- 	<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2">
+							<button class="form-control btn btn-default btn-loading" ng-click="vm.formControl.buscar()" sa-enter >Buscar</button>
+					</div>
+					<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 ">
+							<button class="form-control btn btn-default btn-loading" ng-click="vm.filter.clean()" sa-enter >Limpiar</button>
+					</div> -->
+					
+				</div>
+			</form>
+		</div>
+		
+		<table class="table table-hover table-condensed table-bordered table-cursor-pointer" id="detalle_feriados">
+			<thead>
+				<tr class="thead-azul">
+					<tr class="cabecera-tabla">
+						<th class="text-center" ng-click="vm.sort('Fecha')">
+							Fecha
+							<span class="glyphicon sort-icon" ng-show="sortKey=='Fecha'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+						</th>
+						<th class="text-center" ng-click="vm.sort('Fecha')">
+							Desde : Hasta
+							<span class="glyphicon sort-icon" ng-show="sortKey=='Fecha'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+						</th>
+						<th class="text-center" ng-click="vm.sort('Estado')">
+							Estado
+							<span class="glyphicon sort-icon" ng-show="sortKey=='Estado'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+						</th>
+						<th class="text-center" >
+							Cant. Excepciones
+							
+						</th>
+						<th class="text-center">
+							Acciones&nbsp;&nbsp;
+						</th>
+					</tr>
+				</thead>
+				<tbody ng-repeat="feriado in vm.filter.feriados | orderBy:sortKey:reverse|filter:search" context-menu="vm.menuOptions">
+					<tr>
+						<td ng-click="vm.formControl.verExcepciones(feriado.Id)" class="row text-center">{{ feriado.Fecha | date:"dd/MM/yy"}}</td>
+						<td ng-click="vm.formControl.verExcepciones(feriado.Id)" class="row text-center" ng-bind="vm.formControl.getHoraOk(feriado)"></td>
+						<td ng-click="vm.formControl.verExcepciones(feriado.Id)" ng-class="feriado.ColorEstado" class="row text-center">{{ feriado.Estado}}</td>
+						<td ng-click="vm.formControl.verExcepciones(feriado.Id)" class="row text-center" >{{ vm.formControl.getCantExcepciones(feriado)}}</td>
+						<td class="row text-center">	
+						<button type="button"
+							id="button_editar"
+							class="btn btn-white btn-xs"
+							uib-tooltip="Editar"
+							uib-tooltip-placement="top"
+							ng-disabled="!feriado.PuedeEditar"
+							ng-click="vm.formControl.editar(feriado.Id)">
+							<sa-icon name="EDIT"></sa-icon>
+							</button>
+
+							<button type="button"
+							id="button_aplicar"
+							class="btn btn-white btn-xs"
+							uib-tooltip="Aplicar"
+							uib-tooltip-placement="top"
+							ng-disabled="!feriado.PuedeAplicar"
+							ng-click="vm.formControl.aplicar(feriado.Id)">
+							<sa-icon name="CHECK"></sa-icon>
+							</button>
+
+							<button type="button"
+							id="button_reprogramar"
+							class="btn btn-white btn-xs"
+							uib-tooltip="Reprogramar Turnos"
+							uib-tooltip-placement="top"
+							ng-disabled="!feriado.PuedeAnular"
+							ng-click="vm.formControl.reprogramarTurnos(feriado.Id)">
+							<sa-icon name="REPEAT"></sa-icon>
+							</button>
+
+							<button type="button"
+							id="button_anular"
+							class="btn btn-white btn-xs"
+							uib-tooltip="Anular"
+							uib-tooltip-placement="top"
+							ng-disabled="!feriado.PuedeAnular"
+							ng-click="vm.formControl.anular(feriado.Id)">
+							<sa-icon name="DEL"></sa-icon>
+							</button>
+
+							<button type="button"
+							id="button_eliminar"
+							class="btn btn-white btn-xs"
+							uib-tooltip="Eliminar"
+							uib-tooltip-placement="top"
+
+							ng-disabled="!feriado.PuedeEliminar"
+							ng-click="vm.formControl.eliminar(feriado.Id)">
+							<sa-icon name="TRASH"></sa-icon>
+							</button>
+
+							<button type="button" id="button_Auditoria" class="btn btn-white btn-xs" uib-tooltip="Ver Auditoria" uib-tooltip-placement="top"
+							ng-click="vm.formControl.verAuditoria(feriado)">
+							   <sa-icon name="VIEW"></sa-icon>
+						   </button>
+						</td>
+					</tr>
+					<tr class="animate-hide" ng-hide="!feriado.VerItems" >
+						<td colspan="7">
+							<div class="span9">
+								<div class="col-md-10 col-md-offset-1" ng-show="feriado.TieneExcepciones">
+									<table class="table table-hover table-condensed table-striped">
+										<thead class="levelTwo">
+										<tr></tr>
+										<tr class="cabecera-tabla-celeste">
+											<th>Sucursal</th>
+											<th>Servicio</th>
+											<th>Recurso</th>
+											<th>Situacion</th>
+											<th>Desde / Hasta</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="item in feriado.Excepciones">
+											<td ng-bind="item.Sucursal"></td>
+											<td ng-bind="item.Servicio"></td>
+											<td ng-bind="item.Recurso"></td>
+											<td ng-bind="vm.formControl.getSituacionExcepcion(item)"></td>
+											<td ng-bind="vm.formControl.getSituacionDesdeHasta(item)"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div ng-show="!feriado.TieneExcepciones">El feriado no tiene excepciones</div>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="row" ng-if="vm.filter.feriados.length">
+			<div class="col-sm-12">
+				<div class="text-center">
+					<div uib-pagination 
+					items-per-page="vm.paginacion.pageSize"
+					total-items="vm.paginacion.totalItems"
+					ng-model="vm.paginacion.currentPage"
+					ng-change="vm.paginacion.pageChanged()"
+					previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

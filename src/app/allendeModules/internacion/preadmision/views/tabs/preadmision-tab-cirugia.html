@@ -1,0 +1,32 @@
+<ng-form name="formTabCirugia">
+	<div class="row fila">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 " sa-form-input>
+			<label for="txt_observacion">Observación (*)</label>
+			<textarea type="text" rows="4" placeholder="Observaciones de la cirugía"
+				name="observacionesCirugia"
+				maxlength="255" 
+				ng-class="{ error : !formTabCirugia.observacionesCirugia.$valid }"
+				ng-disabled="!vm.formControl.esEditAprobado" 
+				ng-model="data.solicitud.IntervencionAdmision.observaciones_cirugia"
+				required>
+			</textarea>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 ">
+			<label >Fecha probable de cirugía</label>
+			<div class="form-control" 
+				ng-bind="data.solicitud.IntervencionAdmision.fecha_cirugia_probable | date: 'dd/MM/yyyy'">
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 form-group" >
+			<label for="txt_fecha_cirugia">Fecha de cirugía (*)</label>
+			<sa-date-picker
+				name="fechaCirugiaReal"
+				model="vm.formData.fechaCirugiaReal"
+				disabled="!vm.formControl.esEditAprobado"
+				required="true"
+				min-date="vm.today" >
+			</sa-date-picker>
+		</div>
+	</div>
+</ng-form>

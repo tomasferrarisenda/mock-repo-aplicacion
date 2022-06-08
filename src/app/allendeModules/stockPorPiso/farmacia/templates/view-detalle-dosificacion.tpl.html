@@ -1,0 +1,361 @@
+<form name="formPersona" accept-charset="utf-8" novalidate >
+	<div class="modal-header">
+		<h4 class="modal-title">Detalle Dosificacion</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<h4 class="fila">
+				Dosificacion de: {{data.internacion}}
+			</h4>
+			<div class="col-xs-12">
+				<h5>
+					Producto: {{data.dosificacion.Material.numero_articulo}},  {{data.dosificacion.Material.nombre}}  {{data.dosificacion.Material.presentacion}}					
+				</h5>
+				<h5>
+					Dosis: {{data.dosificacion.cantidad_dosis}} {{data.dosificacion.TipoDosis.nombre_tipo_dosis}} via {{data.dosificacion.Via.descripcion}}			
+				</h5>
+				<h5>
+					Cada: {{data.dosificacion.cada_horas}}  horas		
+				</h5>
+				<h5 ng-if="formControl.nuevaCordoba">
+					Stock Actual: {{data.dosificacion.Material.stock_nueva_cordoba}}
+				</h5>
+				<h5 ng-if="formControl.cerro">
+					Stock Actual: {{data.dosificacion.Material.stock_cerro}}
+				</h5>
+				<h5>
+					Stock Drogueria: {{data.dosificacion.Material.stock_drogeria}}
+				</h5>
+				<h5 ng-if="data.dosificacion.hayObservacionMedica">
+					Observaciones: {{data.dosificacion.observacion_medica}}
+				</h5>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 form-group">
+				<label for="estado_button">Estado:</label>
+				<button id="estado_button" class="btn btn-block" ng-class="data.dosificacion.Estado.color" type="button"
+						ng-click="formControl.botonEstado()"
+						ng-disabled="formControl.loading"
+						ng-if="!data.dosificacion.cambiarEstado">
+						{{data.dosificacion.Estado.nombre_estado}}
+				</button>
+				<select id="estado_select"
+						ng-if="data.dosificacion.cambiarEstado"
+						class="form-control"
+						ng-model="data.dosificacion.Estado"
+						ng-change="formControl.estadoChanged()"
+		  				ng-options="estado.nombre_estado 
+									for estado in data.estados 
+									track by estado.id_estado" 
+						required >
+				</select>
+			</div>
+			<div class= "col-xs-12 col-sm-6 col-md-5 col-lg-4  btn-row-right scroll-dropdown" ng-if="!formControl.facturacion" >
+				<div class="input-group" ng-hide="!formControl.cargarProducto">
+					<input 	name="producto" 
+							id="producto" type="text" 
+							placeholder="Nuevo producto..." 
+							ng-model="formData.productoNuevo"
+							
+							ng-disabled="data.dosificacion.Estado.deshabilitado || !data.dosificacion.esHoy"
+							uib-typeahead="producto as (producto.nombre +' * '+ producto.presentacion + ' | Stock: ' + producto.stock) for producto in data.materiales | filter:$viewValue | limitTo:200" 
+							class="form-control no-valid"
+							typeahead-on-select="formControl.nuevoProducto(producto)"
+							ng-change=""
+							typeahead-select-on-exact="true">
+					<span class="input-group-btn">
+						<button id="estado_button" class="btn btn-default " type="button"
+								ng-click="formControl.agregarProducto()">
+								<sa-icon name="NEW"></sa-icon>
+						</button>
+					</span>
+				</div>
+				<button id="estado_button" class="btn btn-default pull-right" type="button"
+						ng-if="!formControl.cargarProducto"
+						ng-click="formControl.agregarProducto()">
+						<sa-icon name="NEW"></sa-icon>
+				</button>
+			</div>
+			<div class="col-xs-12 table-responsive ">
+				<table class="table table-hover no-valid fila" >
+					<thead>
+						<tr >
+							<th colspan="3" class="text-center"></th>
+						</tr>
+						<tr class="thead-azul">
+						<tr class="cabecera-tabla">
+							<th ng-hide="formControl.guardia" class="text-left">Hora Programada</th>
+							<th ng-hide="formControl.guardia" class="text-center">Estado</th>
+							<th ng-hide="formControl.guardia" class="text-center">Cantidad Entregada</th>
+							<th class="text-center" ng-if="!formControl.facturacion" style="width: 15%;">Cargar</th>
+							<th class="text-center" ng-if="formControl.facturacion">Facturar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="toma in data.dosificacion.Tomas">
+
+							<td ng-hide="formControl.guardia" class="row text-left">{{ toma.fecha_programada  | date:"dd/MM/yyyy HH:mm" }}</td>
+							<td ng-hide="formControl.guardia" class="row text-center">{{ toma.Estado.nombre_estado }}</td>
+							<td ng-hide="formControl.guardia" class="row text-center">{{ toma.cantidad_entregada }}</td>
+							<td class="row text-center" ng-if="!formControl.facturacion" >
+								<div class="input-group">
+									<span class="input-group-btn" >
+										<button type="button" 
+											ng-hide=""
+											class="btn btn-white btn-xs"
+											ng-disabled="toma.minimo || !data.dosificacion.esHoy || formControl.facturacion"
+											
+											ng-click="formControl.resta($index)">
+											<sa-icon name="MINUS"></sa-icon>
+										</button>
+									</span>
+									<input type="text" min="0"
+											class="form-control input-sm"
+											ng-model="toma.cantidad"
+											ng-disabled="true"
+											required>
+											
+									<span class="input-group-btn">
+										<button type="button"
+											ng-disabled="toma.deshabilitado || data.dosificacion.Estado.deshabilitado || !data.dosificacion.esHoy || formControl.facturacion"
+											class="btn btn-white btn-xs"
+											ng-click="formControl.suma($index)">
+											<sa-icon name="NEW"></sa-icon>
+										</button>
+									</span>
+								</div>
+							</td>
+							<td class="row text-center" ng-if="formControl.facturacion">
+								<button type="button" 
+										id="facturar_button"
+										ng-hide="toma.facturado || toma.devuelto || toma.newFacturacion || toma.newDevolucion"
+										ng-disabled="toma.noEntregados"
+										class="btn btn-white btn-xs"
+										uib-tooltip="Facturar" 
+										uib-tooltip-placement="top"
+										ng-click="formControl.facturarToma(toma)">
+								<sa-icon name="NEW"></sa-icon>
+								</button>
+
+								<button type="button" 
+										id="facturado_button"
+										ng-show="toma.newFacturacion"
+										class="btn btn-white btn-xs"
+										uib-tooltip="Cancelar Facturacion" 
+										uib-tooltip-placement="top"
+										ng-click="formControl.facturarToma(toma)">
+								<sa-icon name="DEL"></sa-icon>
+								</button>
+
+								<button type="button" 
+										id="facturado_button"
+										ng-show="toma.facturado"
+										class="btn btn-white btn-xs"
+										uib-tooltip="Ya facturado" 
+										uib-tooltip-placement="top"
+										ng-click="">
+								<sa-icon name="OK"></sa-icon>
+								</button>
+
+								<button type="button" 
+										id="facturado_button"
+										ng-hide="toma.facturado || toma.devuelto || toma.newFacturacion || toma.newDevolucion"
+										ng-disabled="toma.noEntregados"
+										class="btn btn-white btn-xs"
+										uib-tooltip="Devolucion" 
+										uib-tooltip-placement="top"
+										ng-click="formControl.devolucionToma(toma)">
+								<sa-icon name="REPLY"></sa-icon>
+								</button>
+
+								<button type="button" 
+										id="facturado_button"
+										ng-show="toma.devuelto"
+										class="btn btn-white btn-xs"
+										uib-tooltip="Ya devuelto" 
+										uib-tooltip-placement="top"
+										ng-click="">
+								<sa-icon name="REPLY"></sa-icon>
+								</button>
+
+								<button type="button" 
+										id="facturado_button"
+										ng-show="toma.newDevolucion"
+										class="btn btn-white btn-xs"
+										uib-tooltip="Cancelar Devolucion" 
+										uib-tooltip-placement="top"
+										ng-click="formControl.devolucionToma(toma)">
+								<sa-icon name="DEL"></sa-icon>
+								</button>
+	
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-xs-12">
+				<label for="cmb_tipo_documento">Observaciones:</label>
+				<input type="text" class="form-control input-sm" 
+						name="observaciones"
+						ng-disabled="!data.dosificacion.esHoy || data.dosificacion.Estado.deshabilitado || formControl.facturacion"
+						ng-model="data.dosificacion.observacion_farmacia"
+						maxlength="120"
+						ng-change="">
+			</div>
+
+			<div class="col-xs-12 table-responsive" ng-hide="formControl.noDosificacionesDesca">				
+				<table class="table table-hover no-valid" >
+					<thead>
+						<tr>
+							<th colspan="3" class="text-center"></th>
+						</tr>
+						<tr class="thead-azul">
+						<tr class="cabecera-tabla">
+							<th ng-hide="formControl.guardia" class="text-left">Codigo</th>
+							<th ng-hide="formControl.guardia" class="text-center">Descripcion</th>
+							<th ng-hide="formControl.guardia" class="text-center">Presentacion</th>
+							<th ng-hide="formControl.guardia" class="text-center">Stock</th>
+							<th ng-hide="formControl.guardia" class="text-center">Stock Drogueria</th>
+							<th ng-hide="formControl.guardia" class="text-center">Estado</th>
+							<th ng-hide="formControl.guardia" class="text-center">Entregado</th>
+							<th class="text-center" ng-if="!formControl.facturacion" style="width: 15%;">Cargar</th>
+							<th class="text-center" ng-if="formControl.facturacion">Facturar</th>
+						</tr>
+					</thead>
+					<tbody ng-hide="formControl.loading">
+						<tr ng-repeat="dosif in data.dosificacion.DosificacionesDesca">
+
+							<td ng-hide="formControl.guardia" class="row text-left">{{ dosif.Material.numero_articulo}}</td>
+							<td ng-hide="formControl.guardia" class="row text-center">{{ dosif.Material.nombre }}</td>
+							<td ng-hide="formControl.guardia" class="row text-center">{{ dosif.Material.presentacion }}</td>
+							<td ng-hide="formControl.guardia" ng-if="formControl.nuevaCordoba" class="row text-center">{{ dosif.Material.stock_nueva_cordoba }}</td>
+							<td ng-hide="formControl.guardia" ng-if="formControl.cerro" class="row text-center">{{ dosif.Material.stock_cerro }}</td>
+							<td ng-hide="formControl.guardia" class="row text-center">{{ dosif.Material.stock_drogeria }}</td>
+							<td	ng-if="!dosif.cambiarEstado" ng-click="formControl.botonEstadoProducto(dosif)" class="row text-center" ng-class="dosif.Estado.color">
+								{{ dosif.Estado.nombre_estado}}</td>
+							<td ng-if="dosif.cambiarEstado" class="row text-left">
+								<select id="estado_select"
+										class="form-control"
+										ng-model="dosif.Estado"
+										ng-change="formControl.estadoChangedProducto(dosif)"
+										ng-options="estado.nombre_estado 
+													for estado in data.estados 
+													track by estado.id_estado" 
+										required >
+								</select>
+							</td>
+							<td ng-hide="formControl.guardia" class="row text-center">{{ dosif.cantidad_entregada }}</td>
+							<td class="row text-center" ng-if="!formControl.facturacion" >
+								<div class="input-group">
+									<span class="input-group-btn">
+										<button type="button" 
+											ng-hide=""
+											class="btn btn-white btn-xs"
+											ng-disabled="dosif.minimo || dosif.deshabilitado || data.dosificacion.Estado.deshabilitado || !data.dosificacion.esHoy || formControl.facturacion"
+											
+											ng-click="formControl.restaProducto($index)">
+											<sa-icon name="MINUS"></sa-icon>
+										</button>
+									</span>
+									<input type="text" min="0"
+											class="form-control input-sm"
+											ng-model="dosif.cantidad_cargada"
+											ng-disabled="true"
+											required>
+											
+									<span class="input-group-btn">
+										<button type="button"
+											ng-disabled="dosif.deshabilitado || data.dosificacion.Estado.deshabilitado || !data.dosificacion.esHoy || formControl.facturacion"
+											class="btn btn-white btn-xs"
+											ng-click="formControl.sumaProducto($index)">
+											<sa-icon name="NEW"></sa-icon>
+										</button>
+									</span>
+								</div>
+							</td>
+							<td class="row text-center" ng-if="formControl.facturacion">
+								<button type="button" 
+										id="facturar_button"
+										ng-hide="dosif.facturado || dosif.devuelto || dosif.newFacturacion || dosif.newDevolucion"
+										ng-disabled="dosif.noEntregados"
+										class="btn btn-white btn-xs"
+										uib-tooltip="Facturar" 
+										uib-tooltip-placement="top"
+										ng-click="formControl.facturarDosif(dosif)">
+									<sa-icon name="NEW"></sa-icon>
+								</button>
+
+								<button type="button" 
+										id="facturado_button"
+										ng-show="dosif.newFacturacion"
+										class="btn btn-white btn-xs"
+										uib-tooltip="Cancelar Facturacion" 
+										uib-tooltip-placement="top"
+										ng-click="formControl.facturarDosif(dosif)">
+									<sa-icon name="DEL"></sa-icon>
+								</button>
+
+								<button type="button" 
+										id="facturado_button"
+										ng-show="dosif.facturado"
+										class="btn btn-white btn-xs"
+										uib-tooltip="Ya facturado" 
+										uib-tooltip-placement="top"
+										ng-click="">
+									<sa-icon name="OK"></sa-icon>
+								</button>
+
+								<button type="button" 
+										id="facturado_button"
+										ng-hide="dosif.facturado || dosif.devuelto || dosif.newFacturacion || dosif.newDevolucion"
+										ng-disabled="dosif.noEntregados"
+										class="btn btn-white btn-xs"
+										uib-tooltip="Recepcionar" 
+										uib-tooltip-placement="top"
+										ng-click="formControl.devolucionDosif(dosif)">
+									<sa-icon name="REPLY"></sa-icon>
+								</button>
+
+								<button type="button" 
+										id="facturado_button"
+										ng-show="dosif.devuelto"
+										class="btn btn-white btn-xs"
+										uib-tooltip="Ya recepcionado" 
+										uib-tooltip-placement="top"
+										ng-click="">
+									<sa-icon name="REPLY"></sa-icon>
+								</button>
+
+								<button type="button" 
+										id="facturado_button"
+										ng-show="dosif.newDevolucion"
+										class="btn btn-white btn-xs"
+										uib-tooltip="Cancelar Devolucion" 
+										uib-tooltip-placement="top"
+										ng-click="formControl.devolucionDosif(dosif)">
+									<sa-icon name="DEL"></sa-icon>
+								</button>
+	
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-xs-12">
+				<sa-loading ng-if="formControl.loading"></sa-loading>
+			</div>
+			<!-- <div ng-hide="!constante.pedido.entregado" class="col-xs-12">
+				<label for="cmb_tipo_documento">Total entregadas: {{constante.pedido.dosis_pendientes}}</label>
+			</div> -->
+		</div>
+	</div>
+	<div class="modal-footer" >
+		<button type="button"
+				class="btn btn-default"
+				ng-disabled=" formControl.loading"
+				ng-click="formControl.ok()">Aceptar</button>
+		<button type="button"
+				class="btn btn-cancelar"
+				ng-disabled=""
+				ng-click="formControl.cancel()">Cancelar</button>
+	</div>
+</form>

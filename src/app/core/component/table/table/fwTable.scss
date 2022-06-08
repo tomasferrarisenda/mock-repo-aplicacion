@@ -1,0 +1,24 @@
+table.fw-table {
+
+	> thead {
+		> tr {
+			> th {
+				padding: 6px 2px;
+				vertical-align: bottom;
+			}
+		}
+	}
+
+	> tbody {
+		> tr {
+			> td {
+				white-space: nowrap;
+				
+				&.normal-warp {
+					white-space: normal;
+				}
+			}
+		}
+	}
+
+}

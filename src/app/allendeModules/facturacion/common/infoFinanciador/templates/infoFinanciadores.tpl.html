@@ -1,0 +1,57 @@
+<form name="formFinanciador" accept-charset="utf-8" novalidate>
+	<sa-modal-header
+		title-name="{{vm.title.name}}"
+		title-icon="INFO">
+	</sa-modal-header>
+	<sa-modal-body>
+		<div class="row">
+			<div class="col-xs-12 col-sm-8 col-md-2 col-lg-8 form-group">
+				<label>Nombre Financiador</label>
+				<input type="text" class="form-control" ng-model="vm.data.financiador.NombreFinanciador" ng-disabled="true" sa-enter>
+			</div>
+			<div class="col-xs-12 col-sm-8 col-md-2 col-lg-4 form-group">
+				<label>Nombre Corto</label>
+				<input type="text" class="form-control" ng-model="vm.data.financiador.NombreCorto" ng-disabled="true" sa-enter>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-8 col-md-2 col-lg-12 form-group">
+				<label>Descripción</label>
+				<input type="text" class="form-control" ng-model="vm.data.financiador.Descripcion" ng-disabled="true" sa-enter>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-8 col-md-2 col-lg-12 form-group">
+				<label>Domicilio</label>
+				<input type="text" class="form-control" ng-model="vm.data.financiador.Domicilio" ng-disabled="true" sa-enter>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-8 col-md-2 col-lg-3 form-group">
+				<label>Teléfono de Contacto</label>
+				<input type="text" class="form-control" ng-model="vm.data.financiador.TelefonoContacto" ng-disabled="true" sa-enter>
+			</div>
+			<div class="col-xs-12 col-sm-8 col-md-2 col-lg-3 form-group">
+				<label>Teléfono de Autorizador</label>
+				<input type="text" class="form-control" ng-model="vm.data.financiador.TelefonoAutorizaciones" ng-disabled="true" sa-enter>
+			</div>
+			<div class="col-xs-12 col-sm-8 col-md-2 col-lg-6 form-group">
+				<label>URL Autorizador</label>
+				<a class="form-control" href="{{vm.data.financiador.URLAutorizaciones}}" target='_blank' ng-disabled="true">{{vm.data.financiador.URLAutorizaciones}}</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-8 col-md-2 col-lg-12 form-group">
+				<label>Normativas:</label>
+				<div ng-bind-html="vm.data.financiador.Normativas | saToHtml"></div>
+			</div>
+		</div>
+	</sa-modal-body>
+	<sa-modal-footer>
+		<button type="button" autofocus
+			class="btn btn-borrar text-center" 
+			ng-click = "vm.formControl.cancel()"
+			sa-punto-click = "vm.formControl.cancel()" 
+			sa-enter>Volver</button>
+	</sa-modal-footer>
+</form>
