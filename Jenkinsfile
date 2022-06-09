@@ -5,6 +5,7 @@ pipeline {
     stages {
         stage('Instalar git, descargar repo y moverse al directorio') {
             steps {
+              echo 'Instalacion de git'
               sh 'sudo apt-get update'
             }
             steps {
@@ -19,33 +20,24 @@ pipeline {
         }
 
         stage('Correr npm install') {
+            echo 'Instalacion de npm'
             steps {
                 sh 'npm install'
             }
         }
 
         stage('Instalar docker') {
+            echo 'Instalacion de docker'
             steps {
-                sh 'mvn -B -DskipTests clean package'
+                sh 'sudo apt-get remove docker docker-engine docker.io containerd runc'
             }
             steps {
-                sh 'mvn -B -DskipTests clean package'
-            }
-            steps {
-                sh 'mvn -B -DskipTests clean package'
-            }
-            steps {
-                sh 'mvn -B -DskipTests clean package'
-            }
-            steps {
-                sh 'mvn -B -DskipTests clean package'
-            }
-            steps {
-                sh 'mvn -B -DskipTests clean package'
+                sh 'sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin'
             }
         }
 
         stage('Crear Dockerfile') {
+            echo 'Creacion de Dockerfile'
             steps {
               sh 'echo "FROM    node
                   > WORKDIR    user/src/app
@@ -60,14 +52,61 @@ pipeline {
         }
 
         stage('Buildear la imagen') {
+            echo 'Buildeacion de imagen'
             steps {
                 sh 'sudo docker build -t mock-app'
             }
         }
 
-        stage('Correr npm install') {
+        stage('Pushear imagen a Harbor') {
+            echo 'Pusheacion de imagen a Harbor'
             steps {
-                sh 'mvn -B -DskipTests clean package'
+                sh 'docker login registry.sanatorioallende.com'
+            }
+            steps {
+                sh 'sendati'
+            }
+            steps {
+                sh 'Sendati123'
+            }
+            steps {
+                sh 'docker tag mock-prueba:1.0 registry.sanatorioallende.com/infra/mock-prueba:1.0'
+            }
+            steps {
+                sh 'docker push registry.sanatorioallende.com/infra/mock-prueba:1.0'
+            }
+        }
+
+        stage('Salir de directorio, descargar repo de infra y modificar chart') {
+            echo 'Actualizacion cambios en repo de infra'
+            steps {
+                sh 'cd ..'
+            }
+            steps {
+                sh 'git clone https://github.com/tomasferrarisenda/mock-repo-infra.git'
+            }
+            steps {
+                sh 'aca hay q hacer que modifique el chart '
+            }
+            
+        }
+
+        stage('Pushear los cambios al repo de infra') {
+            echo 'Pusheacion de cambios a repo de infra'
+            steps {
+                sh 'git add .'
+            }
+            steps {
+                sh 'git commit -m "Actualizacion de imagen"'
+            }
+            steps {
+                sh 'git push'
+            }
+            steps {
+                sh 'introducir usuario'
+            }
+            steps {
+                sh 'introducir token'
             }
         }
 
