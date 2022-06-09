@@ -1,9 +1,0 @@
-<div class="row">
-	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-		<label class="label-control" ng-if="vm.ifLabel">Profesional Atiende</label>
-		<select class="form-control" ng-model="vm.model" ng-options="profesional as profesional.Nombre for profesional in vm.profesionalesAtienden track by profesional.Id"
-		    ng-disabled="vm.profesionalesAtienden.length === 0" sa-enter>
-			<option value="">Selec. Profesional Atiende</option>
-		</select>
-	</div>
-</div>

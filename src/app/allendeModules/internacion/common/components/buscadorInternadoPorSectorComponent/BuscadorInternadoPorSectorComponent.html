@@ -1,9 +1,0 @@
-<div sa-form-input>
-    <label id="internado_label"> Internado. </label>
-    <input name="internado_buscador" id="internado_buscador-input" type="text" placeholder="{{vm.placeholder}}" ng-change="vm.buscar()" 
-    typeahead-min-length="2" ng-disabled="!vm.internadoList" ng-model="vm.internado" 
- uib-typeahead="internado as (internado.NumeroInternado + ' | ' + internado.Paciente + ' - ' + internado.TipoDocumento + ': ' + internado.NumeroDocumento + ' | Hab:' + internado.Habitacion + ' - Cama:' + internado.Cama) for internado
-in vm.internadoList | filter:$viewValue | limitTo:10"
-        autocomplete="off" class="form-control text-uppercase"  typeahead-select-on-exact="true">
-</div>
-<sa-loading-modal ng-if="vm.loading"></sa-loading-modal>

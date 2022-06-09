@@ -1,7 +1,0 @@
-<div ng-show="vm.serviciosEnSucursal">
-	<sa-tabla-con-activo-mas-visible-portal-web data="vm.serviciosEnSucursal" table-class="true" click-row-func="vm.clickServicio(pObject)"
-		columns="vm.columnsServicios" color-row="'color-rojo-pastel-prefactura'" titulogrid="Servicios en sucursal {{vm.sucursal.Nombre}} (Cant: {{vm.serviciosEnSucursal.length}})"
-		btn-click="vm.addServicios()" tooltip-btn="Agregar Servicio a Sucursal" delete-click="vm.deleteServicio(pObject)" id-element="'servicio-sucursal'"
-		change-activo="vm.changeActivoServicio(pObject)" change-visible-portal="vm.changeVisiblePortalServicio(pObject)">
-	</sa-tabla-con-activo-mas-visible-portal-web>
-</div>

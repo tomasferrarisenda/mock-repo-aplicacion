@@ -1,9 +1,0 @@
-<div ng-show="vm.recursos">
-    <sa-tabla-con-activo-mas-visible-portal-web data="vm.recursos" table-class="true" click-row-func="vm.selectRecurso(pObject)"
-        columns="vm.columnsRecursos" color-row="'color-aquaorange-turno'" id-element="'recurso-en-servicio-sucursal'"
-        titulogrid="Recursos de {{vm.servicio.Servicio}} en {{vm.sucursal.Nombre}} (Cant: {{vm.recursos.length}}) "
-        btn-click="vm.addRecursos()" tooltip-btn="Agregar Recurso a {{vm.servicio.Servicio}}" delete-click="vm.deleteRecurso(pObject)"
-        change-activo="vm.changeActivoRecurso(pObject)" change-visible-portal="vm.changeVisiblePortalRecurso(pObject)" 
-        establecer-jefe-servicio-click="vm.seleccionarComoJefeServicio(pObject)" show-seleccionar-jefe-servicio="true">
-    </sa-tabla-con-activo-mas-visible-portal-web>
-</div>

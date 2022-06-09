@@ -1,9 +1,0 @@
-<div sa-form-input>
-	<label for="cmb_sucursal" ng-if="vm.ifLabel">
-		<span ng-bind="title || 'Sucursal'"></span>
-	</label>
-	<select id="cmb_sucursal" name="selectSucursal" ng-model="vm.sucursal" ng-disabled="vm.disabled" 
-	    ng-options="sucursal as sucursal.Nombre for sucursal in vm.sucursales track by sucursal.Id">
-		<option value="">-SELECCIONAR-</option>
-	</select>
-</div>
