@@ -5,7 +5,6 @@ pipeline {
     stages {
         stage('Instalar git, descargar repo y moverse al directorio') {
             steps {
-              echo 'Instalacion de git'
               sh 'sudo apt-get update'
             }
             steps {
@@ -20,14 +19,12 @@ pipeline {
         }
 
         stage('Correr npm install') {
-            echo 'Instalacion de npm'
             steps {
                 sh 'npm install'
             }
         }
 
         stage('Instalar docker') {
-            echo 'Instalacion de docker'
             steps {
                 sh 'sudo apt-get remove docker docker-engine docker.io containerd runc'
             }
@@ -37,7 +34,6 @@ pipeline {
         }
 
         stage('Crear Dockerfile') {
-            echo 'Creacion de Dockerfile'
             steps {
               sh 'echo "FROM    node
                   > WORKDIR    user/src/app
@@ -52,14 +48,12 @@ pipeline {
         }
 
         stage('Buildear la imagen') {
-            echo 'Buildeacion de imagen'
             steps {
                 sh 'sudo docker build -t mock-app'
             }
         }
 
         stage('Pushear imagen a Harbor') {
-            echo 'Pusheacion de imagen a Harbor'
             steps {
                 sh 'docker login registry.sanatorioallende.com'
             }
@@ -78,7 +72,6 @@ pipeline {
         }
 
         stage('Salir de directorio, descargar repo de infra y modificar chart') {
-            echo 'Actualizacion cambios en repo de infra'
             steps {
                 sh 'cd ..'
             }
@@ -92,7 +85,6 @@ pipeline {
         }
 
         stage('Pushear los cambios al repo de infra') {
-            echo 'Pusheacion de cambios a repo de infra'
             steps {
                 sh 'git add .'
             }
@@ -124,29 +116,29 @@ pipeline {
 
 
 
-    post {
+//     post {
 
-    // Email Ext plugin:
-    success {
+//     // Email Ext plugin:
+//     success {
 
-      emailext (
-          subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-          body: """<p>SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-            <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
-          to: "${emailRecipient}",
-          from: "buildNotifications@emailaddress.com"
-        )
-    }
+//       emailext (
+//           subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+//           body: """<p>SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+//             <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
+//           to: "${emailRecipient}",
+//           from: "buildNotifications@emailaddress.com"
+//         )
+//     }
 
-    failure {
+//     failure {
 
-      emailext (
-          subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-          body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-            <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
-          to: "${emailRecipient}",
-          from: "buildNotifications@emailaddress.com"
-        )
-    }
-  }
+//       emailext (
+//           subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+//           body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+//             <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
+//           to: "${emailRecipient}",
+//           from: "buildNotifications@emailaddress.com"
+//         )
+//     }
+//   }
 }
