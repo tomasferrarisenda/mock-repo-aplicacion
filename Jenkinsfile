@@ -1,11 +1,12 @@
 pipeline {
 
-    agent any
+    agent {
+        label 'kubepod'
+    }
 
     stages {
         stage('Instalar git, descargar repo y moverse al directorio') {
             steps {
-              sh 'USER root'
               sh 'apt-get update'
               sh 'apt-get install git'
               sh 'git clone https://github.com/tomasferrarisenda/mock-repo-aplicacion.git'
