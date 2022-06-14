@@ -6,7 +6,7 @@ pipeline {
         stage('Instalar git, descargar repo y moverse al directorio') {
             steps {
               sh 'apt-get update'
-              sh 'sudo apt-get install git'
+              sh 'apt-get install git'
               sh 'git clone https://github.com/tomasferrarisenda/mock-repo-aplicacion.git'
               sh 'cd mock-repo-aplicacion'
             }
