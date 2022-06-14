@@ -35,15 +35,13 @@ pipeline {
 
         stage('Crear Dockerfile') {
             steps {
-              sh 'echo "FROM    node
-                  > WORKDIR    user/src/app
-                  > COPY    package.json
-                  > RUN    npm install
-                  > COPY    ..
-                  > EXPOSE    5000
-                  > CMD    “node” “server.js”
-                  > " > Dockerfile
-                  '
+              sh '''echo  \'FROM    node
+                    WORKDIR    user/src/app 
+                    COPY    package.json 
+                    RUN    npm install 
+                    COPY    .. 
+                    EXPOSE    5000 
+                    CMD    "node" "server.js" \' > Dockerfile'''
             }
         }
 
@@ -105,40 +103,5 @@ pipeline {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-//     post {
-
-//     // Email Ext plugin:
-//     success {
-
-//       emailext (
-//           subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-//           body: """<p>SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-//             <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
-//           to: "${emailRecipient}",
-//           from: "buildNotifications@emailaddress.com"
-//         )
-//     }
-
-//     failure {
-
-//       emailext (
-//           subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-//           body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-//             <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
-//           to: "${emailRecipient}",
-//           from: "buildNotifications@emailaddress.com"
-//         )
-//     }
-//   }
 }
+
