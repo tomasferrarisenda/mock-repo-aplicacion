@@ -32,17 +32,16 @@ pipeline {
 
         stage('Buildear la imagen') {
             steps {
-                sh 'sudo docker build -t mock-app'
+                sh 'docker build -t mock-app'
             }
         }
 
-        stage('Pushear imagen a Harbor') {
+        stage('Pushear imagen a repo personal') {
             steps {
-                sh 'docker login registry.sanatorioallende.com'
-                sh 'sendati'
-                sh 'Sendati123'
-                sh 'docker tag mock-prueba:1.0 registry.sanatorioallende.com/infra/mock-prueba:1.0'
-                sh 'docker push registry.sanatorioallende.com/infra/mock-prueba:1.0'
+                sh 'docker login docker login --username=tferrari92 --email=tferrari.92@gmail.com'
+                sh 'hirvyt-werrub-Wemso4'
+                sh 'docker tag demo-app:1.0 tferrari92/demo-app:1.0'
+                sh 'docker push tferrari92/demo-app:1.0'
             }
         }
 
