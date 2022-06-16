@@ -5,10 +5,8 @@ pipeline {
     }
 
     stages {
-        stage('Instalar git, descargar repo y moverse al directorio') {
+        stage('Clonar repo y moverse al directorio') {
             steps {
-            //   sh 'apt-get update'
-              sh 'apt-get install git'
               sh 'git clone https://github.com/tomasferrarisenda/mock-repo-aplicacion.git'
               sh 'cd mock-repo-aplicacion'
             }
@@ -17,13 +15,6 @@ pipeline {
         stage('Correr npm install') {
             steps {
                 sh 'npm install'
-            }
-        }
-
-        stage('Instalar docker') {
-            steps {
-                sh 'sudo apt-get remove docker docker-engine docker.io containerd runc'
-                sh 'sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin'
             }
         }
 
