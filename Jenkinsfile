@@ -32,7 +32,7 @@ pipeline {
 
         stage('Buildear la imagen') {
             steps {
-                sh 'dockerd'
+                // sh 'dockerd'
                 sh 'docker build . -t demo-app'
             }
         }
