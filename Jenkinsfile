@@ -1,7 +1,7 @@
 pipeline {
 
     agent {
-        label 'jenkins-test-jenkins-agent'
+        label 'kubepod'
     }
 
     stages {
