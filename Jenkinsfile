@@ -21,10 +21,6 @@ pipeline {
                   value: 0200f3855153ba1887d173ac70445f42184f69a90cc6adadc5eb404f0ba555a7
                 - name: JENKINS_TUNNEL
                   value: jenkins-test-agent.jenkins.svc.cluster.local:50000
-                - name: JENKINS_AGENT_NAME
-                  value: agent
-                - name: JENKINS_NAME
-                  value: agent
                 - name: JENKINS_AGENT_WORKDIR
                   value: /home/jenkins/agent
                 - name: JENKINS_URL
