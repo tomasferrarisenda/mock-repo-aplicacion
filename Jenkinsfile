@@ -6,11 +6,9 @@ pipeline {
 
     stages {
 
-
-
+        
         stage('Clonar repo y moverse al directorio') {
             steps {
-              sh 'whoami'
               sh 'git clone https://github.com/tomasferrarisenda/mock-repo-aplicacion.git'
               sh 'cd mock-repo-aplicacion'
             }
@@ -36,7 +34,8 @@ pipeline {
 
         stage('Buildear la imagen') {
             steps {
-                // sh 'dockerd'
+                sh 'whoami'
+                sh 'dockerd'
                 sh 'docker build . -t demo-app'
             }
         }
