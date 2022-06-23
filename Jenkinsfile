@@ -1,56 +1,70 @@
 pipeline {
-  agent {
-    kubernetes {
-      label 'example-kaniko-volumes'
-      yaml """
-kind: Pod
-metadata:
-  name: kaniko
-spec:
-  containers:
-  - name: jnlp
-    workingDir: /home/jenkins
-  - name: kaniko
-    workingDir: /home/jenkins
-    image: gcr.io/kaniko-project/executor:debug
-    imagePullPolicy: Always
-    command:
-    - /busybox/cat
-    tty: true
-    volumeMounts:
-      - name: jenkins-docker-cfg
-        mountPath: /kaniko/.docker
-  volumes:
-  - name: jenkins-docker-cfg
-    projected:
-      sources:
-      - secret:
-          name: docker-credentials (1)
-          items:
-            - key: .dockerconfigjson
-              path: config.json
-"""
-    }
-  }
-  stages {
-    stage('Build with Kaniko') {
-      environment {
-        PATH = "/busybox:/kaniko:$PATH"
-      }
-      steps {
-        container(name: 'kaniko', shell: '/busybox/sh') {
 
-          writeFile file: "Dockerfile", text: """
-            FROM jenkins/agent
-            MAINTAINER CloudBees Support Team <dse-team@cloudbees.com>
-            RUN mkdir /home/jenkins/.m2
-          """
-            
-          sh '''#!/busybox/sh
-            /kaniko/executor --context `pwd` --verbosity debug --destination cloudbees/jnlp-from-kaniko:latest
-          '''
-        }
-      }
+    agent {
+        label 'kubepod'
     }
-  }
+
+    stages {
+
+        
+        stage('Clonar repo y moverse al directorio') {
+            steps {
+              sh 'git clone https://github.com/tomasferrarisenda/mock-repo-aplicacion.git'
+              sh 'cd mock-repo-aplicacion'
+            }
+        }
+
+        stage('Correr npm install') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Crear Dockerfile') {
+            steps {
+              sh '''echo  \'FROM    node
+                    WORKDIR    user/src/app 
+                    COPY    package.json 
+                    RUN    npm install 
+                    COPY    .. 
+                    EXPOSE    5000 
+                    CMD    "node" "server.js" \' > Dockerfile'''
+            }
+        }
+
+        stage('Buildear la imagen') {
+            steps {
+               // sh 'dockerd'
+                sh 'docker build . -t demo-app'
+            }
+        }
+
+        stage('Pushear imagen a repo personal') {
+            steps {
+                sh 'docker login docker login --username=tferrari92 --email=tferrari.92@gmail.com'
+                sh 'hirvyt-werrub-Wemso4'
+                sh 'docker tag demo-app:1.0 tferrari92/demo-app:1.0'
+                sh 'docker push tferrari92/demo-app:1.0'
+            }
+        }
+
+        stage('Salir de directorio, descargar repo de infra y modificar chart') {
+            steps {
+                sh 'cd ..'
+                sh 'git clone https://github.com/tomasferrarisenda/mock-repo-infra.git'
+                sh 'aca hay q hacer que modifique el chart '
+            }
+        }
+
+        stage('Pushear los cambios al repo de infra') {
+            steps {
+                sh 'git add .'
+                sh 'git commit -m "Actualizacion de imagen"'
+                sh 'git push'
+                sh 'introducir usuario'
+                sh 'introducir token'
+            }
+        }
+    }
 }
+
