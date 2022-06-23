@@ -16,8 +16,6 @@ pipeline {
               - args:
                 - default-jqxpq
                 env:
-                - name: JENKINS_SECRET
-                  value: ********
                 - name: JENKINS_TUNNEL
                   value: jenkins-test-agent.jenkins.svc.cluster.local:50000
                 - name: JENKINS_AGENT_NAME
