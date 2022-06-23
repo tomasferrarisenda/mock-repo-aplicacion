@@ -5,8 +5,12 @@ pipeline {
     }
 
     stages {
+
+
+
         stage('Clonar repo y moverse al directorio') {
             steps {
+              sh 'whoami'
               sh 'git clone https://github.com/tomasferrarisenda/mock-repo-aplicacion.git'
               sh 'cd mock-repo-aplicacion'
             }
