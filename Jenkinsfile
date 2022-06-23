@@ -14,7 +14,6 @@ pipeline {
             spec:
               containers:
               - args:
-                - ********
                 - default-jqxpq
                 env:
                 - name: JENKINS_SECRET
