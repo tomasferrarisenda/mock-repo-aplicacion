@@ -7,17 +7,10 @@ pipeline {
             apiVersion: v1
             kind: Pod
             metadata:
-              labels:
-                jenkins/jenkins-test-jenkins-agent: true
-                jenkins/label-digest: 8ce0dddc0f3c2f1ca6c7dd739cb899616bd1f5fd
-                jenkins/label: agent
               name: agent
             spec:
               containers:
-              - args:
-                - 0200f3855153ba1887d173ac70445f42184f69a90cc6adadc5eb404f0ba555a7
-                - agent
-                env:
+              - env:
                 - name: JENKINS_SECRET
                   value: 0200f3855153ba1887d173ac70445f42184f69a90cc6adadc5eb404f0ba555a7
                 - name: JENKINS_TUNNEL
@@ -27,16 +20,7 @@ pipeline {
                 - name: JENKINS_URL
                   value: http://jenkins-test.jenkins.svc.cluster.local:8080/
                 image: tferrari92/jenkins-agent-docker-git-npm
-                imagePullPolicy: IfNotPresent
                 name: jnlp
-                resources:
-                  limits:
-                    memory: 512Mi
-                    cpu: 512m
-                  requests:
-                    memory: 512Mi
-                    cpu: 512m
-                tty: false
                 volumeMounts:
                 - mountPath: /var/run/docker.sock
                   name: volume-0
@@ -46,9 +30,6 @@ pipeline {
                   readOnly: false
                 workingDir: /home/jenkins/agent
               hostNetwork: false
-              nodeSelector:
-                kubernetes.io/os: linux
-              restartPolicy: Never
               serviceAccountName: default
               volumes:
               - hostPath:
