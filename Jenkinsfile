@@ -1,21 +1,21 @@
 pipeline {
 
-    agent {
-        kubernetes {
-            defaultContainer 'agent'
-            yaml '''
-            kind: Pod
-            spec:
-            containers:
-            - name: agent
-                image: tferrari92/jenkins-agent-docker-git-npm
-            '''
-        }
-    }
-
     // agent {
-    //     label 'kubepod'
+    //     kubernetes {
+    //         defaultContainer 'agent'
+    //         yaml '''
+    //         kind: Pod
+    //         spec:
+    //         containers:
+    //         - name: agent
+    //             image: tferrari92/jenkins-agent-docker-git-npm
+    //         '''
+    //     }
     // }
+
+    agent {
+        label 'kubepod'
+    }
 
     stages {
 
@@ -37,9 +37,9 @@ pipeline {
             steps {
               sh '''echo  \'FROM    node
                     WORKDIR    user/src/app 
-                    COPY    package.json 
+                    COPY    package.json .
                     RUN    npm install 
-                    COPY    .. 
+                    COPY    . . 
                     EXPOSE    5000 
                     CMD    "node" "server.js" \' > Dockerfile'''
             }
@@ -54,10 +54,11 @@ pipeline {
 
         stage('Pushear imagen a repo personal') {
             steps {
-                sh 'docker login docker login --username=tferrari92 --email=tferrari.92@gmail.com'
+                sh 'docker login'
+                sh 'tferrari92'
                 sh 'hirvyt-werrub-Wemso4'
-                sh 'docker tag demo-app:1.0 tferrari92/demo-app:1.0'
-                sh 'docker push tferrari92/demo-app:1.0'
+                sh 'docker tag demo-app tferrari92/demo-app'
+                sh 'docker push tferrari92/demo-app'
             }
         }
 
