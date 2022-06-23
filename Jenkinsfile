@@ -34,8 +34,7 @@ pipeline {
 
         stage('Buildear la imagen') {
             steps {
-                sh 'whoami'
-                sh 'dockerd'
+               // sh 'dockerd'
                 sh 'docker build . -t demo-app'
             }
         }
