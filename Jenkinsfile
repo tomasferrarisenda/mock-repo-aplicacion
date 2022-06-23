@@ -9,7 +9,7 @@ pipeline {
               labels:
                 jenkins/jenkins-test-jenkins-agent: true
                 jenkins/label-digest: 8ce0dddc0f3c2f1ca6c7dd739cb899616bd1f5fd
-                jenkins/label: kubepod
+                jenkins/label: agent
               name: agent
             spec:
               containers:
