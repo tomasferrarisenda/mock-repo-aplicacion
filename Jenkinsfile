@@ -10,21 +10,21 @@ pipeline {
                 jenkins/jenkins-test-jenkins-agent: true
                 jenkins/label-digest: 8ce0dddc0f3c2f1ca6c7dd739cb899616bd1f5fd
                 jenkins/label: kubepod
-              name: default-jqxpq
+              name: agent
             spec:
               containers:
               - args:
                 - 0200f3855153ba1887d173ac70445f42184f69a90cc6adadc5eb404f0ba555a7
-                - default-jqxpq
+                - agent
                 env:
                 - name: JENKINS_SECRET
                   value: 0200f3855153ba1887d173ac70445f42184f69a90cc6adadc5eb404f0ba555a7
                 - name: JENKINS_TUNNEL
                   value: jenkins-test-agent.jenkins.svc.cluster.local:50000
                 - name: JENKINS_AGENT_NAME
-                  value: default-jqxpq
+                  value: agent
                 - name: JENKINS_NAME
-                  value: default-jqxpq
+                  value: agent
                 - name: JENKINS_AGENT_WORKDIR
                   value: /home/jenkins/agent
                 - name: JENKINS_URL
