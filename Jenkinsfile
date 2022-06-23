@@ -4,11 +4,63 @@ pipeline {
     //     kubernetes {
     //         defaultContainer 'agent'
     //         yaml '''
-    //         kind: Pod
-    //         spec:
-    //         containers:
-    //         - name: agent
-    //             image: tferrari92/jenkins-agent-docker-git-npm
+    //         apiVersion: "v1"
+            // kind: "Pod"
+            // metadata:
+            //   labels:
+            //     jenkins/jenkins-test-jenkins-agent: "true"
+            //     jenkins/label-digest: "8ce0dddc0f3c2f1ca6c7dd739cb899616bd1f5fd"
+            //     jenkins/label: "kubepod"
+            //   name: "default-jqxpq"
+            // spec:
+            //   containers:
+            //   - args:
+            //     - "********"
+            //     - "default-jqxpq"
+            //     env:
+            //     - name: "JENKINS_SECRET"
+            //       value: "********"
+            //     - name: "JENKINS_TUNNEL"
+            //       value: "jenkins-test-agent.jenkins.svc.cluster.local:50000"
+            //     - name: "JENKINS_AGENT_NAME"
+            //       value: "default-jqxpq"
+            //     - name: "JENKINS_NAME"
+            //       value: "default-jqxpq"
+            //     - name: "JENKINS_AGENT_WORKDIR"
+            //       value: "/home/jenkins/agent"
+            //     - name: "JENKINS_URL"
+            //       value: "http://jenkins-test.jenkins.svc.cluster.local:8080/"
+            //     image: "tferrari92/jenkins-agent-docker-git-npm"
+            //     imagePullPolicy: "IfNotPresent"
+            //     name: "jnlp"
+            //     resources:
+            //       limits:
+            //         memory: "512Mi"
+            //         cpu: "512m"
+            //       requests:
+            //         memory: "512Mi"
+            //         cpu: "512m"
+            //     tty: false
+            //     volumeMounts:
+            //     - mountPath: "/var/run/docker.sock"
+            //       name: "volume-0"
+            //       readOnly: false
+            //     - mountPath: "/home/jenkins/agent"
+            //       name: "workspace-volume"
+            //       readOnly: false
+            //     workingDir: "/home/jenkins/agent"
+            //   hostNetwork: false
+            //   nodeSelector:
+            //     kubernetes.io/os: "linux"
+            //   restartPolicy: "Never"
+            //   serviceAccountName: "default"
+            //   volumes:
+            //   - hostPath:
+            //       path: "/var/run/docker.sock"
+            //     name: "volume-0"
+            //   - emptyDir:
+            //       medium: ""
+            //     name: "workspace-volume"
     //         '''
     //     }
     // }
@@ -47,16 +99,13 @@ pipeline {
 
         stage('Buildear la imagen') {
             steps {
-               // sh 'dockerd'
                 sh 'docker build . -t demo-app'
             }
         }
 
         stage('Pushear imagen a repo personal') {
             steps {
-                sh 'docker login'
-                sh 'tferrari92'
-                sh 'hirvyt-werrub-Wemso4'
+                sh 'docker login --username=tferrari92 --password=hirvyt-werrub-Wemso4'
                 sh 'docker tag demo-app tferrari92/demo-app'
                 sh 'docker push tferrari92/demo-app'
             }
