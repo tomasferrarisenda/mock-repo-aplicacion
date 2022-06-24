@@ -181,18 +181,6 @@ specs:
         }
 
 
-
-
-
-        stage('Pushear los cambios al repo de infra') {
-            steps {
-                sh 'git add .'
-                sh 'git commit -m "Actualizacion de imagen"'
-                sh 'git push'
-                sh 'introducir usuario'
-                sh 'introducir token'
-            }
-        }
     }
 }
 
