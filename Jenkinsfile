@@ -171,11 +171,13 @@ specs:
         stage('Pushear los cambios al repo de infra') {
            steps {  
                 dir('/home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra') { // or absolute path
+                    sh 'git config --global user.email "tomas.ferrari@sendati.com"'
+                    sh 'git config --global user.name "tomasferrarisenda"'
                     sh 'git add .'
                     sh 'git commit -m "Actualizacion de imagen"'
                     sh 'git push'
                     sh 'tferrari92'
-                    sh 'introducir token' 
+                    sh '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' 
                 }
             }
         }
