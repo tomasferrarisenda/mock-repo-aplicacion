@@ -120,7 +120,7 @@ CMD    "node" "server.js" \' > Dockerfile'''
             steps {
                 sh 'ls'
                 sh 'rm deployment.yaml'
-                sh '''echo  \'apiVersion: apps/v1
+                sh '''echo  \"apiVersion: apps/v1
 kind: Deployment
 metadata: 
   name: myapp-deployment
@@ -138,7 +138,7 @@ specs:
        - name: myapp
          image: tferrari92/demo-app:$$BUILD_NUMBER
          ports:
-         - containerPort: 8080 \' > deployment.yaml'''
+         - containerPort: 8080 \" > deployment.yaml'''
                 sh 'cat deployment.yaml' 
             }
         }
