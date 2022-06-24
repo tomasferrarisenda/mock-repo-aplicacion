@@ -168,6 +168,49 @@ specs:
             }
         }
 
+        stage('Configuraciones de credenciales para GitHub') {
+            steps {
+                sh 'mkdir /root/.ssh'
+                sh 'echo "-----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+QyNTUxOQAAACAqSC80J3acoVdGXXl6IP9BOPXXp6vrn9QyuWG5qPLisQAAAKAcJs6zHCbO
+swAAAAtzc2gtZWQyNTUxOQAAACAqSC80J3acoVdGXXl6IP9BOPXXp6vrn9QyuWG5qPLisQ
+AAAEA6s9CA4mRDmcjkUSrBTiYIq+025XLs/p/OyQEyAWbFTipILzQndpyhV0ZdeXog/0E4
+9denq+uf1DK5Ybmo8uKxAAAAGXRvbWFzLmZlcnJhcmlAc2VuZGF0aS5jb20BAgME
+-----END OPENSSH PRIVATE KEY-----
+" > /root/.ssh/id_ed25519'
+                sh 'echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICpILzQndpyhV0ZdeXog/0E49denq+uf1DK5Ybmo8uKx tomas.ferrari@sendati.com
+" > /root/.ssh/id_ed25519.pub'
+                sh 'rm /home/jenkins/mock-repo-infra/.git/config'
+//                 sh 'echo "[core]
+// 	repositoryformatversion = 0
+// 	filemode = true
+// 	bare = false
+// 	logallrefupdates = true
+// [remote "origin"]
+// 	url = git@github.com:tomasferrarisenda/mock-repo-aplicacion.git
+// 	fetch = +refs/heads/*:refs/remotes/origin/*
+// [branch "main"]
+// 	remote = origin
+// 	merge = refs/heads/main" > /home/jenkins/mock-repo-infra/.git/config'
+                
+                sh '''echo  \'[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = git@github.com:tomasferrarisenda/mock-repo-aplicacion.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "main"]
+	remote = origin
+	merge = refs/heads/main
+[remote "upstream"]
+	url = https://github.com/tomasferrarisenda/mock-repo-aplicacion
+	fetch = +refs/heads/*:refs/remotes/upstream/*' > /home/jenkins/mock-repo-infra/.git/config'''
+            }
+        }
+
         stage('Pushear los cambios al repo de infra') {
            steps {  
                 dir('/home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra') { // or absolute path
@@ -176,7 +219,7 @@ specs:
                     sh 'git add .'
                     sh 'git commit -m "Actualizacion de imagen"'
                     sh 'git push'
-                    sh 'tferrari92'
+                    sh 'tomasferrarisenda'
                     sh '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' 
                 }
             }
