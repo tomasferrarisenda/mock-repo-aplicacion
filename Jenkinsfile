@@ -215,7 +215,7 @@ AAAEA6s9CA4mRDmcjkUSrBTiYIq+025XLs/p/OyQEyAWbFTipILzQndpyhV0ZdeXog/0E4
 	merge = refs/heads/main
 [remote "upstream"]
 	url = https://github.com/tomasferrarisenda/mock-repo-aplicacion
-	fetch = +refs/heads/*:refs/remotes/upstream/*' > /home/jenkins/mock-repo-infra/.git/config'''
+	fetch = +refs/heads/*:refs/remotes/upstream/*' > /home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra/.git/config'''
             }
         }
 
