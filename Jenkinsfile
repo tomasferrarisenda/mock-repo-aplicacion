@@ -128,8 +128,8 @@ CMD    "node" "server.js" \' > Dockerfile'''
         stage('Pushear imagen a repo personal') {
             steps {
                 sh 'docker login --username=tferrari92 --password=hirvyt-werrub-Wemso4'
-                sh 'docker tag demo-app tferrari92/demo-app'
-                sh 'docker push tferrari92/demo-app'
+                sh 'docker tag demo-app tferrari92/demo-app:$BUILD_NUMBER'
+                sh 'docker push tferrari92/demo-app:$BUILD_NUMBER'
             }
         }
 
@@ -141,7 +141,7 @@ CMD    "node" "server.js" \' > Dockerfile'''
 
         stage('Cambiar directorio y modificar deployment.yaml') {
            steps {  
-                dir('/home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra') { // or absolute path
+                dir('/home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra') {
                     sh 'ls'
                     sh 'rm deployment.yaml'
                     sh '''echo  \"apiVersion: apps/v1
@@ -199,7 +199,7 @@ AAAEA6s9CA4mRDmcjkUSrBTiYIq+025XLs/p/OyQEyAWbFTipILzQndpyhV0ZdeXog/0E4
 
 
 
-                sh 'rm /home/jenkins/mock-repo-infra/.git/config'                
+                // sh 'rm /home/jenkins/mock-repo-infra/.git/config'                
                 sh '''echo  \'[core]
 	repositoryformatversion = 0
 	filemode = true
@@ -219,7 +219,7 @@ AAAEA6s9CA4mRDmcjkUSrBTiYIq+025XLs/p/OyQEyAWbFTipILzQndpyhV0ZdeXog/0E4
 
         stage('Pushear los cambios al repo de infra') {
            steps {  
-                dir('/home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra') { // or absolute path
+                dir('/home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra') {
                     // sh 'git config --global user.email "tomas.ferrari@sendati.com"'
                     // sh 'git config --global user.name "tomasferrarisenda"'
                     sh 'git add .'
