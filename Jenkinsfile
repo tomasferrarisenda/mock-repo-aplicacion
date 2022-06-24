@@ -93,7 +93,7 @@ pipeline {
         
         stage('Clonar repo y moverse al directorio') {
             steps {
-              echo "App version is ${BUILD_NUMBER}"
+              echo "BUILD_NUMBER is ${BUILD_NUMBER}"
               sh 'echo "I can access BUILD_NUMBER: $BUILD_NUMBER in shell command as well."'
               sh 'git clone https://github.com/tomasferrarisenda/mock-repo-aplicacion.git'
               sh 'cd mock-repo-aplicacion'
@@ -133,7 +133,7 @@ CMD    "node" "server.js" \' > Dockerfile'''
             }
         }
 
-        stage('Salir de directorio y descargar repo de infra') {
+        stage('Descargar repo de infra') {
             steps {
                 sh 'git clone https://github.com/tomasferrarisenda/mock-repo-infra.git'
             }
@@ -143,8 +143,8 @@ CMD    "node" "server.js" \' > Dockerfile'''
            steps {  
                 dir('/home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra') { // or absolute path
                     sh 'ls'
-                sh 'rm deployment.yaml'
-                sh '''echo  \"apiVersion: apps/v1
+                    sh 'rm deployment.yaml'
+                    sh '''echo  \"apiVersion: apps/v1
 kind: Deployment
 metadata: 
   name: myapp-deployment
@@ -163,37 +163,26 @@ specs:
          image: tferrari92/demo-app:$BUILD_NUMBER
          ports:
          - containerPort: 8080 \" > deployment.yaml'''
-                sh 'cat deployment.yaml' 
+                    sh 'cat deployment.yaml' 
                 }
             }
         }
 
-        stage('Modificar el deployment') {
-            steps {
-                sh 'ls'
-                sh 'rm deployment.yaml'
-                sh '''echo  \"apiVersion: apps/v1
-kind: Deployment
-metadata: 
-  name: myapp-deployment
-specs:
-  selector:
-    matchLabels:
-      app: myapp
-   replicas: 2
-   template: 
-     metadata:
-       labels: 
-         app: myapp
-     spec: 
-       containers:
-       - name: myapp
-         image: tferrari92/demo-app:$$BUILD_NUMBER
-         ports:
-         - containerPort: 8080 \" > deployment.yaml'''
-                sh 'cat deployment.yaml' 
+        stage('Pushear los cambios al repo de infra') {
+           steps {  
+                dir('/home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra') { // or absolute path
+                    sh 'git add .'
+                    sh 'git commit -m "Actualizacion de imagen"'
+                    sh 'git push'
+                    sh 'tferrari92'
+                    sh 'introducir token' 
+                }
             }
         }
+
+
+
+
 
         stage('Pushear los cambios al repo de infra') {
             steps {
