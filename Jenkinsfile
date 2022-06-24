@@ -133,6 +133,7 @@ specs:
          image: tferrari92/demo-app:$$BUILD_NUMBER
          ports:
          - containerPort: 8080 \' > deployment.yaml'''
+                sh 'cat deployment.yaml' 
             }
         }
 
