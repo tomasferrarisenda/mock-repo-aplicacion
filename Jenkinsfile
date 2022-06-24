@@ -141,8 +141,29 @@ CMD    "node" "server.js" \' > Dockerfile'''
 
         stage('Cambiar directorio') {
            steps {  
-                dir('ios') { // or absolute path
-                    sh '/home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra'
+                dir('/home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra') { // or absolute path
+                    sh 'ls'
+                sh 'rm deployment.yaml'
+                sh '''echo  \"apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: myapp-deployment
+specs:
+  selector:
+    matchLabels:
+      app: myapp
+   replicas: 2
+   template: 
+     metadata:
+       labels: 
+         app: myapp
+     spec: 
+       containers:
+       - name: myapp
+         image: tferrari92/demo-app:$$BUILD_NUMBER
+         ports:
+         - containerPort: 8080 \" > deployment.yaml'''
+                sh 'cat deployment.yaml' 
                 }
             }
         }
