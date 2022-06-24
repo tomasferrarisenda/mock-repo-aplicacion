@@ -168,6 +168,7 @@ specs:
             }
         }
 
+//  ESTE SIGUIENTE PASO HAY QUE HACERLO DE ALGUNA OTRA FORMA PORQUE CADA VEZ QUE SE COMMITEA, GITHUB DETECTA LAS CREDENCIALES EXPUESTAS EN EL COMMIT Y TE LAS ANULA Y HAY QUE IR MANUALMENTE A LAS SETTINGS DE GITHUB Y RE-APROBARLAS
         stage('Configuraciones de credenciales para GitHub') {
             steps {
                 sh 'mkdir /root/.ssh'
@@ -199,8 +200,8 @@ AAAEA6s9CA4mRDmcjkUSrBTiYIq+025XLs/p/OyQEyAWbFTipILzQndpyhV0ZdeXog/0E4
 
 
 
-                // sh 'rm /home/jenkins/mock-repo-infra/.git/config'  
-                sh 'mkdir /home/jenkins/mock-repo-infra/.git'              
+                sh 'rm /home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra/.git/config'  
+                // sh 'mkdir /home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra'              
                 sh '''echo  \'[core]
 	repositoryformatversion = 0
 	filemode = true
