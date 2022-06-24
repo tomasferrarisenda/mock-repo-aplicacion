@@ -112,7 +112,7 @@ CMD    "node" "server.js" \' > Dockerfile'''
                 sh 'git clone https://github.com/tomasferrarisenda/mock-repo-infra.git'
                 sh 'pwd'
                 sh 'ls'
-                sh 'cd mock-repo-infra/'
+                sh 'cd ./mock-repo-infra/'
                 sh 'pwd'
             }
         }
