@@ -1,5 +1,9 @@
 pipeline {
 
+    environment {
+        APP_VERSION = ${BUILD_NUMBER}
+    }
+
     // agent {
     //     kubernetes {
     //         label 'agent'
@@ -55,6 +59,7 @@ pipeline {
         
         stage('Clonar repo y moverse al directorio') {
             steps {
+              sh "echo ${APP_VERSION}"
               sh 'git clone https://github.com/tomasferrarisenda/mock-repo-aplicacion.git'
               sh 'cd mock-repo-aplicacion'
             }
@@ -92,11 +97,36 @@ pipeline {
             }
         }
 
-        stage('Salir de directorio, descargar repo de infra y modificar chart') {
+        stage('Salir de directorio y descargar repo de infra y modificar chart') {
             steps {
                 sh 'cd ..'
                 sh 'git clone https://github.com/tomasferrarisenda/mock-repo-infra.git'
-                sh 'aca hay q hacer que modifique el chart '
+                sh 'cd mock-repo-infra'
+            }
+        }
+
+        stage('Modificar el deployment') {
+            steps {
+                sh 'rm deployment.yaml'
+                sh '''echo  \'apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: myapp-deployment
+specs:
+  selector:
+    matchLabels:
+      app: myapp
+   replicas: 2
+   template: 
+     metadata:
+       labels: 
+         app: myapp
+     spec: 
+       containers:
+       - name: myapp
+         image: tferrari92/demo-app:${APP_VERSION}
+         ports:
+         - containerPort: 8080 \' > deployment.yaml'''
             }
         }
 
