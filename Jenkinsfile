@@ -78,12 +78,13 @@ pipeline {
         stage('Crear Dockerfile') {
             steps {
               sh '''echo  \'FROM    node
-                    WORKDIR    user/src/app 
-                    COPY    package.json .
-                    RUN    npm install 
-                    COPY    . . 
-                    EXPOSE    5000 
-                    CMD    "node" "server.js" \' > Dockerfile'''
+WORKDIR    user/src/app 
+COPY    package.json .
+RUN    npm install 
+COPY    . . 
+EXPOSE    5000 
+CMD    "node" "server.js" \' > Dockerfile'''
+              sh 'cat Dockerfile'
             }
         }
 
@@ -111,6 +112,7 @@ pipeline {
 
         stage('Modificar el deployment') {
             steps {
+                sh 'ls -a'
                 sh 'rm deployment.yaml'
                 sh '''echo  \'apiVersion: apps/v1
 kind: Deployment
@@ -128,7 +130,7 @@ specs:
      spec: 
        containers:
        - name: myapp
-         image: tferrari92/demo-app:${APP_VERSION}
+         image: tferrari92/demo-app:$$BUILD_NUMBER
          ports:
          - containerPort: 8080 \' > deployment.yaml'''
             }
