@@ -113,6 +113,7 @@ CMD    "node" "server.js" \' > Dockerfile'''
                 sh 'pwd'
                 sh 'ls'
                 sh 'cd mock-repo-infra/'
+                sh 'pwd'
             }
         }
 
