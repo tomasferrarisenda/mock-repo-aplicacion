@@ -1,7 +1,7 @@
 pipeline {
 
     environment {
-        APP_VERSION = ${BUILD_NUMBER}
+        // APP_VERSION = ${BUILD_NUMBER}
     }
 
     // agent {
@@ -59,7 +59,8 @@ pipeline {
         
         stage('Clonar repo y moverse al directorio') {
             steps {
-              sh "echo ${APP_VERSION}"
+              echo "App version is ${BUILD_NUMBER}"
+              sh 'echo "I can access BUILD_NUMBER: $BUILD_NUMBER in shell command as well."'
               sh 'git clone https://github.com/tomasferrarisenda/mock-repo-aplicacion.git'
               sh 'cd mock-repo-aplicacion'
             }
