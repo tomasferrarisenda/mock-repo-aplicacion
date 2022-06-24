@@ -139,7 +139,7 @@ CMD    "node" "server.js" \' > Dockerfile'''
             }
         }
 
-        stage('Cambiar directorio') {
+        stage('Cambiar directorio y modificar deployment.yaml') {
            steps {  
                 dir('/home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra') { // or absolute path
                     sh 'ls'
@@ -160,7 +160,7 @@ specs:
      spec: 
        containers:
        - name: myapp
-         image: tferrari92/demo-app:$$BUILD_NUMBER
+         image: tferrari92/demo-app:$BUILD_NUMBER
          ports:
          - containerPort: 8080 \" > deployment.yaml'''
                 sh 'cat deployment.yaml' 
