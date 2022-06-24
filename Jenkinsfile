@@ -171,16 +171,35 @@ specs:
         stage('Configuraciones de credenciales para GitHub') {
             steps {
                 sh 'mkdir /root/.ssh'
-                sh 'echo "-----BEGIN OPENSSH PRIVATE KEY-----
+
+
+                sh '''echo  \"-----BEGIN OPENSSH PRIVATE KEY-----
 b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
 QyNTUxOQAAACAqSC80J3acoVdGXXl6IP9BOPXXp6vrn9QyuWG5qPLisQAAAKAcJs6zHCbO
 swAAAAtzc2gtZWQyNTUxOQAAACAqSC80J3acoVdGXXl6IP9BOPXXp6vrn9QyuWG5qPLisQ
 AAAEA6s9CA4mRDmcjkUSrBTiYIq+025XLs/p/OyQEyAWbFTipILzQndpyhV0ZdeXog/0E4
 9denq+uf1DK5Ybmo8uKxAAAAGXRvbWFzLmZlcnJhcmlAc2VuZGF0aS5jb20BAgME
------END OPENSSH PRIVATE KEY-----
-" > /root/.ssh/id_ed25519'
-                sh 'echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICpILzQndpyhV0ZdeXog/0E49denq+uf1DK5Ybmo8uKx tomas.ferrari@sendati.com
-" > /root/.ssh/id_ed25519.pub'
+-----END OPENSSH PRIVATE KEY-----" > /root/.ssh/id_ed25519'''
+
+
+//                 sh 'echo "-----BEGIN OPENSSH PRIVATE KEY-----
+// b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+// QyNTUxOQAAACAqSC80J3acoVdGXXl6IP9BOPXXp6vrn9QyuWG5qPLisQAAAKAcJs6zHCbO
+// swAAAAtzc2gtZWQyNTUxOQAAACAqSC80J3acoVdGXXl6IP9BOPXXp6vrn9QyuWG5qPLisQ
+// AAAEA6s9CA4mRDmcjkUSrBTiYIq+025XLs/p/OyQEyAWbFTipILzQndpyhV0ZdeXog/0E4
+// 9denq+uf1DK5Ybmo8uKxAAAAGXRvbWFzLmZlcnJhcmlAc2VuZGF0aS5jb20BAgME
+// -----END OPENSSH PRIVATE KEY-----
+// " > /root/.ssh/id_ed25519'
+
+
+                   sh '''echo  \"-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICpILzQndpyhV0ZdeXog/0E49denq+uf1DK5Ybmo8uKx tomas.ferrari@sendati.com" > /root/.ssh/id_ed25519.pub'''
+
+
+//                 sh 'echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICpILzQndpyhV0ZdeXog/0E49denq+uf1DK5Ybmo8uKx tomas.ferrari@sendati.com
+// " > /root/.ssh/id_ed25519.pub'
+
+
+
                 sh 'rm /home/jenkins/mock-repo-infra/.git/config'                
                 sh '''echo  \'[core]
 	repositoryformatversion = 0
