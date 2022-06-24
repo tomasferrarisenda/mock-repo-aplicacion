@@ -48,14 +48,13 @@ pipeline {
     agent {
         label 'kubepod'
     }
-    
+
 
     stages {
 
         
         stage('Clonar repo y moverse al directorio') {
             steps {
-              sh 'sleep 10000'
               sh 'git clone https://github.com/tomasferrarisenda/mock-repo-aplicacion.git'
               sh 'cd mock-repo-aplicacion'
             }
