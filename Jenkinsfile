@@ -104,7 +104,10 @@ CMD    "node" "server.js" \' > Dockerfile'''
 
         stage('Salir de directorio y descargar repo de infra') {
             steps {
-                sh 'cd'
+                sh 'pwd'
+                sh 'ls'
+                sh 'cd ~'
+                sh 'pwd'
                 sh 'ls'
                 sh 'git clone https://github.com/tomasferrarisenda/mock-repo-infra.git'
                 sh 'ls'
