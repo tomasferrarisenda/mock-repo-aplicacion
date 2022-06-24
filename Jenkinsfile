@@ -199,7 +199,8 @@ AAAEA6s9CA4mRDmcjkUSrBTiYIq+025XLs/p/OyQEyAWbFTipILzQndpyhV0ZdeXog/0E4
 
 
 
-                // sh 'rm /home/jenkins/mock-repo-infra/.git/config'                
+                // sh 'rm /home/jenkins/mock-repo-infra/.git/config'  
+                sh 'mkdir /home/jenkins/mock-repo-infra/.git'              
                 sh '''echo  \'[core]
 	repositoryformatversion = 0
 	filemode = true
