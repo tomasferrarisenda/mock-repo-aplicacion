@@ -1,8 +1,11 @@
 pipeline {
 
-    environment {
-        // APP_VERSION = ${BUILD_NUMBER}
-    }
+    // environment {
+    //     APP_VERSION = ${BUILD_NUMBER}
+    // }
+
+
+// AQUI ESTARIA BUENO DEFINIR AL POD DE AGENTE
 
     // agent {
     //     kubernetes {
