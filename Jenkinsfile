@@ -102,9 +102,9 @@ CMD    "node" "server.js" \' > Dockerfile'''
             }
         }
 
-        stage('Salir de directorio y descargar repo de infra y modificar chart') {
+        stage('Salir de directorio y descargar repo de infra') {
             steps {
-                sh 'cd ..'
+                sh 'cd'
                 sh 'git clone https://github.com/tomasferrarisenda/mock-repo-infra.git'
                 sh 'cd mock-repo-infra'
             }
