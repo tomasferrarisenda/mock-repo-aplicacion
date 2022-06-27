@@ -175,7 +175,7 @@ github.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAA
             }
         }
 
-                stage('Cambiar directorio y modificar deployment.yaml') {
+        stage('Cambiar directorio y modificar deployment.yaml') {
            steps {  
                 dir('/home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra/dev') {
                     // sh 'git pull'
@@ -188,17 +188,17 @@ specs:
   selector:
     matchLabels:
       app: myapp
-   replicas: 2
-   template: 
-     metadata:
-       labels: 
-         app: myapp
-     spec: 
-       containers:
-       - name: myapp
-         image: tferrari92/demo-app:$BUILD_NUMBER
-         ports:
-         - containerPort: 8080 \" > deployment.yaml'''
+  replicas: 2
+  template: 
+    metadata:
+      labels: 
+        app: myapp
+    spec: 
+      containers:
+      - name: myapp
+        image: tferrari92/demo-app:$BUILD_NUMBER
+        ports:
+        - containerPort: 8080 \" > deployment.yaml'''
                 }
             }
         }
