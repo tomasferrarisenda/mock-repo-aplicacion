@@ -218,7 +218,7 @@ spec:
 
         stage('Pushear los cambios al repo de infra') {
            steps {  
-                dir('$INFRA_REPO_DIRECTORY') {
+                dir("${INFRA_REPO_DIRECTORY}") {
                     sh 'git add .'
                     sh 'git commit -m "Actualizacion de imagen"'
                     sh 'git push'
