@@ -12,7 +12,7 @@ pipeline {
 
         APP_TAG = "${BUILD_NUMBER}"
 
-        DOCKER_LOGIN = "tferrari92"
+        DOCKER_USERNAME = "tferrari92"
         DOCKER_PASSWORD = "hirvyt-werrub-Wemso4"
 
         GIT_EMAIL = "tomas.ferrari@sendati.com"
@@ -140,9 +140,9 @@ CMD    "node" "server.js" \' > Dockerfile'''
 
         stage('Pushear imagen a repo personal') {
             steps {
-                sh 'docker login --username=$DOCKER_LOGIN --password=$DOCKER_PASSWORD'
-                sh 'docker tag $APP_NAME $DOCKER_LOGIN/$APP_NAME:$APP_TAG'
-                sh 'docker push $DOCKER_LOGIN/$APP_NAME:$APP_TAG'
+                sh 'docker login --username=$DOCKER_USERNAME --password=$DOCKER_PASSWORD'
+                sh 'docker tag $APP_NAME $DOCKER_USERNAME/$APP_NAME:$APP_TAG'
+                sh 'docker push $DOCKER_USERNAME/$APP_NAME:$APP_TAG'
             }
         }
 
@@ -172,7 +172,7 @@ AAAEA6s9CA4mRDmcjkUSrBTiYIq+025XLs/p/OyQEyAWbFTipILzQndpyhV0ZdeXog/0E4
 	bare = false
 	logallrefupdates = true
 [remote "origin"]
-	url = $INFRA_REPO_SSH
+	url = git@github.com:tomasferrarisenda/mock-repo-infra.git
 	fetch = +refs/heads/*:refs/remotes/origin/*
 [branch "main"]
 	remote = origin
