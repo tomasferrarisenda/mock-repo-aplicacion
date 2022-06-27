@@ -1,6 +1,8 @@
 pipeline {
 
     environment {
+        APP_NAME = "demo-app"
+
         APP_REPOSITORY = "https://github.com/tomasferrarisenda/mock-repo-aplicacion.git"
         APP_REPO_DIRECTORY = "mock-repo-aplicacion"
 
@@ -8,7 +10,7 @@ pipeline {
         INFRA_REPO_DIRECTORY = "/home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra"
         INFRA_REPO_SSH = "git@github.com:tomasferrarisenda/mock-repo-infra.git"
 
-        APP_VERSION_TAG = ${BUILD_NUMBER}
+        APP_TAG = "${BUILD_NUMBER}"
 
         DOCKER_LOGIN = "tferrari92"
         DOCKER_PASSWORD = "hirvyt-werrub-Wemso4"
@@ -132,15 +134,15 @@ CMD    "node" "server.js" \' > Dockerfile'''
 
         stage('Buildear la imagen') {
             steps {
-                sh 'docker build . -t demo-app'
+                sh 'docker build . -t APP_NAME'
             }
         }
 
         stage('Pushear imagen a repo personal') {
             steps {
                 sh 'docker login --username=$DOCKER_LOGIN --password=$DOCKER_PASSWORD'
-                sh 'docker tag demo-app $DOCKER_LOGIN/demo-app:$BUILD_NUMBER'
-                sh 'docker push $DOCKER_LOGIN/demo-app:$BUILD_NUMBER'
+                sh 'docker tag APP_NAME $DOCKER_LOGIN/APP_NAME:$APP_TAG'
+                sh 'docker push $DOCKER_LOGIN/APP_NAME:$APP_TAG'
             }
         }
 
@@ -189,7 +191,6 @@ github.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAA
         stage('Cambiar directorio y modificar deployment.yaml') {
            steps {  
                 dir('$INFRA_REPO_DIRECTORY/dev') {
-                    // sh 'git pull'
                     sh 'rm deployment.yaml'
                     sh '''echo  \"apiVersion: apps/v1
 kind: Deployment
@@ -207,7 +208,7 @@ spec:
     spec: 
       containers:
       - name: myapp
-        image: $DOCKER_USERNAME/demo-app:$BUILD_NUMBER
+        image: $DOCKER_USERNAME/APP_NAME:$APP_TAG
         ports:
         - containerPort: 8080 \" > deployment.yaml'''
                 }
