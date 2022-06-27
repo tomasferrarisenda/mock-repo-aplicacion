@@ -159,14 +159,11 @@ AAAEA6s9CA4mRDmcjkUSrBTiYIq+025XLs/p/OyQEyAWbFTipILzQndpyhV0ZdeXog/0E4
 	bare = false
 	logallrefupdates = true
 [remote "origin"]
-	url = git@github.com:tomasferrarisenda/mock-repo-aplicacion.git
+	url = git@github.com:tomasferrarisenda/mock-repo-infra.git
 	fetch = +refs/heads/*:refs/remotes/origin/*
 [branch "main"]
 	remote = origin
-	merge = refs/heads/main
-[remote "upstream"]
-	url = https://github.com/tomasferrarisenda/mock-repo-aplicacion
-	fetch = +refs/heads/*:refs/remotes/upstream/*' > /home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra/.git/config'''   
+	merge = refs/heads/main' > /home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra/.git/config'''   
                 dir('/home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra') {
                     sh 'git config --global user.email "tomas.ferrari@sendati.com"'
                     sh 'git config --global user.name "tomasferrarisenda"'
@@ -205,6 +202,19 @@ specs:
                 }
             }
         }
+
+        // stage('Pushear los cambios al repo de infra') {
+        //    steps {  
+        //         dir('/home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra') {
+        //             sh 'git add .'
+        //             sh 'git commit -m "Actualizacion de imagen"'
+        //             sshagent(['8f90bd39-836d-4351-baf2-4939bd31d128']) {
+        //                 sh "git push origin master"
+        //             }
+        //         }
+        //     }
+        // }
+
 
         stage('Pushear los cambios al repo de infra') {
            steps {  
