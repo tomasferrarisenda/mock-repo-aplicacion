@@ -184,7 +184,7 @@ github.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAA
 kind: Deployment
 metadata: 
   name: myapp-deployment
-specs:
+spec:
   selector:
     matchLabels:
       app: myapp
