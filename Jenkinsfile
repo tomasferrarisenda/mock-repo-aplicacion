@@ -1,8 +1,21 @@
 pipeline {
 
-    // environment {
-    //     APP_VERSION = ${BUILD_NUMBER}
-    // }
+    environment {
+        APP_REPOSITORY = "https://github.com/tomasferrarisenda/mock-repo-aplicacion.git"
+        APP_REPO_DIRECTORY = "mock-repo-aplicacion"
+
+        INFRA_REPOSITORY = "https://github.com/tomasferrarisenda/mock-repo-infra.git"
+        INFRA_REPO_DIRECTORY = "/home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra"
+        INFRA_REPO_SSH = "git@github.com:tomasferrarisenda/mock-repo-infra.git"
+
+        APP_VERSION_TAG = ${BUILD_NUMBER}
+
+        DOCKER_LOGIN = "tferrari92"
+        DOCKER_PASSWORD = "hirvyt-werrub-Wemso4"
+
+        GIT_EMAIL = "tomas.ferrari@sendati.com"
+        GIT_USERNAME = "tomasferrarisenda"
+    }
 
 
 // AQUI ESTARIA BUENO DEFINIR AL POD DE AGENTE
@@ -93,10 +106,8 @@ pipeline {
         
         stage('Clonar repo y moverse al directorio') {
             steps {
-              echo "BUILD_NUMBER is ${BUILD_NUMBER}"
-              sh 'echo "I can access BUILD_NUMBER: $BUILD_NUMBER in shell command as well."'
-              sh 'git clone https://github.com/tomasferrarisenda/mock-repo-aplicacion.git'
-              sh 'cd mock-repo-aplicacion'
+              sh 'git clone $APP_REPOSITORY'
+              sh 'cd $APP_REPO_DIRECTORY'
             }
         }
 
@@ -127,15 +138,15 @@ CMD    "node" "server.js" \' > Dockerfile'''
 
         stage('Pushear imagen a repo personal') {
             steps {
-                sh 'docker login --username=tferrari92 --password=hirvyt-werrub-Wemso4'
-                sh 'docker tag demo-app tferrari92/demo-app:$BUILD_NUMBER'
-                sh 'docker push tferrari92/demo-app:$BUILD_NUMBER'
+                sh 'docker login --username=$DOCKER_LOGIN --password=$DOCKER_PASSWORD'
+                sh 'docker tag demo-app $DOCKER_LOGIN/demo-app:$BUILD_NUMBER'
+                sh 'docker push $DOCKER_LOGIN/demo-app:$BUILD_NUMBER'
             }
         }
 
         stage('Descargar repo de infra') {
             steps {
-                sh 'git clone https://github.com/tomasferrarisenda/mock-repo-infra.git'
+                sh 'git clone $INFRA_REPOSITORY'
             }
         }
 
@@ -152,21 +163,21 @@ AAAEA6s9CA4mRDmcjkUSrBTiYIq+025XLs/p/OyQEyAWbFTipILzQndpyhV0ZdeXog/0E4
 9denq+uf1DK5Ybmo8uKxAAAAGXRvbWFzLmZlcnJhcmlAc2VuZGF0aS5jb20BAgME
 -----END OPENSSH PRIVATE KEY-----" > /root/.ssh/id_ed25519'''
                 sh 'echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICpILzQndpyhV0ZdeXog/0E49denq+uf1DK5Ybmo8uKx tomas.ferrari@sendati.com" > /root/.ssh/id_ed25519.pub'
-                sh 'rm /home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra/.git/config'              
+                sh 'rm $INFRA_REPO_DIRECTORY/.git/config'              
                 sh '''echo  \'[core]
 	repositoryformatversion = 0
 	filemode = true
 	bare = false
 	logallrefupdates = true
 [remote "origin"]
-	url = git@github.com:tomasferrarisenda/mock-repo-infra.git
+	url = $INFRA_REPO_SSH
 	fetch = +refs/heads/*:refs/remotes/origin/*
 [branch "main"]
 	remote = origin
-	merge = refs/heads/main' > /home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra/.git/config'''   
+	merge = refs/heads/main' > $INFRA_REPO_DIRECTORY/.git/config'''   
                 dir('/home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra') {
-                    sh 'git config --global user.email "tomas.ferrari@sendati.com"'
-                    sh 'git config --global user.name "tomasferrarisenda"'
+                    sh 'git config --global user.email "$GIT_EMAIL"'
+                    sh 'git config --global user.name "$GIT_USERNAME"'
                 }
                 sh '''echo  \"github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl
 github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==
@@ -177,7 +188,7 @@ github.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAA
 
         stage('Cambiar directorio y modificar deployment.yaml') {
            steps {  
-                dir('/home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra/dev') {
+                dir('$INFRA_REPO_DIRECTORY/dev') {
                     // sh 'git pull'
                     sh 'rm deployment.yaml'
                     sh '''echo  \"apiVersion: apps/v1
@@ -196,7 +207,7 @@ spec:
     spec: 
       containers:
       - name: myapp
-        image: tferrari92/demo-app:$BUILD_NUMBER
+        image: $DOCKER_USERNAME/demo-app:$BUILD_NUMBER
         ports:
         - containerPort: 8080 \" > deployment.yaml'''
                 }
@@ -218,7 +229,7 @@ spec:
 
         stage('Pushear los cambios al repo de infra') {
            steps {  
-                dir('/home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra') {
+                dir('$INFRA_REPO_DIRECTORY') {
                     sh 'git add .'
                     sh 'git commit -m "Actualizacion de imagen"'
                     sh 'git push'
