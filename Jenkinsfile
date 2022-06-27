@@ -190,8 +190,8 @@ github.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAA
 
         stage('Cambiar directorio y modificar deployment.yaml') {
            steps {  
-                dir(${INFRA_REPO_DIRECTORY}'/dev') {
-                    sh 'rm deployment.yaml'
+                dir(${INFRA_REPO_DIRECTORY}) {
+                    sh 'rm dev/deployment.yaml'
                     sh '''echo  \"apiVersion: apps/v1
 kind: Deployment
 metadata: 
@@ -210,7 +210,7 @@ spec:
       - name: $APP_NAME
         image: $DOCKER_USERNAME/$APP_NAME:$APP_TAG
         ports:
-        - containerPort: 8080 \" > deployment.yaml'''
+        - containerPort: 8080 \" > dev/deployment.yaml'''
                 }
             }
         }
