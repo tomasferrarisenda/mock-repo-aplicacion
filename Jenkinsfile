@@ -181,7 +181,7 @@ github.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAA
                 stage('Cambiar directorio y modificar deployment.yaml') {
            steps {  
                 dir('/home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra') {
-                    sh 'git pull'
+                    // sh 'git pull'
                     sh 'rm deployment.yaml'
                     sh '''echo  \"apiVersion: apps/v1
 kind: Deployment
