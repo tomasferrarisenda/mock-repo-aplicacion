@@ -134,7 +134,7 @@ CMD    "node" "server.js" \' > Dockerfile'''
 
         stage('Buildear la imagen') {
             steps {
-                sh 'docker build . -t APP_NAME'
+                sh 'docker build . -t $APP_NAME'
             }
         }
 
