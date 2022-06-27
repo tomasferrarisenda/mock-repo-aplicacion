@@ -177,7 +177,7 @@ AAAEA6s9CA4mRDmcjkUSrBTiYIq+025XLs/p/OyQEyAWbFTipILzQndpyhV0ZdeXog/0E4
 [branch "main"]
 	remote = origin
 	merge = refs/heads/main' > $INFRA_REPO_DIRECTORY/.git/config'''   
-                dir('/home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra') {
+                dir('INFRA_REPO_DIRECTORY') {
                     sh 'git config --global user.email "$GIT_EMAIL"'
                     sh 'git config --global user.name "$GIT_USERNAME"'
                 }
@@ -195,20 +195,20 @@ github.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAA
                     sh '''echo  \"apiVersion: apps/v1
 kind: Deployment
 metadata: 
-  name: myapp-deployment
+  name: $APP_NAME-deployment
 spec:
   selector:
     matchLabels:
-      app: myapp
+      app: $APP_NAME
   replicas: 2
   template: 
     metadata:
       labels: 
-        app: myapp
+        app: $APP_NAME
     spec: 
       containers:
-      - name: myapp
-        image: $DOCKER_USERNAME/APP_NAME:$APP_TAG
+      - name: $APP_NAME
+        image: $DOCKER_USERNAME/$APP_NAME:$APP_TAG
         ports:
         - containerPort: 8080 \" > deployment.yaml'''
                 }
@@ -217,7 +217,7 @@ spec:
 
         // stage('Pushear los cambios al repo de infra') {
         //    steps {  
-        //         dir('/home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra') {
+        //         dir('INFRA_REPO_DIRECTORY') {
         //             sh 'git add .'
         //             sh 'git commit -m "Actualizacion de imagen"'
         //             sshagent(['8f90bd39-836d-4351-baf2-4939bd31d128']) {
