@@ -141,8 +141,8 @@ CMD    "node" "server.js" \' > Dockerfile'''
         stage('Pushear imagen a repo personal') {
             steps {
                 sh 'docker login --username=$DOCKER_LOGIN --password=$DOCKER_PASSWORD'
-                sh 'docker tag APP_NAME $DOCKER_LOGIN/APP_NAME:$APP_TAG'
-                sh 'docker push $DOCKER_LOGIN/APP_NAME:$APP_TAG'
+                sh 'docker tag $APP_NAME $DOCKER_LOGIN/$APP_NAME:$APP_TAG'
+                sh 'docker push $DOCKER_LOGIN/$APP_NAME:$APP_TAG'
             }
         }
 
@@ -214,18 +214,6 @@ spec:
                 }
             }
         }
-
-        // stage('Pushear los cambios al repo de infra') {
-        //    steps {  
-        //         dir('INFRA_REPO_DIRECTORY') {
-        //             sh 'git add .'
-        //             sh 'git commit -m "Actualizacion de imagen"'
-        //             sshagent(['8f90bd39-836d-4351-baf2-4939bd31d128']) {
-        //                 sh "git push origin master"
-        //             }
-        //         }
-        //     }
-        // }
 
 
         stage('Pushear los cambios al repo de infra') {
