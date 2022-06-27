@@ -177,7 +177,7 @@ AAAEA6s9CA4mRDmcjkUSrBTiYIq+025XLs/p/OyQEyAWbFTipILzQndpyhV0ZdeXog/0E4
 [branch "main"]
 	remote = origin
 	merge = refs/heads/main' > $INFRA_REPO_DIRECTORY/.git/config'''   
-                dir('INFRA_REPO_DIRECTORY') {
+                dir(${INFRA_REPO_DIRECTORY}) {
                     sh 'git config --global user.email "$GIT_EMAIL"'
                     sh 'git config --global user.name "$GIT_USERNAME"'
                 }
@@ -190,7 +190,7 @@ github.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAA
 
         stage('Cambiar directorio y modificar deployment.yaml') {
            steps {  
-                dir('$INFRA_REPO_DIRECTORY/dev') {
+                dir(${INFRA_REPO_DIRECTORY}'/dev') {
                     sh 'rm deployment.yaml'
                     sh '''echo  \"apiVersion: apps/v1
 kind: Deployment
