@@ -17,7 +17,7 @@ pipeline {
 
         GIT_EMAIL = "tomas.ferrari@sendati.com"
         GIT_USERNAME = "tomasferrarisenda"
-        // GIT_PASSWORD = "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"
+        // GIT_PASSWORD = ""
         GIT_REPO = "tomasferrarisenda/mock-repo-infra.git"
         GITHUB_CREDENTIALS = "tomasferrarisendaGithubCredentials"
     }
@@ -220,18 +220,6 @@ spec:
         }
 
 
-        stage('Pushear los cambios al repo de infra') {
-           steps {  
-                dir("${INFRA_REPO_DIRECTORY}") {
-                    sh 'git config --global user.email "$GIT_EMAIL"'
-                    sh 'git config --global user.name "$GIT_USERNAME"'
-                    sh 'git add .'
-                    sh 'git commit -m "Actualizacion de imagen"'
-                    sh 'git push https://tomasferrarisenda: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@github.com/tomasferrarisenda/mock-repo-infra.git'
-                }
-            }
-        }
-
         // stage('Pushear los cambios al repo de infra') {
         //    steps {  
         //         dir("${INFRA_REPO_DIRECTORY}") {
@@ -239,12 +227,24 @@ spec:
         //             sh 'git config --global user.name "$GIT_USERNAME"'
         //             sh 'git add .'
         //             sh 'git commit -m "Actualizacion de imagen"'
-        //             withCredentials([usernamePassword(credentialsId: 'tomasferrarisendaGithubCredentials', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-        //                 sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_REPO}')
-        //             }
+        //             sh 'git push https://tomasferrarisenda:@github.com/tomasferrarisenda/mock-repo-infra.git'
         //         }
         //     }
         // }
+
+        stage('Pushear los cambios al repo de infra') {
+           steps {  
+                dir("${INFRA_REPO_DIRECTORY}") {
+                    sh 'git config --global user.email "$GIT_EMAIL"'
+                    sh 'git config --global user.name "$GIT_USERNAME"'
+                    sh 'git add .'
+                    sh 'git commit -m "Actualizacion de imagen"'
+                    withCredentials([usernamePassword(credentialsId: 'tomasferrarisendaGithubCredentials', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                        sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_REPO}')
+                    }
+                }
+            }
+        }
 
         
 
