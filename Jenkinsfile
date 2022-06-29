@@ -18,6 +18,7 @@ pipeline {
         GIT_EMAIL = "tomas.ferrari@sendati.com"
         GIT_USERNAME = "tomasferrarisenda"
         GIT_PASSWORD = "wyvhon-6sefve-dihdeC"
+        GIT_SSH = "@github.com/tomasferrarisenda/mock-repo-infra.git"
     }
 
 
@@ -233,8 +234,8 @@ spec:
                 dir("${INFRA_REPO_DIRECTORY}") {
                     sh 'git add .'
                     sh 'git commit -m "Actualizacion de imagen"'
-                    withCredentials([usernamePassword(credentialsId: 'ci-github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                        sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/tomasferrarisenda/mock-repo-infra.git')
+                    withCredentials([usernamePassword(credentialsId: 'tomasferrarisendaGithubCredentials', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                        sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}${GIT_SSH}')
                     }
                 }
             }
