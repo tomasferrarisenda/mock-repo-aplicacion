@@ -8,7 +8,7 @@ pipeline {
 
         INFRA_REPOSITORY = "https://github.com/tomasferrarisenda/mock-repo-infra.git"
         INFRA_REPO_DIRECTORY = "/home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra"
-        INFRA_REPO_SSH = "git@github.com:tomasferrarisenda/mock-repo-infra.git"
+        // INFRA_REPO_SSH = "git@github.com:tomasferrarisenda/mock-repo-infra.git"
 
         APP_TAG = "${BUILD_NUMBER}"
 
@@ -17,8 +17,8 @@ pipeline {
 
         GIT_EMAIL = "tomas.ferrari@sendati.com"
         GIT_USERNAME = "tomasferrarisenda"
-        GIT_PASSWORD = "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"
-        GIT_SSH = "@github.com/tomasferrarisenda/mock-repo-infra.git"
+        // GIT_PASSWORD = "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"
+        GIT_REPO = "tomasferrarisenda/mock-repo-infra.git"
     }
 
 
@@ -237,7 +237,7 @@ spec:
                     sh 'git add .'
                     sh 'git commit -m "Actualizacion de imagen"'
                     withCredentials([usernamePassword(credentialsId: 'tomasferrarisendaGithubCredentials', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                        sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}${GIT_SSH}')
+                        sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_REPO}')
                     }
                 }
             }
