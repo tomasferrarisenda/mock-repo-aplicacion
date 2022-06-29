@@ -154,6 +154,7 @@ CMD    "node" "server.js" \' > Dockerfile'''
 
 
 //  ESTE SIGUIENTE PASO HAY QUE HACERLO DE ALGUNA OTRA FORMA PORQUE CADA VEZ QUE SE COMMITEA, GITHUB DETECTA LAS CREDENCIALES EXPUESTAS EN EL COMMIT Y TE LAS ANULA Y HAY QUE IR MANUALMENTE A LAS SETTINGS DE GITHUB Y RE-APROBARLAS
+//  TAMBIEN FALTA MODIFICAR EL url POR $INFRA_REPO_SSH
         stage('Configuraciones de credenciales para GitHub') {
             steps {
                 sh 'mkdir /root/.ssh'
@@ -216,15 +217,29 @@ spec:
         }
 
 
+        // stage('Pushear los cambios al repo de infra') {
+        //    steps {  
+        //         dir("${INFRA_REPO_DIRECTORY}") {
+        //             sh 'git add .'
+        //             sh 'git commit -m "Actualizacion de imagen"'
+        //             sh 'git push'
+        //         }
+        //     }
+        // }
+
         stage('Pushear los cambios al repo de infra') {
            steps {  
                 dir("${INFRA_REPO_DIRECTORY}") {
                     sh 'git add .'
                     sh 'git commit -m "Actualizacion de imagen"'
-                    sh 'git push'
+                    sshagent(['8f90bd39-836d-4351-baf2-4939bd31d128']) {
+                        sh "git push origin master"
+                    }
                 }
             }
         }
+
+        
 
 
     }
