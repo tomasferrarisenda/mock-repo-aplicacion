@@ -17,7 +17,7 @@ pipeline {
         GIT_EMAIL = "tomas.ferrari@sendati.com"
         GIT_USERNAME = "tomasferrarisenda"
         GIT_REPO = "tomasferrarisenda/mock-repo-infra.git"
-        GITHUB_CREDENTIALS = "tomasferrarisendaGithubCredentials"
+        GITHUB_CREDENTIALS_ID = "tomasferrarisendaGithubCredentials"
     }
 
 
@@ -189,7 +189,7 @@ spec:
                     sh 'git config --global user.name "$GIT_USERNAME"'
                     sh 'git add .'
                     sh 'git commit -m "Actualizacion de imagen"'
-                    withCredentials([usernamePassword(credentialsId: ${GITHUB_CREDENTIALS}, passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    withCredentials([usernamePassword(credentialsId: '$GITHUB_CREDENTIALS_ID', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_REPO}')
                     }
                 }
