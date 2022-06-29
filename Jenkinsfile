@@ -232,6 +232,8 @@ spec:
         stage('Pushear los cambios al repo de infra') {
            steps {  
                 dir("${INFRA_REPO_DIRECTORY}") {
+                    sh 'git config --global user.email "$GIT_EMAIL"'
+                    sh 'git config --global user.name "$GIT_USERNAME"'
                     sh 'git add .'
                     sh 'git commit -m "Actualizacion de imagen"'
                     withCredentials([usernamePassword(credentialsId: 'tomasferrarisendaGithubCredentials', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
