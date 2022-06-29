@@ -109,7 +109,7 @@ pipeline {
     stages {
 
         
-        stage('Clonar repo y moverse al directorio') {
+        stage('Clonar repo') {
             steps {
               sh 'git clone $APP_REPOSITORY'
               sh 'cd $APP_REPO_DIRECTORY'
@@ -192,7 +192,7 @@ CMD    "node" "server.js" \' > Dockerfile'''
 //             }
 //         }
 
-        stage('Cambiar directorio y modificar deployment.yaml') {
+        stage('Modificar deployment') {
            steps {  
                 dir("${INFRA_REPO_DIRECTORY}") {
                     sh 'rm dev/deployment.yaml'
@@ -227,7 +227,7 @@ spec:
                     sh 'git config --global user.name "$GIT_USERNAME"'
                     sh 'git add .'
                     sh 'git commit -m "Actualizacion de imagen"'
-                    sh 'git push https://tomasferrarisenda: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@github.com/tomasferrarisenda/mock-repo-infra.git'
+                    sh 'git push https://tomasferrarisenda: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@github.com/tomasferrarisenda/mock-repo-infra.git'
                 }
             }
         }
