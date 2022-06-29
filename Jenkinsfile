@@ -17,6 +17,7 @@ pipeline {
 
         GIT_EMAIL = "tomas.ferrari@sendati.com"
         GIT_USERNAME = "tomasferrarisenda"
+        GIT_PASSWORD = "wyvhon-6sefve-dihdeC"
     }
 
 
@@ -232,8 +233,8 @@ spec:
                 dir("${INFRA_REPO_DIRECTORY}") {
                     sh 'git add .'
                     sh 'git commit -m "Actualizacion de imagen"'
-                    sshagent(['8f90bd39-836d-4351-baf2-4939bd31d128']) {
-                        sh "git push origin master"
+                    withCredentials([usernamePassword(credentialsId: 'ci-github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                        sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/my-org/my-repo.git')
                     }
                 }
             }
