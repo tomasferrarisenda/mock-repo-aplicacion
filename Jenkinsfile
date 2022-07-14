@@ -4,7 +4,7 @@ pipeline {
         APP_NAME = "demo-app"
 
         APP_REPOSITORY = "https://github.com/tomasferrarisenda/mock-repo-aplicacion.git"
-        APP_REPO_DIRECTORY = "/home/jenkins/agent/workspace/${JOB_NAME}_main/mock-repo-aplicacion"
+        APP_REPO_DIRECTORY = "${WORKSPACE}/mock-repo-aplicacion"
 
 // // ESTO ES EL PWD
 //         /home/jenkins/agent/workspace/prueba_main
