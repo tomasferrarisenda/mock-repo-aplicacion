@@ -96,13 +96,14 @@ pipeline {
         stage('Clonar repo') {
             steps {
               sh 'git clone $APP_REPOSITORY'
-            //   sh 'cd $APP_REPO_DIRECTORY'
+              sh 'pwd'
             }
         }
 
         stage('Correr npm install') {
            steps {  
                 dir("${APP_REPO_DIRECTORY}") {
+                    sh 'pwd'
                     sh 'npm install'
                 }
             }
