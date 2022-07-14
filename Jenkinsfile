@@ -6,10 +6,10 @@ pipeline {
         APP_NAME = "demo-app"
 
         APP_REPOSITORY = "https://github.com/tomasferrarisenda/mock-repo-aplicacion.git"
-        APP_REPO_DIRECTORY = "/home/jenkins/agent/workspace/${JOB_NAME}/mock-repo-aplicacion"
+        APP_REPO_DIRECTORY = "/home/jenkins/agent/workspace/${JOB_NAME}_main/mock-repo-aplicacion"
 
         INFRA_REPOSITORY = "https://github.com/tomasferrarisenda/mock-repo-infra.git"
-        INFRA_REPO_DIRECTORY = "/home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra"
+        INFRA_REPO_DIRECTORY = "/home/jenkins/agent/workspace/${JOB_NAME}_main/mock-repo-infra"
 
         APP_TAG = "${BUILD_NUMBER}"
 
@@ -98,8 +98,9 @@ pipeline {
         
         stage('Clonar repo') {
             steps {
-              sh 'git clone $APP_REPOSITORY'
               sh 'pwd'
+              sh 'echo $APP_REPO_DIRECTORY'
+              sh 'git clone $APP_REPOSITORY'
             //   sh 'cd $APP_REPO_DIRECTORY'
             }
         }
