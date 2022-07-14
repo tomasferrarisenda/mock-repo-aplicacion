@@ -105,6 +105,7 @@ pipeline {
               sh 'pwd'
               sh 'echo $JOB_NAME'
               sh 'echo $APP_REPO_DIRECTORY'
+              sh 'echo $WORKSPACE'
               sh 'git clone $APP_REPOSITORY'
             //   sh 'cd $APP_REPO_DIRECTORY'
             }
