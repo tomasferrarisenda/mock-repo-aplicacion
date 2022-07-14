@@ -1,10 +1,12 @@
 pipeline {
 
     environment {
+
+
         APP_NAME = "demo-app"
 
         APP_REPOSITORY = "https://github.com/tomasferrarisenda/mock-repo-aplicacion.git"
-        APP_REPO_DIRECTORY = "/home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-aplicacion"
+        APP_REPO_DIRECTORY = "/home/jenkins/agent/workspace/${JOB_NAME}/mock-repo-aplicacion"
 
         INFRA_REPOSITORY = "https://github.com/tomasferrarisenda/mock-repo-infra.git"
         INFRA_REPO_DIRECTORY = "/home/jenkins/agent/workspace/my-second-pipeline_main/mock-repo-infra"
@@ -97,6 +99,7 @@ pipeline {
         stage('Clonar repo') {
             steps {
               sh 'git clone $APP_REPOSITORY'
+              sh 'pwd'
             //   sh 'cd $APP_REPO_DIRECTORY'
             }
         }
