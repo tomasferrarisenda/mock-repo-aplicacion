@@ -97,15 +97,23 @@ pipeline {
         stage('Clonar repo') {
             steps {
               sh 'git clone $APP_REPOSITORY'
-              sh 'cd $APP_REPO_DIRECTORY'
+            //   sh 'cd $APP_REPO_DIRECTORY'
             }
         }
 
         stage('Correr npm install') {
-            steps {
-                sh 'npm install'
+           steps {  
+                dir("${APP_REPO_DIRECTORY}") {
+                    sh 'npm install'
+                }
             }
         }
+
+        // stage('Correr npm install') {
+        //     steps {
+        //         sh 'npm install'
+        //     }
+        // }
 
         stage('Crear Dockerfile') {
             steps {
