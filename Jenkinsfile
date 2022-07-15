@@ -111,21 +111,21 @@ spec:
             }
         }
 
-        stage('Correr npm install1') {
+        stage('Correr npm install') {
             steps {
                 sh 'npm install'
             }
         }
 
-        stage('Correr npm install') {
-           steps {  
-                dir("${APP_REPO_DIRECTORY}") {
-                    sh 'mkdir /.npm'
-                    sh 'chown -R 1000760000:0 /.npm'
-                    sh 'npm install'
-                }
-            }
-        }
+        // stage('Correr npm install') {
+        //    steps {  
+        //         dir("${APP_REPO_DIRECTORY}") {
+        //             sh 'mkdir /.npm'
+        //             sh 'chown -R 1000760000:0 /.npm'
+        //             sh 'npm install'
+        //         }
+        //     }
+        // }
 
 
         stage('Crear Dockerfile') {
