@@ -62,7 +62,7 @@ spec:
     - name: NO_PROXY
       value: "jenkins-bitnami.sandbox4.svc.cluster.local, 172.30.45.126"
     - name: JENKINS_AGENT_NAME
-      value: "jenkins-agent-31cw8
+      value: "jenkins-agent-31cw8"
     - name: https_proxy
       value: "http://192.168.0.9:8080/"
     - name: HTTPS_PROXY
