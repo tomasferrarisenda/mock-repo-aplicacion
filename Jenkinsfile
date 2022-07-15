@@ -120,8 +120,8 @@ spec:
         stage('Correr npm install') {
            steps {  
                 dir("${APP_REPO_DIRECTORY}") {
-                    sh 'mkdir /.npm'
-                    sh 'chown -R 1000760000:0 "/.npm"'
+                    sh 'sudo mkdir /.npm'
+                    sh 'sudo chown -R 1000760000:0 /.npm'
                     sh 'npm install'
                 }
             }
