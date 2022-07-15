@@ -111,11 +111,11 @@ spec:
             }
         }
 
-        // stage('Correr npm install') {
-        //     steps {
-        //         sh 'npm install'
-        //     }
-        // }
+        stage('Correr npm install') {
+            steps {
+                sh 'npm install'
+            }
+        }
 
         stage('Correr npm install') {
            steps {  
