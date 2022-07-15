@@ -100,14 +100,14 @@ pipeline {
             }
         }
 
-        // stage('Correr npm install') {
-        //    steps {  
-        //         dir("${APP_REPO_DIRECTORY}") {
-        //             sh 'pwd'
-        //             sh 'npm install'
-        //         }
-        //     }
-        // }
+        stage('Correr npm install') {
+           steps {  
+                dir("${APP_REPO_DIRECTORY}") {
+                    sh 'pwd'
+                    // sh 'npm install'
+                }
+            }
+        }
 
         // stage('Correr npm install') {
         //     steps {
