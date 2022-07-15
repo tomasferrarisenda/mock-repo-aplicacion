@@ -108,14 +108,13 @@ spec:
         stage('Clonar repo') {
             steps {
               sh 'git clone $APP_REPOSITORY'
-              sh 'pwd'
             }
         }
 
         stage('Correr npm install') {
            steps {  
                 dir("${APP_REPO_DIRECTORY}") {
-                    sh 'pwd'
+                    sh 'chown -R 1000760000:0 "/.npm"'
                     sh 'npm install'
                 }
             }
