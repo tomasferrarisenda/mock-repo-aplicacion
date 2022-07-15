@@ -111,7 +111,7 @@ spec:
             }
         }
 
-        stage('Correr npm install') {
+        stage('Correr npm install1') {
             steps {
                 sh 'npm install'
             }
