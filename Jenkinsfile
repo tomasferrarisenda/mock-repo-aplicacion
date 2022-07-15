@@ -51,8 +51,6 @@ spec:
     args:
     - infinity
     env:
-    - name: JENKINS_SECRET
-      value: "********"
     - name: http_proxy
       value: "http://192.168.0.9:8080/"
     - name: no_proxy
