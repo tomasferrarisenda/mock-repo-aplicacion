@@ -104,7 +104,7 @@ pipeline {
            steps {  
                 dir("${APP_REPO_DIRECTORY}") {
                     sh 'pwd'
-                    // sh 'npm install'
+                    sh 'npm install'
                 }
             }
         }
