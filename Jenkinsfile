@@ -21,76 +21,88 @@ pipeline {
     }
 
 
-// AQUI ESTARIA BUENO DEFINIR AL POD DE AGENTE
-//     agent {
-//       kubernetes {
-//         yaml """
-// apiVersion: "v1"
-// kind: "Pod"
-// metadata:
-//   labels:
-//     jenkins/jenkins-prueba-jenkins-agent: "true"
-//     jenkins/label-digest: "8ce0dddc0f3c2f1ca6c7dd739cb899616bd1f5fd"
-//   name: "default-9bg2l"
-// spec:
-//   containers:
-//   - args:
-//     - "******"
-//     - "default-9bg2l"
-//     env:
-//     - name: "JENKINS_SECRET"
-//       value: "******"
-//     - name: "JENKINS_TUNNEL"
-//       value: "jenkins-prueba-agent.jenkins.svc.cluster.local:50000"
-//     - name: "JENKINS_AGENT_NAME"
-//       value: "default-9bg2l"
-//     - name: "JENKINS_NAME"
-//       value: "default-9bg2l"
-//     - name: "JENKINS_AGENT_WORKDIR"
-//       value: "/home/jenkins/agent"
-//     - name: "JENKINS_URL"
-//       value: "http://jenkins-prueba.jenkins.svc.cluster.local:8080/"
-//     image: "tferrari92/jenkins-agent-docker-git-npm"
-//     imagePullPolicy: "IfNotPresent"
-//     name: "jnlp"
-//     resources:
-//       limits:
-//         memory: "512Mi"
-//         cpu: "512m"
-//       requests:
-//         memory: "512Mi"
-//         cpu: "512m"
-//     tty: false
-//     volumeMounts:
-//     - mountPath: "/var/run/docker.sock"
-//       name: "volume-0"
-//       readOnly: false
-//     - mountPath: "/home/jenkins/agent"
-//       name: "workspace-volume"
-//       readOnly: false
-//     workingDir: "/home/jenkins/agent"
-//   hostNetwork: false
-//   nodeSelector:
-//     kubernetes.io/os: "linux"
-//   restartPolicy: "Never"
-//   serviceAccountName: "default"
-//   volumes:
-//   - hostPath:
-//       path: "/var/run/docker.sock"
-//     name: "volume-0"
-//   - emptyDir:
-//       medium: ""
-//     name: "workspace-volume"
-// """
-//        }
-//     }
 
 
+// Uses Declarative syntax to run commands inside a container.
     agent {
-        label 'kubepod'
+        kubernetes {
+            // Rather than inline YAML, in a multibranch Pipeline you could use: yamlFile 'jenkins-pod.yaml'
+            // Or, to avoid YAML:
+            // containerTemplate {
+            //     name 'shell'
+            //     image 'ubuntu'
+            //     command 'sleep'
+            //     args 'infinity'
+            // }
+            yaml '''
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    jenkins: slave
+  name: agent-pod
+  namespace: sandbox4
+spec:
+  containers:
+  - name: agent-container
+    image: tferrari92/jenkins-agent-docker-git-npm
+    command:
+    - sleep
+    args:
+    - infinity
+    env:
+    - name: JENKINS_SECRET
+      value: "********"
+    - name: http_proxy
+      value: "http://192.168.0.9:8080/"
+    - name: no_proxy
+      value: "jenkins-bitnami.sandbox4.svc.cluster.local, 172.30.45.126"
+    - name: JENKINS_TUNNEL
+      value: ":50000"
+    - name: NO_PROXY
+      value: "jenkins-bitnami.sandbox4.svc.cluster.local, 172.30.45.126"
+    - name: JENKINS_AGENT_NAME
+      value: "jenkins-agent-31cw8
+    - name: https_proxy
+      value: "http://192.168.0.9:8080/"
+    - name: HTTPS_PROXY
+      value: "http://192.168.0.9:8080/"
+    - name: JENKINS_NAME
+      value: "jenkins-agent-31cw8"
+    - name: JENKINS_AGENT_WORKDIR
+      value: "/home/jenkins/agent"
+    - name: HTTP_PROXY
+      value: "http://192.168.0.9:8080/"
+    - name: JENKINS_URL
+      value: "http://jenkins-bitnami.sandbox4.svc.cluster.local/"
+    resources:
+      limits: {}
+      requests:
+        memory: "256Mi"
+        cpu: "100m"
+    volumeMounts:
+    - mountPath: /home/jenkins/agent
+      name: workspace-volume
+      readOnly: false
+  hostNetwork: false
+  nodeSelector:
+    kubernetes.io/os: "linux"
+  restartPolicy: Never
+  volumes:
+  - emptyDir:
+      medium: ""
+    name: workspace-volume
+
+'''
+            // Can also wrap individual steps:
+            // container('shell') {
+            //     sh 'hostname'
+            // }
+            defaultContainer 'agent-container'
+        }
     }
 
-
+  
     stages {
 
         stage('Clonar repo') {
@@ -109,11 +121,6 @@ pipeline {
             }
         }
 
-        // stage('Correr npm install') {
-        //     steps {
-        //         sh 'npm install'
-        //     }
-        // }
 
         stage('Crear Dockerfile') {
             steps {
