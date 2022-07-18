@@ -116,7 +116,6 @@ spec:
         stage('Correr npm install') {
            steps {  
                 dir("${APP_REPO_DIRECTORY}") {
-                    sh 'chown -R `whoami` /usr/local/lib/node_modules'
                     sh 'npm install'
                 }
             }
