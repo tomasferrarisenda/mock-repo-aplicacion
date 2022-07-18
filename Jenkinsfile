@@ -39,7 +39,6 @@ metadata:
   labels:
     jenkins: slave
   name: agent-pod
-  namespace: sandbox4
 spec:
   containers:
   - name: agent-container
