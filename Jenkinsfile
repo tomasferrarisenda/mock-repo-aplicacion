@@ -46,7 +46,7 @@ spec:
     command:
     - sleep
     args:
-    - infinity
+    - "9999"
     env:
     - name: http_proxy
       value: "http://192.168.0.9:8080/"
