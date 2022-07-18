@@ -41,7 +41,7 @@ metadata:
   name: agent-pod
 spec:
   containers:
-  - name: agent-container
+  - name: jnlp
     image: tferrari92/jenkins-agent-docker-git-npm
     command:
     - sleep
@@ -93,7 +93,7 @@ spec:
             // container('shell') {
             //     sh 'hostname'
             // }
-            defaultContainer 'agent-container'
+            defaultContainer 'jnlp'
         }
     }
 
